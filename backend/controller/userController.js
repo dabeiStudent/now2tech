@@ -12,10 +12,13 @@ const userRegister = async (req, res) => {
         userName: req.body.userName,
         email: req.body.email,
         passWord: hashedPassword,
-        isAdmin: false
+        phoneNumber: req.body.phoneNumber,
+        role: req.body.role,
+        image: req.body.image,
+        status: req.body.status
     })
         .then(user => { return res.status(200).json({ msg: 'Created successfully' }) })
-        .catch(err => { return res.status(403).json({ err: 'Something went wrong' }) });
+        .catch(err => { return res.status(403).json({ err: 'User already exist' }) });
 };
 
 module.exports = { userRegister };

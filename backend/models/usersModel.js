@@ -17,6 +17,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    phoneNumber: {
+        type: String
+    },
     userName: {
         type: String,
         require: true,
@@ -31,10 +34,16 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    isAdmin: {
-        type: Boolean,
-        require: true
+    role: {
+        type: String
+    },
+    image: {
+        type: String
+    },
+    status: {
+        type: String,
     }
 })
+
 const User = mongoose.model('user', UserSchema);
 module.exports = User;

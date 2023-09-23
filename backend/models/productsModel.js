@@ -1,26 +1,34 @@
 const mongoose = require('mongoose');
+const Product_type = require('./product_typeModel');
 
 const ProductSchema = new mongoose.Schema({
-    category: {
-        type: String,
-        require: true
-    },
     name: {
         type: String,
-        require: true,
-        unique: true
+        required: true
     },
-    price: {
+    desc: {
         type: String
     },
-    description: {
+    tags: {
+        type: Array
+    },
+    release: {
+        type: Date
+    },
+    made: {
         type: String
     },
-    quantity: {
-        type: Number
+    brand: {
+        type: String
     },
-    rate: {
-        type: Number
+    category: {
+        type: String
+    },
+    ptype: {
+        type: Array(Product_type.schema)
+    },
+    inStock: {
+        type: Boolean
     }
 });
 

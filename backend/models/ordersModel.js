@@ -1,19 +1,34 @@
 const mongoose = require('mongoose');
-
+const Product = require('./productsModel');
+const User = require('./usersModel');
 const OrderSchema = new mongoose.Schema({
     user: {
-        type: String,
+        type: User,
         require: true
     },
-    products: {
-        type: Array,
-        require: true
-    },
-    payment: {
+    address: {
         type: String
+    },
+    items: {
+        type: Array(Product.schema)
     },
     status: {
         type: String
+    },
+    method: {
+        type: String
+    },
+    paymentStatus: {
+        type: String
+    },
+    price: {
+        type: Number
+    },
+    shippingFee: {
+        type: Number
+    },
+    totalPrice: {
+        type: Number
     }
 });
 
