@@ -99,7 +99,7 @@ const addNewProductType = async (req, res) => {
                         })
                 )
                 .catch(err => {
-                    return res.status(401).json(err);
+                    return res.status(401).json({ err: err });
                 })
         }
     } catch (err) {
