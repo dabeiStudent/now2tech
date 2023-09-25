@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const Product_typeSchema = new mongoose.Schema({
     SKU: {
-        type: String
+        type: String,
+        unique: true
     },
     productName: {
         type: String

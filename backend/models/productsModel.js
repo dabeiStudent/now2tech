@@ -7,6 +7,9 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    pimage: {
+        type: String
+    },
     desc: {
         type: String
     },

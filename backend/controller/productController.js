@@ -12,6 +12,7 @@ const addNewProduct = (req, res) => {
     Product.create({
         name: req.body.name,
         desc: req.body.desc,
+        pimage: req.body.pimage,
         tags: req.body.tags,
         release: req.body.release,
         made: req.body.made,
@@ -51,23 +52,13 @@ const addNewProduct = (req, res) => {
         .catch(err => { return res.status(401).json({ err: err }) })
 };
 
-const addNewProductType = (req, res) => {
-    Product.findById(req.body.productId)
-        .then((product) => {
-            product.ptype.push({
-                productName: req.body.productName,
-                SKU: req.body.SKU,
-                typeName: req.body.typeName,
-                importPrice: req.body.importPrice,
-                sellPrice: req.body.sellPrice,
-                quantity: req.body.quantity,
-                sold: req.body.sold,
-                image: req.body.image,
-                voucher: req.body.voucher
-            })
-            product.save();
-        })
-        .then(Product_type.create({
+const addNewProductType = async (req, res) => {
+    const findSKU = await Product_type.findOne({ SKU: req.body.SKU });
+    if (findSKU) {
+        return res.status(401).json({ err: "SKU already exist or Product not found" })
+    }
+    else {
+        Product_type.create({
             productName: req.body.productName,
             SKU: req.body.SKU,
             typeName: req.body.typeName,
@@ -77,13 +68,35 @@ const addNewProductType = (req, res) => {
             sold: req.body.sold,
             image: req.body.image,
             voucher: req.body.voucher
-        }))
-        .then(product => {
-            return res.status(200).json({ msg: 'Added successfully' });
         })
-        .catch(err => {
-            return res.status(401).json({ err: err });
-        })
+            .then(
+                Product.findById(req.body.productId)
+                    .then((product) => {
+                        product.ptype.push({
+                            productName: req.body.productName,
+                            SKU: req.body.SKU,
+                            typeName: req.body.typeName,
+                            importPrice: req.body.importPrice,
+                            sellPrice: req.body.sellPrice,
+                            quantity: req.body.quantity,
+                            sold: req.body.sold,
+                            image: req.body.image,
+                            voucher: req.body.voucher
+                        })
+                        product.save();
+                    })
+                    .then(result => {
+                        return res.status(200).json({ msg: "Added successfully!" });
+                    })
+                    .catch(error => {
+                        return res.status(401).json({ err: error })
+                    })
+            )
+            .catch(err => {
+                return res.status(401).json(err);
+            })
+
+    }
 }
 //test git remote
 
