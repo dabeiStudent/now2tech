@@ -4,7 +4,8 @@ const Product_type = require('./product_typeModel');
 const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     desc: {
         type: String

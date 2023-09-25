@@ -4,6 +4,9 @@ const Product_typeSchema = new mongoose.Schema({
     SKU: {
         type: String
     },
+    productName: {
+        type: String
+    },
     typeName: {
         type: String
     },
