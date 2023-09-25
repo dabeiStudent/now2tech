@@ -1,9 +1,7 @@
 const Product = require('../models/productsModel');
 //get all
 const getAllProduct = (req, res) => {
-    Product.find({
-        "ptype.productName": "DemoSP3"
-    })
+    Product.find()
         .then(product => { return res.status(200).json(product) })
         .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
 }
@@ -21,14 +19,15 @@ const addNewProduct = (req, res) => {
 }
 const addSpecs4Product = (req, res) => {
     Product.findById(req.params.pid)
-        .then(product => {
-            product.specs.push(req.body);
-            product.save();
-        })
-        .then(result => {
-            return res.status(200).json({ msg: "Đã thêm thông số kỹ thuật" });
-        })
-        .catch(err => {
+        .then((product) => {
+            if (product.specs.length === 0) {
+                product.specs.push(req.body);
+                product.save();
+                return res.status(200).json({ msg: "Thêm thành công" })
+            } else {
+                return res.status(400).json({ err: "Không thể thêm, đã có thông số kỹ thuật" });
+            }
+        }, (err) => {
             return res.status(400).json({ err: err });
         })
 }
@@ -45,15 +44,12 @@ const updateProduct = (req, res) => {
 }
 const updateSpecs = (req, res) => {
     Product.findById(req.params.pid)
-        .then(product => {
-            product.specs.pop();
+        .then((product) => {
+            product.specs.shift();
             product.specs.push(req.body)
             product.save();
-        })
-        .then(result => {
             return res.status(200).json({ msg: "Đã cập nhật thông số kỹ thuật" });
-        })
-        .catch(err => {
+        }, (err) => {
             return res.status(400).json({ err: err });
         })
 }
