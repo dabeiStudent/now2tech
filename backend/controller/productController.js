@@ -9,4 +9,6 @@ const addNewProduct = (req, res) => {
         .catch(err => { return res.status(401).json({ err: 'Something went wrong' }) });
 };
 
+//test git remote
+
 module.exports = { addNewProduct };
