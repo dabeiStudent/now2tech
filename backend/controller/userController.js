@@ -20,7 +20,7 @@ const userRegister = async (req, res) => {
                 phoneNumber: req.body.phoneNumber,
                 role: "user",
                 image: req.body.image,
-                status: req.body.status
+                status: "active"
             })
                 .then(user => { return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
                 .catch(err => { return res.status(403).json({ err: "Email đã được sử dụng" }) });
