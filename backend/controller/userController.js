@@ -25,7 +25,7 @@ const userLogin = async (req, res) => {
                 return res.status(404).json({ err: "Email/Mật khẩu không đúng" })
             }
         } else {
-            return res.status(404).json({ err: "Email đăng nhập không tồn tại" })
+            return res.status(404).json({ err: "Email/Mật khẩu không đúng" })
         }
     } catch (err) {
         return res.status(500).json({ err: err });

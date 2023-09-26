@@ -1,8 +1,9 @@
 import React from "react";
+import MainHeader from '../components/UIElement/MainHeader';
 
 const HomePage = () => {
     return (
-        <h1>Hi im homepage</h1>
+        <h1>ITS Home</h1>
     )
 }
 

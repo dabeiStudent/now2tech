@@ -1,11 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-
-import MainHeader from './components/UIElement/MainHeader';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './components/Pages/LoginPage';
-import HomePage from './components/Pages/HomePage';
+import LoginPage from './Pages/LoginPage';
+import HomePage from './Pages/HomePage';
+import MainHeader from './components/UIElement/MainHeader';
 
 function App() {
   return (
