@@ -27,6 +27,3 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
-
-
-//hihi

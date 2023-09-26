@@ -10,17 +10,18 @@ router.use(cookieParser());
 router.get('/', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getAllUser);
 //getOneUser
 router.get('/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getUser);
-//login
+//login & logout
 router.post('/user-login', userController.userLogin);
+router.post('/user-logout', tokenCheck.checkJWT, userController.userLogout);
 //register
 router.post('/user-register', userController.userRegister);
 //updateUser
 router.put('/user-update/:uid', tokenCheck.checkJWT, userController.updateUser);
 //changePassword (only for user)
 router.put('/user-changepassword', tokenCheck.checkJWT, getJWT.getData, userController.changePassword);
-//blockUser
-router.put('/user-block/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.freezeUser);
-router.put('/user-unblock/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.freeUser);
+//blockUser & unblockAccount
+router.put('/user-status/:uid/:status', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.setStatus);
+
 //removeUser
 router.delete('/user-remove/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.removeUser);
 module.exports = router;

@@ -57,6 +57,11 @@ const userLogin = async (req, res) => {
         return res.status(500).json({ err: err });
     }
 }
+//logout
+const userLogout = (req, res) => {
+    res.clearCookie("utoken");
+    return res.status(200).json({ msg: 'Good bye!' });
+}
 //register
 const userRegister = async (req, res) => {
     try {
@@ -92,7 +97,6 @@ const updateUser = function (req, res) {
 }
 //change password for user only
 const changePassword = async (req, res) => {
-    console.log(req.body);
     try {
         const findUser = await User.findById(req.data.uid);
         if (findUser) {
@@ -119,29 +123,31 @@ const changePassword = async (req, res) => {
         return res.status(500).json({ err: err });
     }
 }
-//freeze account
-const freezeUser = (req, res) => {
-    User.findByIdAndUpdate(req.params.uid, {
-        status: "blocked"
-    })
-        .then(result => {
-            return res.status(200).json({ msg: "Đã khóa" });
+//set user status (1= blocked, 0= active)
+const setStatus = (req, res) => {
+    if (req.params.status == 1) {
+        User.findByIdAndUpdate(req.params.uid, {
+            status: "blocked"
         })
-        .catch(err => {
-            return res.status(400).json({ err: err });
+            .then(result => {
+                return res.status(200).json({ msg: "Đã khóa" });
+            })
+            .catch(err => {
+                return res.status(400).json({ err: err });
+            })
+    } else if (req.params.status == 0) {
+        User.findByIdAndUpdate(req.params.uid, {
+            status: "active"
         })
-}
-//free account
-const freeUser = (req, res) => {
-    User.findByIdAndUpdate(req.params.uid, {
-        status: "active"
-    })
-        .then(result => {
-            return res.status(200).json({ msg: "Đã mở khóa" });
-        })
-        .catch(err => {
-            return res.status(400).json({ err: err });
-        })
+            .then(result => {
+                return res.status(200).json({ msg: "Đã mở khóa" });
+            })
+            .catch(err => {
+                return res.status(400).json({ err: err });
+            })
+    } else {
+        return res.status(400).json({ err: "Có lỗi xảy ra" });
+    }
 }
 //remove account
 const removeUser = (req, res) => {
@@ -153,4 +159,4 @@ const removeUser = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllUser, getUser, userLogin, userRegister, updateUser, changePassword, freezeUser, freeUser, removeUser };
+module.exports = { getAllUser, getUser, userLogin, userLogout, userRegister, updateUser, changePassword, setStatus, removeUser };
