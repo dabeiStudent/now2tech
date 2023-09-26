@@ -2,6 +2,27 @@ require('dotenv').config();
 const User = require('../models/usersModel');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+
+//get all user
+const getAllUser = function (req, res) {
+    User.find()
+        .then(result => {
+            return res.status(200).json(result);
+        })
+        .catch(err => {
+            return res.status(404).json({ err: "Không có user" });
+        })
+}
+//get one user
+const getUser = function (req, res) {
+    User.findById(req.params.uid)
+        .then(result => {
+            return res.status(200).json(result)
+        })
+        .catch(err => {
+            return res.status(404).json({ err: "Không tìm thấy" });
+        })
+}
 //login
 const userLogin = async (req, res) => {
     if (!req.body.email || !req.body.passWord) {
@@ -12,7 +33,11 @@ const userLogin = async (req, res) => {
         if (findUser) {
             const validPassword = await argon2.verify(findUser.passWord, req.body.passWord);
             if (validPassword) {
+                if (findUser.status !== "active") {
+                    return res.status(400).json({ err: "Tài khoản bị khóa" });
+                }
                 const token = jwt.sign({
+                    uid: findUser._id,
                     userName: findUser.userName,
                     email: findUser.email,
                     role: findUser.role,
@@ -55,6 +80,77 @@ const userRegister = async (req, res) => {
         return res.status(500).json({ err: err });
     }
 };
-
-
-module.exports = { userLogin, userRegister };
+//update user
+const updateUser = function (req, res) {
+    User.findByIdAndUpdate(req.params.uid, req.body)
+        .then(result => {
+            return res.status(200).json({ msg: "Cập nhật thông tin thành công" });
+        })
+        .catch(err => {
+            return res.status(400).json({ err: err });
+        })
+}
+//change password for user only
+const changePassword = async (req, res) => {
+    console.log(req.body);
+    try {
+        const findUser = await User.findById(req.data.uid);
+        if (findUser) {
+            const valid = await argon2.verify(findUser.passWord, req.body.oldPassword);
+            if (valid) {
+                const hashNewPass = await argon2.hash(req.body.newPassword);
+                console.log(hashNewPass);
+                User.updateOne(findUser, {
+                    passWord: hashNewPass
+                })
+                    .then(result => {
+                        return res.status(200).json({ msg: "Đã cập nhật mật khẩu" });
+                    })
+                    .catch(err => {
+                        return res.status(400).json({ err: "Có lỗi xảy ra" });
+                    })
+            } else {
+                return res.status(400).json({ err: "Mật khẩu cũ không khớp" });
+            }
+        } else {
+            return res.status(400).json({ err: "Không tìm thấy tài khoản" });
+        }
+    } catch (err) {
+        return res.status(500).json({ err: err });
+    }
+}
+//freeze account
+const freezeUser = (req, res) => {
+    User.findByIdAndUpdate(req.params.uid, {
+        status: "blocked"
+    })
+        .then(result => {
+            return res.status(200).json({ msg: "Đã khóa" });
+        })
+        .catch(err => {
+            return res.status(400).json({ err: err });
+        })
+}
+//free account
+const freeUser = (req, res) => {
+    User.findByIdAndUpdate(req.params.uid, {
+        status: "active"
+    })
+        .then(result => {
+            return res.status(200).json({ msg: "Đã mở khóa" });
+        })
+        .catch(err => {
+            return res.status(400).json({ err: err });
+        })
+}
+//remove account
+const removeUser = (req, res) => {
+    User.findByIdAndRemove(req.params.uid)
+        .then(result => {
+            return res.status(200).json({ msg: "Đã xóa tài khoản" });
+        })
+        .catch(err => {
+            return res.status(400).json({ err: err });
+        })
+}
+module.exports = { getAllUser, getUser, userLogin, userRegister, updateUser, changePassword, freezeUser, freeUser, removeUser };

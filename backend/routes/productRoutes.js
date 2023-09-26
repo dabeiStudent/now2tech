@@ -6,15 +6,15 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 //get all
-router.get('/get-all-product', productController.getAllProduct);
+router.get('/get-all-product', tokenCheck.checkJWT, productController.getAllProduct);
 //get one
-router.get('/get-product/:pid', productController.getOneProduct);
+router.get('/get-product/:pid', tokenCheck.checkJWT, productController.getOneProduct);
 //add new product
-router.post('/add-new-product', tokenCheck.checkJWT, productController.addNewProduct);
-router.post('/add-specs/:pid', productController.addSpecs4Product);
+router.post('/add-new-product', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addNewProduct);
+router.post('/add-specs/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addSpecs4Product);
 //update product
-router.put('/update-product/:pid', productController.updateProduct);
-router.put('/update-product/specs/:pid', productController.updateSpecs);
+router.put('/update-product/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.updateProduct);
+router.put('/update-product/specs/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.updateSpecs);
 //remove product
-router.delete('/remove-product/:pid', productController.removeProduct);
+router.delete('/remove-product/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.removeProduct);
 module.exports = router;
