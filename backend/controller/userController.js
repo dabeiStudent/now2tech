@@ -1,3 +1,4 @@
+require('dotenv').config();
 const User = require('../models/usersModel');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
@@ -16,7 +17,7 @@ const userLogin = async (req, res) => {
                     email: findUser.email,
                     role: findUser.role,
                     image: findUser.image
-                }, '123');
+                }, process.env.JWT_KEY);
                 res.cookie("utoken", token, {
                     httpOnly: true
                 });

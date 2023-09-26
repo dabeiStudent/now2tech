@@ -14,7 +14,10 @@ const getOneProduct = (req, res) => {
 //add new product & types of product
 const addNewProduct = (req, res) => {
     Product.create(req.body)
-        .then(result => { return res.status(200).json({ msg: "Thêm sản phẩm thành công" }) })
+        .then(result => {
+            console.log(req.user);
+            return res.status(200).json({ msg: "Thêm sản phẩm thành công" })
+        })
         .catch(err => { return res.status(400).json({ err: "Sản phẩm đã tồn tại" }) });
 }
 const addSpecs4Product = (req, res) => {
