@@ -18,7 +18,10 @@ const VoucherSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number
-    }
+    }, 
+    products: [{
+        type: mongoose.Types.ObjectId, ref: 'product'
+    }]
 });
 
 const Voucher = mongoose.model('voucher', VoucherSchema);
