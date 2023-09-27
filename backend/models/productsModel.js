@@ -39,6 +39,9 @@ const ProductSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    voucher: {
+        type: String
+    },
     inStock: {
         type: Number
     }
