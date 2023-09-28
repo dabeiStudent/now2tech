@@ -41,8 +41,8 @@ const resetPassword = async (req, res, next) => {
             subject: 'Mật khẩu mới',
             text: `Mật khẩu mới của bạn là: ${newPassword}`
         };
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
                 return res.status(400).json({ err: "Có lỗi xảy ra" });
             } else {
                 console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
