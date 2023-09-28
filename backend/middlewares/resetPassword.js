@@ -46,7 +46,7 @@ const resetPassword = async (req, res, next) => {
                 return res.status(400).json({ err: "Có lỗi xảy ra" });
             } else {
                 console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
-                next();
+                return res.status(200).json({ msg: "Đổi mật khẩu thành công" });
             }
         });
     } catch (err) {
