@@ -39,9 +39,9 @@ const ProductSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    voucher: {
-        type: String
-    },
+    vouchers: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'voucher'
+    }],
     inStock: {
         type: Number
     }
