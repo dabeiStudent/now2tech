@@ -16,12 +16,15 @@ const VoucherSchema = new mongoose.Schema({
     end: {
         type: Date
     },
-    quantity: {
-        type: Number
-    }, 
-    products: [{
-        type: mongoose.Types.ObjectId, ref: 'product'
-    }]
+    productList: [{type: mongoose.Schema.Types.ObjectId, ref: 'product'}]
+    // productList: [
+    //     {
+    //         qty: {type: Number},
+    //         used: {type: Number},
+    //         product: {
+    //             type: mongoose.Schema.Types.ObjectId,
+    //             ref: "product"}
+    //         }]
 });
 
 const Voucher = mongoose.model('voucher', VoucherSchema);

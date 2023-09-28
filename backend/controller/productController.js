@@ -14,7 +14,9 @@ const getOneProduct = (req, res) => {
 //add new product & types of product
 const addNewProduct = (req, res) => {
     Product.create(req.body)
-        .then(result => { return res.status(200).json({ msg: "Thêm sản phẩm thành công" }) })
+        .then(result => {
+            return res.status(200).json({ msg: "Thêm sản phẩm thành công" })
+        })
         .catch(err => { return res.status(400).json({ err: "Sản phẩm đã tồn tại" }) });
 }
 const addSpecs4Product = (req, res) => {
@@ -31,7 +33,6 @@ const addSpecs4Product = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-
 //update product
 const updateProduct = (req, res) => {
     Product.findByIdAndUpdate(req.params.pid, req.body)

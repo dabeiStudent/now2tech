@@ -1,0 +1,33 @@
+.Header {
+    background-color: #64C0ED;
+    height: 10vh;
+    display: flex;
+}
+
+.Header_logo {
+    padding-left: 10%;
+    padding-top: 1%;
+}
+
+.Header_logo a {
+    border: 2px solid black;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration: none;
+    color: #000000;
+}
+
+.Header_logo img {
+    border-radius: 20%;
+}
+
+.Header_category {
+    padding-left: 5%;
+    margin: 0%;
+}
+
+.Header_search_bar {
+    padding-left: 5%;
+    padding-top: 1%;
+    width: 100px;
+}
