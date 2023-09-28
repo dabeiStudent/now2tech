@@ -1,18 +1,18 @@
 import React from "react";
+import NavLinks from "./NavLinks";
+import { NavLink } from "react-router-dom";
 
 import './MainHeader.css';
 const MainHeader = () => {
+
     return (
-        <header className="Header">
-            <div className="Header_logo">
-                <a href="/">Now2Tech</a>
-            </div>
-            <div className="Header_category">
-                <h2>Danh mục</h2>
-            </div>
-            <div className="Header_search_bar">
-                <input />
-            </div>
+        <header className="main-header">
+            <h1 className="main-header_logo">
+                <NavLink end to='/' >NOW2Tech</NavLink>
+            </h1>
+            <nav className="navigation-links">
+                <NavLinks />
+            </nav>
         </header>
     )
 }

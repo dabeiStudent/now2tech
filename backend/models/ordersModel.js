@@ -3,15 +3,23 @@ const Product = require('./productsModel');
 const User = require('./usersModel');
 const OrderSchema = new mongoose.Schema({
     user: {
-        type: User,
-        require: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User',
     },
     address: {
         type: String
     },
-    items: {
-        type: Array(Product.schema)
-    },
+    items: [{
+        name: { type: String },
+        qty: { type: Number },
+        image: { type: String },
+        price: { type: Number },
+        productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'product',
+        },
+    },],
     status: {
         type: String
     },

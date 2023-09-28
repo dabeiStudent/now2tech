@@ -8,7 +8,8 @@ const server = require('http').createServer(app);
 const connect2DB = require('./config/connect2DB');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
-const voucherRoutes= require('./routes/voucherRoutes');
+const orderRoutes = require('./routes/orderRoues');
+const voucherRoutes = require('./routes/voucherRoutes');
 
 //init server & connect 2 db
 const PORT = process.env.PORT || 8000;
@@ -22,12 +23,13 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     next();
 })
-//init web routes
+//setup reqbody
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-
+//init web routes
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
+app.use('/order', orderRoutes);
 app.use('/voucher', voucherRoutes);
 
 

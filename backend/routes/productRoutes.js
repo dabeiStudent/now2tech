@@ -6,9 +6,9 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 //get all
-router.get('/get-all-product', tokenCheck.checkJWT, productController.getAllProduct);
+router.get('/get-all-product', productController.getAllProduct);
 //get one
-router.get('/get-product/:pid', tokenCheck.checkJWT, productController.getOneProduct);
+router.get('/get-product/:pid', productController.getOneProduct);
 //add new product
 router.post('/add-new-product', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addNewProduct);
 router.post('/add-specs/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addSpecs4Product);
