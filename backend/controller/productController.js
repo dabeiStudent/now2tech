@@ -23,6 +23,47 @@ const getOneProduct = (req, res) => {
         .catch(err => { return res.status(404).json({ err: "Không tìm thấy" }) });
 }
 //get product by: brand, category, price
+const getProductByBrandCate = (req, res) => {
+    const pageLimit = process.env.Pagination_limit;
+    const pageNumber = Number(req.query.page) || 1;
+    const { brand, category } = req.query;
+    if (brand) {
+        Product.find({ brand })
+            .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+            .then(result => {
+                return res.status(200).json(result);
+            })
+            .catch(err => {
+                return res.status(404).json({ err: err });
+            })
+    } else if (category) {
+        Product.find({ category })
+            .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+            .then(result => {
+                return res.status(200).json(result);
+            })
+            .catch(err => {
+                return res.status(404).json({ err: err });
+            })
+    } else {
+        return res.status(404).json({ err: "Không có sản phẩm phù hợp" });
+    }
+}
+const getProductByPrice = (req, res) => {
+    const pageLimit = process.env.Pagination_limit;
+    const pageNumber = Number(req.query.page) || 1;
+    const { min, max } = req.query;
+    Product.find({
+        sellPrice: { $gte: min, $lte: max }
+    })
+        .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+        .then(result => {
+            return res.status(200).json(result);
+        })
+        .catch(err => {
+            return res.status(404).json({ err: err });
+        })
+}
 //add new product & types of product
 const addNewProduct = (req, res) => {
     Product.create(req.body)
@@ -76,4 +117,4 @@ const removeProduct = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllProduct, getOneProduct, addNewProduct, addSpecs4Product, updateProduct, updateSpecs, removeProduct };
+module.exports = { getAllProduct, getOneProduct, getProductByBrandCate, getProductByPrice, addNewProduct, addSpecs4Product, updateProduct, updateSpecs, removeProduct };

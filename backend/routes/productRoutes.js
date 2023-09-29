@@ -9,6 +9,9 @@ router.use(cookieParser());
 router.get('/get-all-product', productController.getAllProduct);
 //get one
 router.get('/get-product/:pid', productController.getOneProduct);
+//get product by brand & category
+router.get('/get-product-by', productController.getProductByBrandCate);
+router.get('/get-product-by-price', productController.getProductByPrice);
 //add new product
 router.post('/add-new-product', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addNewProduct);
 router.post('/add-specs/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addSpecs4Product);
