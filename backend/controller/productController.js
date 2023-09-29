@@ -1,5 +1,6 @@
 const Product = require('../models/productsModel');
 //get all & fulltext search
+//tất cả hàm tìm đều xử lý pagination
 const getAllProduct = (req, res) => {
     const pageLimit = process.env.Pagination_limit;
     const pageNumber = Number(req.query.page) || 1;
