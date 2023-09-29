@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const voucherController = require('../controller/voucherController');
+const tokenCheck = require('../middlewares/tokenCheck');
 const emailSending = require('../utils/emailUtils');
+const cookieParser = require('cookie-parser');
+router.use(cookieParser());
 
 router.get('/get-all-voucher', voucherController.getAllVoucher);
 router.get('/get-product/:vid', voucherController.getProductByVoucherId);
@@ -12,6 +15,9 @@ router.put('/remove-product-from-voucher/:vid', voucherController.removeProductF
 router.put('/update-voucher/:vid', voucherController.updateVoucher);
 router.delete('/delete-voucher/:vid', voucherController.deleteVoucher);
 
+router.post('/', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.createVoucher);
+router.put('/addProduct', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.addProductToVoucher);
+
 //notice chosen voucher to all user 
-router.post('/notice-voucher-to-all', emailSending.sendVoucherMail);
+router.post('/notice-voucher-to-all', tokenCheck.checkJWT, tokenCheck.isAdmin, emailSending.sendVoucherMail);
 module.exports = router;

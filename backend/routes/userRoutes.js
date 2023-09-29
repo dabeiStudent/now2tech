@@ -8,9 +8,11 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 //getAllUser
-router.get('/', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getAllUser);
+router.get('/get-user/', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getAllUser);
 //getOneUser
-router.get('/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getUser);
+router.get('/get-user/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getUser);
+//getProfile (user signed in)
+router.get('/profile/my-profile', tokenCheck.checkJWT, getJWT.getData, userController.getProfile);
 //login & logout
 router.post('/user-login', userController.userLogin);
 router.post('/user-logout', tokenCheck.checkJWT, userController.userLogout);
@@ -19,7 +21,9 @@ router.post('/reset-password', emailSending.resetPassword);
 //register
 router.post('/user-register', userController.userRegister);
 //updateUser
-router.put('/user-update/:uid', tokenCheck.checkJWT, userController.updateUser);
+router.put('/user-update/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.updateUser);
+//updateProfile (user signed in)
+router.put('/profile/update', tokenCheck.checkJWT, getJWT.getData, userController.updateProfile);
 //changePassword (only for user)
 router.put('/user-changepassword', tokenCheck.checkJWT, getJWT.getData, userController.changePassword);
 //blockUser & unblockAccount
