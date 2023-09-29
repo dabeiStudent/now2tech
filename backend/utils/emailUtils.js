@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 const generateNewPassword = async () => {
-    const charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+    const charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*_+|?";
     let passWord = "";
 
     for (let i = 0; i < charSet.length; i++) {
@@ -40,13 +40,16 @@ const resetPassword = async (req, res) => {
             from: 'Now2Tech <tranlan0310@gmail.com>',
             to: email,
             subject: 'Mật khẩu mới',
-            text: `Mật khẩu mới của bạn là: ${newPassword}`
+            html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, mật khẩu mới của bạn là:</h2>
+            <p style="color:red;">${newPassword}</p>
+            <p style="color:black;">Hãy đăng nhập lại và tiến hành thay đổi mật khẩu</p>`
         };
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
                 return res.status(400).json({ err: err });
             } else {
                 console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
+                console.log(`Mật khẩu hash: ${hashPassword}`)
                 return res.status(200).json({ msg: "Đổi mật khẩu thành công" });
             }
         });
@@ -64,11 +67,11 @@ const sendVoucherMail = async (req, res) => {
             const percent = voucher.percent;
             const name = voucher.name;
             const users = await User.find();
-            const userList = users.map((user) => user.email);
+            const userMail = users.map((user) => user.email);
 
             const mailOptions = {
                 from: 'Now2Tech <tranlan0310@gmail.com>',
-                to: userList,
+                to: userMail,
                 subject: 'Thông báo khuyến mãi',
                 html: `<h1 style="color:red;">Voucher ${name} đang có khuyến mãi tới ${percent}% </h1>
                     <h2 style="color:black;">Hãy tới ngay Now2Tech để chọn sản phẩm ưng ý nhất</h2>`
