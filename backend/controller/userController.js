@@ -80,7 +80,7 @@ const userRegister = async (req, res) => {
             status: "active"
         })
             .then(user => { return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
-            .catch(err => { return res.status(403).json({ err: "Email đã được sử dụng" }) });
+            .catch(err => { return res.status(403).json({ err: err }) });
     } catch (err) {
         return res.status(500).json({ err: err });
     }
