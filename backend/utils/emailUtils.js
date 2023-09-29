@@ -23,6 +23,8 @@ const generateNewPassword = async () => {
 
     return passWord;
 }
+
+//reset password with email (exist in database)
 const resetPassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -58,6 +60,7 @@ const resetPassword = async (req, res) => {
     }
 }
 
+//send voucher to email (getNotice: true) in database
 const sendVoucherMail = async (req, res) => {
     try {
         const voucher = await Voucher.findById(req.body.vid);
@@ -69,7 +72,7 @@ const sendVoucherMail = async (req, res) => {
             const users = await User.find({ getNotice: true });
             const userMail = users.map((user) => user.email);
             if (userMail.length < 1) {
-                return res.status(404).json({ msg: "Không có user nào nhận thông báo khuyến mãi" });
+                return res.status(404).json({ err: "Không có user nào nhận thông báo khuyến mãi" });
             }
             console.log(userMail);
             const mailOptions = {

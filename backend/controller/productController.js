@@ -1,7 +1,18 @@
 const Product = require('../models/productsModel');
-//get all
+//get all & fulltext search
 const getAllProduct = (req, res) => {
-    Product.find()
+    const pageLimit = process.env.Pagination_limit;
+    const pageNumber = Number(req.query.page) || 1;
+    const keyWord = req.query.keyword
+        ? {
+            name: {
+                $regex: req.query.keyword,
+                $options: 'i',
+            },
+        }
+        : {};
+    Product.find({ ...keyWord })
+        .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
         .then(product => { return res.status(200).json(product) })
         .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
 }
@@ -11,6 +22,7 @@ const getOneProduct = (req, res) => {
         .then(product => { return res.status(200).json(product) })
         .catch(err => { return res.status(404).json({ err: "Không tìm thấy" }) });
 }
+//get product by: brand, category, price
 //add new product & types of product
 const addNewProduct = (req, res) => {
     Product.create(req.body)
