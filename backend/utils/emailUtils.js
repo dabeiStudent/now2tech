@@ -2,6 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const argon2 = require('argon2');
 const User = require('../models/usersModel');
+const Voucher = require('../models/vouchersModel');
 
 
 const transporter = nodemailer.createTransport({
@@ -43,7 +44,7 @@ const resetPassword = async (req, res) => {
         };
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                return res.status(400).json({ err: "Có lỗi xảy ra" });
+                return res.status(400).json({ err: err });
             } else {
                 console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
                 return res.status(200).json({ msg: "Đổi mật khẩu thành công" });
@@ -56,8 +57,31 @@ const resetPassword = async (req, res) => {
 
 const sendVoucherMail = async (req, res) => {
     try {
-        const { percent, name } = req.body;
+        const voucher = await Voucher.findById(req.body.vid);
+        if (!voucher) {
+            return res.status(404).json({ err: "Không thấy voucher" });
+        } else {
+            const percent = voucher.percent;
+            const name = voucher.name;
+            const users = await User.find();
+            const userList = users.map((user) => user.email);
 
+            const mailOptions = {
+                from: 'Now2Tech <tranlan0310@gmail.com>',
+                to: userList,
+                subject: 'Thông báo khuyến mãi',
+                html: `<h1 style="color:red;">Voucher ${name} đang có khuyến mãi tới ${percent}% </h1>
+                    <h2 style="color:black;">Hãy tới ngay Now2Tech để chọn sản phẩm ưng ý nhất</h2>`
+            }
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return res.status(400).json({ err: err });
+                } else {
+                    console.log(`Email gửi thành công`);
+                    return res.status(200).json({ msg: "Đã thông báo tới user email" });
+                }
+            })
+        }
     } catch (err) {
         return res.json({ err: err });
     }
