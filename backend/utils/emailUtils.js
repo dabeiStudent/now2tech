@@ -22,7 +22,7 @@ const generateNewPassword = async () => {
 
     return passWord;
 }
-const resetPassword = async (req, res, next) => {
+const resetPassword = async (req, res) => {
     try {
         const { email } = req.body;
         const findUser = await User.findOne({ email });
@@ -36,7 +36,7 @@ const resetPassword = async (req, res, next) => {
 
         //Send email to user
         const mailOptions = {
-            from: 'tranlan0310@gmail.com',
+            from: 'Now2Tech <tranlan0310@gmail.com>',
             to: email,
             subject: 'Mật khẩu mới',
             text: `Mật khẩu mới của bạn là: ${newPassword}`
@@ -54,5 +54,14 @@ const resetPassword = async (req, res, next) => {
     }
 }
 
+const sendVoucherMail = async (req, res) => {
+    try {
+        const { percent, name } = req.body;
 
-module.exports = { resetPassword };
+    } catch (err) {
+        return res.json({ err: err });
+    }
+}
+
+
+module.exports = { resetPassword, sendVoucherMail };

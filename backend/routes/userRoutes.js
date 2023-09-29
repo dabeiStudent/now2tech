@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controller/userController');
 const tokenCheck = require('../middlewares/tokenCheck');
 const getJWT = require('../middlewares/getJWTData');
-const resetPassword = require('../middlewares/resetPassword');
+const emailSending = require('../utils/emailUtils');
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
@@ -15,7 +15,7 @@ router.get('/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getU
 router.post('/user-login', userController.userLogin);
 router.post('/user-logout', tokenCheck.checkJWT, userController.userLogout);
 //resetPassword
-router.post('/reset-password', resetPassword.resetPassword);
+router.post('/reset-password', emailSending.resetPassword);
 //register
 router.post('/user-register', userController.userRegister);
 //updateUser
