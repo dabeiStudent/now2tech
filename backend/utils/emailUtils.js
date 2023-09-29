@@ -66,15 +66,19 @@ const sendVoucherMail = async (req, res) => {
         } else {
             const percent = voucher.percent;
             const name = voucher.name;
-            const users = await User.find();
+            const users = await User.find({ getNotice: true });
             const userMail = users.map((user) => user.email);
-
+            if (userMail.length < 1) {
+                return res.status(404).json({ msg: "Không có user nào nhận thông báo khuyến mãi" });
+            }
+            console.log(userMail);
             const mailOptions = {
                 from: 'Now2Tech <tranlan0310@gmail.com>',
                 to: userMail,
                 subject: 'Thông báo khuyến mãi',
                 html: `<h1 style="color:red;">Voucher ${name} đang có khuyến mãi tới ${percent}% </h1>
-                    <h2 style="color:black;">Hãy tới ngay Now2Tech để chọn sản phẩm ưng ý nhất</h2>`
+                    <h2 style="color:black;">Hãy tới ngay Now2Tech để chọn sản phẩm ưng ý nhất</h2>
+                    <p2 style="color:black;">Để hủy nhận thông tin khuyến mãi hãy cập nhật ở "Hồ sơ của tôi"</p>`
             }
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {

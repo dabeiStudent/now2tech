@@ -23,6 +23,16 @@ const getUser = function (req, res) {
             return res.status(404).json({ err: "Không tìm thấy" });
         })
 }
+//get my profile (user signed in)
+const getProfile = (req, res) => {
+    User.findById(req.data.uid)
+        .then(result => {
+            return res.status(200).json(result)
+        })
+        .catch(err => {
+            return res.status(404).json({ err: "Không tìm thấy" });
+        })
+}
 //login
 const userLogin = async (req, res) => {
     if (!req.body.email || !req.body.passWord) {
@@ -64,6 +74,9 @@ const userLogout = (req, res) => {
 }
 //register
 const userRegister = async (req, res) => {
+    if (req.body.userName == "admin") {
+        return res.status(400).json({ err: "Không thể đặt tên này" });
+    }
     try {
         const hashedPassword = await argon2.hash(req.body.passWord);
         User.create({
@@ -77,7 +90,8 @@ const userRegister = async (req, res) => {
             phoneNumber: req.body.phoneNumber,
             role: "user",
             image: req.body.image,
-            status: "active"
+            status: "active",
+            getNotice: true
         })
             .then(user => { return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
             .catch(err => { return res.status(403).json({ err: err }) });
@@ -87,7 +101,23 @@ const userRegister = async (req, res) => {
 };
 //update user
 const updateUser = function (req, res) {
+    if (req.body.userName == "admin") {
+        return res.status(400).json({ msg: "Không thể dùng username này" })
+    }
     User.findByIdAndUpdate(req.params.uid, req.body)
+        .then(result => {
+            return res.status(200).json({ msg: "Cập nhật thông tin thành công" });
+        })
+        .catch(err => {
+            return res.status(400).json({ err: err });
+        })
+}
+//update profile (user signed in)
+const updateProfile = function (req, res) {
+    if (req.body.userName == "admin") {
+        return res.status(400).json({ msg: "Không thể dùng username này" })
+    }
+    User.findByIdAndUpdate(req.data.uid, req.body)
         .then(result => {
             return res.status(200).json({ msg: "Cập nhật thông tin thành công" });
         })
@@ -159,4 +189,4 @@ const removeUser = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllUser, getUser, userLogin, userLogout, userRegister, updateUser, changePassword, setStatus, removeUser };
+module.exports = { getAllUser, getUser, getProfile, userLogin, userLogout, userRegister, updateUser, updateProfile, changePassword, setStatus, removeUser };
