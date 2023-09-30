@@ -8,7 +8,7 @@ const Voucher = require('../models/vouchersModel');
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'tranlan0310@gmail.com', // Thay 'your_email@example.com' bằng địa chỉ email của bạn
+        user: 'tranlan0310@gmail.com',
         pass: 'tkdh kfmq tsfp tmcf'
     }
 });
@@ -89,7 +89,7 @@ const sendVoucherMail = async (req, res) => {
                     return res.status(400).json({ err: err });
                 } else {
                     console.log(`Email gửi thành công`);
-                    return res.status(200).json({ msg: "Đã thông báo tới user email" });
+                    return res.status(200).json({ msg: "Đã thông báo tới user email", email: userMail });
                 }
             })
         }
