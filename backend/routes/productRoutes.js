@@ -6,12 +6,12 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 //get all
-router.get('/get-all-product', productController.getAllProduct);
+router.get('/get-all-product', productController.getProduct);
 //get one
 router.get('/get-product/:pid', productController.getOneProduct);
 //get product by brand & category
-router.get('/get-product-by', productController.getProductByBrandCate);
-router.get('/get-product-by-price', productController.getProductByPrice);
+router.get('/get-product-by', productController.getProduct);
+router.get('/get-product-by-price', productController.getProduct);
 //add new product
 router.post('/add-new-product', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addNewProduct);
 router.post('/add-specs/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.addSpecs4Product);
