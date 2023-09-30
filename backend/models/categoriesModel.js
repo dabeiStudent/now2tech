@@ -4,14 +4,10 @@ const CategorySchema = new mongoose.Schema({
     name: {
         type: String
     },
-    desc: {
-        type: String
-    },
     parentCate: {
-        type: Category
-    },
-    childCate: {
-        type: Category
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'category',
+        default: null
     },
     image: {
         type: String

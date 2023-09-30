@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoues');
 const voucherRoutes = require('./routes/voucherRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 //init server & connect 2 db
 const PORT = process.env.PORT || 8000;
@@ -31,7 +32,7 @@ app.use('/user', userRoutes);
 app.use('/product', productRoutes);
 app.use('/order', orderRoutes);
 app.use('/voucher', voucherRoutes);
-
+app.use('/category', categoryRoutes);
 
 
 //hihi
