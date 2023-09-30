@@ -19,7 +19,7 @@ const getProduct = (req, res) => {
         }
         : {};
     if (brand) {
-        console.log(brand)
+        // console.log(brand)
         Product.find({ brand })
             .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
             .then(result => {
@@ -29,7 +29,7 @@ const getProduct = (req, res) => {
                 return res.status(404).json({ err: err });
             })
     } else if (category) {
-        console.log(category)
+        // console.log(category)
         Product.find({ category })
             .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
             .then(result => {
@@ -39,7 +39,7 @@ const getProduct = (req, res) => {
                 return res.status(404).json({ err: err });
             })
     } else if (min && max) {
-        console.log(min, max)
+        // console.log(min, max)
         Product.find({
             sellPrice: { $gte: min, $lte: max }
         })
