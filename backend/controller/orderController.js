@@ -9,7 +9,7 @@ const createOrder = async (req, res) => {
         const newOrder = new Order({
             items: req.body.items.map((i) => ({
                 ...i,
-                product: i._id
+                productId: i._id
             })),
             user: req.data.uid,
             address: req.body.address,
@@ -44,4 +44,28 @@ const getMyOrder = (req, res) => {
             return res.status(404).json({ err: "Không thấy" });
         })
 }
-module.exports = { createOrder, getAllOrder, getMyOrder };
+//update order to paid
+const updateToPaid = async (req, res) => {
+    const order = await Order.findById(req.params.oid);
+    //Sau khi build xong FE sẽ tiến hành import chuẩn 1 order và xử lí Array items
+    //để cập nhật quantity của product trong kho sau khi khách thanh toán
+    if (order) {
+        order.paymentStatus = req.body.pstatus;
+        const update = await order.save();
+        return res.status(200).json({ msg: update });
+    } else {
+        return res.status(404).json({ err: "Không thấy đơn hàng" });
+    }
+}
+//update order to delivered
+const updateToDelivered = async (req, res) => {
+    const order = await Order.findById(req.params.oid);
+    if (order) {
+        order.status = req.body.status;
+        const update = await order.save();
+        return res.status(200).json({ msg: update });
+    } else {
+        return res.status(404).json({ err: "Không thấy đơn hàng" });
+    }
+}
+module.exports = { createOrder, getAllOrder, getMyOrder, updateToPaid, updateToDelivered };
