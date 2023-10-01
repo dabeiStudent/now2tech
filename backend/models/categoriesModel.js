@@ -4,11 +4,13 @@ const CategorySchema = new mongoose.Schema({
     name: {
         type: String
     },
-    parentCate: {
+    isMainCate: {type: Boolean},
+    mainCate: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
+    subCate: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'category',
-        default: null
-    },
+        default: []
+    }],
     image: {
         type: String
     }
