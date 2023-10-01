@@ -39,7 +39,7 @@ const sendEmailReset = async (req, res) => {
         }
         const resetToken = jwt.sign({
             email: req.body.email,
-        }, process.env.JWT_KEY);
+        }, process.env.JWT_KEY, { expiresIn: "1h" });
         RspToken.create({
             rspToken: resetToken,
             createAt: time
@@ -50,7 +50,8 @@ const sendEmailReset = async (req, res) => {
             subject: 'Xác thực yêu cầu thiết lập lại mật khẩu',
             html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, hãy nhấn vào đường link bên dưới:</h2>
             <p style="color:red;">http://${localhost}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}</p>
-            <p style="color:black;">Để xác thực email này là của bạn</p>`
+            <p style="color:black;">Để xác thực email này là của bạn</p>
+            <p style="color:black;">(Liên kết sẽ bị vô hiệu hóa sau 5 phút)</p>`
         };
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
@@ -71,6 +72,15 @@ const resetPassword = async (req, res) => {
     try {
         const { rspToken, time } = req.query;
         const findRsToken = await RspToken.findOne({ rspToken: rspToken, createAt: time })
+        const now = Date.now();
+        const calculateValidTime = now - findRsToken.createAt;
+        if (calculateValidTime > 300000) {
+            await RspToken.deleteOne(findRsToken);
+            console.log("Token đã bị xóa khỏi db, liên kết không còn");
+            console.log(`${calculateValidTime} ms`);
+            return res.json({ err: "Đã hơn 5 phút" });
+        }
+        console.log(calculateValidTime)
         if (findRsToken) {
             const verify = jwt.verify(findRsToken.rspToken, process.env.JWT_KEY);
             const email = verify.email
