@@ -9,6 +9,10 @@ const rspTokenSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    expireIn: {
+        type: Date,
+        required: true
+    }
 });
 
 const rspToken = mongoose.model('rsptoken', rspTokenSchema);

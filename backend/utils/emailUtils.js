@@ -39,10 +39,11 @@ const sendEmailReset = async (req, res) => {
         }
         const resetToken = jwt.sign({
             email: req.body.email,
-        }, process.env.JWT_KEY, { expiresIn: "1h" });
+        }, process.env.JWT_KEY, { expiresIn: 300 }); //seconds
         RspToken.create({
             rspToken: resetToken,
-            createAt: time
+            createAt: time,
+            expireIn: time + 300000 // 300000 miliseconds
         }).catch(err => { return res.json({ err: err }); })
         const mailOptions = {
             from: 'Now2Tech <tranlan0310@gmail.com>',
@@ -75,12 +76,10 @@ const resetPassword = async (req, res) => {
         const now = Date.now();
         const calculateValidTime = now - findRsToken.createAt;
         if (calculateValidTime > 300000) {
-            await RspToken.deleteOne(findRsToken);
-            console.log("Token đã bị xóa khỏi db, liên kết không còn");
+            console.log("Token đã hết hạn, liên kết không còn");
             console.log(`${calculateValidTime} ms`);
             return res.json({ err: "Đã hơn 5 phút" });
         }
-        console.log(calculateValidTime)
         if (findRsToken) {
             const verify = jwt.verify(findRsToken.rspToken, process.env.JWT_KEY);
             const email = verify.email
@@ -98,7 +97,7 @@ const resetPassword = async (req, res) => {
                 from: 'Now2Tech <tranlan0310@gmail.com>',
                 to: email,
                 subject: 'Mật khẩu mới',
-                html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, mật khẩu mới của bạn là:</h2>
+                html: `<h3 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, mật khẩu mới của bạn là:</h3>
                         <p style="color:red;">${newPassword}</p>
                         <p style="color:black;">Hãy đăng nhập lại và tiến hành thay đổi mật khẩu</p>`
             };
@@ -106,6 +105,7 @@ const resetPassword = async (req, res) => {
                 if (err) {
                     return res.status(400).json({ err: err });
                 } else {
+                    console.log(calculateValidTime)
                     console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
                     // console.log(`Mật khẩu hash: ${hashPassword}`)
                     return res.status(200).json({ msg: "Đổi mật khẩu thành công" });
