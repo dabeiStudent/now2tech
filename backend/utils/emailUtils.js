@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
 const argon2 = require('argon2');
 const User = require('../models/usersModel');
+const RspToken = require('../models/rspTokenModel');
+const jwt = require('jsonwebtoken');
 const Voucher = require('../models/vouchersModel');
 
 
@@ -26,36 +29,81 @@ const generateNewPassword = async () => {
 
 //reset password with email (exist in database) 
 //optional (Sau khi hoàn thiện mọi thứ): cải tiến cần xác thực email trước rồi mới đổi password 
-const resetPassword = async (req, res) => {
+const sendEmailReset = async (req, res) => {
     try {
-        const { email } = req.body;
-        const findUser = await User.findOne({ email });
+        const localhost = process.env.url_localhost;
+        const time = Date.now();
+        const findUser = await User.findOne({ email: req.body.email });
         if (!findUser) {
             return res.status(404).json({ err: "Không tìm thấy email trong hệ thống" });
         }
-        const newPassword = await generateNewPassword();
-        const hashPassword = await argon2.hash(newPassword);
-        findUser.passWord = hashPassword;
-        await findUser.save();
-
-        //Send email to user
+        const resetToken = jwt.sign({
+            email: req.body.email,
+        }, process.env.JWT_KEY);
+        RspToken.create({
+            rspToken: resetToken,
+            createAt: time
+        }).catch(err => { return res.json({ err: err }); })
         const mailOptions = {
             from: 'Now2Tech <tranlan0310@gmail.com>',
-            to: email,
-            subject: 'Mật khẩu mới',
-            html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, mật khẩu mới của bạn là:</h2>
-            <p style="color:red;">${newPassword}</p>
-            <p style="color:black;">Hãy đăng nhập lại và tiến hành thay đổi mật khẩu</p>`
+            to: req.body.email,
+            subject: 'Xác thực yêu cầu thiết lập lại mật khẩu',
+            html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, hãy nhấn vào đường link bên dưới:</h2>
+            <p style="color:red;">http://${localhost}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}</p>
+            <p style="color:black;">Để xác thực email này là của bạn</p>`
         };
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
                 return res.status(400).json({ err: err });
             } else {
-                console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
-                console.log(`Mật khẩu hash: ${hashPassword}`)
-                return res.status(200).json({ msg: "Đổi mật khẩu thành công" });
+                // console.log(`Nội dung url reset: `);
+                // console.log(resetToken);
+                // console.log(time);
+                console.log(`Email xác thực: http://${localhost}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}`);
+                return res.status(200).json({ msg: "Hãy kiểm tra email" });
             }
         });
+    } catch (err) {
+        return res.json({ err: err });
+    }
+}
+const resetPassword = async (req, res) => {
+    try {
+        const { rspToken, time } = req.query;
+        const findRsToken = await RspToken.findOne({ rspToken: rspToken, createAt: time })
+        if (findRsToken) {
+            const verify = jwt.verify(findRsToken.rspToken, process.env.JWT_KEY);
+            const email = verify.email
+            const findUser = await User.findOne({ email });
+            if (!findUser) {
+                return res.status(404).json({ err: "Không tìm thấy email trong hệ thống" });
+            }
+            const newPassword = await generateNewPassword();
+            const hashPassword = await argon2.hash(newPassword);
+            findUser.passWord = hashPassword;
+            await findUser.save();
+
+            //Send email to user
+            const mailOptions = {
+                from: 'Now2Tech <tranlan0310@gmail.com>',
+                to: email,
+                subject: 'Mật khẩu mới',
+                html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, mật khẩu mới của bạn là:</h2>
+                        <p style="color:red;">${newPassword}</p>
+                        <p style="color:black;">Hãy đăng nhập lại và tiến hành thay đổi mật khẩu</p>`
+            };
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return res.status(400).json({ err: err });
+                } else {
+                    console.log(`Email gửi thành công, mật khẩu mới là: ${newPassword}`);
+                    // console.log(`Mật khẩu hash: ${hashPassword}`)
+                    return res.status(200).json({ msg: "Đổi mật khẩu thành công" });
+                }
+            });
+        } else {
+            return res.json({ err: "Không hợp lệ" });
+        }
     } catch (err) {
         return res.status(500).json({ err: "Có lỗi xảy ra" });
     }
@@ -99,4 +147,4 @@ const sendVoucherMail = async (req, res) => {
 }
 
 
-module.exports = { resetPassword, sendVoucherMail };
+module.exports = { sendEmailReset, resetPassword, sendVoucherMail };

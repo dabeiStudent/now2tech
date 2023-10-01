@@ -17,7 +17,8 @@ router.get('/profile/my-profile', tokenCheck.checkJWT, getJWT.getData, userContr
 router.post('/user-login', userController.userLogin);
 router.post('/user-logout', tokenCheck.checkJWT, userController.userLogout);
 //resetPassword
-router.post('/reset-password', emailSending.resetPassword);
+router.post('/reset-password/send-request', emailSending.sendEmailReset);
+router.get('/reset-password/check-token', emailSending.resetPassword);
 //register
 router.post('/user-register', userController.userRegister);
 //updateUser
