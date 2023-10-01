@@ -133,7 +133,6 @@ const changePassword = async (req, res) => {
             const valid = await argon2.verify(findUser.passWord, req.body.oldPassword);
             if (valid) {
                 const hashNewPass = await argon2.hash(req.body.newPassword);
-                console.log(hashNewPass);
                 User.updateOne(findUser, {
                     passWord: hashNewPass
                 })
