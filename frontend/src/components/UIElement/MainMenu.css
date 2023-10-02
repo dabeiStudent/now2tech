@@ -1,0 +1,14 @@
+.main-menu{
+    max-width: 1220px;
+    margin: auto;
+    padding-bottom: 5px;
+}
+
+.main-menu li{
+    cursor: pointer;
+}
+
+.main-menu__icon{
+    font-size: 18px;
+    margin-right: 5px;
+}

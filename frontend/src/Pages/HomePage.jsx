@@ -18,7 +18,7 @@ const HomePage = () => {
     const productList = products.map((product, k) => <ProductCard product={product} key={k} />);
     return (
         <React.Fragment>
-            <div className="product-list">{productList}</div>
+            {/* <div className="product-list">{productList}</div> */}
         </React.Fragment>
     )
 }

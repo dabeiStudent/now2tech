@@ -1,35 +1,5 @@
 .main-header {
-    overflow: hidden;
+    background: #FFD400;
     width: 100%;
-    height: 10vh;
-    background-color: #3281cc;
-    display: block;
+    padding: 0;
 }
-
-
-
-/* @keyframes color {
-    0% {
-        background: #352F44;
-    }
-
-    20% {
-        background: #5C5470;
-    }
-
-    40% {
-        background: #B9B4C7;
-    }
-
-    60% {
-        background: #FAF0E6;
-    }
-
-    80% {
-        background: #B9B4C7;
-    }
-
-    100% {
-        background: #352F44;
-    }
-} */

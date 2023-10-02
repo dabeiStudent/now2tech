@@ -1,0 +1,15 @@
+.main-navigation{
+    max-width: 1220px;
+    height: 4rem;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-navigation__title a{
+    color: black;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+}
