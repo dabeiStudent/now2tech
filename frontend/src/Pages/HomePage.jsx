@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import BigBanner from "../components/UIElement/BigBanner";
 import ProductCard from "../components/UIElement/ProductCard";
+import { Slider } from "../components/UIElement/Slider";
 
 import './HomePage.css'
 const HomePage = () => {
@@ -17,9 +20,11 @@ const HomePage = () => {
 
     const productList = products.map((product, k) => <ProductCard product={product} key={k} />);
     return (
-        <React.Fragment>
+        <div>
+            <BigBanner/>
+            <Slider/>
             {/* <div className="product-list">{productList}</div> */}
-        </React.Fragment>
+        </div>
     )
 }
 

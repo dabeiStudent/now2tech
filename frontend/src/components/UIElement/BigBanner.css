@@ -1,0 +1,29 @@
+.big-banner{
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: -122px;
+    z-index: -5;
+}
+
+.big-banner a{
+    width: 1920px;
+    min-width: 1920px;
+    display: block;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.big-banner a img{
+    width: 100%;
+    height: auto;
+    position: relative;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+

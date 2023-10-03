@@ -1,0 +1,18 @@
+.carousel-item__all{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.carousel-item__part{
+    width: 49.5%;
+    border-radius: 8px;
+}
+
+.carousel-item__part img{
+    width: 100%;
+    border-radius: 8px;
+
+}
