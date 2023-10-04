@@ -17,14 +17,16 @@ const HomePage = () => {
                 window.alert("Không có sản phẩm");
             })
     }, []);
-
+    console.log(products);
     const productList = products.map((product, k) => <ProductCard product={product} key={k} />);
     return (
-        <div>
-            <BigBanner/>
-            <Slider/>
-            {/* <div className="product-list">{productList}</div> */}
-        </div>
+        <React.Fragment>
+            <div>
+                <BigBanner />
+                <Slider />
+                {/* <div className="product-list">{productList}</div> */}
+            </div>
+        </React.Fragment>
     )
 }
 

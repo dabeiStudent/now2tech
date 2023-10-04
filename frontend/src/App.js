@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './Pages/LoginPage';
+import SignUpPage from './Pages/SignUpPage';
 import HomePage from './Pages/HomePage';
 // import MainHeader from './components/UIElement/MainHeader';
 import MainNavigation from './components/UIElement/MainNavigation';
@@ -14,16 +15,11 @@ function App() {
           <div className='App-body'>
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              {/* <Route exact path="/login" element={<LoginPage />} /> */}
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
             </Routes>
           </div>
         </div>
-      </Router>
-      <Router>
-        <Routes>
-          <Route path="/login" element= {<LoginPage/>}/>
-        </Routes>
-        
       </Router>
     </React.Fragment>
   );
