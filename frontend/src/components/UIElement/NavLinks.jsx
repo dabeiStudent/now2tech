@@ -39,12 +39,12 @@ const NavLinks = () => {
                     <span>Đăng nhập</span>
                 </NavLink>
             </li>
-            <li>
+            {/* <li>
                 <NavLink to="/history">
                     <FontAwesomeIcon className="nav-links__icon-user" icon={faUser} />
                     <span>Tài khoản và đơn hàng</span>
                 </NavLink>
-            </li>
+            </li> */}
         </ul>
     )
 }

@@ -5,6 +5,7 @@ import SignUpPage from './Pages/SignUpPage';
 import HomePage from './Pages/HomePage';
 // import MainHeader from './components/UIElement/MainHeader';
 import MainNavigation from './components/UIElement/MainNavigation';
+import ResetPWPage from './Pages/ResetPWPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route exact path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/reset-password" element={<ResetPWPage />} />
             </Routes>
           </div>
         </div>

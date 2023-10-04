@@ -96,7 +96,7 @@ const userRegister = async (req, res) => {
             .then(user => { return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
             .catch(err => { return res.status(403).json({ err: err }) });
     } catch (err) {
-        return res.status(500).json({ err: err });
+        return res.json({ err: err })
     }
 };
 //update user
