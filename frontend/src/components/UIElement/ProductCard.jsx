@@ -1,23 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+import './ProductCard.css';
 const ProductCard = props => {
     return (
-        <div className="card-container">
-            <div>
-                <img
-                    src='https://oyster.ignimgs.com/mediawiki/apis.ign.com/dark-souls/a/a5/3xCuCoK.jpg'
-                    alt='place'
-                    height={200}
-                />
+        <Link to="/detail">
+            <div className="product-card">
+                <div className="product-image">
+                    <img
+                        src='https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg'
+                        alt='place'
+                        height={200}
+                    />
+                </div>
+                <h3>{props.name}</h3>
+                <div className="product-prods-group">
+                    <ul>
+                        <li className="active">256GB</li>
+                        <li>512GB</li>
+                        <li>1TB</li>
+                    </ul>
+
+                </div>
+                <strong className="product-price">{props.price}</strong>
             </div>
-            <div className="desc">
-                <h2>
-                    <Link to={`/${props.product._id}`}>{props.product.name}</Link>
-                </h2>
-                <h3>{props.product.desc}</h3>
-                <p>{props.product.sellPrice + "VND"}</p>
-            </div>
-        </div>
+
+        </Link>
+        
     )
 }
 
