@@ -1,34 +1,18 @@
-/* .card-container {
-    width: 250px;
-    border: 1px solid rgba(0, 0, .125);
-    margin: 0 auto;
-    border-radius: 5px;
-    overflow: hidden;
-} */
-
-/* .card-container a {
-    text-decoration: none;
-    font-family: cursive;
-    color: rgb(0, 0, 0);
-    text-align: center;
-} */
-
-/* .card-container p {
-    font-size: 20px;
-    color: rgb(60, 224, 73)
+body{
+    background: #f3f3f3;
 }
-
-.card-container h3 {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: medium;
-} */
-
+.home-page-container{
+    max-width: 1200px;
+    margin: auto;
+    padding: 1%;
+}
 .all-product-container{
     background: #28a2c9;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 30px;
     padding-bottom: 5px;
     border-radius: 14px;
+   
 }
 
 .all-product-container__title{
@@ -53,4 +37,15 @@
     grid-auto-rows: minmax(min-content, max-content);
     grid-template-columns: repeat(5,minmax(0,1fr));
     
+}
+
+.voucher-list-container{
+    margin-top: 30px;
+    background: #490A76;
+    border-radius: 12px;
+}
+
+.voucher-list-banner img{
+    width: 100%;
+    margin-bottom: 20px;
 }

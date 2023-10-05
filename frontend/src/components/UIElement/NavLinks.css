@@ -46,13 +46,13 @@ ul {
 .nav-links__search button {
     border: none;
     position: absolute;
-    top: 10px;
+    top: 7px;
     right: 10px;
     background: inherit;
 }
 
 .nav-links li:nth-child(2) {
-    width: 16%;
+    width: fit-content;
     display: inline-flex;
     align-items: center;
 }
@@ -71,7 +71,7 @@ ul {
 }
 
 .nav-links li:nth-child(3) {
-    width: 20%;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -100,7 +100,7 @@ ul {
 }
 
 .nav-links li:nth-child(4) {
-    width: 30%;
+    width: fit-content;
     display: inline-block;
 }
 

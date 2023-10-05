@@ -7,7 +7,7 @@ const ProductList = props => {
   return (
     <ul className='product-list'>
         {props.productList.map(product=> (
-            <li className='item'>
+            <li className='item' key={product._id}>
                 <ProductCard
                     id= {product._id}
                     name= {product.name}
