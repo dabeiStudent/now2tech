@@ -18,7 +18,6 @@ const LoginPage = () => {
             { withCredentials: true }
         )
             .then(res => {
-                alert(`${res.data.msg}`);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
                 setUser({ email: '', passWord: '' });
                 window.location.href = "/";

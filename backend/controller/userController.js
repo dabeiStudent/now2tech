@@ -56,7 +56,7 @@ const userLogin = async (req, res) => {
                 res.cookie("utoken", token, {
                     httpOnly: true
                 });
-                return res.status(200).json({ msg: "Đăng nhập thành công", user: { userName: findUser.userName, role: findUser.role } });
+                return res.status(200).json({ msg: "Đăng nhập thành công", user: { uid: findUser._id, userName: findUser.userName, role: findUser.role } });
             } else {
                 return res.status(404).json({ err: "Email/Mật khẩu không đúng" })
             }

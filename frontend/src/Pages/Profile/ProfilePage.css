@@ -1,0 +1,81 @@
+.profile__body {
+    background-color: rgb(241, 241, 241);
+}
+
+.profile__page {
+    display: flex;
+    justify-content: center;
+    margin-top: 7%;
+    height: 50vh;
+}
+
+.menu__left {
+    text-align: center;
+    width: 30%;
+}
+
+.menu__left .menu__left__element {
+    margin-top: 10%;
+    text-align: left;
+}
+
+.menu__left .menu__left__element h2 {
+    text-align: center;
+    font-family: monospace;
+    border-bottom: 1px solid black;
+}
+
+.menu__left .menu__left__element label {
+    width: 100%;
+    padding-top: 10%;
+    padding-left: 35%;
+    padding-bottom: 10%;
+    font-family: monospace;
+    font-size: 22px;
+}
+
+.menu__left__element label:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.main {
+    justify-content: center;
+    text-align: center;
+    border: 1px solid black;
+    background-color: white;
+    width: 70%;
+}
+
+.main h2 {
+    font-size: 30px;
+    text-align: left;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {
+    .profile__page {
+        height: 60vh;
+        margin-top: 3%;
+        width: 95%;
+    }
+
+    .menu__left .menu__left__element {
+        margin-top: 5%;
+    }
+
+    .menu__left__element h2 {
+        font-size: 30px;
+    }
+
+    .menu__left .menu__left__element label {
+        padding-top: 10%;
+        padding-bottom: 10%;
+        font-size: 20px;
+    }
+
+    .main h2 {
+        font-size: 25px
+    }
+}

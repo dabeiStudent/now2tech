@@ -10,6 +10,7 @@ import MainNavigation from './components/UIElement/MainNavigation';
 
 
 function App() {
+  const userLoggedIn = JSON.parse(localStorage.getItem('user'));
   return (
     <React.Fragment>
       <Router>
@@ -18,10 +19,12 @@ function App() {
           <div className='App-body'>
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
+              {userLoggedIn ? <Route path="/login" element={<ProfilePage />} />
+                : <Route path="/login" element={<LoginPage />} />}
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/reset-password" element={<ResetPWPage />} />
-              <Route path="/my-profile" element={<ProfilePage />} />
+              {userLoggedIn ? <Route path="/my-profile" element={<ProfilePage />} />
+                : <Route path="/my-profile" element={<LoginPage />} />}
             </Routes>
           </div>
         </div>

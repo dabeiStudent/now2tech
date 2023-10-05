@@ -1,0 +1,46 @@
+.my_profile {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    align-items: center;
+}
+
+.my_profile img {
+    width: 150px;
+    height: 200px;
+}
+
+.mid_profile {
+    text-align: left;
+}
+
+.mid_profile p {
+    margin-top: 15%;
+}
+
+.right_profile {
+    text-align: left;
+}
+
+.right_profile p {
+    margin-top: 15%
+}
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {
+    .my_profile img {
+        width: 100px;
+        height: 150px;
+    }
+
+    .mid_profile p {
+        margin-top: 10%;
+    }
+
+    .right_profile p {
+        margin-top: 10%
+    }
+
+    .my_profile {
+        grid-gap: 1px
+    }
+}
