@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './Pages/LoginPage';
-import SignUpPage from './Pages/SignUpPage';
-import HomePage from './Pages/HomePage';
+import LoginPage from './Pages/Authenticate/LoginPage';
+import SignUpPage from './Pages/Authenticate/SignUpPage';
+import HomePage from './Pages/HomePage/HomePage';
+import ResetPWPage from './Pages/Authenticate/ResetPWPage';
+import ProfilePage from './Pages/Profile/ProfilePage';
 // import MainHeader from './components/UIElement/MainHeader';
 import MainNavigation from './components/UIElement/MainNavigation';
-import ResetPWPage from './Pages/ResetPWPage';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/reset-password" element={<ResetPWPage />} />
+              <Route path="/my-profile" element={<ProfilePage />} />
             </Routes>
           </div>
         </div>
