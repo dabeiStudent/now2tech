@@ -2,8 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding: 0 auto;
 }
 
 .carousel-item__part{
@@ -15,4 +14,8 @@
     width: 100%;
     border-radius: 8px;
 
+}
+
+.carousel-control-prev, .carousel-control-next{
+    width: 3%;
 }

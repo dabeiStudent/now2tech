@@ -3,7 +3,7 @@ import axios from "axios";
 
 import BigBanner from "./components/BigBanner";
 import ProductCard from "../../components/UIElement/ProductCard";
-import ProductList from "./components/ProductList";
+import VoucherList from "./components/VoucherList";
 import { Slider } from "./components/Slider";
 
 import './HomePage.css'
@@ -19,7 +19,6 @@ const HomePage = () => {
             })
     }, []);
 
-    // const productList = products.map((product, k) => <ProductCard product={product} key={k} />);
     return (
         <div>
             <BigBanner />

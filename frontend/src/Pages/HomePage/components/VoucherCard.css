@@ -1,0 +1,26 @@
+.voucher-card{
+    background: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    /* margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px; */
+    border-radius: 12px;
+    padding: 10px 5px;
+}
+
+.voucher-card__image{
+    height: 70px;
+    width: auto;
+}
+
+.voucher-card span{
+    overflow: hidden;
+    color: #222;
+    font-size: 22px;
+    line-height: 28px;
+    text-align: left;
+    margin-left: 10px;
+    max-width: 65%;
+}
