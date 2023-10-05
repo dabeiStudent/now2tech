@@ -1,6 +1,11 @@
 a {
     text-decoration: none;
-    color: #288ad6;
+    color: #333;
+    /* color: #288ad6; */
+}
+
+.product-card{
+    background: #fff;
 }
 
 .product-image{
@@ -12,8 +17,20 @@ a {
     line-height: 225px;
 }
 
+.product-card:hover{
+    text-decoration: none;
+    transition: 0.2s;
+    color: #288ad6;
+}
+
+.product-card:hover .product-image img{
+    margin-top: 0;
+}
+
 .product-image img{
     max-width: 100%;
+    margin-top: 8px;
+    transition: all 0.2s ease-in-out;
 }
 
 h3{
@@ -53,4 +70,5 @@ h3{
     font-weight: bold;
     line-height: 18px;
     margin-top: 5px;
+    padding-bottom: 30px;
 }
