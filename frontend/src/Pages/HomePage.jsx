@@ -3,6 +3,7 @@ import axios from "axios";
 
 import BigBanner from "../components/UIElement/BigBanner";
 import ProductCard from "../components/UIElement/ProductCard";
+import Loader from "../components/UIElement/Loader";
 import { Slider } from "../components/UIElement/Slider";
 
 import './HomePage.css'
@@ -17,8 +18,11 @@ const HomePage = () => {
                 window.alert("Không có sản phẩm");
             })
     }, []);
-    console.log(products);
-    const productList = products.map((product, k) => <ProductCard product={product} key={k} />);
+    // console.log(products);
+    // if (products.length = 0) {
+    //     return <Loader />
+    // }
+    // const productList = products.map((product, k) => <ProductCard product={product} key={k} />);
     return (
         <React.Fragment>
             <div>

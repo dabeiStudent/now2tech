@@ -30,7 +30,7 @@ const ResetPWPage = () => {
                 setUser({ email: '' });;
             })
             .catch((err) => {
-                alert(`Email hoặc mật khẩu không đúng`);
+                alert(`Email không đúng`);
             })
     }
     return (

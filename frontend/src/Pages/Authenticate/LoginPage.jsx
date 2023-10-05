@@ -19,8 +19,9 @@ const LoginPage = () => {
         )
             .then(res => {
                 alert(`${res.data.msg}`);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
                 setUser({ email: '', passWord: '' });
-                navigate('/');
+                window.location.href = "/";
             })
             .catch((err) => {
                 setNoti('Email/Mật khẩu không đúng')
