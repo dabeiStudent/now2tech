@@ -1,9 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './Pages/LoginPage';
+<<<<<<< HEAD
 import HomePage from './Pages/HomePage/HomePage'
+=======
+import SignUpPage from './Pages/SignUpPage';
+import HomePage from './Pages/HomePage';
+>>>>>>> 41957ef68e16900ec53666e4f8a01849a929d0ab
 // import MainHeader from './components/UIElement/MainHeader';
 import MainNavigation from './components/UIElement/MainNavigation';
+import ResetPWPage from './Pages/ResetPWPage';
 
 function App() {
   return (
@@ -14,16 +20,12 @@ function App() {
           <div className='App-body'>
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              {/* <Route exact path="/login" element={<LoginPage />} /> */}
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/reset-password" element={<ResetPWPage />} />
             </Routes>
           </div>
         </div>
-      </Router>
-      <Router>
-        <Routes>
-          <Route path="/login" element= {<LoginPage/>}/>
-        </Routes>
-        
       </Router>
     </React.Fragment>
   );

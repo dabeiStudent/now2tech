@@ -1,0 +1,84 @@
+.form__rspw {
+    margin-top: 7%;
+    display: flex;
+    justify-content: center;
+    border-radius: 1%;
+    height: 45vh;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form__rspw h1 {
+    margin-bottom: -10%;
+    font-family: monospace;
+}
+
+.form__rspw input {
+    margin-top: 15%;
+}
+
+.form__rspw input[type=email] {
+    margin-left: 1%;
+    border: none;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    text-align: center;
+    width: 70%;
+}
+
+.form__rspw input[type=submit] {
+    font-size: 27px;
+    border: none;
+    border-radius: 1%;
+    color: white;
+    background-color: rgb(255, 136, 1);
+    width: 60%;
+}
+
+.form__rspw input[type=email]:focus {
+    background-color: lightgoldenrodyellow;
+}
+
+.form__rspw input[type=submit]:hover {
+    color: black;
+    background-color: #FFD400;
+}
+
+.form__rspw p {
+    margin-top: 3%;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.form__rspw p:hover {
+    color: rgb(122, 122, 81);
+}
+
+.element__rspw {
+    border: 1px solid black;
+    background-color: rgb(247, 247, 247);
+    text-align: center;
+    width: 60vh;
+    border-radius: 2%;
+    padding-top: 5%;
+}
+
+.notification {
+    text-align: center;
+    font-size: 20px;
+    background-color: rgb(104, 241, 104);
+}
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {
+    .form__rspw {
+        height: 60vh;
+        margin-top: 3%;
+    }
+
+    .form__rspw input[type=submit] {
+        font-size: 20px;
+    }
+
+    .element__rspw {
+        width: 80vh;
+    }
+}

@@ -26,6 +26,7 @@ const HomePage = () => {
             <Slider/>
             <ProductList productList={products}/>
         </div>
+    
     )
 }
 
