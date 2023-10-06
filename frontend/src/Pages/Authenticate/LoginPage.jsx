@@ -21,14 +21,18 @@ const LoginPage = () => {
                 const now = new Date();
                 const item = {
                     data: res.data.user,
-                    expiry: now.getTime() + 604800000
+                    expiry: now.getTime() + 43200000   //7days: 604800000
                 }
                 localStorage.setItem('user', JSON.stringify(item));
                 setUser({ email: '', passWord: '' });
                 window.location.href = "/";
             })
             .catch((err) => {
-                setNoti('Email/Mật khẩu không đúng')
+                if (err.message === "Request failed with status code 404") {
+                    setNoti('Email/Mật khẩu không đúng');
+                } else if (err.message === "Request failed with status code 400") {
+                    setNoti('Tài khoản đang bị khóa');
+                }
             })
     }
     const changeToSignUp = event => {

@@ -99,6 +99,12 @@
     font-size: 15px;
 }
 
+.buttons-1 input {
+    flex: 1;
+    margin: 0 10px;
+    font-size: 15px;
+}
+
 .custom-button-1 {
     padding: 10px 20px;
     margin: 5% 0;
@@ -137,6 +143,10 @@
     }
 
     .buttons-1 button {
+        font-size: 10px;
+    }
+
+    .buttons-1 input {
         font-size: 10px;
     }
 

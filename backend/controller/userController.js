@@ -52,9 +52,9 @@ const userLogin = async (req, res) => {
                     email: findUser.email,
                     role: findUser.role,
                     image: findUser.image
-                }, process.env.JWT_KEY, { expiresIn: 604800 }); //7days
+                }, process.env.JWT_KEY, { expiresIn: 43200 }); //7days: 604800
                 res.cookie("utoken", token, {
-                    httpOnly: true, maxAge: 604800000
+                    httpOnly: true, maxAge: 43200000 //7days: 604800000
                 });
                 return res.status(200).json({ msg: "Đăng nhập thành công", user: { uid: findUser._id, userName: findUser.userName, role: findUser.role } });
             } else {
@@ -115,7 +115,7 @@ const updateUser = function (req, res) {
 //update profile (user signed in)
 const updateProfile = function (req, res) {
     if (req.body.userName == "admin") {
-        return res.status(400).json({ msg: "Không thể dùng username này" })
+        return res.status(400).json({ err: "Không thể dùng username này" })
     }
     User.findByIdAndUpdate(req.data.uid, req.body)
         .then(result => {
