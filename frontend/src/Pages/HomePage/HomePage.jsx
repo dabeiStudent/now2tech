@@ -5,6 +5,7 @@ import BigBanner from "./components/BigBanner";
 import ProductCard from "../../components/UIElement/ProductCard";
 import VoucherList from "./components/VoucherList";
 import { Slider } from "./components/Slider";
+import Footer from "../../components/UIElement/Footer";
 
 import './HomePage.css'
 const HomePage = () => {
@@ -43,6 +44,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div> 
     )
 }

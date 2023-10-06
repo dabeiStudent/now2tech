@@ -9,10 +9,9 @@ body{
 .all-product-container{
     background: #28a2c9;
     margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     padding-bottom: 5px;
     border-radius: 14px;
-   
 }
 
 .all-product-container__title{
