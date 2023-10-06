@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import './ProfileMenu.css';
 const ProfileMenu = () => {
     const [profileState, setProfileState] = useState(0);
+    const [noti, setNoti] = useState();
     const [user, setUser] = useState({
         firstName: '',
         lastName: '',
@@ -64,6 +65,12 @@ const ProfileMenu = () => {
         event.preventDefault();
         setProfileState(3);
     }
+    const updateProfileHandler = event => {
+        event.preventDefault();
+        axios.put('http://localhost:5000/user/profile/update', updateUser, { withCredentials: true })
+            .then(res => window.location.href = "/my-profile")
+            .catch(err => setNoti("Không thể đổi username này"));
+    }
     return (
         <React.Fragment>
             <h2>Thông tin tài khoản</h2>
@@ -93,45 +100,44 @@ const ProfileMenu = () => {
                     </div>
                     : profileState === 2
                         ? <div className="update_profile">
-                            <p onClick={changeToProfile}>X</p>
-                            <div className="my_profile_update">
-                                <div className="profile_update_container">
-                                    <div className="profile_update_left">
-                                        <p>Tên</p>
-                                        <input name='firstName' value={updateUser.firstName} onChange={onChange} />
-                                        <p>Họ</p>
-                                        <input name='lastName' value={updateUser.lastName} onChange={onChange} />
-                                        <p>Số điện thoại</p>
-                                        <input name='phoneNumber' value={updateUser.phoneNumber} onChange={onChange} />
-                                        <p>Ngày sinh</p>
-                                        <input name='dob' value={updateUser.dob} onChange={onChange} />
-                                    </div>
-                                    <div className="profile_update_right">
-                                        <p>Email</p>
-                                        <input name='email' value={updateUser.email} onChange={onChange} />
-                                        <p>Username</p>
-                                        <input name='userName' value={updateUser.userName} onChange={onChange} />
-                                        <p>Giới tính</p>
-                                        <input name='gender' value={updateUser.gender} onChange={onChange} />
-                                        <p>Nhận thông báo khuyến mãi</p>
-                                        <input name='getNotice' value={updateUser.getNotice} onChange={onChange} />
-                                    </div>
+                            <p>{noti}</p>
+                            <div className="my_profile">
+                                <div className="left_profile">
+                                    <img src="https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg" alt="Hình đại diện" />
                                 </div>
+                                <div className="mid_profile">
+                                    <input name='firstName' value={updateUser.firstName} onChange={onChange} placeholder="Tên" />
+                                    <input name='lastName' value={updateUser.lastName} onChange={onChange} placeholder="Họ" />
+                                    <input name='phoneNumber' value={updateUser.phoneNumber} onChange={onChange} placeholder="Số điện thoại" />
+                                    <input name='dob' value={updateUser.dob} onChange={onChange} placeholder="Ngày sinh" />
+                                </div>
+                                <div className="right_profile">
+                                    <input name='email' value={updateUser.email} onChange={onChange} placeholder="Email" disabled />
+                                    <input name='userName' value={updateUser.userName} onChange={onChange} placeholder="Username" />
+                                    <input name='gender' value={updateUser.gender} onChange={onChange} placeholder="Giới tính (Male/Female)" />
+                                    <input name='getNotice' value={updateUser.getNotice} onChange={onChange} placeholder="Thông báo (false/true)" />
+                                </div>
+                            </div>
+                            <div className="buttons-1">
+                                <button className="custom-button-1" onClick={updateProfileHandler}>Cập nhật</button>
+                                <button className="custom-button-1" onClick={changeToProfile}>Quay lại</button>
                             </div>
                         </div>
                         : <div className="update_password">
                             <p onClick={changeToProfile}>X</p>
                             Update Password
                         </div>}
-            {profileState === 0
-                ? <div className="container">
-                    <div className="buttons">
-                        <button className="custom-button" onClick={changeToUpdateImage}>Cập nhật ảnh đại diện</button>
-                        <button className="custom-button" onClick={changeToUpdateProfile}>Cập nhật thông tin</button>
-                        <button className="custom-button" onClick={changeToUpdatePassword}>Đổi mật khẩu</button>
+            {
+                profileState === 0
+                    ? <div className="container">
+                        <div className="buttons">
+                            <button className="custom-button" onClick={changeToUpdateImage}>Cập nhật ảnh đại diện</button>
+                            <button className="custom-button" onClick={changeToUpdateProfile}>Cập nhật thông tin</button>
+                            <button className="custom-button" onClick={changeToUpdatePassword}>Đổi mật khẩu</button>
+                        </div>
                     </div>
-                </div>
-                : <div></div>}
+                    : <div></div>
+            }
 
         </React.Fragment >
     )

@@ -22,30 +22,30 @@ const HomePage = () => {
 
     return (
         <div>
-            <BigBanner/>
+            <BigBanner />
             <div className="home-page-container">
-                <Slider/>
+                <Slider />
                 <div className="voucher-list-container">
                     <div className="voucher-list-banner">
                         <img src="https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/2023/10/banner/Deal-ngon-tgdd1-1200x120-1.png" alt="voucher-list-banner" />
                     </div>
-                    <VoucherList/>
+                    <VoucherList />
                 </div>
                 <div className="all-product-container">
                     <p className="all-product-container__title">TẤT CẢ SẢN PHẨM</p>
                     <div className="all-product-container__prod-list">
-                        {products.map(product=> (
+                        {products.map(product => (
                             <ProductCard
                                 key={product._id}
                                 id={product._id}
-                                name= {product.name}
-                                price= {product.sellPrice}/>
+                                name={product.name}
+                                price={product.sellPrice} />
                         ))}
                     </div>
                 </div>
             </div>
-            <Footer/>
-        </div> 
+            <Footer />
+        </div>
     )
 }
 
