@@ -1,0 +1,37 @@
+.policy{
+    margin: 20px 0;
+    padding: 12px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.policy-list{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.policy-list li{
+    width: calc(calc(100%/2) - 20px);
+    display: flex;
+    margin-right: 10px;
+}
+
+.policy-list li p{
+    font-size: 14px;
+}
+
+.policy-icons{
+    align-content: center;
+}
+
+.policy-icon{
+    width: 25px;
+    height: 25px;
+    color: #2f80ed;
+    margin-right: 5px;
+    padding-bottom: 5px;
+}

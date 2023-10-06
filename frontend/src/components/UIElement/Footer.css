@@ -1,10 +1,10 @@
 footer {
-    max-width: 1200px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     margin: auto;
+    background: #fff;
+    max-width: 1920px;
 }
 
 .footer__top{
@@ -15,6 +15,7 @@ footer {
     display: flex;
     justify-content: space-between;
     padding: 15px;
+    margin: auto;
 }
 
 .footer-column{

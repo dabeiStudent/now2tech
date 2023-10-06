@@ -1,0 +1,30 @@
+.product-carousel{
+    width: auto;
+    max-width: 100%;
+}
+.carousel-item img{
+    width: 710px;
+    max-width: 100%;
+}
+
+.custom-indicators{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.custom-indicator{
+    height: 70px;
+    width: 70px;
+    margin-left: 5px;
+    
+}
+
+
+.custom-indicator img{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}

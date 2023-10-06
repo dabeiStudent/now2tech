@@ -7,7 +7,8 @@ import ResetPWPage from './Pages/Authenticate/ResetPWPage';
 import ProfilePage from './Pages/Profile/ProfilePage';
 // import MainHeader from './components/UIElement/MainHeader';
 import MainNavigation from './components/UIElement/MainNavigation';
-
+import Footer from './components/UIElement/Footer';
+import ProductPage from './Pages/Product/ProductPage';
 
 function App() {
   const userLoggedIn = JSON.parse(localStorage.getItem('user'));
@@ -25,8 +26,10 @@ function App() {
               <Route path="/reset-password" element={<ResetPWPage />} />
               {userLoggedIn ? <Route path="/my-profile" element={<ProfilePage />} />
                 : <Route path="/my-profile" element={<LoginPage />} />}
+              <Route path='/chi-tiet-san-pham/:pid' element={<ProductPage/>}/>
             </Routes>
           </div>
+          <Footer/>
         </div>
       </Router>
     </React.Fragment>
