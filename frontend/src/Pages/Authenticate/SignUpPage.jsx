@@ -19,7 +19,11 @@ const SignUpPage = () => {
                 navigate('/login');
             })
             .catch(err => {
-                setNoti('Email đã được sử dụng')
+                if (err.message === "Request failed with status code 400") {
+                    setNoti('Username không hợp lệ');
+                } else if (err.message === "Request failed with status code 403") {
+                    setNoti("Email đã được sử dụng")
+                }
             })
     }
     const onChange = event => {

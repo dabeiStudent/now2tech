@@ -10,6 +10,8 @@
 }
 
 .menu__left {
+    background-color: rgb(218, 219, 219);
+    border-radius: 2%;
     text-align: center;
     width: 30%;
 }

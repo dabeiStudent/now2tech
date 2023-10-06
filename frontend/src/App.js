@@ -21,7 +21,8 @@ function App() {
               <Route exact path="/" element={<HomePage />} />
               {userLoggedIn ? <Route path="/login" element={<ProfilePage />} />
                 : <Route path="/login" element={<LoginPage />} />}
-              <Route path="/signup" element={<SignUpPage />} />
+              {userLoggedIn ? <Route path="/signup" element={<ProfilePage />} />
+                : <Route path="/signup" element={<SignUpPage />} />}
               <Route path="/reset-password" element={<ResetPWPage />} />
               {userLoggedIn ? <Route path="/my-profile" element={<ProfilePage />} />
                 : <Route path="/my-profile" element={<LoginPage />} />}
