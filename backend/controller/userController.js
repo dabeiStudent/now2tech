@@ -52,9 +52,9 @@ const userLogin = async (req, res) => {
                     email: findUser.email,
                     role: findUser.role,
                     image: findUser.image
-                }, process.env.JWT_KEY);
+                }, process.env.JWT_KEY, { expiresIn: 604800 }); //7days
                 res.cookie("utoken", token, {
-                    httpOnly: true
+                    httpOnly: true, maxAge: 604800000
                 });
                 return res.status(200).json({ msg: "Đăng nhập thành công", user: { uid: findUser._id, userName: findUser.userName, role: findUser.role } });
             } else {

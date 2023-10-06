@@ -5,10 +5,31 @@
     align-items: center;
 }
 
-.update_profile p {
-    text-align: right;
-    font-size: 15px;
-    width: fit-content;
+.my_profile_update {
+    text-align: center;
+}
+
+.profile_update_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile_update_left,
+.profile_update_right {
+    width: 48%;
+}
+
+
+.profile_update_left p,
+.profile_update_right p {
+    margin-top: 10px;
+
+}
+
+.profile_update_left input,
+.profile_update_right input {
+    width: 50%;
+    margin-bottom: 10px;
 }
 
 .my_profile img {

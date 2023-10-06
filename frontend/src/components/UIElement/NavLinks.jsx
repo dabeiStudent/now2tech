@@ -38,7 +38,7 @@ const NavLinks = () => {
                 ? <li>
                     <NavLink to='/my-profile' className="nav-links__login">
                         <FontAwesomeIcon className="nav-links__icon-login" icon={faUser} />
-                        <span>Hello, {userLoggedIn.userName} ({userLoggedIn.role})</span>
+                        <span>Hello, {userLoggedIn.data.userName} ({userLoggedIn.data.role})</span>
                     </NavLink>
                 </li>
                 : <li>
