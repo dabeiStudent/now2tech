@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import ProfileMenu from './components/ProfileMenu';
 import OrderMenu from './components/OrderMenu';
-
 import './ProfilePage.css';
 const ProfilePage = () => {
     const [initialMenu, setInitialMenu] = useState(0);
@@ -24,7 +23,6 @@ const ProfilePage = () => {
         event.preventDefault();
         setInitialMenu(1);
     }
-    const userLoggedIn = JSON.parse(localStorage.getItem('user'));
     return (
         <div className="profile__body">
             <div className="container">
@@ -32,7 +30,7 @@ const ProfilePage = () => {
                     <div className="menu__left">
                         <div className="menu__left__element">
                             <div className="hello__profile">
-                                <h2>Hồ sơ của: {userLoggedIn.data.userName}</h2>
+                                <h2>Thông tin</h2>
                             </div>
                             <div className="profile">
                                 <label onClick={changeToProfile}>Hồ sơ</label>

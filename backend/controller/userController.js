@@ -56,10 +56,12 @@ const userLogin = async (req, res) => {
                 res.cookie("utoken", token, {
                     httpOnly: true, maxAge: 604800000 //7days: 604800000 6h: 43200000
                 });
-                const user = { uid: findUser._id, userName: findUser.userName, role: findUser.role };
-                res.cookie("user", user, {
-                    httpOnly: true, maxAge: 43200000
-                })
+                res.cookie("username", findUser.userName, {
+                    maxAge: 604800000
+                });
+                res.cookie("role", findUser.role, {
+                    maxAge: 604800000
+                });
                 return res.status(200).json({ msg: "Đăng nhập thành công", user: { uid: findUser._id, userName: findUser.userName, role: findUser.role } });
             } else {
                 return res.status(404).json({ err: "Email/Mật khẩu không đúng" })
@@ -74,6 +76,8 @@ const userLogin = async (req, res) => {
 //logout
 const userLogout = (req, res) => {
     res.clearCookie("utoken");
+    res.clearCookie("username");
+    res.clearCookie("role");
     return res.status(200).json({ msg: 'Good bye!' });
 }
 //register

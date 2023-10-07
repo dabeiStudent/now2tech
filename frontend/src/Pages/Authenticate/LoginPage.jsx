@@ -18,12 +18,6 @@ const LoginPage = () => {
             { withCredentials: true }
         )
             .then(res => {
-                const now = new Date();
-                const item = {
-                    data: res.data.user,
-                    expiry: now.getTime() + 604800000   //7days: 604800000 6h: 43200000
-                }
-                localStorage.setItem('user', JSON.stringify(item));
                 setUser({ email: '', passWord: '' });
                 window.location.href = "/";
             })
