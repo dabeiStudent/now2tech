@@ -26,7 +26,7 @@ const ProductCard = props => {
             </div>
 
         </Link>
-        
+
     )
 }
 

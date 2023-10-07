@@ -1,3 +1,7 @@
+img {
+    border-radius: 10%;
+}
+
 .my_profile {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -17,9 +21,16 @@
     background-color: #f84646;
 }
 
+
 .profile_password input {
+    width: 40%;
+    text-align: center;
     margin-top: 5%;
     margin-bottom: 2%;
+}
+
+.profile_password input:focus {
+    background-color: antiquewhite;
 }
 
 .my_profile img {
@@ -131,6 +142,34 @@
     background-color: #0056b3;
 }
 
+.image input[type=file] {
+    width: 350px;
+    max-width: 100%;
+    color: #444;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #555;
+    margin-top: 15%;
+    margin-bottom: 10%;
+}
+
+.image input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #007bff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.image input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+}
+
+
 @media screen and (max-width: 1368px) and (max-height: 619px) {
     .my_profile img {
         width: 100px;
@@ -176,5 +215,9 @@
     .profile_password input {
         margin-top: 4%;
         margin-bottom: 1%;
+    }
+
+    .image input[type=file] {
+        margin-top: 11%;
     }
 }

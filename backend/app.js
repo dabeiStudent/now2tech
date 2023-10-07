@@ -26,7 +26,9 @@ app.use(function (req, res, next) {
 })
 //setup reqbody
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
+//setup static file
+app.use(express.static('backend/public'));
 //init web routes
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);

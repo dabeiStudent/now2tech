@@ -133,6 +133,12 @@ const updateProfile = function (req, res) {
             return res.status(400).json({ err: err });
         })
 }
+//upload image 
+const uploadProfileImage = async (req, res) => {
+    User.findByIdAndUpdate(req.data.uid, { image: req.file.filename })
+        .then(result => { return res.status(200).json({ msg: "Upload thành công" }) })
+        .catch(err => { return res.status(400).json({ err: "Có lỗi xảy ra" }) });
+};
 //change password for user only
 const changePassword = async (req, res) => {
     try {
@@ -196,4 +202,4 @@ const removeUser = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllUser, getUser, getProfile, userLogin, userLogout, userRegister, updateUser, updateProfile, changePassword, setStatus, removeUser };
+module.exports = { getAllUser, getUser, getProfile, userLogin, userLogout, userRegister, updateUser, updateProfile, uploadProfileImage, changePassword, setStatus, removeUser };
