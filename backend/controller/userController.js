@@ -52,10 +52,14 @@ const userLogin = async (req, res) => {
                     email: findUser.email,
                     role: findUser.role,
                     image: findUser.image
-                }, process.env.JWT_KEY, { expiresIn: 43200 }); //7days: 604800
+                }, process.env.JWT_KEY, { expiresIn: 604800 }); //7days: 604800 6h: 43200
                 res.cookie("utoken", token, {
-                    httpOnly: true, maxAge: 43200000 //7days: 604800000
+                    httpOnly: true, maxAge: 604800000 //7days: 604800000 6h: 43200000
                 });
+                const user = { uid: findUser._id, userName: findUser.userName, role: findUser.role };
+                res.cookie("user", user, {
+                    httpOnly: true, maxAge: 43200000
+                })
                 return res.status(200).json({ msg: "Đăng nhập thành công", user: { uid: findUser._id, userName: findUser.userName, role: findUser.role } });
             } else {
                 return res.status(404).json({ err: "Email/Mật khẩu không đúng" })
@@ -146,7 +150,7 @@ const changePassword = async (req, res) => {
                 return res.status(400).json({ err: "Mật khẩu cũ không khớp" });
             }
         } else {
-            return res.status(400).json({ err: "Không tìm thấy tài khoản" });
+            return res.status(404).json({ err: "Không tìm thấy tài khoản" });
         }
     } catch (err) {
         return res.status(500).json({ err: err });

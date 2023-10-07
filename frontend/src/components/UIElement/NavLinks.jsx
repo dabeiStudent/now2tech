@@ -5,7 +5,7 @@ import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBrack
 
 import './NavLinks.css';
 const NavLinks = () => {
-    const userLoggedIn = JSON.parse(localStorage.getItem('user'));
+    const userLoggedIn = JSON.parse(localStorage.getItem("user"))
     return (
         <ul className="nav-links">
             <li>

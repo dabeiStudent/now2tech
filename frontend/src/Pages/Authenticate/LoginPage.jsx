@@ -21,7 +21,7 @@ const LoginPage = () => {
                 const now = new Date();
                 const item = {
                     data: res.data.user,
-                    expiry: now.getTime() + 43200000   //7days: 604800000
+                    expiry: now.getTime() + 604800000   //7days: 604800000 6h: 43200000
                 }
                 localStorage.setItem('user', JSON.stringify(item));
                 setUser({ email: '', passWord: '' });

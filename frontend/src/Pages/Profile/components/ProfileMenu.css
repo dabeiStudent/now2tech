@@ -11,6 +11,17 @@
     background-color: #f84646;
 }
 
+.update_password p {
+    width: 100%;
+    font-size: 20px;
+    background-color: #f84646;
+}
+
+.profile_password input {
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
 .my_profile img {
     width: 150px;
     height: 200px;
@@ -25,7 +36,7 @@
 }
 
 .mid_profile input {
-    margin-top: 11%;
+    margin-top: 14%;
     border: none;
     border-left: 2px solid rgb(0, 0, 0);
     border-bottom: 2px solid rgb(0, 0, 0);
@@ -47,7 +58,7 @@
 }
 
 .right_profile input {
-    margin-top: 11%;
+    margin-top: 14%;
     border: none;
     border-left: 2px solid rgb(0, 0, 0);
     border-bottom: 2px solid rgb(0, 0, 0);
@@ -155,11 +166,15 @@
     }
 
     .mid_profile input {
-        margin-top: 7%;
+        margin-top: 9%;
     }
 
     .right_profile input {
-        margin-top: 7%;
+        margin-top: 9%;
     }
 
+    .profile_password input {
+        margin-top: 4%;
+        margin-bottom: 1%;
+    }
 }

@@ -41,8 +41,7 @@ const ProfilePage = () => {
                                 <label onClick={changeToOrder}>Đơn hàng</label>
                             </div>
                             <div className="logout">
-                                <label >Đăng xuất</label>
-                                {/* <label onClick={signOutHandler}>Đăng xuất</label> */}
+                                <label onClick={signOutHandler}>Đăng xuất</label>
                             </div>
                         </div>
                     </div>
