@@ -29,7 +29,6 @@ const SignUpPage = () => {
     const onChange = event => {
         event.preventDefault();
         setUser({ ...user, [event.target.name]: event.target.value });
-
     }
     const changeToSignIn = event => {
         event.preventDefault();
