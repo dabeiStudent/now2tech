@@ -34,3 +34,62 @@
     margin-left: 30px;
     float: right;
 }
+
+.price-container{
+    width: 100%;
+}
+
+.price-container__title{
+    margin: 0;
+}
+
+.box-price{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.box-price p{
+    margin-right: 20px;
+    line-height: 22px;
+}
+
+.box-price-present{
+    font-size: 22px;
+    color: #d0021c;
+    font-weight: bold;
+}
+
+.box-price-old{
+    font-size: 16px;
+    color: #666;
+    text-decoration-line: line-through;
+}
+
+.product-page__btn{
+    border-radius: 4px;
+    padding: 10px 14px;
+    border: none;
+    color: #fff;
+}
+
+.buy-now-btn{
+    background: #d0021c;
+    width: 100%;
+    font-weight: bold;
+}
+
+.button-group{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-group button {
+    background: #2f80ed;
+    width: 49%;
+}
+
+.product-page__icon{
+    margin-right: 5px;
+}

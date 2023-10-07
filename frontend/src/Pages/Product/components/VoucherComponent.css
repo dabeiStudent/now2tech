@@ -1,0 +1,40 @@
+.product-page__voucher-list{
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #d0021c;
+    margin-bottom: 30px;
+}
+
+.vouchers__title{
+    background: #fee2e2;
+    color: #d0021c;
+    padding-top: 10px;
+    padding-left: 10px;
+    line-height: 22px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.vouchers__list{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+}
+
+.vouchers__items{
+    padding-left: 10px;
+    padding-top: 15px;
+    line-height: 16px;
+    width: 100%;
+}
+
+.vouchers__items:hover a{
+    color: #d0021c;
+}
+
+.red-icon{
+    color: #d0021c;
+}
