@@ -1,5 +1,4 @@
 import React from 'react';
-import { Carousel, Container, Row, Col } from 'react-bootstrap';
 
 import './BigBanner.css';
 
@@ -8,10 +7,10 @@ const BigBanner = () => {
     <div className='big-banner'>
       <a href='#'>
         <img src='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/2023/10/banner/BANNER-BIG-DESK-1920X450-1920x450.png'
-        alt='big-banner'/>
+          alt='big-banner' />
       </a>
-       
-    </div> 
+
+    </div>
   )
 }
 

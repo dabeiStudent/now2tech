@@ -52,9 +52,15 @@ const userLogin = async (req, res) => {
                     email: findUser.email,
                     role: findUser.role,
                     image: findUser.image
-                }, process.env.JWT_KEY, { expiresIn: 43200 }); //7days: 604800
+                }, process.env.JWT_KEY, { expiresIn: 604800 }); //7days: 604800 6h: 43200
                 res.cookie("utoken", token, {
-                    httpOnly: true, maxAge: 43200000 //7days: 604800000
+                    httpOnly: true, maxAge: 604800000 //7days: 604800000 6h: 43200000
+                });
+                res.cookie("username", findUser.userName, {
+                    maxAge: 604800000
+                });
+                res.cookie("role", findUser.role, {
+                    maxAge: 604800000
                 });
                 return res.status(200).json({ msg: "Đăng nhập thành công", user: { uid: findUser._id, userName: findUser.userName, role: findUser.role } });
             } else {
@@ -70,6 +76,8 @@ const userLogin = async (req, res) => {
 //logout
 const userLogout = (req, res) => {
     res.clearCookie("utoken");
+    res.clearCookie("username");
+    res.clearCookie("role");
     return res.status(200).json({ msg: 'Good bye!' });
 }
 //register
@@ -125,6 +133,12 @@ const updateProfile = function (req, res) {
             return res.status(400).json({ err: err });
         })
 }
+//upload image 
+const uploadProfileImage = async (req, res) => {
+    User.findByIdAndUpdate(req.data.uid, { image: req.file.filename })
+        .then(result => { return res.status(200).json({ msg: "Upload thành công" }) })
+        .catch(err => { return res.status(400).json({ err: "Có lỗi xảy ra" }) });
+};
 //change password for user only
 const changePassword = async (req, res) => {
     try {
@@ -146,7 +160,7 @@ const changePassword = async (req, res) => {
                 return res.status(400).json({ err: "Mật khẩu cũ không khớp" });
             }
         } else {
-            return res.status(400).json({ err: "Không tìm thấy tài khoản" });
+            return res.status(404).json({ err: "Không tìm thấy tài khoản" });
         }
     } catch (err) {
         return res.status(500).json({ err: err });
@@ -188,4 +202,4 @@ const removeUser = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllUser, getUser, getProfile, userLogin, userLogout, userRegister, updateUser, updateProfile, changePassword, setStatus, removeUser };
+module.exports = { getAllUser, getUser, getProfile, userLogin, userLogout, userRegister, updateUser, updateProfile, uploadProfileImage, changePassword, setStatus, removeUser };

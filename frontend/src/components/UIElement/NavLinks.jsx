@@ -2,10 +2,17 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
-
+import getCookie from "../../ultis/getCookie";
 import './NavLinks.css';
 const NavLinks = () => {
-    const userLoggedIn = JSON.parse(localStorage.getItem('user'));
+    const usernameEncoded = getCookie('username');
+    const username = decodeURIComponent(usernameEncoded);
+    const roleEncoded = getCookie('role');
+    const role = decodeURIComponent(roleEncoded);
+    const userLoggedIn = {
+        userName: username,
+        role: role
+    }
     return (
         <ul className="nav-links">
             <li>
@@ -34,11 +41,11 @@ const NavLinks = () => {
                     <span>Giỏ hàng</span>
                 </NavLink>
             </li>
-            {userLoggedIn
+            {username !== 'false'
                 ? <li>
                     <NavLink to='/my-profile' className="nav-links__login">
                         <FontAwesomeIcon className="nav-links__icon-login" icon={faUser} />
-                        <span>Hello, {userLoggedIn.data.userName} ({userLoggedIn.data.role})</span>
+                        <span>Hello, {userLoggedIn.userName} ({userLoggedIn.role})</span>
                     </NavLink>
                 </li>
                 : <li>

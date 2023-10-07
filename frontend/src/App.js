@@ -9,9 +9,12 @@ import ProfilePage from './Pages/Profile/ProfilePage';
 import MainNavigation from './components/UIElement/MainNavigation';
 import Footer from './components/UIElement/Footer';
 import ProductPage from './Pages/Product/ProductPage';
+import getCookie from './ultis/getCookie';
 
+import './App.css';
 function App() {
-  const userLoggedIn = JSON.parse(localStorage.getItem('user'));
+  const usernameEncoded = getCookie('username');
+  const username = decodeURIComponent(usernameEncoded);
   return (
     <React.Fragment>
       <Router>
@@ -20,17 +23,19 @@ function App() {
           <div className='App-body'>
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              {userLoggedIn ? <Route path="/login" element={<ProfilePage />} />
+              {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
                 : <Route path="/login" element={<LoginPage />} />}
-              {userLoggedIn ? <Route path="/signup" element={<ProfilePage />} />
+              {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
                 : <Route path="/signup" element={<SignUpPage />} />}
               <Route path="/reset-password" element={<ResetPWPage />} />
-              {userLoggedIn ? <Route path="/my-profile" element={<ProfilePage />} />
+              {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
                 : <Route path="/my-profile" element={<LoginPage />} />}
-              <Route path='/chi-tiet-san-pham/:pid' element={<ProductPage/>}/>
+              <Route path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
             </Routes>
           </div>
-          <Footer/>
+          <div className="App-footer">
+            <Footer />
+          </div>
         </div>
       </Router>
     </React.Fragment>
