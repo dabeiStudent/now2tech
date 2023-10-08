@@ -19,7 +19,7 @@ const ProductPage = () => {
                         <ProductCarousel />
                         <PolicyComponent />
                         <DescComponent />
-                        <RatingComponent/>
+                        <RatingComponent />
                     </div>
                     <div className='box-right'>
                         <div className='price-container'>
@@ -38,9 +38,7 @@ const ProductPage = () => {
                             <button className='product-page__btn'>Trả góp 0%</button>
                         </div>
                         <SpecsComponent />
-
                     </div>
-                    
                 </div>
             </div>
         </div>

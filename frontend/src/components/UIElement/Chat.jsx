@@ -18,6 +18,12 @@ function Chat() {
         <div className='chat_window'>
             <form className='chat' onSubmit={sendChat}>
                 <h1 id="project_name">Now2Tech</h1>
+                <div className='chat_content'>
+                    <ul className='chat_lines'>
+                        <li>Hello bro</li><br></br>
+                        <li>Hello dog</li>
+                    </ul>
+                </div>
                 <input type="text" value={text} placeholder='Nhập tin nhắn...' onChange={onChange} />
                 <button type="submit"><FontAwesomeIcon icon={faPaperPlane} /></button>
 

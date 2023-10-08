@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { faEnvelope, faLock, faUser, faH, faT, faPhone } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,10 @@ const SignUpPage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ firstName: '', lastName: '', phoneNumber: '', userName: '', email: '', passWord: '' });
     const [noti, setNoti] = useState('');
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
+
     const signUpHandler = event => {
         event.preventDefault();
         axios.post('http://localhost:5000/user/user-register', user, { withCredentials: true })

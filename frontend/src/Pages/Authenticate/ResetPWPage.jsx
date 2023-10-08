@@ -4,13 +4,16 @@ import axios from "axios";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useEffect } from "react";
 
 import './ResetPWPage.css';
 const ResetPWPage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '' });
     const [noti, setNoti] = useState('');
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
     const onChange = event => {
         event.preventDefault();
         setUser({ ...user, [event.target.name]: event.target.value });

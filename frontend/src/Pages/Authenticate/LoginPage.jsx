@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './LoginPage.css';
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
@@ -8,6 +8,9 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '', passWord: '' });
     const [noti, setNoti] = useState('');
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
     const onChange = event => {
         event.preventDefault();
         setUser({ ...user, [event.target.name]: event.target.value });
