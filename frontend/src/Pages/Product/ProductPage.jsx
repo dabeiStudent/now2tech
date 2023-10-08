@@ -8,6 +8,7 @@ import DescComponent from './components/DescComponent';
 import VoucherComponent from './components/VoucherComponent';
 
 const ProductPage = () => {
+
     return (
         <div className='product-page'>
             <div className='product-page__main-container'>

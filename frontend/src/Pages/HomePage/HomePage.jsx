@@ -16,7 +16,7 @@ const HomePage = () => {
                 setProduct(res.data);
             })
             .catch(err => {
-                window.alert("Không có sản phẩm");
+                console.log(err);
             })
     }, []);
 
