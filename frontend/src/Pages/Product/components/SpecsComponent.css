@@ -1,0 +1,20 @@
+.specs-container{
+    margin-top: 20px;
+    width: 100%;
+}
+
+.specs-container h2{
+    font-size: 18px;
+}
+
+.custom-column__first{
+    width: 140px;
+    height: 0;
+    padding: 0;
+}
+
+.custom-column__second{
+    width: calc(100% - 140px);
+    height: 0;
+    padding: 0;
+}

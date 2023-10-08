@@ -1,3 +1,7 @@
+.container{
+    margin-bottom: 5%;
+}
+
 .form__login {
     margin-top: 7%;
     display: flex;

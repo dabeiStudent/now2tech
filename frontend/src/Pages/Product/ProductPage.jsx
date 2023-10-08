@@ -6,9 +6,10 @@ import ProductCarousel from './components/ProductCarousel';
 import PolicyComponent from './components/PolicyComponent';
 import DescComponent from './components/DescComponent';
 import VoucherComponent from './components/VoucherComponent';
+import SpecsComponent from './components/SpecsComponent';
+import RatingComponent from './components/RatingComponent';
 
 const ProductPage = () => {
-
     return (
         <div className='product-page'>
             <div className='product-page__main-container'>
@@ -37,11 +38,11 @@ const ProductPage = () => {
                         </div>
 
                     </div>
+                    <SpecsComponent />
                 </div>
-
             </div>
-
         </div>
+    </div >
     )
 }
 
