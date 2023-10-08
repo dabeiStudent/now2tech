@@ -42,7 +42,6 @@ const ProductPage = () => {
                 </div>
             </div>
         </div>
-    </div >
     )
 }
 
