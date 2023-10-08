@@ -1,6 +1,6 @@
-.App-footer {
+/* .App-footer {
     margin-top: 5%;
-}
+} */
 
 .chat-button {
     position: fixed;
@@ -15,4 +15,5 @@
     width: 60px;
     height: 60px;
     font-size: 30px;
+    z-index: 3;
 }

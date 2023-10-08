@@ -26,7 +26,7 @@ const DescComponent = () => {
                     • Dịch vụ mua sắm trực tuyến: Ngoài các hệ thống cửa hàng siêu thị, Thế Giới Di Động còn cung cấp dịch vụ mua sắm trực tuyến, giúp bạn mua hàng mọi lúc, mọi nơi và dễ dàng so sánh giá cả.
                 </div>
                 
-                <div className='desc-container__bg'></div> 
+                {/* <div className='desc-container__bg'></div>  */}
                 <div className='desc-containter__btn'>
                     <button onClick={handleShow}>Xem chi tiết...</button> 
                 </div>      
