@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
+import './Chat.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Chat() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleChatWindow = () => {
-        setIsOpen(!isOpen);
-    };
-
+    const [text, setText] = useState('');
+    const onChange = event => {
+        event.preventDefault();
+        setText(event.target.value);
+    }
+    const sendChat = event => {
+        event.preventDefault();
+        setText('');
+    }
     return (
-        <div className="chat-window" style={{ display: 'block' }}>
-            {/* Giao diện của cửa sổ chat */}
-            <div className="chat-content">
-                {/* Nội dung chat */}
-            </div>
-            <button className="close-chat" onClick={toggleChatWindow}>
-                Đóng Chat
-            </button>
+        <div className='chat_window'>
+            <form className='chat' onSubmit={sendChat}>
+                <h1 id="project_name">Now2Tech</h1>
+                <input type="text" value={text} placeholder='Nhập tin nhắn...' onChange={onChange} />
+                <button type="submit"><FontAwesomeIcon icon={faPaperPlane} /></button>
+
+            </form>
         </div>
     );
 }

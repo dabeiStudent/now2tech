@@ -6,9 +6,7 @@
     position: fixed;
     /* Đặt vị trí cố định */
     bottom: 20px;
-    /* Khoảng cách từ phía dưới của màn hình */
     right: 20px;
-    /* Khoảng cách từ phía phải của màn hình */
     background-color: #007bff;
     color: #fff;
     border: none;

@@ -10,7 +10,7 @@ import MainNavigation from './components/UIElement/MainNavigation';
 import Footer from './components/UIElement/Footer';
 import ProductPage from './Pages/Product/ProductPage';
 import getCookie from './ultis/getCookie';
-import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Chat from './components/UIElement/Chat';
 
@@ -23,6 +23,7 @@ function App() {
   const handleChatButtonClick = () => {
     setIsChatOpen(!isChatOpen);
   };
+
   return (
     <React.Fragment>
       <Router>
@@ -44,9 +45,14 @@ function App() {
           <div className="App-footer">
             <Footer />
           </div>
-          <button className="chat-button" onClick={handleChatButtonClick}>
-            <FontAwesomeIcon icon={faMessage} />
-          </button>
+          {!isChatOpen
+            ? <button className="chat-button" onClick={handleChatButtonClick} >
+              <FontAwesomeIcon icon={faMessage} />
+            </button>
+            : <button className="chat-button" onClick={handleChatButtonClick}>
+              <FontAwesomeIcon icon={faXmark} />
+            </button>}
+          {isChatOpen && <Chat />}
         </div>
       </Router>
     </React.Fragment>
