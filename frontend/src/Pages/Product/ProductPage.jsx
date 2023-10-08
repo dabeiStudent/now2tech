@@ -19,6 +19,7 @@ const ProductPage = () => {
                         <ProductCarousel />
                         <PolicyComponent />
                         <DescComponent />
+                        <RatingComponent/>
                     </div>
                     <div className='box-right'>
                         <div className='price-container'>
@@ -36,9 +37,10 @@ const ProductPage = () => {
                                 Thêm vào giỏ hàng</button>
                             <button className='product-page__btn'>Trả góp 0%</button>
                         </div>
+                        <SpecsComponent />
 
                     </div>
-                    <SpecsComponent />
+                    
                 </div>
             </div>
         </div>
