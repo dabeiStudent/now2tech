@@ -6,10 +6,10 @@
     font-size: 22px;
 }
 
-/* .desc-container__details{
-    height: 400px;
+.desc-container__details{
+    /* height: 400px; */
     position: relative;
-} */
+}
 
 .desc-containter__btn{
     width: 100%;
@@ -17,9 +17,9 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    position: relative;
-    /* bottom: 36px;
-    left: 0; */
+    position: absolute;
+    bottom: 36px;
+    left: 0;
 }
 
 .desc-containter__btn button{
