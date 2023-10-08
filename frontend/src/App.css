@@ -1,3 +1,20 @@
 .App-footer {
     margin-top: 5%;
 }
+
+.chat-button {
+    position: fixed;
+    /* Đặt vị trí cố định */
+    bottom: 20px;
+    /* Khoảng cách từ phía dưới của màn hình */
+    right: 20px;
+    /* Khoảng cách từ phía phải của màn hình */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './Pages/Authenticate/LoginPage';
 import SignUpPage from './Pages/Authenticate/SignUpPage';
@@ -10,11 +10,19 @@ import MainNavigation from './components/UIElement/MainNavigation';
 import Footer from './components/UIElement/Footer';
 import ProductPage from './Pages/Product/ProductPage';
 import getCookie from './ultis/getCookie';
+import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Chat from './components/UIElement/Chat';
+
 
 import './App.css';
 function App() {
   const usernameEncoded = getCookie('username');
   const username = decodeURIComponent(usernameEncoded);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const handleChatButtonClick = () => {
+    setIsChatOpen(!isChatOpen);
+  };
   return (
     <React.Fragment>
       <Router>
@@ -36,6 +44,9 @@ function App() {
           <div className="App-footer">
             <Footer />
           </div>
+          <button className="chat-button" onClick={handleChatButtonClick}>
+            <FontAwesomeIcon icon={faMessage} />
+          </button>
         </div>
       </Router>
     </React.Fragment>
