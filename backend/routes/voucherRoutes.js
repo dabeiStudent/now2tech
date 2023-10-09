@@ -5,6 +5,8 @@ const tokenCheck = require('../middlewares/tokenCheck');
 const emailSending = require('../utils/emailUtils');
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
+const { apiLimiter } = require('../middlewares/rateLimite');
+
 
 router.get('/get-all-voucher', voucherController.getAllVoucher);
 router.get('/get-product/:vid', voucherController.getProductByVoucherId);
