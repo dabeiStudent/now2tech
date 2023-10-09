@@ -11,15 +11,16 @@ footer {
     background: #fff;
     max-width: 1200px;
     width: 100%;
-    height: 180px;
+    /* height: 180px; */
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 0 15px 15px 15px;
     margin: auto;
 }
 
 .footer-column{
     width: fit-content;
+    height: fit-content;
 }
 
 .footer-column ul{

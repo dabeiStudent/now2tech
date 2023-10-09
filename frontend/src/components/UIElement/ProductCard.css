@@ -58,6 +58,13 @@ h3{
     margin-right: 4px;
 }
 
+.product-prods-group ul{
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0;
+}
+
 .product-prods-group ul li.active{
     border: 1px solid #288ad6;
     color: #288ad6;

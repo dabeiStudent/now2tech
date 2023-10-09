@@ -2,10 +2,15 @@
     max-width: 1220px;
     margin: auto;
     padding-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
 }
 
 .main-menu li{
     cursor: pointer;
+    width: fit-content;
 }
 
 .main-menu__icon{
