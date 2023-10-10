@@ -5,7 +5,10 @@ import RatingItem from './RatingItem';
 
 const RatingList = () => {
   return (
-    <div>RatingList</div>
+    <ul className='rating-list'>
+      <RatingItem/>
+      <RatingItem/>
+    </ul>
   )
 }
 

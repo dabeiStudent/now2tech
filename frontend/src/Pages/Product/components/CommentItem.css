@@ -1,0 +1,33 @@
+.comment-item{
+    margin-top: 5px;
+}
+.comment-item li{
+    margin-bottom: 10px;
+}
+
+.comment-item__top{
+    margin-bottom: 5px;
+}
+
+.comment-item__username{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.comment-item__reply{
+    background: #f7f7f7;
+    position: relative;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+}
+
+.comment-item__reply::before{
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f7f7f7;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}

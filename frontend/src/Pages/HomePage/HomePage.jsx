@@ -18,7 +18,7 @@ const HomePage = () => {
             .catch(err => {
                 console.log(err);
             })
-    }, []);
+    }, [products]);
 
     return (
         <div>
@@ -44,7 +44,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
         </div>
     )
 }

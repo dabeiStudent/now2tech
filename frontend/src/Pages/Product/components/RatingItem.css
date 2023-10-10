@@ -1,0 +1,28 @@
+.rating-item {
+    margin: 10px 10px 0 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.rating-item__top{
+    display: flex;
+    justify-content: flex-start;
+    line-height: 16px;
+}
+
+.rating-item__top .icon-star{
+    height: 14px;
+    width: 14px;
+}
+
+.rating-item__username{
+    padding-right: 5px;
+    border-right: 1px solid #e5e5e5;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.rating-item__body{
+    width: 100%;
+    margin-top: 10px;
+}
