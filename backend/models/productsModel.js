@@ -35,10 +35,11 @@ const ProductSchema = new mongoose.Schema({
     category: {
         type: String
     },
-    specs: {
-        type: Array,
-        default: []
-    },
+    specs: [
+        {
+            stype: {type: String },
+            sdetail: {type: String},
+        }],
     vouchers: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'voucher'
     }],

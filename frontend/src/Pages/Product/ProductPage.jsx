@@ -25,8 +25,6 @@ const ProductPage = () => {
         })
     }, [pid]);
 
-    console.log(product.name)
-
     return (
         <div className='product-page'>
             <div className='product-page__main-container'>

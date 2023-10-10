@@ -72,10 +72,13 @@ const addNewProduct = (req, res) => {
         .catch(err => { return res.status(400).json({ err: "Sản phẩm đã tồn tại" }) });
 }
 const addSpecs4Product = (req, res) => {
+    const {specs}= req.body;
     Product.findById(req.params.pid)
         .then((product) => {
             if (product.specs.length === 0) {
-                product.specs.push(req.body);
+                specs.map(spec=> {
+                    product.specs.push(spec);
+                })
                 product.save();
                 return res.status(200).json({ msg: "Thêm thành công" })
             } else {

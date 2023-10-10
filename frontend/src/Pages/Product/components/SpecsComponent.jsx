@@ -6,6 +6,7 @@ import './SpecsComponent.css';
 const SpecsComponent = props => {
   return (
     <div className='specs-container'>
+        
         <h2>Thông số kỹ thuật</h2>
         <Table >
             <thead>
@@ -15,22 +16,13 @@ const SpecsComponent = props => {
                 </tr>
             </thead>
             <tbody>
-                {props.specs ? props.specs.map(d=> (
-                    <tr>
-                        <td>{d}</td>
-                        <td>{d}</td>
+                {props.specs && props.specs.map(spec=> (
+                    <tr key={spec._id}>
+                        <td>{spec.stype}</td>
+                        <td>{spec.sdetail}</td>
                     </tr>
 
-                )) : (<p>Khong co</p>)}
-                
-                {/* <tr>
-                    <td>RAM:</td>
-                    <td>16 GBDDR5 2 khe (1 khe 8 GB + 1 khe 8 GB)4800 MHz</td>
-                </tr>
-                <tr>
-                    <td>Kích thước, khối lượng:</td>
-                    <td>Dài 370 mm - Rộng 260 mm - Dày 23.5 mm - Nặng 2.4 kg</td>
-                </tr> */}
+                ))}
             </tbody>
         </Table>
     </div>
