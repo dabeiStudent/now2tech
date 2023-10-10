@@ -33,7 +33,11 @@ const ResetPWPage = () => {
                 setUser({ email: '' });;
             })
             .catch((err) => {
-                alert(`Email không đúng`);
+                if (err.message === "Request failed with status code 429") {
+                    setNoti('Vui lòng chờ 60 giây để thực hiện lại');
+                } else if (err.message === "Request failed with status code 404") {
+                    setNoti('Email không đúng');
+                }
             })
     }
     return (

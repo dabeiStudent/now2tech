@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 const multer = require('multer');
 const path = require('path');
-
+const { apiLimiter } = require('../middlewares/rateLimite');
 //setup multer storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -32,10 +32,10 @@ router.get('/profile/my-profile', tokenCheck.checkJWT, getJWT.getData, userContr
 router.post('/user-login', userController.userLogin);
 router.post('/user-logout', userController.userLogout);
 //resetPassword
-router.post('/reset-password/send-request', emailSending.sendEmailReset);
+router.post('/reset-password/send-request', apiLimiter, emailSending.sendEmailReset);
 router.get('/reset-password/check-token', emailSending.resetPassword);
 //register
-router.post('/user-register', userController.userRegister);
+router.post('/user-register', apiLimiter, userController.userRegister);
 //updateUser
 router.put('/user-update/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.updateUser);
 //updateProfile (user signed in)
