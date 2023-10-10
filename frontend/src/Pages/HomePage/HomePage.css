@@ -26,16 +26,17 @@ body{
 }
 
 .all-product-container .product-card{
-    margin: 0 5px;
+    /* margin: 0 5px; */
     border-radius: 5px;
     padding: 0 10px;
 }
 
 .all-product-container__prod-list{
     display: grid;
-    /* grid-auto-rows: minmax(min-content, max-content); */
+    gap: 8px;
+    grid-auto-rows: minmax(min-content, max-content);
     grid-template-columns: repeat(5,minmax(0,1fr));
-    grid-template-rows: repeat(5, minmax(min-content, max-content));
+    padding: 0 8px;
 }
 
 .voucher-list-container{
@@ -48,3 +49,21 @@ body{
     width: 100%;
     margin-bottom: 20px;
 }
+
+.see-more-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    line-height: 20px;
+    margin-top: 20px;
+}
+
+.see-more-btn button{
+    background: #fff;
+    border: none;
+    width: 340px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+

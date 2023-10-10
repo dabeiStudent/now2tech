@@ -10,15 +10,24 @@ import { Slider } from "./components/Slider";
 import './HomePage.css'
 const HomePage = () => {
     const [products, setProduct] = useState([]);
+    const [page, setPage]= useState(1);
+
     useEffect(() => {
-        axios.get("http://localhost:5000/product/get-all-product")
-            .then(res => {
+        axios.get("http://localhost:5000/product/get-all-product", {params: {page: page}})
+        .then((res) => {
+            if(page === 1){
                 setProduct(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, [products]);
+            }
+            else{
+                setProduct((prevProducts)=>[...prevProducts, ...res.data]);
+            }   
+        })
+        .catch(err => {
+            console.log(err);
+        })    
+    }, [page]);
+
+    const seeMoreHandler= ()=>{ setPage(page+1)}
 
     return (
         <div>
@@ -34,7 +43,7 @@ const HomePage = () => {
                 <div className="all-product-container">
                     <p className="all-product-container__title">TẤT CẢ SẢN PHẨM</p>
                     <div className="all-product-container__prod-list">
-                        {products.map(product => (
+                        {products && products.map(product => (
                             <ProductCard
                                 key={product._id}
                                 id={product._id}
@@ -42,6 +51,7 @@ const HomePage = () => {
                                 price={product.sellPrice} />
                         ))}
                     </div>
+                    <div className="see-more-btn"><button onClick={seeMoreHandler}>Xem thêm &raquo;</button></div>
                 </div>
             </div>
         </div>
