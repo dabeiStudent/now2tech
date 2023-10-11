@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,6 +16,7 @@ import CommentComponent from './components/CommentComponent';
 const ProductPage = () => {
     let {pid}= useParams();
     const [product, setProduct]= useState([]);
+    const navigate= useNavigate();
 
     useEffect(()=> {
         axios.get(`http://localhost:5000/product//get-product/${pid}`)
@@ -24,6 +25,11 @@ const ProductPage = () => {
             window.alert(err)
         })
     }, [pid]);
+
+    const buyNowHandler= ()=> {
+        navigate('/gio-hang')
+
+    }
 
     return (
         <div className='product-page'>
@@ -46,7 +52,7 @@ const ProductPage = () => {
                             </div>
                         </div>
                         <VoucherComponent />
-                        <button className='product-page__btn buy-now-btn'>MUA NGAY</button>
+                        <button onClick={buyNowHandler} className='product-page__btn buy-now-btn'>MUA NGAY</button>
                         <div className='button-group'>
                             <button className='product-page__btn'>
                                 <FontAwesomeIcon className='product-page__icon' icon={faCartPlus} />

@@ -33,7 +33,7 @@ const NavLinks = () => {
 
             </li>
             <li>
-                <NavLink to="/cart" className="nav-links__cart">
+                <NavLink to="/gio-hang" className="nav-links__cart">
                     <div className="nav-links__box-cart">
                         <FontAwesomeIcon className="nav-links__icon-cart" icon={faCartShopping} />
                         <span className="nav-links__cart-number">2</span>

@@ -13,6 +13,7 @@ import getCookie from './ultis/getCookie';
 import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Chat from './components/UIElement/Chat';
+import CartPage from './Pages/Cart/CartPage';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<HomePage />} />
               <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
+              <Route exact path='/gio-hang' element={<CartPage/>}/>
               {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
                 : <Route path="/login" element={<LoginPage />} />}
               {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
