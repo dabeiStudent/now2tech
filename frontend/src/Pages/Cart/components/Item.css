@@ -1,0 +1,121 @@
+.product-item{
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 10px 20px;
+}
+
+.product-item__info{
+    width: 84%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-item__info-top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.product-item__info-top .product-name{
+    width: 75%;
+}
+
+.product-name a{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.product-item__info-top .group-price{
+    display: flex;
+    flex-direction: column;
+}
+
+.product-item__info-top .group-price .origin-price{
+    color: #666666;
+    font-weight: normal;
+    text-decoration: line-through;
+}
+
+.product-item__info-top .group-price .sell-price{
+    color: red;
+    font-weight: bold;
+}
+
+.product-name a:hover{
+    color: #2f80ed;
+}
+
+.product-item__img{
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.product-item__img img{
+    width: 75px;
+    margin: auto;
+}
+
+.product-item__info-bottom{
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.delete-btn {
+    border: none;
+    background: none;
+    color: #999;
+    line-height: 14px;
+}
+
+.delete-btn .icon-trash-can{
+    margin-right: 3px;
+}
+
+.quantity-group-btn {
+    display: inline-flex;
+    line-height: 16px;
+}
+
+.quantity-group-btn .minus-btn{
+    border: 1px solid #dfdfdf;
+    border-radius: 3px 0 0 3px;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 2px;
+    color: #dfdfdf;
+    font-weight: bolder;
+}
+
+.quantity-group-btn .qty{
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    font-size: 14px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 3px;
+}
+
+.quantity-group-btn .plus-btn{
+    border: 1px solid #dfdfdf;
+    border-radius: 0 3px 0 3px;
+    font-size: 16px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 3px;
+    color: #dfdfdf;
+    font-weight: bolder;
+}
+
+.quantity-group-btn .visible{
+    color: #2f80ed;
+}

@@ -1,0 +1,35 @@
+.cart-page{
+    max-width: 1200px;
+    background: #f3f3f3;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+
+}
+
+.cart-page__main{
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 2px;
+    margin: 10px 0;
+}
+
+.cart-page__title{
+    padding-left: 18px;
+    font-size: 18px;
+    margin: 10px auto;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.cart-page__list-item{
+    width: 100%;
+}
+
+.total-cost{
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
