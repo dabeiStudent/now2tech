@@ -33,3 +33,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+.list-item__form{
+    margin: 0 20px;
+}

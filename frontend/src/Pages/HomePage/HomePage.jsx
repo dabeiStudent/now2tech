@@ -51,7 +51,12 @@ const HomePage = () => {
                                 price={product.sellPrice} />
                         ))}
                     </div>
-                    <div className="see-more-btn"><button onClick={seeMoreHandler}>Xem thêm &raquo;</button></div>
+                    {products.length >= page *10 && (
+                        <div className="see-more-btn"><button onClick={seeMoreHandler}>Xem thêm &raquo;</button></div>
+                    )
+
+                    }
+                    
                 </div>
             </div>
         </div>

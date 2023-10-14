@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     border-bottom: 1px solid #dfdfdf;
-    padding: 10px 20px;
+    padding: 0 5px 10px 5px;
 }
 
 .product-item__info{
@@ -118,4 +118,10 @@
 
 .quantity-group-btn .visible{
     color: #2f80ed;
+}
+
+.custom__check-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

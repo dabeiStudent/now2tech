@@ -1,12 +1,14 @@
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import {Form} from 'react-bootstrap';
 
 import './Item.css';
 
 const Item = () => {
   return (
     <div className='product-item'>
+        <Form.Check className='custom__check-box' name='item' aria-label='option'/>
         <div className='product-item__img'>
             <img src="https://cdn.tgdd.vn/Products/Images/58/312263/cap-type-c-lightning-mfi-0-9m-anker-322-a81b5-1-2.jpg" alt="product" />
         </div>
