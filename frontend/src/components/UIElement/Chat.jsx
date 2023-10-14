@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { io } from 'socket.io-client';
 
@@ -15,6 +15,7 @@ function Chat() {
 
     useEffect(() => {
         setSocket(io(host));
+        document.getElementById("a").style.display = "unset"
     }, []);
 
     useEffect(() => {
@@ -50,13 +51,25 @@ function Chat() {
             }, 1000)
         );
     }
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [content]);
     const sendChat = e => {
         e.preventDefault();
-        socket.emit("sendDataClient", text)
-        setContent((prev) => [...prev, { text, received: false }]);
-        setText('');
-        setTyping(false);
+        if (text) {
+            socket.emit("sendDataClient", text)
+            setContent((prev) => [...prev, { text, received: false }]);
+            setText('');
+            setTyping(false);
+        }
     }
+
     return (
         <div className='chat_window'>
             <form className='chat' onSubmit={sendChat}>
@@ -67,6 +80,7 @@ function Chat() {
                             data.received ? <li className="left" key={data.text}>{data.text}</li>
                                 : <li className="right" key={data.text}>{data.text}</li>
                         ))}
+                        <li id="a" className="anchor" ref={messagesEndRef} />
                     </ul>
                 </div>
                 {typing ? <p>Đang nhập....</p> : <></>}

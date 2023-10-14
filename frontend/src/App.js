@@ -33,7 +33,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<HomePage />} />
               <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
-              <Route exact path='/gio-hang' element={<CartPage/>}/>
+              <Route exact path='/gio-hang' element={<CartPage />} />
               {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
                 : <Route path="/login" element={<LoginPage />} />}
               {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
@@ -41,7 +41,7 @@ function App() {
               <Route path="/reset-password" element={<ResetPWPage />} />
               {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
                 : <Route path="/my-profile" element={<LoginPage />} />}
-              
+
             </Routes>
           </div>
           <div className="App-footer">
@@ -55,6 +55,7 @@ function App() {
               <FontAwesomeIcon icon={faXmark} />
             </button>}
           {isChatOpen && <Chat />}
+
         </div>
       </Router>
     </React.Fragment>

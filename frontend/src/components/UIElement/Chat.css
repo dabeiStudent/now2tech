@@ -39,6 +39,14 @@
     background-color: #bebebe;
 }
 
+.chat_lines li.anchor {
+    float: right;
+    clear: both;
+    font-size: xx-small;
+    display: none;
+    background-color: white;
+}
+
 .chat_lines li.right {
     float: right;
     clear: both;
