@@ -13,6 +13,8 @@ const NavLinks = () => {
         userName: username,
         role: role
     }
+    const cart= localStorage.getItem("giohang") ? JSON.parse(localStorage.getItem("giohang")): {items: []};
+    // console.log(cart);
     return (
         <ul className="nav-links">
             <li>
@@ -36,7 +38,10 @@ const NavLinks = () => {
                 <NavLink to="/gio-hang" className="nav-links__cart">
                     <div className="nav-links__box-cart">
                         <FontAwesomeIcon className="nav-links__icon-cart" icon={faCartShopping} />
-                        <span className="nav-links__cart-number">2</span>
+                        {cart.items.length > 0 && 
+                            <span className="nav-links__cart-number">{cart.items.reduce((acc, current)=> acc + current.qty, 0)}</span>
+                        }
+                        
                     </div>
                     <span>Giỏ hàng</span>
                 </NavLink>

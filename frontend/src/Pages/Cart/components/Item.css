@@ -22,6 +22,10 @@
     width: 75%;
 }
 
+.product-name{
+    padding-top: 6px;
+}
+
 .product-name a{
     font-size: 16px;
     font-weight: 600;

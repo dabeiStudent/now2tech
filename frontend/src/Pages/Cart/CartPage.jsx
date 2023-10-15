@@ -6,6 +6,8 @@ import Item from './components/Item';
 import UserInfo from './components/UserInfo';
 
 const CartPage = () => {
+  const cart= localStorage.getItem("giohang") ? JSON.parse(localStorage.getItem("giohang")) : {items: []};
+
   return (
     <div className='cart-page'>
         <div className='cart-page__main'>
@@ -13,8 +15,9 @@ const CartPage = () => {
             <div className='cart-page__list-item'>
               <Form className='list-item__form'>
                 <Form.Check label='Chọn tất cả' name="item" inline />
-                <Item/>
-                <Item/>
+                { cart.items.length > 0 && cart.items.map(item=> (
+                  <Item id={item.id} name={item.name} price={item.price} qty={item.qty}/>
+                ))}
               </Form>
                 
                 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,8 @@ const ProductPage = () => {
     let {pid}= useParams();
     const [product, setProduct]= useState([]);
     const navigate= useNavigate();
+    const cart= localStorage.getItem('giohang') ? JSON.parse(localStorage.getItem('giohang')) : {items: []};
+    const [items, setItems]= useState(cart.items);
 
     useEffect(()=> {
         axios.get(`http://localhost:5000/product//get-product/${pid}`)
@@ -26,10 +28,22 @@ const ProductPage = () => {
         })
     }, [pid]);
 
-    const buyNowHandler= ()=> {
-        navigate('/gio-hang')
-
+    const cartItem= {
+        id: product._id,
+        name: product.name,
+        price: product.sellPrice,
+        image: product.image,
+        qty: 1
     }
+
+    
+    const buyNowHandler= async ()=> {
+        // setItems((prevItems)=> [...prevItems, cartItem]);
+        localStorage.setItem("giohang", JSON.stringify({items: [...items, cartItem]}));
+        navigate("/gio-hang")
+    }
+   
+
 
     return (
         <div className='product-page'>

@@ -5,7 +5,7 @@ import {Form} from 'react-bootstrap';
 
 import './Item.css';
 
-const Item = () => {
+const Item = props => {
   return (
     <div className='product-item'>
         <Form.Check className='custom__check-box' name='item' aria-label='option'/>
@@ -15,17 +15,17 @@ const Item = () => {
         <div className='product-item__info'>
             <div className='product-item__info-top'>
                 <div className='product-name'>
-                    <a href="/chi-tiet-san-pham">Laptop HP 240 G8 i3 1115G4/8GB/256GB/Win11 (6L1A1PA)</a>
+                    <a href={`/chi-tiet-san-pham/${props.id}`}>{props.name}</a>
                 </div>
                 <div className='group-price'>
-                    <span className='sell-price'>8.500.000đ</span>
+                    <span className='sell-price'>{props.price}</span>
                     <span className='origin-price'>9.900.000đ</span>
                 </div> 
             </div>
             <div className='product-item__info-bottom'>
                 <div className='quantity-group-btn'>
                     <div className='minus-btn'>&#45;</div>
-                    <div className='qty'>3</div>
+                    <div className='qty'>{props.qty}</div>
                     <div className='plus-btn visible'>&#43;</div>
                 </div>
                 <button className='delete-btn'>

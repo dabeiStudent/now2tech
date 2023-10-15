@@ -51,7 +51,7 @@ const UserInfo = () => {
     const getOrderMethodHandler= (e)=> {
         setGetOrderMethod(e.target.value)
     }
-    console.log(getOderMethod)
+    // console.log(getOderMethod)
 
   return (
     <div className='customer-info'>
