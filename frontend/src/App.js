@@ -51,7 +51,7 @@ function App() {
             </Routes>
           </div>
           <div className="App-footer">
-            <Footer />
+            {username !== "admin" && <Footer />}
           </div>
           {!isChatOpen && username !== "admin" ?
             < button className="chat-button" onClick={handleChatButtonClick} >
