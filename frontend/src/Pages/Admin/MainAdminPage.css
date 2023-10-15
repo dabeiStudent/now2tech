@@ -1,0 +1,38 @@
+.admin-dashboard {
+    display: flex;
+    height: 90vh;
+}
+
+.sidebar {
+    flex: 1;
+    width: 10%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    cursor: pointer;
+    padding: 10px 0;
+    border-bottom: 1px solid #555;
+}
+
+.sidebar li.active {
+    font-weight: bold;
+}
+
+.content {
+    flex: 9;
+    padding: 20px;
+}
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {
+    .admin-dashboard {
+        height: 85vh;
+    }
+}

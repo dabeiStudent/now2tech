@@ -2,17 +2,18 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { io } from 'socket.io-client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
+
 
 import './Chat.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const host = "http://localhost:5000";
 function Chat() {
-    const [socket, setSocket] = useState(null);
+    const [socket, setSocket] = useState();
     const [text, setText] = useState('');
     const [content, setContent] = useState([]);
     const [typing, setTyping] = useState(false);
-
     useEffect(() => {
         setSocket(io(host));
         document.getElementById("a").style.display = "unset"
@@ -70,25 +71,48 @@ function Chat() {
         }
     }
 
-    return (
-        <div className='chat_window'>
-            <form className='chat' onSubmit={sendChat}>
-                <h1 id="project_name">Now2Tech</h1>
-                <div className='chat_content'>
-                    <ul className='chat_lines'>
-                        {content.map((data) => (
-                            data.received ? <li className="left" key={data.text}>{data.text}</li>
-                                : <li className="right" key={data.text}>{data.text}</li>
-                        ))}
-                        <li id="a" className="anchor" ref={messagesEndRef} />
-                    </ul>
-                </div>
-                {typing ? <p>Đang nhập....</p> : <></>}
-                <input type="text" value={text} placeholder='Nhập tin nhắn...' onChange={onChange} />
-                <button type="submit"><FontAwesomeIcon icon={faPaperPlane} /></button>
+    const [isChatOpen, setIsChatOpen] = useState(true);
 
-            </form>
-        </div>
+    const openChat = e => {
+        e.preventDefault();
+        setIsChatOpen(true);
+        document.getElementById("chat_window").style.display = "block"
+    }
+    const closeChat = e => {
+        e.preventDefault();
+        setIsChatOpen(false);
+        document.getElementById("chat_window").style.display = "none"
+    }
+    return (
+        <React.Fragment>
+            <div className='button_chat_window'>
+                {isChatOpen
+                    ? <button className="chat-button" onClick={closeChat}>
+                        <FontAwesomeIcon icon={faXmark} />
+                    </button>
+                    : <button className="chat-button" onClick={openChat}>
+                        <FontAwesomeIcon icon={faMessage} />
+                    </button>}
+            </div>
+            <div id="chat_window" className='chat_window'>
+                <form className='chat' onSubmit={sendChat}>
+                    <h1 id="project_name">Now2Tech</h1>
+                    <div className='chat_content'>
+                        <ul className='chat_lines'>
+                            {content.map((data) => (
+                                data.received ? <li className="left" key={data.text}>{data.text}</li>
+                                    : <li className="right" key={data.text}>{data.text}</li>
+                            ))}
+                            <li id="a" className="anchor" ref={messagesEndRef} />
+                        </ul>
+                    </div>
+                    {typing ? <p>Đang nhập....</p> : <></>}
+                    <input type="text" value={text} placeholder='Nhập tin nhắn...' onChange={onChange} />
+                    <button type="submit"><FontAwesomeIcon icon={faPaperPlane} /></button>
+
+                </form>
+            </div>
+        </React.Fragment>
     );
 }
 
