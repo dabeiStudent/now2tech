@@ -57,6 +57,11 @@ const getProduct = (req, res) => {
             .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
     }
 }
+const getProductAdmin = (req, res) => {
+    Product.find()
+        .then(result => { return res.status(200).json(result) })
+        .catch(err => { return res.status(400).json({ err: err }) });
+}
 //get one
 const getOneProduct = (req, res) => {
     Product.findById(req.params.pid)
@@ -72,11 +77,11 @@ const addNewProduct = (req, res) => {
         .catch(err => { return res.status(400).json({ err: "Sản phẩm đã tồn tại" }) });
 }
 const addSpecs4Product = (req, res) => {
-    const {specs}= req.body;
+    const { specs } = req.body;
     Product.findById(req.params.pid)
         .then((product) => {
             if (product.specs.length === 0) {
-                specs.map(spec=> {
+                specs.map(spec => {
                     product.specs.push(spec);
                 })
                 product.save();
@@ -119,4 +124,4 @@ const removeProduct = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getProduct, getOneProduct, addNewProduct, addSpecs4Product, updateProduct, updateSpecs, removeProduct };
+module.exports = { getProduct, getProductAdmin, getOneProduct, addNewProduct, addSpecs4Product, updateProduct, updateSpecs, removeProduct };

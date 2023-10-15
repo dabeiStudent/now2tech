@@ -8,7 +8,7 @@ const creatSocketIo = (server) => {
         }
     });
     io.on("connection", (socket) => {
-        console.log("New client connected" + socket.id);
+        console.log("New client connected with ID: " + socket.id);
         socket.emit("sendWelcome");
 
         socket.on("sendDataClient", (data) => {
@@ -26,5 +26,6 @@ const creatSocketIo = (server) => {
 
     });
 }
+//Tiếp tục sau khi hoàn thành UI for admin page có quản lý chat người dùng
 
 module.exports = creatSocketIo;

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket, faBarsProgress } from '@fortawesome/free-solid-svg-icons'
 import getCookie from "../../ultis/getCookie";
 import './NavLinks.css';
 const NavLinks = () => {
@@ -57,6 +57,13 @@ const NavLinks = () => {
                     <NavLink to="/login" className="nav-links__login">
                         <FontAwesomeIcon className="nav-links__icon-login" icon={faArrowRightToBracket} />
                         <span>Đăng nhập</span>
+                    </NavLink>
+                </li>}
+            {username === "admin" &&
+                <li>
+                    <NavLink to="/now2tech-management" className="nav-links__login">
+                        <FontAwesomeIcon className="nav-links__icon-login" icon={faBarsProgress} />
+                        <span>Quản lý</span>
                     </NavLink>
                 </li>}
             {/* <li>

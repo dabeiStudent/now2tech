@@ -7,6 +7,7 @@ router.use(cookieParser());
 
 //get all
 router.get('/get-all-product', productController.getProduct);
+router.get('/get-all-admin', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.getProductAdmin);
 //get one
 router.get('/get-product/:pid', productController.getOneProduct);
 //get product by brand & category

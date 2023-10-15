@@ -1,9 +1,9 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 import './ProductCard.css';
 const ProductCard = props => {
     return (
-        <a href={`/chi-tiet-san-pham/${props.id}`}>
+        <NavLink to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">
                 <div className="product-image">
                     <img
@@ -24,7 +24,7 @@ const ProductCard = props => {
                 <strong className="product-price">{props.price}</strong>
             </div>
 
-        </a>
+        </NavLink>
 
     )
 }

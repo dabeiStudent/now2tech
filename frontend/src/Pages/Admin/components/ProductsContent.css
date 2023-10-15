@@ -1,0 +1,96 @@
+.product-content {
+    position: relative;
+}
+
+.add-product-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.add-product-button:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    max-width: 100%;
+    max-height: 700px;
+    overflow: auto;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+
+.product-table th,
+.product-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    width: fit-content;
+}
+
+.product-table td:hover {
+    background-color: rgb(243, 242, 164);
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.product-row {
+    border-bottom: 1px solid #ccc;
+}
+
+
+.product-cell {
+    padding: 10px;
+}
+
+.edit-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-button:hover {
+    background-color: #1f8b4c;
+}
+
+.remove-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-button:hover {
+    background-color: #c82333;
+}
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {
+    .table-container {
+        max-width: 100%;
+        max-height: 400px;
+        overflow: auto;
+    }
+}
