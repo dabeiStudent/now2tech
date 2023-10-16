@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,13 +12,13 @@ import VoucherComponent from './components/VoucherComponent';
 import SpecsComponent from './components/SpecsComponent';
 import RatingComponent from './components/RatingComponent';
 import CommentComponent from './components/CommentComponent';
+import {CartContext} from '../../ultis/cartContext'
 
 const ProductPage = () => {
     let {pid}= useParams();
     const [product, setProduct]= useState([]);
     const navigate= useNavigate();
-    const cart= localStorage.getItem('giohang') ? JSON.parse(localStorage.getItem('giohang')) : {items: []};
-    const [items, setItems]= useState(cart.items);
+    const cart= useContext(CartContext);
 
     useEffect(()=> {
         axios.get(`http://localhost:5000/product//get-product/${pid}`)
@@ -36,10 +36,9 @@ const ProductPage = () => {
         qty: 1
     }
 
-    
     const buyNowHandler= async ()=> {
-        // setItems((prevItems)=> [...prevItems, cartItem]);
-        localStorage.setItem("giohang", JSON.stringify({items: [...items, cartItem]}));
+        cart.addToCart(cartItem);
+        // cart.saveLocalStorage(cartItem);
         navigate("/gio-hang")
     }
    

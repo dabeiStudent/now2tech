@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket, faBarsProgress } from '@fortawesome/free-solid-svg-icons'
+
 import getCookie from "../../ultis/getCookie";
 import './NavLinks.css';
+import { CartContext } from '../../ultis/cartContext';
+
 const NavLinks = () => {
     const usernameEncoded = getCookie('username');
     const username = decodeURIComponent(usernameEncoded);
@@ -13,8 +16,9 @@ const NavLinks = () => {
         userName: username,
         role: role
     }
-    const cart= localStorage.getItem("giohang") ? JSON.parse(localStorage.getItem("giohang")): {items: []};
-    // console.log(cart);
+    const cart= useContext(CartContext);
+    const {items}= cart;
+   
     return (
         <ul className="nav-links">
             <li>
@@ -38,8 +42,8 @@ const NavLinks = () => {
                 <NavLink to="/gio-hang" className="nav-links__cart">
                     <div className="nav-links__box-cart">
                         <FontAwesomeIcon className="nav-links__icon-cart" icon={faCartShopping} />
-                        {cart.items.length > 0 && 
-                            <span className="nav-links__cart-number">{cart.items.reduce((acc, current)=> acc + current.qty, 0)}</span>
+                        {items.length > 0 && 
+                            <span className="nav-links__cart-number">{items.reduce((acc, current)=> acc + current.qty, 0)}</span>
                         }
                         
                     </div>
