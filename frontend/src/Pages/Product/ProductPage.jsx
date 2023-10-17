@@ -12,7 +12,8 @@ import VoucherComponent from './components/VoucherComponent';
 import SpecsComponent from './components/SpecsComponent';
 import RatingComponent from './components/RatingComponent';
 import CommentComponent from './components/CommentComponent';
-import {CartContext} from '../../ultis/cartContext'
+import {CartContext} from '../../ultis/cartContext';
+import { formatPrice } from '../../ultis/formatPrice';
 
 const ProductPage = () => {
     let {pid}= useParams();
@@ -60,7 +61,7 @@ const ProductPage = () => {
                         <div className='price-container'>
                             <p className='price-container__title'>Giá bán:</p>
                             <div className='box-price'>
-                                <p className='box-price-present'>{product.sellPrice}  *</p>
+                                <p className='box-price-present'>{formatPrice(product.sellPrice)}  *</p>
                                 <p className='box-price-old'>29.000.000đ</p>
                             </div>
                         </div>

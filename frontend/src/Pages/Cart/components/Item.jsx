@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import {Form} from 'react-bootstrap';
 
 import './Item.css';
 import { CartContext } from '../../../ultis/cartContext';
+import { formatPrice } from '../../../ultis/formatPrice';
 
 const Item = props => {
     const cart= useContext(CartContext);
@@ -23,7 +23,7 @@ const Item = props => {
 
     return (
         <div className='product-item'>
-            <Form.Check className='custom__check-box' name='item' aria-label='option'/>
+            {/* <Form.Check className='custom__check-box' value={props.id} name='item' aria-label='option'/> */}
             <div className='product-item__img'>
                 <img src="https://cdn.tgdd.vn/Products/Images/58/312263/cap-type-c-lightning-mfi-0-9m-anker-322-a81b5-1-2.jpg" alt="product" />
             </div>
@@ -33,7 +33,7 @@ const Item = props => {
                         <a href={`/chi-tiet-san-pham/${props.id}`}>{props.name}</a>
                     </div>
                     <div className='group-price'>
-                        <span className='sell-price'>{props.price}</span>
+                        <span className='sell-price'>{formatPrice(props.price)}</span>
                         <span className='origin-price'>9.900.000đ</span>
                     </div> 
                 </div>

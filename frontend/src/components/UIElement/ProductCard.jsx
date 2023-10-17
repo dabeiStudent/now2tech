@@ -1,6 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+
 import './ProductCard.css';
+import {formatPrice} from '../../ultis/formatPrice';
+
 const ProductCard = props => {
     return (
         <NavLink to={`/chi-tiet-san-pham/${props.id}`}>
@@ -21,7 +24,7 @@ const ProductCard = props => {
                     </ul>
 
                 </div>
-                <strong className="product-price">{props.price}</strong>
+                <strong className="product-price">{formatPrice(props.price)}</strong>
             </div>
 
         </NavLink>

@@ -37,3 +37,25 @@
 .list-item__form{
     margin: 0 20px;
 }
+
+.list-item__single-item{
+    display: flex;
+}
+
+.list-item__single-item .custom__check-box{
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    padding-top: 23px;
+}
+
+.cart-page__btn{
+    margin: 0px 20px 20px 20px;
+}
+
+.cart-page__custom-btn{
+    width: 100%;
+    font-weight: bold;
+    line-height: 30px;
+}
+
