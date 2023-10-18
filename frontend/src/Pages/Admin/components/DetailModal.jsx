@@ -86,8 +86,6 @@ const DetailModal = ({ product, onClose }) => {
                     </table>
                 </div>
             </div>
-
-            <div className="backdrop" onClick={onClose}></div>
         </div>
     );
 };
