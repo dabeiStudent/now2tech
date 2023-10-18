@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Chat from './components/UIElement/Chat';
 import CartPage from './Pages/Cart/CartPage';
 import ScrollToTop from './ultis/scrollToTop';
-import {CartContext} from './ultis/cartContext';
+import { CartContext } from './ultis/cartContext';
 import { useCart } from './ultis/cartHooks';
 
 import './App.css';
@@ -30,16 +30,17 @@ function App() {
     setIsChatOpen(true);
   };
 
-  const { cartItems, addToCart, reduceQty, increaseQty, deleteItem }= useCart();
+  const { cartItems, addToCart, reduceQty, increaseQty, deleteItem } = useCart();
 
   return (
     <React.Fragment>
       <CartContext.Provider value={{
-        items: cartItems, 
-        addToCart: addToCart, 
-        reduceQty: reduceQty, 
+        items: cartItems,
+        addToCart: addToCart,
+        reduceQty: reduceQty,
         increaseQty: increaseQty,
-        deleteItem: deleteItem }}>
+        deleteItem: deleteItem
+      }}>
         <Router>
           <div className="App">
             <MainNavigation />
@@ -58,7 +59,6 @@ function App() {
                 <Route path="/reset-password" element={<ResetPWPage />} />
                 {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
                   : <Route path="/my-profile" element={<LoginPage />} />}
-
               </Routes>
             </div>
             <div className="App-footer">
@@ -74,7 +74,7 @@ function App() {
           </div>
         </Router>
       </CartContext.Provider>
-      
+
     </React.Fragment >
   );
 }
