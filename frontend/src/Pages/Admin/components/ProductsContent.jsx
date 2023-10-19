@@ -372,6 +372,15 @@ const ProductsContent = () => {
 
     const handleRemove = (productId) => {
         console.log(`Remove product with ID ${productId}`);
+        if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+            axios.delete(`http://localhost:5000/product/remove-product/${productId}`, { withCredentials: true })
+                .then((res) => {
+                    console.log('Xóa thành công');
+                })
+                .catch((err) => {
+                    console.log({ err: err });
+                })
+        }
     };
     const openDetailModal = (product) => {
         setShowDetail(true);
