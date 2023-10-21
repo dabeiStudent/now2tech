@@ -24,7 +24,7 @@ const ProductSchema = new mongoose.Schema({
         type: Array
     },
     release: {
-        type: Date
+        type: String
     },
     made: {
         type: String
@@ -37,8 +37,8 @@ const ProductSchema = new mongoose.Schema({
     },
     specs: [
         {
-            stype: {type: String },
-            sdetail: {type: String},
+            stype: { type: String },
+            sdetail: { type: String },
         }],
     vouchers: {
         type: mongoose.Schema.Types.ObjectId, ref: 'voucher',

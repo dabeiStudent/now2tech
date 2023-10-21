@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const UpdateModal = ({ user, onClose }) => {
     const [account, setAccount] = useState(user);
     if (!user) {
@@ -7,12 +7,17 @@ const UpdateModal = ({ user, onClose }) => {
     }
     const onChange = event => {
         event.preventDefault();
-        console.log(account);
         setAccount({ ...account, [event.target.name]: event.target.value });
     }
     const handleUpdate = event => {
         event.preventDefault();
-        console.log(account);
+        axios.put(`http://localhost:5000/user/user-update/${account._id}`, account, { withCredentials: true })
+            .then(result => {
+                alert("Cập nhật thành công");
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     return (
         <div className="detail-modal">
@@ -43,6 +48,7 @@ const UpdateModal = ({ user, onClose }) => {
                                     <td>Giới tính:</td>
                                     <td>
                                         <select name="gender" onChange={onChange} value={account.gender}>
+                                            <option value=""></option>
                                             <option value="Male">Nam</option>
                                             <option value="Female">Nữ</option>
                                         </select>
@@ -79,7 +85,7 @@ const UpdateModal = ({ user, onClose }) => {
                     <input type="submit" value="Cập nhật" />
                 </form>
             </div>
-        </div>
+        </div >
     );
 }
 

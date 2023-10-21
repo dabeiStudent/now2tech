@@ -15,6 +15,10 @@ const DetailModal = ({ product, onClose }) => {
                     <table className="product-details">
                         <tbody>
                             <tr>
+                                <td>ID:</td>
+                                <td>{product._id}</td>
+                            </tr>
+                            <tr>
                                 <td>Sku:</td>
                                 <td>{product.sku}</td>
                             </tr>

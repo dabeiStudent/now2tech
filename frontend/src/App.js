@@ -20,9 +20,10 @@ import { useCart } from './ultis/cartHooks';
 import Shipping from './Pages/Cart/Shipping';
 import { OrderContext } from './ultis/orderContext';
 import { useOrder } from './ultis/orderHooks';
+import MainAdminPage from './Pages/Admin/MainAdminPage';
+
 
 import './App.css';
-import MainAdminPage from './Pages/Admin/MainAdminPage';
 
 function App() {
   const usernameEncoded = getCookie('username');
@@ -33,8 +34,8 @@ function App() {
     setIsChatOpen(true);
   };
 
-  const { cartItems, addToCart, reduceQty, increaseQty, deleteItem }= useCart();
-  const {selectedItems, address, setSelectedItems, setAddress }= useOrder();
+  const { cartItems, addToCart, reduceQty, increaseQty, deleteItem } = useCart();
+  const { selectedItems, address, setSelectedItems, setAddress } = useOrder();
 
   return (
     <React.Fragment>
@@ -43,12 +44,14 @@ function App() {
         addToCart: addToCart,
         reduceQty: reduceQty,
         increaseQty: increaseQty,
-        deleteItem: deleteItem }}>
+        deleteItem: deleteItem
+      }}>
         <OrderContext.Provider value={{
           selectedItems: selectedItems,
           address: address,
           setSelectedItems: setSelectedItems,
-          setAddress: setAddress}}>
+          setAddress: setAddress
+        }}>
           <Router>
             <div className="App">
               <MainNavigation />
@@ -57,11 +60,11 @@ function App() {
                 <Routes>
                   <Route exact path="/" element={<HomePage />} />
                   <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
-                
+
                   <Route exact path='/gio-hang' element={<CartPage />} />
-                  <Route exact path='/thong-tin-giao-hang' element={<Shipping/>}/>
-                  
-                  
+                  <Route exact path='/thong-tin-giao-hang' element={<Shipping />} />
+
+
                   {username === "admin"
                     && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
                   {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
@@ -71,7 +74,6 @@ function App() {
                   <Route path="/reset-password" element={<ResetPWPage />} />
                   {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
                     : <Route path="/my-profile" element={<LoginPage />} />}
-
                 </Routes>
               </div>
               <div className="App-footer">

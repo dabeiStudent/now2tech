@@ -27,6 +27,7 @@ const UsersContent = () => {
     const closeEditModal = event => {
         event.preventDefault();
         setShowUpdate(false);
+        setState(!state);
     }
 
     const handleRemove = (userId) => {
@@ -77,7 +78,6 @@ const UsersContent = () => {
     return (
         <React.Fragment>
             <div className="product-content">
-                <button className="add-product-button">Thêm tài khoản</button>
                 <div className="table-container">
                     <table className="user-table">
                         <thead>
