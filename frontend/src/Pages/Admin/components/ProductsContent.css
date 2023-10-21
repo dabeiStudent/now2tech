@@ -9,7 +9,7 @@
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    margin: 10px;
+    margin: 10px 0 10px 0;
     font-weight: bold;
     text-transform: uppercase;
     transition: background-color 0.3s;
@@ -40,8 +40,12 @@
     width: fit-content;
 }
 
-.product-table td:hover {
+.product-table tr:hover {
     background-color: rgb(243, 242, 164);
+}
+
+.product-table td:hover {
+    background-color: rgb(252, 249, 108);
 }
 
 .product-table th {
@@ -56,6 +60,21 @@
 
 .product-cell {
     padding: 10px;
+}
+
+.detail-button {
+    background-color: #2372e9;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.detail-button:hover {
+    background-color: rgb(33, 85, 134);
 }
 
 .edit-button {

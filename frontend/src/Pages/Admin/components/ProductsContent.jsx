@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
+import DetailModal from "./DetailModal";
 
 import './ProductsContent.css';
-import axios from "axios";
+
 const ProductsContent = () => {
+    const [showDetail, setShowDetail] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
     const [products, setProduct] = useState([{
         _id: '',
         sku: '',
@@ -25,7 +29,6 @@ const ProductsContent = () => {
         axios.get("http://localhost:5000/product/get-all-admin", { withCredentials: true })
             .then(result => {
                 setProduct(result.data);
-                console.log(result.data)
             })
     }, []);
     // const products = [
@@ -364,73 +367,78 @@ const ProductsContent = () => {
     //     // Add more product data as needed
     // ];
     const handleEdit = (productId) => {
-        // Xử lý khi nút "Edit" được nhấn
         console.log(`Edit product with ID ${productId}`);
     };
 
     const handleRemove = (productId) => {
-        // Xử lý khi nút "Remove" được nhấn
         console.log(`Remove product with ID ${productId}`);
+        if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+            axios.delete(`http://localhost:5000/product/remove-product/${productId}`, { withCredentials: true })
+                .then((res) => {
+                    console.log('Xóa thành công');
+                })
+                .catch((err) => {
+                    console.log({ err: err });
+                })
+        }
     };
+    const openDetailModal = (product) => {
+        setShowDetail(true);
+        setSelectedProduct(product);
+    }
+
+    const closeDetailModal = () => {
+        setShowDetail(false);
+        setSelectedProduct(null);
+    }
     return (
-        <div className="product-content">
-            <button className="add-product-button">Add Product</button>
-            <div className="table-container">
-                <table className="product-table">
-                    <thead>
-                        <tr >
-                            <th>_id</th>
-                            <th>sku</th>
-                            <th>name</th>
-                            <th>importPrice</th>
-                            <th>sellPrice</th>
-                            <th>pimage</th>
-                            <th>desc</th>
-                            <th>tags</th>
-                            <th>release</th>
-                            <th>made</th>
-                            <th>brand</th>
-                            <th>category</th>
-                            <th>specs</th>
-                            <th>vouchers</th>
-                            <th>inStock</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map((product) => (
-                            <tr key={product._id} className="product-row">
-                                <td className="product-cell">{product._id}</td>
-                                <td className="product-cell">{product.sku}</td>
-                                <td className="product-cell">{product.name}</td>
-                                <td className="product-cell">{product.importPrice}</td>
-                                <td className="product-cell">{product.sellPrice}</td>
-                                <td className="product-cell">{product.pimage}</td>
-                                <td className="product-cell">{product.desc}</td>
-                                <td className="product-cell">{product.tags}</td>
-                                <td className="product-cell"> {product.release}</td>
-                                <td className="product-cell">{product.made}</td>
-                                <td className="product-cell">{product.brand}</td>
-                                <td className="product-cell">{product.category}</td>
-                                <td className="product-cell">
-                                    {product.specs.map(spec => (
-                                        <tr key={spec._id}>
-                                            <td>{spec.stype}</td>
-                                            <td>{spec.sdetail}</td>
-                                        </tr>))}
-                                </td>
-                                <td className="product-cell">{product.vouchers}</td>
-                                <td className="product-cell">{product.inStock}</td>
-                                <td className="product-cell">
-                                    <button className="edit-button" onClick={() => handleEdit(product._id)}>Edit</button>
-                                    <button className="remove-button" onClick={() => handleRemove(product._id)}>Remove</button>
-                                </td>
+        <React.Fragment>
+            <div className="product-content">
+                <button className="add-product-button">Thêm sản phẩm</button>
+                <div className="table-container">
+                    <table className="product-table">
+                        <thead>
+                            <tr >
+                                <th>sku</th>
+                                <th>name</th>
+                                <th>importPrice</th>
+                                <th>sellPrice</th>
+                                <th>pimage</th>
+                                <th>made</th>
+                                <th>brand</th>
+                                <th>category</th>
+                                <th>inStock</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {products.map((product) => (
+                                <tr key={product._id} className="product-row">
+                                    <td className="product-cell">{product.sku}</td>
+                                    <td className="product-cell">{product.name}</td>
+                                    <td className="product-cell">{product.importPrice}</td>
+                                    <td className="product-cell">{product.sellPrice}</td>
+                                    <td className="product-cell">{product.pimage}</td>
+                                    <td className="product-cell">{product.made}</td>
+                                    <td className="product-cell">{product.brand}</td>
+                                    <td className="product-cell">{product.category}</td>
+                                    <td className="product-cell">{product.inStock}</td>
+                                    <td className="product-cell">
+                                        <button className="detail-button" onClick={() => openDetailModal(product)}>Chi tiết</button>
+                                        <button className="edit-button" onClick={() => handleEdit(product._id)}>Cập nhật</button>
+                                        <button className="remove-button" onClick={() => handleRemove(product._id)}>Xóa</button>
+                                        {showDetail && selectedProduct && (
+                                            <DetailModal product={selectedProduct} onClose={closeDetailModal} />)}
+                                    </td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-        </div>
+        </React.Fragment>
     );
 }
 

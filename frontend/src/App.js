@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Chat from './components/UIElement/Chat';
 import CartPage from './Pages/Cart/CartPage';
 import ScrollToTop from './ultis/scrollToTop';
-import {CartContext} from './ultis/cartContext';
+import { CartContext } from './ultis/cartContext';
 import { useCart } from './ultis/cartHooks';
 import Shipping from './Pages/Cart/Shipping';
 import { OrderContext } from './ultis/orderContext';
@@ -39,9 +39,9 @@ function App() {
   return (
     <React.Fragment>
       <CartContext.Provider value={{
-        items: cartItems, 
-        addToCart: addToCart, 
-        reduceQty: reduceQty, 
+        items: cartItems,
+        addToCart: addToCart,
+        reduceQty: reduceQty,
         increaseQty: increaseQty,
         deleteItem: deleteItem }}>
         <OrderContext.Provider value={{
@@ -88,7 +88,7 @@ function App() {
           </Router>
         </OrderContext.Provider>
       </CartContext.Provider>
-      
+
     </React.Fragment >
   );
 }
