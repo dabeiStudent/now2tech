@@ -75,11 +75,7 @@ const DetailModal = ({ product, onClose }) => {
                             <tr>
                                 <td>Vouchers:</td>
                                 <td>
-                                    <ul>
-                                        {product.vouchers.map((voucher, index) => (
-                                            <li key={index}>{voucher}</li>
-                                        ))}
-                                    </ul>
+                                    {product.vouchers}
                                 </td>
                             </tr>
                         </tbody>

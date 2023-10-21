@@ -4,8 +4,10 @@ import DetailModalUser from "./DetailModalUser";
 
 import './UsersContent.css';
 import axios from "axios";
+import UpdateModal from "./UpdateModal";
 const UsersContent = () => {
     const [showDetail, setShowDetail] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [users, setUser] = useState([]);
     const [state, setState] = useState(false);
@@ -18,9 +20,14 @@ const UsersContent = () => {
                 console.log(err);
             })
     }, [state]);
-    const handleEdit = (userId) => {
-        console.log(`Edit user with ID ${userId}`);
+    const handleEdit = (user) => {
+        setShowUpdate(true);
+        setSelectedUser(user);
     };
+    const closeEditModal = event => {
+        event.preventDefault();
+        setShowUpdate(false);
+    }
 
     const handleRemove = (userId) => {
         if (window.confirm('Bạn có chắc muốn xóa tài khoản này?')) {
@@ -95,7 +102,10 @@ const UsersContent = () => {
                                     <td className="product-cell">{user.email}</td>
                                     <td className="product-cell">
                                         <button className="detail-button" onClick={() => openDetailModal(user)}>Chi tiết</button>
-                                        <button className="edit-button" onClick={() => handleEdit(user._id)}>Cập nhật</button>
+                                        <button className="edit-button" onClick={() => handleEdit(user)}>Cập nhật</button>
+                                        {showUpdate && selectedUser && (
+                                            <UpdateModal user={selectedUser} onClose={closeEditModal} />
+                                        )}
                                         {user.status === "active"
                                             ? <button className="block-button" onClick={() => handleBlock(user._id, user.status)}>Khóa</button>
                                             : <button className="block-button" onClick={() => handleBlock(user._id, user.status)}>Mở khóa</button>}
