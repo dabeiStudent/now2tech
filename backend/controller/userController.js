@@ -193,7 +193,11 @@ const setStatus = (req, res) => {
     }
 }
 //remove account
-const removeUser = (req, res) => {
+const removeUser = async (req, res) => {
+    const isAdmin = await User.findById(req.params.uid);
+    if (isAdmin.userName === "admin") {
+        return res.status(400).json({ err: "Admin" });
+    }
     User.findByIdAndRemove(req.params.uid)
         .then(result => {
             return res.status(200).json({ msg: "Đã xóa tài khoản" });

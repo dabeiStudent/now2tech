@@ -1,3 +1,32 @@
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+
+.user-table th,
+.user-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    width: fit-content;
+    overflow: auto;
+}
+
+.user-table tr:hover {
+    background-color: rgb(243, 242, 164);
+}
+
+.user-table td:hover {
+    background-color: rgb(252, 249, 108);
+}
+
+.user-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
 .block-button {
     background-color: #ec7f26;
     color: #fff;

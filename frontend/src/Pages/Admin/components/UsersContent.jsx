@@ -8,6 +8,7 @@ const UsersContent = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [users, setUser] = useState([]);
+    const [state, setState] = useState(false);
     useEffect(() => {
         axios.get('http://localhost:5000/user/get-user', { withCredentials: true })
             .then(res => {
@@ -16,35 +17,44 @@ const UsersContent = () => {
             .catch(err => {
                 console.log(err);
             })
-    }, []);
+    }, [state]);
     const handleEdit = (userId) => {
         console.log(`Edit user with ID ${userId}`);
     };
 
     const handleRemove = (userId) => {
-        console.log(`Remove user with ID ${userId}`);
-        // if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-        //     axios.delete(`http://localhost:5000/product/remove-product/${productId}`, { withCredentials: true })
-        //         .then((res) => {
-        //             console.log('Xóa thành công');
-        //         })
-        //         .catch((err) => {
-        //             console.log({ err: err });
-        //         })
-        // }
+        if (window.confirm('Bạn có chắc muốn xóa tài khoản này?')) {
+            axios.delete(`http://localhost:5000/user/user-remove/${userId}`, { withCredentials: true })
+                .then((res) => {
+                    alert('Xóa thành công');
+                    setState(!state);
+                })
+                .catch((err) => {
+                    alert('Không thể xóa tài khoản admin');
+                    console.log({ err: err });
+                })
+        }
     };
 
     const handleBlock = (userId, userStatus) => {
         if (userStatus === "active") {
-            console.log({
-                type: 'block',
-                userId: userId
-            })
+            axios.put(`http://localhost:5000/user/user-status/${userId}/1`, '', { withCredentials: true })
+                .then(result => {
+                    alert("Đã khóa tài khoản");
+                    setState(!state);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         } else {
-            console.log({
-                type: 'unblock',
-                userId: userId
-            })
+            axios.put(`http://localhost:5000/user/user-status/${userId}/0`, '', { withCredentials: true })
+                .then(result => {
+                    alert("Đã mở khóa tài khoản");
+                    setState(!state);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
     }
 
@@ -60,16 +70,14 @@ const UsersContent = () => {
     return (
         <React.Fragment>
             <div className="product-content">
-                <button className="add-product-button">Thêm sản phẩm</button>
+                <button className="add-product-button">Thêm tài khoản</button>
                 <div className="table-container">
-                    <table className="product-table">
+                    <table className="user-table">
                         <thead>
                             <tr >
                                 <th>id</th>
                                 <th>firstName</th>
                                 <th>lastName</th>
-                                <th>gender</th>
-                                <th>dob</th>
                                 <th>phoneNumber</th>
                                 <th>userName</th>
                                 <th>email</th>
@@ -82,8 +90,6 @@ const UsersContent = () => {
                                     <td className="product-cell">{user._id}</td>
                                     <td className="product-cell">{user.firstName}</td>
                                     <td className="product-cell">{user.lastName}</td>
-                                    <td className="product-cell">{user.gender}</td>
-                                    <td className="product-cell">{user.dob}</td>
                                     <td className="product-cell">{user.phoneNumber}</td>
                                     <td className="product-cell">{user.userName}</td>
                                     <td className="product-cell">{user.email}</td>
