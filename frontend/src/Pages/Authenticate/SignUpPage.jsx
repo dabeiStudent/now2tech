@@ -48,34 +48,37 @@ const SignUpPage = () => {
                     <div>
                         <h1>Đăng ký tài khoản</h1>
                     </div>
-                    <div className="left-form">
-                        <div className="input">
-                            <FontAwesomeIcon icon={faT} />
-                            <input name="firstName" value={user.firstName} onChange={onChange} type="text" placeholder="Nhập tên tại đây" required />
+                    <div className="signup-page__form">
+                        <div className="left-form">
+                            <div className="input">
+                                <FontAwesomeIcon icon={faT} />
+                                <input name="firstName" value={user.firstName} onChange={onChange} type="text" placeholder="Nhập tên tại đây" required />
+                            </div>
+                            <div className="input">
+                                <FontAwesomeIcon icon={faH} />
+                                <input name="lastName" value={user.lastName} onChange={onChange} type="text" placeholder="Nhập họ tại đây" required />
+                            </div>
+                            <div className="input">
+                                <FontAwesomeIcon icon={faPhone} />
+                                <input name="phoneNumber" value={user.phoneNumber} onChange={onChange} type="text" placeholder="Số điện thoại" required />
+                            </div>
                         </div>
-                        <div className="input">
-                            <FontAwesomeIcon icon={faH} />
-                            <input name="lastName" value={user.lastName} onChange={onChange} type="text" placeholder="Nhập họ tại đây" required />
-                        </div>
-                        <div className="input">
-                            <FontAwesomeIcon icon={faPhone} />
-                            <input name="phoneNumber" value={user.phoneNumber} onChange={onChange} type="text" placeholder="Số điện thoại" required />
+                        <div className="right-form">
+                            <div className="input">
+                                <FontAwesomeIcon icon={faUser} />
+                                <input name="userName" value={user.userName} onChange={onChange} type="text" placeholder="Username" required />
+                            </div>
+                            <div className="input">
+                                <FontAwesomeIcon icon={faEnvelope} />
+                                <input name="email" value={user.email} onChange={onChange} type="email" placeholder="Email" required />
+                            </div>
+                            <div className="input">
+                                <FontAwesomeIcon icon={faLock} />
+                                <input name="passWord" value={user.passWord} onChange={onChange} type="password" placeholder="Mật khẩu" required />
+                            </div>
                         </div>
                     </div>
-                    <div className="right-form">
-                        <div className="input">
-                            <FontAwesomeIcon icon={faUser} />
-                            <input name="userName" value={user.userName} onChange={onChange} type="text" placeholder="Username" required />
-                        </div>
-                        <div className="input">
-                            <FontAwesomeIcon icon={faEnvelope} />
-                            <input name="email" value={user.email} onChange={onChange} type="email" placeholder="Email" required />
-                        </div>
-                        <div className="input">
-                            <FontAwesomeIcon icon={faLock} />
-                            <input name="passWord" value={user.passWord} onChange={onChange} type="password" placeholder="Mật khẩu" required />
-                        </div>
-                    </div>
+                    
                     <div className="input">
                         <input type="submit" value="TIẾP TỤC" />
                     </div>
