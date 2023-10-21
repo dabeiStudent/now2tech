@@ -11,7 +11,7 @@ const createOrder = async (req, res) => {
                 ...i,
                 productId: i._id
             })),
-            user: req.data.uid,
+            user: '6517c305767f800f49e90d2f',
             address: req.body.address,
             status: req.body.status,
             method: req.body.method,

@@ -8,14 +8,21 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.signup-page__form{
+    display: flex;
+    justify-content: space-between;
+}
+
 .left-form {
+    width: 50%;
     margin-left: 2%;
-    float: left
+    /* float: left */
 }
 
 .right-form {
+    width: 50%;
     margin-right: 2%;
-    float: right;
+    /* float: right; */
 }
 
 .form__signup h1 {

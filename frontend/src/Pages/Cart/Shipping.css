@@ -1,0 +1,15 @@
+.shipping-page{
+    max-width: 1220px;
+    background: #f3f3f3;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.shipping-page__main{
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 2px;
+    margin: 10px 0;
+}

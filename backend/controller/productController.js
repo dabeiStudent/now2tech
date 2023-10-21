@@ -63,8 +63,9 @@ const getProductAdmin = (req, res) => {
         .catch(err => { return res.status(400).json({ err: err }) });
 }
 //get one
-const getOneProduct = (req, res) => {
+const getOneProduct = async (req, res) => {
     Product.findById(req.params.pid)
+        .populate('vouchers')
         .then(product => { return res.status(200).json(product) })
         .catch(err => { return res.status(404).json({ err: "Không tìm thấy" }) });
 }

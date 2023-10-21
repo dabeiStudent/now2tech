@@ -1,17 +1,25 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import {Form, Col, Row } from 'react-bootstrap';
 
 import './UserInfo.css';
+import { OrderContext } from '../../../ultis/orderContext';
 
 const UserInfo = () => {
-    const [province, setProvince]= useState([]);
+    const orderContext= useContext(OrderContext);
+
+    const [provinces, setProvince]= useState([]);
     const [selectedProvince, setSelectedProvince]=useState();
-    const [district, setDistrict]= useState([]);
+
+    const [districts, setDistrict]= useState([]);
     const [selectedDistrict, setSelectedDistrict]= useState();
+
     const [wards, setWards]= useState([]);
     const [selectedWard, setSelectedWard]= useState();
+
     const [getOderMethod, setGetOrderMethod]= useState('at-store');
+
+    const [address, setAddress]= useState('');
 
     useEffect(()=>{
         const getListProvince= async()=> {
@@ -48,10 +56,30 @@ const UserInfo = () => {
         setSelectedDistrict(e.target.value);
     }
 
-    const getOrderMethodHandler= (e)=> {
-        setGetOrderMethod(e.target.value)
+    const selectedWardHandler= (e)=> {
+        setSelectedWard(e.target.value);
     }
-    // console.log(getOderMethod)
+
+    const getOrderMethodHandler= (e)=> {
+        setGetOrderMethod(e.target.value);
+    }
+
+    const addressChangeHandler= (e)=> {
+        setAddress(e.target.value);
+    }
+
+    const submitHandler= event => {
+        event.preventDefault();
+        const sprovince= provinces.find(p=> p.province_id === selectedProvince);
+        const sdistrict= districts.find(d=> d.district_id === selectedDistrict);
+        const sward= wards.find(w=> w.ward_id === selectedWard);
+
+        const add= address + ', ' + sward.ward_name + ', ' + sdistrict.district_name + ', ' + sprovince.province_name;
+
+        orderContext.setAddress(add);
+        console.log(add);
+    }
+
 
   return (
     <div className='customer-info'>
@@ -101,7 +129,7 @@ const UserInfo = () => {
                         <Col>
                             <Form.Select onChange={selectProvinceHandler}   >
                                 <option value="">Chọn tỉnh/thành phố</option>
-                                {province.map(p => (
+                                {provinces.map(p => (
                                     <option value={p.province_id} key={p.province_id}>{p.province_name}</option>
                                 ))}
                                 
@@ -110,13 +138,13 @@ const UserInfo = () => {
                         <Col>
                             <Form.Select onChange={selectedDistrictHandler}>
                                 <option >Chọn quận/huyện</option>
-                                {district.map(d=>(
+                                {districts.map(d=>(
                                     <option key={d.district_id} value={d.district_id}>{d.district_name}</option>
                                 ))}
                             </Form.Select>
                         </Col>
                         <Col>
-                            <Form.Select>
+                            <Form.Select onChange={selectedWardHandler}>
                                 <option>Chọn phường/xã</option>
                                 {wards.map(ward=> (
                                     <option key={ward.ward_id} value={ward.ward_id}>{ward.ward_name}</option>
@@ -127,7 +155,7 @@ const UserInfo = () => {
                     <Row className='form-row'>
                         <Form.Group className='custom-form__input'>
                             <Form.Label>Địa chỉ</Form.Label>
-                            <Form.Control type='text' required/>
+                            <Form.Control value={address} onChange={addressChangeHandler} type='text' required/>
                         </Form.Group>
                     </Row>
                 </div> 
@@ -141,9 +169,7 @@ const UserInfo = () => {
                     <Form.Check id='cod' name='payment-method' type='radio' inline label='Thanh toán khi nhận hàng'/>
                 </Col>                
             </Row>
-            <button className='place-order-btn'>ĐẶT HÀNG</button>
-            
-            
+            <button onClick={submitHandler} className='place-order-btn'>TIẾP THEO</button>  
         </Form>
         
     </div>

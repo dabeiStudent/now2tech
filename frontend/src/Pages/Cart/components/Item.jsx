@@ -32,10 +32,17 @@ const Item = props => {
                     <div className='product-name'>
                         <a href={`/chi-tiet-san-pham/${props.id}`}>{props.name}</a>
                     </div>
-                    <div className='group-price'>
-                        <span className='sell-price'>{formatPrice(props.price)}</span>
-                        <span className='origin-price'>9.900.000đ</span>
-                    </div> 
+                    {props.vouchers ? (
+                        <div className='group-price'>
+                            <span className='sell-price'>{formatPrice(props.price * (100 - props.vouchers.percent) / 100)}</span>
+                            <span className='origin-price'>{formatPrice(props.price)}</span>
+                        </div> 
+                    ) : (
+                        <div className='group-price'>
+                            <span className='sell-price'>{formatPrice(props.price)}</span>
+                        </div> 
+                    )}
+                    
                 </div>
                 <div className='product-item__info-bottom'>
                     <div className='quantity-group-btn'>

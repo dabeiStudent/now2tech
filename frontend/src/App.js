@@ -17,6 +17,9 @@ import CartPage from './Pages/Cart/CartPage';
 import ScrollToTop from './ultis/scrollToTop';
 import { CartContext } from './ultis/cartContext';
 import { useCart } from './ultis/cartHooks';
+import Shipping from './Pages/Cart/Shipping';
+import { OrderContext } from './ultis/orderContext';
+import { useOrder } from './ultis/orderHooks';
 
 import './App.css';
 import MainAdminPage from './Pages/Admin/MainAdminPage';
@@ -30,7 +33,8 @@ function App() {
     setIsChatOpen(true);
   };
 
-  const { cartItems, addToCart, reduceQty, increaseQty, deleteItem } = useCart();
+  const { cartItems, addToCart, reduceQty, increaseQty, deleteItem }= useCart();
+  const {selectedItems, address, setSelectedItems, setAddress }= useOrder();
 
   return (
     <React.Fragment>
@@ -39,40 +43,50 @@ function App() {
         addToCart: addToCart,
         reduceQty: reduceQty,
         increaseQty: increaseQty,
-        deleteItem: deleteItem
-      }}>
-        <Router>
-          <div className="App">
-            <MainNavigation />
-            <div className='App-body'>
-              <ScrollToTop />
-              <Routes>
-                <Route exact path="/" element={<HomePage />} />
-                <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
-                <Route exact path='/gio-hang' element={<CartPage />} />
-                {username === "admin"
-                  && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
-                {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
-                  : <Route path="/login" element={<LoginPage />} />}
-                {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
-                  : <Route path="/signup" element={<SignUpPage />} />}
-                <Route path="/reset-password" element={<ResetPWPage />} />
-                {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
-                  : <Route path="/my-profile" element={<LoginPage />} />}
-              </Routes>
+        deleteItem: deleteItem }}>
+        <OrderContext.Provider value={{
+          selectedItems: selectedItems,
+          address: address,
+          setSelectedItems: setSelectedItems,
+          setAddress: setAddress}}>
+          <Router>
+            <div className="App">
+              <MainNavigation />
+              <div className='App-body'>
+                <ScrollToTop />
+                <Routes>
+                  <Route exact path="/" element={<HomePage />} />
+                  <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
+                
+                  <Route exact path='/gio-hang' element={<CartPage />} />
+                  <Route exact path='/thong-tin-giao-hang' element={<Shipping/>}/>
+                  
+                  
+                  {username === "admin"
+                    && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
+                  {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
+                    : <Route path="/login" element={<LoginPage />} />}
+                  {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
+                    : <Route path="/signup" element={<SignUpPage />} />}
+                  <Route path="/reset-password" element={<ResetPWPage />} />
+                  {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
+                    : <Route path="/my-profile" element={<LoginPage />} />}
+
+                </Routes>
+              </div>
+              <div className="App-footer">
+                {username !== "admin" && <Footer />}
+              </div>
+              {!isChatOpen && username !== "admin" ?
+                < button className="chat-button" onClick={handleChatButtonClick} >
+                  <FontAwesomeIcon icon={faMessage} />
+                </button>
+                : <></>
+              }
+              {isChatOpen && <Chat />}
             </div>
-            <div className="App-footer">
-              {username !== "admin" && <Footer />}
-            </div>
-            {!isChatOpen && username !== "admin" ?
-              < button className="chat-button" onClick={handleChatButtonClick} >
-                <FontAwesomeIcon icon={faMessage} />
-              </button>
-              : <></>
-            }
-            {isChatOpen && <Chat />}
-          </div>
-        </Router>
+          </Router>
+        </OrderContext.Provider>
       </CartContext.Provider>
 
     </React.Fragment >

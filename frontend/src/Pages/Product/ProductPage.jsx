@@ -34,16 +34,14 @@ const ProductPage = () => {
         name: product.name,
         price: product.sellPrice,
         image: product.image,
+        vouchers: product.vouchers,
         qty: 1
     }
 
     const buyNowHandler= async ()=> {
         cart.addToCart(cartItem);
-        // cart.saveLocalStorage(cartItem);
         navigate("/gio-hang")
     }
-   
-
 
     return (
         <div className='product-page'>
@@ -60,12 +58,19 @@ const ProductPage = () => {
                     <div className='box-right'>
                         <div className='price-container'>
                             <p className='price-container__title'>Giá bán:</p>
-                            <div className='box-price'>
-                                <p className='box-price-present'>{formatPrice(product.sellPrice)}  *</p>
-                                <p className='box-price-old'>29.000.000đ</p>
-                            </div>
+                            {product.vouchers ? (
+                                <div className='box-price'>
+                                    <p className='box-price-present'>{formatPrice((100 - product.vouchers.percent) * product.sellPrice / 100)}  *</p>
+                                    <p className='box-price-old'>{formatPrice(product.sellPrice)}</p>
+                                </div>
+                            ) : (
+                                <div className='box-price'>
+                                    <p className='box-price-present'>{formatPrice(product.sellPrice)}  *</p>
+                                </div>
+                            )}
+                            
                         </div>
-                        <VoucherComponent />
+                        <VoucherComponent vouchers={product.vouchers}/>
                         <button onClick={buyNowHandler} className='product-page__btn buy-now-btn'>MUA NGAY</button>
                         <div className='button-group'>
                             <button className='product-page__btn'>
