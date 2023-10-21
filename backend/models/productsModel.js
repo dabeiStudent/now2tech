@@ -40,9 +40,10 @@ const ProductSchema = new mongoose.Schema({
             stype: {type: String },
             sdetail: {type: String},
         }],
-    vouchers: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'voucher'
-    }],
+    vouchers: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'voucher',
+        default: null
+    },
     inStock: {
         type: Number
     }

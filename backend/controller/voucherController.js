@@ -85,12 +85,17 @@ const addProductToVoucher= async (req, res)=>{
         return res.status(404).json({err: "Không tìm thấy sản phẩm."});
     }
 
+    if(existingProduct.vouchers !== null){
+        return res.status(404).json({err: "Sản phẩm đang trong khuyến mãi khác."});
+    }
+
     try{
         const sess= await mongoose.startSession();
         sess.startTransaction();
         await existingVoucher.productList.push(existingProduct);
         await existingVoucher.save();
-        await existingProduct.vouchers.push(existingVoucher);
+        // await existingProduct.vouchers.push(existingVoucher);
+        existingProduct.vouchers = existingVoucher._id
         await existingProduct.save();
         await sess.commitTransaction();
     }catch(error){

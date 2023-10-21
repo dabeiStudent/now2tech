@@ -1,14 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {Form, Button} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import './CartPage.css';
 import Item from './components/Item';
 // import UserInfo from './components/UserInfo';
 import { CartContext } from '../../ultis/cartContext';
 import { formatPrice } from '../../ultis/formatPrice';
+// import getCookie from '../../ultis/getCookie';
+import { OrderContext } from '../../ultis/orderContext';
 
 const CartPage = () => {
   const cart= useContext(CartContext);
+  const orderContext= useContext(OrderContext);
+
+  // const usernameEncoded = getCookie('username');
+  // const username = decodeURIComponent(usernameEncoded);
+  const navigate= useNavigate();
   const [selectedItems, setSelectedItems]= useState([]);
   const [selectAll, setSelectAll]= useState(false);
 
@@ -36,6 +44,17 @@ const CartPage = () => {
       setSelectAll(true);
     }
   }, [selectedItems, cart.items.length]);
+
+  const placeOrderHandler= async ()=> {
+    // if(username !== 'false'){
+      orderContext.setSelectedItems(selectedItems);
+      navigate('/thong-tin-giao-hang')
+      
+    // } else {
+    //   window.alert('Vui long dang nhap truoc khi dat hang.')
+    //   navigate('/login')
+    // }
+  }
   
   return (
     <div className='cart-page'>
@@ -47,18 +66,17 @@ const CartPage = () => {
                 { cart.items.length > 0 && cart.items.map(item=> (
                   <div className='list-item__single-item' key={item.id}>
                     <Form.Check checked={selectedItems.includes(item)} onChange={checkboxChangeHandler} className='custom__check-box' value={item.id} name='item' aria-label='option'/>
-                    <Item id={item.id} name={item.name} price={item.price} qty={item.qty}/>
+                    <Item id={item.id} name={item.name} price={item.price} qty={item.qty} vouchers={item.vouchers}/>
                   </div>
-                  
                 ))}
               </Form>   
             </div>
             <div className='total-cost'>
                 <span>Tạm tính ({selectedItems.reduce((acc, current)=> acc + current.qty, 0)} sản phẩm):</span>
-                <span>{formatPrice(selectedItems.reduce((acc, current)=> acc + current.qty * current.price, 0))}</span>
+                <span>{formatPrice(selectedItems.reduce((acc, current)=> acc + (current.vouchers ? ((current.price * (100 - current.vouchers.percent) / 100) * current.qty): (current.price * current.qty)), 0))}</span>
             </div>
             <div className='cart-page__btn'>
-              <Button className='cart-page__custom-btn' variant='danger' disabled={selectedItems.length === 0}>ĐẶT HÀNG</Button>
+              <Button onClick={placeOrderHandler} className='cart-page__custom-btn' variant='danger' disabled={selectedItems.length === 0}>ĐẶT HÀNG</Button>
             </div>
             {/* <UserInfo/> */}
             
