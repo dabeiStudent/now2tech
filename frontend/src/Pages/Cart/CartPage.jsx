@@ -7,15 +7,15 @@ import Item from './components/Item';
 // import UserInfo from './components/UserInfo';
 import { CartContext } from '../../ultis/cartContext';
 import { formatPrice } from '../../ultis/formatPrice';
-// import getCookie from '../../ultis/getCookie';
+import getCookie from '../../ultis/getCookie';
 import { OrderContext } from '../../ultis/orderContext';
 
 const CartPage = () => {
   const cart= useContext(CartContext);
   const orderContext= useContext(OrderContext);
 
-  // const usernameEncoded = getCookie('username');
-  // const username = decodeURIComponent(usernameEncoded);
+  const usernameEncoded = getCookie('username');
+  const username = decodeURIComponent(usernameEncoded);
   const navigate= useNavigate();
   const [selectedItems, setSelectedItems]= useState([]);
   const [selectAll, setSelectAll]= useState(false);
@@ -46,14 +46,13 @@ const CartPage = () => {
   }, [selectedItems, cart.items.length]);
 
   const placeOrderHandler= async ()=> {
-    // if(username !== 'false'){
+    if(username !== 'false'){
       orderContext.setSelectedItems(selectedItems);
       navigate('/thong-tin-giao-hang')
-      
-    // } else {
-    //   window.alert('Vui long dang nhap truoc khi dat hang.')
-    //   navigate('/login')
-    // }
+    } else {
+      window.alert('Vui long dang nhap truoc khi dat hang.')
+      navigate('/login')
+    }
   }
   
   return (

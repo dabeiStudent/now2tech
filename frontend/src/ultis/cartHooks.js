@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useCart= ()=>{
-    const cart= localStorage.getItem('giohang') ? JSON.parse(localStorage.getItem('giohang')) : {items: []};
+    const cart= localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {items: []};
     const [cartItems, setCartItems]= useState(cart.items);
 
     const addToCart= (item)=>{
@@ -43,7 +43,7 @@ export const useCart= ()=>{
     }
     
     useEffect(()=> {
-    localStorage.setItem('giohang', JSON.stringify({items: cartItems}));
+        localStorage.setItem('cart', JSON.stringify({items: cartItems}));
     },[cartItems]);
 
     return { cartItems, addToCart, reduceQty, increaseQty, deleteItem };
