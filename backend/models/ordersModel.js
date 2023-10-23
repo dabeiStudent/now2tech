@@ -5,7 +5,7 @@ const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User',
+        ref: 'user',
     },
     address: {
         type: String
@@ -21,16 +21,20 @@ const OrderSchema = new mongoose.Schema({
         },
     },],
     status: {
-        type: String
+        type: String,
+        enum: ['Not_proccessed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
+        default: 'Not_proccessed'
     },
-    method: {
-        type: String
+    paymentMethod: {
+        type: String,
+        enum: ['COD', 'PAYPAL']
     },
     paymentStatus: {
-        type: String
+        isPaid: { type: Boolean, default: false },
+        paidAt: { type: Date }
     },
     price: {
-        type: Number
+        type: Number, 
     },
     shippingFee: {
         type: Number

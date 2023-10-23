@@ -1,0 +1,143 @@
+.order-item{
+    list-style: none;
+    
+}
+.order-item{
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 0 5px 10px 5px;
+}
+
+.order-item__info{
+    width: 84%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.order-item__img{
+    padding-top: 4px;
+}
+
+.order-item__qty span{
+    font-size: 13px;
+}
+
+.order-item__info-left{
+    width: 80%;
+}
+
+.order-item__info-top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order-item__info-left a{
+    font-size: 15px;
+    /* font-weight: 600; */
+}
+
+.order-item__info-left a:hover{
+    color: #2f80ed;
+}
+
+.group-price{
+    display: flex;
+    flex-direction: column;
+}
+
+.group-price .origin-price{
+    color: #666666;
+    font-weight: normal;
+    text-decoration: line-through;
+}
+
+.product-item__info-top .group-price .sell-price{
+    color: red;
+    font-weight: bold;
+}
+
+.order-name a:hover{
+    color: #2f80ed;
+}
+
+.product-item__img{
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.order-item__img img{
+    width: 75px;
+    margin: auto;
+}
+
+.order-item__info-bottom{
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.delete-btn {
+    border: none;
+    background: none;
+    color: #999;
+    line-height: 14px;
+}
+
+.delete-btn .icon-trash-can{
+    margin-right: 3px;
+}
+
+.quantity-group-btn {
+    display: inline-flex;
+    line-height: 16px;
+}
+
+.quantity-group-btn .minus-btn{
+    border: 1px solid #dfdfdf;
+    border-radius: 3px 0 0 3px;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 2px;
+    color: #dfdfdf;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.quantity-group-btn .qty{
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    font-size: 14px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 3px;
+}
+
+.quantity-group-btn .plus-btn{
+    border: 1px solid #dfdfdf;
+    border-radius: 0 3px 0 3px;
+    font-size: 16px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 3px;
+    color: #dfdfdf;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.quantity-group-btn .visible{
+    color: #2f80ed;
+}
+

@@ -1,0 +1,74 @@
+.order-page{
+    max-width: 1220px;
+    margin: auto;
+    padding: 0;
+    justify-content: space-between;
+    width: 660px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.order-page__top{
+    display: flex;
+}
+
+.order-page__top button{
+    border: none;
+}
+
+.order-page__top h2{
+    font-size: 22px;
+}
+
+.address-container{
+    background: #fff;
+    border-radius: 4px;
+    padding: 10px 20px 10px 20px;
+}
+
+.list-order-item{
+    margin: 0;
+    padding: 0;
+}
+
+.detail-container{
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+.order-page__title{
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.order-container{
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+.payment-container{
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+.custom-col{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.detail-container__fees{
+    margin-top: 10px;
+}
+
+.paypal-buttons{
+    margin-top: 15px;
+}
+

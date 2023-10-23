@@ -8,12 +8,14 @@ router.use(cookieParser());
 //getOrder
 router.get('/all-order', tokenCheck.checkJWT, tokenCheck.isAdmin, orderController.getAllOrder);
 router.get('/my-order', tokenCheck.checkJWT, getData.getData, orderController.getMyOrder);
+router.get('/:oid', orderController.getOrderById);
 //createOrder
 router.post('/create-order', tokenCheck.checkJWT, getData.getData, orderController.createOrder);
 //updateToPaid
 router.put('/update-to-paid/:oid', tokenCheck.checkJWT, orderController.updateToPaid);
 router.put('/update-to-delivered/:oid', tokenCheck.checkJWT, orderController.updateToDelivered);
 
+router.get('/config/paypal', orderController.getPaypalClientId);
 
 
 module.exports = router;

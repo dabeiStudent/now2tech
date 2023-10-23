@@ -22,7 +22,7 @@ const ProductPage = () => {
     const cart= useContext(CartContext);
 
     useEffect(()=> {
-        axios.get(`http://localhost:5000/product//get-product/${pid}`)
+        axios.get(`http://localhost:5000/product/get-product/${pid}`)
         .then(res=> {setProduct(res.data)})
         .catch(err=> {
             window.alert(err)

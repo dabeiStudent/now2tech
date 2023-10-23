@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {Form, Col, Row } from 'react-bootstrap';
 
 import './UserInfo.css';
 import { OrderContext } from '../../../ultis/orderContext';
 
 const UserInfo = () => {
+    const navigate= useNavigate();
     const orderContext= useContext(OrderContext);
 
     const cart= JSON.parse(localStorage.getItem('cart'));
@@ -31,6 +33,8 @@ const UserInfo = () => {
     // const [getOderMethod, setGetOrderMethod]= useState('at-store');
 
     const [address, setAddress]= useState(cart.address.add);
+
+    const [paymentMethod, setPaymentMethod]= useState('PAYPAL');
 
     const [userInfo, setUserInfo]= useState({
         firstName: '',
@@ -81,8 +85,6 @@ const UserInfo = () => {
         getListWard();
     }, [selectedDistrict]);
 
-   
-
     const selectProvinceHandler= (e)=> {
         setSelectedProvince(e.target.value);
     }
@@ -94,6 +96,11 @@ const UserInfo = () => {
     const selectedWardHandler= (e)=> {
         setSelectedWard(e.target.value);
     }
+
+    const paymentMethodCheckedHandler= (e)=> {
+        setPaymentMethod(e.target.value)
+    }
+
 
     // const getOrderMethodHandler= (e)=> {
     //     setGetOrderMethod(e.target.value);
@@ -118,11 +125,9 @@ const UserInfo = () => {
             await axios.post('http://localhost:5000/order/create-order', {
                 items: orderContext.selectedItems,
                 address: add,
-                status: 'in process',
-                method: 'COD',
-                paymentStatus: 'is paid',
+                paymentMethod: paymentMethod,
                 price: orderContext.selectedItems.reduce((acc, current)=> acc + current.price, 0),
-                shippingFee: '0',
+                shippingFee: 12000,
                 totalPrice: orderContext.selectedItems.reduce((acc, current)=> acc + current.price, 0)
             }, {withCredentials: true})
             .then(res=> window.alert('Đặt hàng thành công'))
@@ -214,10 +219,10 @@ const UserInfo = () => {
             <p className='form-title'>Phương thức thanh toán</p>
             <Row className='form-row'>
                 <Col>
-                    <Form.Check id='paypal' name='payment-method' type='radio' inline label='Thanh toán qua Paypal'/>
+                    <Form.Check value={'PAYPAL'} onChange={paymentMethodCheckedHandler} checked={paymentMethod === 'PAYPAL'} id='PAYPAL' name='payment-method' type='radio' inline label='Thanh toán qua Paypal'/>
                 </Col>
                 <Col>
-                    <Form.Check id='cod' name='payment-method' type='radio' inline label='Thanh toán khi nhận hàng'/>
+                    <Form.Check value={'COD'} onChange={paymentMethodCheckedHandler} checked={paymentMethod === 'COD'} id='COD' name='payment-method' type='radio' inline label='Thanh toán khi nhận hàng'/>
                 </Col>                
             </Row>
             <button onClick={submitHandler} className='place-order-btn'>TIẾP THEO</button>  
