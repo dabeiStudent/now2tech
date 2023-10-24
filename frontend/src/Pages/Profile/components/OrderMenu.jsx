@@ -29,7 +29,7 @@ const OrderMenu = () => {
                                 <ul>
                                     {order.items.map((item, itemIndex) => (
                                         <li key={itemIndex}>
-                                            {item.name} - Quantity: {item.qty} - Price: ${item.price}
+                                            {item.name} - Quantity: {item.qty} - Price/pcs: ${item.price}
                                         </li>
                                     ))}
                                 </ul>
