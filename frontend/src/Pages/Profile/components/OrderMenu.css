@@ -1,0 +1,14 @@
+.my-order {
+    padding: 10px;
+    height: 80%;
+    overflow: auto;
+}
+
+.my-order th,
+td {
+    border-bottom: 1px solid black;
+}
+
+.my-order ul li {
+    list-style-type: disc;
+}
