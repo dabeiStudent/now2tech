@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import ProfileMenu from './components/ProfileMenu';
 import OrderMenu from './components/OrderMenu';
 import './ProfilePage.css';
+
+import { AuthContext } from "../../ultis/authContext";
 const ProfilePage = () => {
+    const authContext= useContext(AuthContext);
     const [initialMenu, setInitialMenu] = useState(0);
     const signOutHandler = async (event) => {
         event.preventDefault();
         try {
             await axios.post('http://localhost:5000/user/user-logout', '', { withCredentials: true });
             localStorage.removeItem('user');
+            authContext.logout();
             window.location.href = "/";
         } catch (err) {
             alert(err);

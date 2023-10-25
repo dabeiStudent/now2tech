@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 export const useCart= ()=>{
     const cart= localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {items: []};
     const [cartItems, setCartItems]= useState(cart.items);
+    const addressInStorage= cart.address
 
     const addToCart= (item)=>{
         const existItem= cartItems.find(i=> i.id === item.id);
@@ -43,8 +44,8 @@ export const useCart= ()=>{
     }
     
     useEffect(()=> {
-        localStorage.setItem('cart', JSON.stringify({items: cartItems}));
-    },[cartItems]);
+        localStorage.setItem('cart', JSON.stringify({items: cartItems, address: addressInStorage}));
+    },[cartItems, addressInStorage]);
 
-    return { cartItems, addToCart, reduceQty, increaseQty, deleteItem };
+    return { cartItems, addToCart, reduceQty, increaseQty, deleteItem, setCartItems };
 }

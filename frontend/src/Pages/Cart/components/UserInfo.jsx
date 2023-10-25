@@ -5,10 +5,14 @@ import {Form, Col, Row } from 'react-bootstrap';
 
 import './UserInfo.css';
 import { OrderContext } from '../../../ultis/orderContext';
+import { CartContext } from '../../../ultis/cartContext';
+import OrderItem from '../../Order/components/OrderItem';
 
 const UserInfo = () => {
     const navigate= useNavigate();
     const orderContext= useContext(OrderContext);
+    const cartContext= useContext(CartContext);
+    const [ordered, setOrdered]= useState();
 
     const cart= JSON.parse(localStorage.getItem('cart'));
 
@@ -34,7 +38,7 @@ const UserInfo = () => {
 
     const [address, setAddress]= useState(cart.address.add);
 
-    const [paymentMethod, setPaymentMethod]= useState('PAYPAL');
+    const [paymentMethod, setPaymentMethod]= useState('VNPAY');
 
     const [userInfo, setUserInfo]= useState({
         firstName: '',
@@ -42,7 +46,6 @@ const UserInfo = () => {
         phoneNumber: '',
         email: ''
     });
-
 
     useEffect(()=> {
         const getUserInfo= async ()=> {
@@ -110,6 +113,11 @@ const UserInfo = () => {
         setAddress(e.target.value);
     }
 
+    if(orderContext.selectedItems.length === 0){
+        window.alert("Vui lòng chọn sản phẩm trước khi đặt hàng");
+        navigate('/gio-hang');
+    }
+
     const submitHandler= event => {
         event.preventDefault();
         const sprovince= provinces.find(p=> p.province_id === selectedProvince);
@@ -130,17 +138,41 @@ const UserInfo = () => {
                 shippingFee: 12000,
                 totalPrice: orderContext.selectedItems.reduce((acc, current)=> acc + current.price, 0)
             }, {withCredentials: true})
-            .then(res=> window.alert('Đặt hàng thành công'))
+            .then(res=> {
+                cartContext.setCartItems(cartContext.items.filter(item=> !orderContext.selectedItems.includes(item)));
+                setOrdered(res.data)})
             .catch(err=> console.log(err))
         }
-        createOrder();        
+        createOrder(); 
     }
+
+    useEffect(()=> {
+        if(ordered !== undefined){
+            if(ordered.paymentMethod === 'VNPAY' && ordered.paymentStatus.isPaid === false){
+                const getVNPayUrl= async ()=> {
+                    await axios.post(`http://localhost:5000/order/create-vnpay-url/${ordered._id}`)
+                    .then(res=> {
+                        navigate(`/chi-tiet-don-hang/${ordered._id}`);
+                        window.open(res.data)})
+                    .catch(err=> console.log(err))
+                }
+                getVNPayUrl();
+            } else{
+                navigate(`/chi-tiet-don-hang/${ordered._id}`);
+            }
+        }
+    }, [ordered, navigate])
 
 
   return (
     <div className='customer-info'>
+        <p className='form-title'>Sản phẩm:</p>
+        {orderContext.selectedItems.map(item=> (
+            <OrderItem key={item.id} name={item.name} qty={item.qty} price={item.price}/>
+        ))}
+
         <Form>
-            <p className='form-title'>Thông tin khách hàng:</p>
+            <p className='form-title'>Thông tin đặt hàng:</p>
             <Row className='form-row'>
                 <Col>
                     <Form.Group className='custom-form__input'>
@@ -219,7 +251,7 @@ const UserInfo = () => {
             <p className='form-title'>Phương thức thanh toán</p>
             <Row className='form-row'>
                 <Col>
-                    <Form.Check value={'PAYPAL'} onChange={paymentMethodCheckedHandler} checked={paymentMethod === 'PAYPAL'} id='PAYPAL' name='payment-method' type='radio' inline label='Thanh toán qua Paypal'/>
+                    <Form.Check value={'VNPAY'} onChange={paymentMethodCheckedHandler} checked={paymentMethod === 'VNPAY'} id='VNPAY' name='payment-method' type='radio' inline label='Thanh toán qua VNPay'/>
                 </Col>
                 <Col>
                     <Form.Check value={'COD'} onChange={paymentMethodCheckedHandler} checked={paymentMethod === 'COD'} id='COD' name='payment-method' type='radio' inline label='Thanh toán khi nhận hàng'/>

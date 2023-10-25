@@ -13,12 +13,12 @@
     background: #fff;
     border-radius: 2px;
     margin: 10px 0;
+    padding: 20px;
 }
 
 .cart-page__title{
-    padding-left: 18px;
     font-size: 18px;
-    margin: 10px auto;
+    margin: auto;
     line-height: 20px;
     font-weight: 500;
 }
@@ -29,13 +29,13 @@
 
 .total-cost{
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px 0px;
     display: flex;
     justify-content: space-between;
 }
 
 .list-item__form{
-    margin: 0 20px;
+    margin: 0;
 }
 
 .list-item__single-item{
@@ -50,12 +50,38 @@
 }
 
 .cart-page__btn{
-    margin: 0px 20px 20px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .cart-page__custom-btn{
     width: 100%;
     font-weight: bold;
     line-height: 30px;
+}
+
+.cart-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 350px;
+}
+
+.cart-empty .cart-plus__icon{
+    font-size: 100px;
+    color: #fee2e2;
+}
+
+.cart-empty p{
+    text-align: center;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.cart-empty a{
+    text-align: center;
+    color: #d00;
+    text-decoration: underline;
 }
 

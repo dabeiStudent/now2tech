@@ -1,0 +1,31 @@
+.payment-result-page {
+    background: #fff;
+    max-width: 1920px;
+    display: flex;
+    justify-content: center;
+    height: inherit;
+}
+
+.payment-result-page .center-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    
+}
+
+.center-container .checked-icon{
+    font-size: 120px;
+    color: #2ECC71;
+}
+
+.center-container h1{
+    color: #2ECC71;
+}
+
+.center-container a{
+    text-decoration: underline;
+    color: blue;
+}

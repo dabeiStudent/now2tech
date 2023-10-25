@@ -1,5 +1,4 @@
 import React, {useState, useEffect } from 'react';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
@@ -12,75 +11,14 @@ import { formatPrice } from '../../ultis/formatPrice';
 
 const OrderPage = () => {
   let {oid}= useParams();
-
   const [order, setOrder]= useState();
 
-  const [{isPending}, paypalDispatch]= usePayPalScriptReducer();
-  const [paypalClientId, setPaypalClientId]= useState();
-
   useEffect(()=> {
-      axios.get(`http://localhost:5000/order/${oid}`)
+      axios.get(`http://localhost:5000/order/get-order/${oid}`)
       .then(res=> setOrder(res.data))
       .catch(err=> console.log(err));
   }, [oid]);
 
-  useEffect(()=> {
-    const getClientId= async()=> {
-      await axios.get('http://localhost:5000/order/config/paypal')
-      .then(res=> setPaypalClientId(res.data.clientId))
-      .catch(err=> console.log(err));
-    };
-    getClientId();
-  }, [paypalClientId]);
-
-  useEffect(()=>{
-    if(paypalClientId){
-      const loadPaypalScript= async ()=> {
-        paypalDispatch({
-          type: 'resetOptions',
-          value: {
-            'client-id': paypalClientId,
-            currency: 'USD'
-          }
-        });
-        paypalDispatch({type: 'setLoadingStatus', value: 'pending'});
-      }
-      if(!window.paypal){
-        loadPaypalScript();
-      }
-      
-    }
-  }, [paypalDispatch, paypalClientId]);
-
-
-  const onApprove= async(data, actions)=> {
-    return actions.order.capture().then(async (details)=> {
-      try {
-        await axios.put(`http://localhost:5000/order/update-to-paid/${order._id}`, {}, {withCredentials: true})
-        .then(res => setOrder(res.data))
-        .catch(err => console.log(err))
-      } catch (error) {
-        console.log(error);
-      }
-    })
-  };
-    
-  const createOrder= async (data, actions)=> {
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            value: order.totalPrice,
-          },
-        },
-      ],
-    })
-    .then((orderId)=> { return orderId; })
-  };
-
-  const onError= async (err)=> {
-    console.log(err.message);
-  }
   return (
     <div>
       {order ? (
@@ -158,14 +96,14 @@ const OrderPage = () => {
                <Col className='custom-col'lg={8}><span>{formatPrice(order.totalPrice)}</span></Col>
              </Row>
            </div>
-           {isPending ? (
+           {/* {isPending ? (
              <div>Loading...
              </div>
            ): (
              <div className='paypal-buttons'>
                <PayPalButtons onApprove={onApprove} createOrder={createOrder} onError={onError}/>
              </div>
-           )}
+           )} */}
          </div>
          {/* <div className='payment-container'>
            

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import './LoginPage.css';
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { AuthContext } from "../../ultis/authContext";
 const LoginPage = () => {
+    const authContext= useContext(AuthContext);
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '', passWord: '' });
     const [noti, setNoti] = useState('');
@@ -22,7 +25,9 @@ const LoginPage = () => {
         )
             .then(res => {
                 setUser({ email: '', passWord: '' });
-                window.location.href = "/";
+                authContext.login();
+                navigate(-1);
+                // window.location.href = "/";
             })
             .catch((err) => {
                 if (err.message === "Request failed with status code 404") {
