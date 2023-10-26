@@ -8,8 +8,17 @@
 
 .shipping-page__main{
     width: 100%;
-    max-width: 600px;
+    max-width: 600px;   
+    margin-bottom: 10px;
+}
+
+.shipping-page__main .list-item, .shipping-page__info{
     background: #fff;
     border-radius: 2px;
-    margin: 10px 0;
+    margin-top: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+.shipping-page__main .list-item h3{
+    font-size: 16px;
 }

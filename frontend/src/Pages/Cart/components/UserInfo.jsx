@@ -1,18 +1,20 @@
 import React, {useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {Form, Col, Row } from 'react-bootstrap';
+import { Form, Col, Row, Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 
 import './UserInfo.css';
 import { OrderContext } from '../../../ultis/orderContext';
 import { CartContext } from '../../../ultis/cartContext';
-import OrderItem from '../../Order/components/OrderItem';
 
 const UserInfo = () => {
     const navigate= useNavigate();
     const orderContext= useContext(OrderContext);
     const cartContext= useContext(CartContext);
     const [ordered, setOrdered]= useState();
+    const [openModal, setOpenModal]= useState(false);
 
     const cart= JSON.parse(localStorage.getItem('cart'));
 
@@ -163,44 +165,83 @@ const UserInfo = () => {
         }
     }, [ordered, navigate])
 
+    const openModalHandler= ()=> {
+        setOpenModal(true);
+    }
+
+    const closeModalHandler= ()=> {
+        setOpenModal(false);
+    }
+
 
   return (
     <div className='customer-info'>
-        <p className='form-title'>Sản phẩm:</p>
-        {orderContext.selectedItems.map(item=> (
-            <OrderItem key={item.id} name={item.name} qty={item.qty} price={item.price}/>
-        ))}
+        <Row>
+            <Col><p className='form-title'>Thông tin khách hàng:</p></Col>
+            <Col className='custom-col'>
+                <button className='change-info__btn' onClick={openModalHandler}>
+                    <FontAwesomeIcon icon={faPenToSquare}/>
+                    <span>Thay đổi</span>
+                </button>
+            </Col>
+        </Row>
+        <Row>
+            <Col lg={3}><span>Người nhận:</span></Col>
+            <Col lg={9}><span className='isbold'>{userInfo.lastName} {userInfo.firstName}</span></Col>
+        </Row>
+        <Row>
+            <Col lg={3}><span>Email:</span></Col>
+            <Col lg={9}><span>{userInfo.email}</span></Col>
+        </Row>
+        <Row>
+            <Col lg={3}><span>Số điện thoại:</span></Col>
+            <Col lg={9}><span>{userInfo.phoneNumber}</span></Col>
+        </Row>
 
+        <Modal size='lg' show={openModal} onHide={closeModalHandler}>
+            <Modal.Header closeButton>
+                <Modal.Title>Cập nhật thông tin</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                <Form.Group className='custom-form__input'>
+                            <Form.Label>Họ</Form.Label>
+                            <Form.Control type='text' defaultValue={userInfo.lastName} />
+                        </Form.Group>
+                        <Form.Group className='custom-form__input'>
+                            <Form.Label>Tên</Form.Label>
+                            <Form.Control type='text' defaultValue={userInfo.firstName}  />
+                        </Form.Group>
+                {/* <Row className='form-row'>
+                    <Col>
+                        
+                    </Col>
+                    <Col>
+                        
+                    </Col>
+                </Row> */}
+                <Row className='form-row'>
+                    <Col>
+                        <Form.Group className='custom-form__input'>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type='email' defaultValue={userInfo.email} />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className='custom-form__input'>
+                            <Form.Label>Số điện thoại</Form.Label>
+                            <Form.Control type='text' pattern='[0-9]*' defaultValue={userInfo.phoneNumber}/>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                </Form>
+            </Modal.Body>
+        </Modal>
+        
         <Form>
-            <p className='form-title'>Thông tin đặt hàng:</p>
-            <Row className='form-row'>
-                <Col>
-                    <Form.Group className='custom-form__input'>
-                        <Form.Label>Họ</Form.Label>
-                        <Form.Control type='text' defaultValue={userInfo.lastName} />
-                    </Form.Group>
-                </Col>
-                <Col>
-                    <Form.Group className='custom-form__input'>
-                        <Form.Label>Tên</Form.Label>
-                        <Form.Control type='text' defaultValue={userInfo.firstName}  />
-                    </Form.Group>
-                </Col>
-            </Row>
-            <Row className='form-row'>
-                <Col>
-                    <Form.Group className='custom-form__input'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type='email' defaultValue={userInfo.email} />
-                    </Form.Group>
-                </Col>
-                <Col>
-                    <Form.Group className='custom-form__input'>
-                        <Form.Label>Số điện thoại</Form.Label>
-                        <Form.Control type='text' pattern='[0-9]*' defaultValue={userInfo.phoneNumber}/>
-                    </Form.Group>
-                </Col>
-            </Row>
+            
+            
+            
             {/* <p className='form-title'>Cách thức nhận hàng</p>
             <Row className='form-row'>
                 <Col>

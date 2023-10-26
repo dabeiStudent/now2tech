@@ -31,7 +31,8 @@ const OrderSchema = new mongoose.Schema({
     },
     paymentStatus: {
         isPaid: { type: Boolean, default: false },
-        paidAt: { type: Date }
+        paidAt: { type: Date },
+        payId: { type: String }
     },
     price: {
         type: Number, 

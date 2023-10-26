@@ -3,36 +3,45 @@ import axios from 'axios';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 
 import './VNPayPayment.css';
 
 const VNPayPayment = () => {
     const {oid}= useParams();
-    const searchParams= useSearchParams();
+    const [searchParams]= useSearchParams();
     const [data, setData]= useState();
 
-    const vnpayParams= Object.fromEntries(searchParams);
-
-    console.log(vnpayParams);
+    // const vnpayParams= Object.fromEntries(searchParams);
 
     useEffect(()=> {
         const paymentResult= async ()=> {
-            await axios.get(`http://localhost:5000/order/vnpay-ipn/${oid}`, {params: {vnpayParams}})
+            await axios.get(`http://localhost:5000/order/vnpay-ipn/${oid}`, {params: Object.fromEntries(searchParams)})
             .then(res => setData(res.data))
             .catch(err=> console.log(err))
         }
         paymentResult();
-    }, [data, oid, vnpayParams])
+    }, [oid, searchParams]);
+
+    console.log(data)
+
+
 
     return (
         <div className='payment-result-page'>
-            <div className='center-container'>
-                <FontAwesomeIcon className='checked-icon' icon={faCircleCheck}/>
-                <h1>Successfull</h1>
-                <span>Bạn đã thanh toán thành công</span><a href={`/chi-tiet-don-hang/${oid}`}>Xem chi tiết đơn hàng</a>
-            </div>
-            
+            {(data && data.RspCode === '00') ? (
+                <div className='center-container success'>
+                    <FontAwesomeIcon className='checked-icon' icon={faCircleCheck}/>
+                    <h1>Successful</h1>
+                    <span>Thanh toán thành công</span><a href={`/chi-tiet-don-hang/${oid}`}>Xem chi tiết đơn hàng</a>
+                </div>
+            ) : (
+                <div className='center-container failed'>
+                    <FontAwesomeIcon className='xmark-icon' icon={faCircleXmark}/>
+                    <h1>Failed</h1>
+                    <span>Thanh toán thất bại! Thử lại sau</span><a href={`/chi-tiet-don-hang/${oid}`}>Xem chi tiết đơn hàng</a>
+                </div>
+            )}     
             
         </div>
     )

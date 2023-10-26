@@ -41,9 +41,16 @@
     }
 } */
 
-.modal-content{
+/* .modal-content{
     border: none;
-    border-radius: 0%;
+    border-radius: 0;
+    outline: none;
+} */
+
+.custom-modal .modal-content{
+    width: 100%;
+    border: none;
+    border-radius: 0;
     outline: none;
 }
    

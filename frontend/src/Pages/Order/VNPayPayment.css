@@ -21,11 +21,20 @@
     color: #2ECC71;
 }
 
-.center-container h1{
+.success h1{
     color: #2ECC71;
 }
 
 .center-container a{
     text-decoration: underline;
     color: blue;
+}
+
+.center-container .xmark-icon{
+    font-size: 120px;
+    color: #E53935;
+}
+
+.failed h1{
+    color: #E53935;
 }

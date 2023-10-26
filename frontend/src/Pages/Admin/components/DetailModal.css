@@ -12,7 +12,7 @@
 }
 
 /* CSS cho modal content */
-.modal-content {
+.detail-modal .modal-content {
     background: #fff;
     border: 1px solid #ccc;
     padding: 20px;

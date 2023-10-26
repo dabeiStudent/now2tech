@@ -177,6 +177,13 @@ const createVNPayUrl= async (req, res)=> {
     vnp_Params['vnp_SecureHash'] = signed;
     vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
 
+    try {
+        order.paymentStatus.payId= orderId;
+        await order.save(); 
+    } catch (error) {
+        return res.status(404).json({error})
+    }
+
     res.status(200).json(vnpUrl)
 }
 
@@ -215,7 +222,6 @@ const vnpayIPN= async (req, res)=> {
     // Giả sử '0' là trạng thái khởi tạo giao dịch, chưa có IPN. Trạng thái này được lưu khi yêu cầu thanh toán chuyển hướng sang Cổng thanh toán VNPAY tại đầu khởi tạo đơn hàng.
     //let paymentStatus = '1'; // Giả sử '1' là trạng thái thành công bạn cập nhật sau IPN được gọi và trả kết quả về nó
     //let paymentStatus = '2'; // Giả sử '2' là trạng thái thất bại bạn cập nhật sau IPN được gọi và trả kết quả về nó
-    
     let checkOrderId = true; // Mã đơn hàng "giá trị của vnp_TxnRef" VNPAY phản hồi tồn tại trong CSDL của bạn
     let checkAmount = true; // Kiểm tra số tiền "giá trị của vnp_Amout/100" trùng khớp với số tiền của đơn hàng trong CSDL của bạn
     if(secureHash === signed){ //kiểm tra checksum

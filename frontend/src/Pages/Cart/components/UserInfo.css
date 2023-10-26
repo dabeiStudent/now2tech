@@ -1,5 +1,5 @@
 .customer-info {
-    margin: 0 20px 10px 20px;
+    margin: 0 ;
 }
 
 .form-title{
@@ -26,5 +26,20 @@
     height: 45px;
     border-radius: 8px;
     margin-top: 10px;
+}
+
+.isbold{
+    font-weight: 500;
+}
+
+.change-info__btn{
+    border: none;
+    background: none;
+    color: #2f80ed;
+    font-size: 14px;
+}
+
+.change-info__btn:hover{
+    text-decoration: underline;
 }
 
