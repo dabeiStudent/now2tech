@@ -43,3 +43,11 @@
     text-decoration: underline;
 }
 
+.modal-custom .modal-content{
+    width: 100%;
+}
+
+.custom-row{
+    margin-bottom: 10px;
+}
+

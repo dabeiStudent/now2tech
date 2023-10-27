@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Form, Col, Row, Modal } from 'react-bootstrap';
+import { Form, Col, Row, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 
@@ -49,15 +49,29 @@ const UserInfo = () => {
         email: ''
     });
 
+    const [updateInfo, setUpdateInfo]= useState({
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+    });
+
     useEffect(()=> {
         const getUserInfo= async ()=> {
             await axios.get('http://localhost:5000/user/profile/my-profile', {withCredentials: true})
-            .then(res=> setUserInfo({
-                firstName: res.data.firstName,
-                lastName: res.data.lastName,
-                phoneNumber: res.data.phoneNumber,
-                email: res.data.email
-            }))
+            .then(res=> {
+                setUserInfo({
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    phoneNumber: res.data.phoneNumber,
+                    email: res.data.email
+                });
+                setUpdateInfo({
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    phoneNumber: res.data.phoneNumber,
+                    email: res.data.email
+                })
+            })
             .catch(err=> console.log(err));
         };
         getUserInfo();
@@ -171,8 +185,31 @@ const UserInfo = () => {
 
     const closeModalHandler= ()=> {
         setOpenModal(false);
+        setUpdateInfo(userInfo);
     }
 
+    const changeLastNameHandler= (e)=>{
+        setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
+    } 
+    
+    const changeFirstNameHandler= (e)=> {
+        setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
+    }
+
+    const changePhoneNumberHandler= (e)=> {
+        setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
+    }
+
+    const updateInfoHandler= async (e)=> {
+        e.preventDefault();
+        await axios.put('http://localhost:5000/user/profile/update', updateInfo, { withCredentials: true })
+            .then(res => {
+                navigate(0);
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
 
   return (
     <div className='customer-info'>
@@ -198,44 +235,40 @@ const UserInfo = () => {
             <Col lg={9}><span>{userInfo.phoneNumber}</span></Col>
         </Row>
 
-        <Modal size='lg' show={openModal} onHide={closeModalHandler}>
+        <Modal dialogClassName='modal-custom' show={openModal} onHide={closeModalHandler}>
             <Modal.Header closeButton>
                 <Modal.Title>Cập nhật thông tin</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                <Form.Group className='custom-form__input'>
-                            <Form.Label>Họ</Form.Label>
-                            <Form.Control type='text' defaultValue={userInfo.lastName} />
-                        </Form.Group>
-                        <Form.Group className='custom-form__input'>
-                            <Form.Label>Tên</Form.Label>
-                            <Form.Control type='text' defaultValue={userInfo.firstName}  />
-                        </Form.Group>
-                {/* <Row className='form-row'>
-                    <Col>
-                        
-                    </Col>
-                    <Col>
-                        
-                    </Col>
-                </Row> */}
-                <Row className='form-row'>
-                    <Col>
-                        <Form.Group className='custom-form__input'>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type='email' defaultValue={userInfo.email} />
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group className='custom-form__input'>
-                            <Form.Label>Số điện thoại</Form.Label>
-                            <Form.Control type='text' pattern='[0-9]*' defaultValue={userInfo.phoneNumber}/>
-                        </Form.Group>
-                    </Col>
-                </Row>
+                    <Row className='custom-row'>
+                        <Col lg={3}><span>Email:</span></Col>
+                        <Col><span>{userInfo.email}</span></Col>
+                    </Row>
+                    <Row className='custom-row'>
+                        <Form.Label column lg={3}>Họ:</Form.Label>
+                        <Col>
+                            <Form.Control onChange={changeLastNameHandler} name='lastName' type='text' defaultValue={userInfo.lastName} />
+                        </Col>
+                    </Row>
+                    <Row className='custom-row'>
+                        <Form.Label column lg={3}>Tên:</Form.Label>
+                        <Col>
+                            <Form.Control onChange={changeFirstNameHandler} name='firstName' type='text' defaultValue={userInfo.firstName}  />
+                        </Col>
+                    </Row>
+                    <Row className='custom-row'>
+                        <Form.Label column lg={3}>Điện thoại:</Form.Label>
+                        <Col>
+                            <Form.Control onChange={changePhoneNumberHandler} name='phoneNumber' type='text' pattern='[0-9]*' defaultValue={userInfo.phoneNumber}/>
+                        </Col>
+                    </Row>
                 </Form>
             </Modal.Body>
+            <Modal.Footer>
+                <Button variant='danger' onClick={closeModalHandler}>Hủy</Button>
+                <Button variant='primary' onClick={updateInfoHandler}>Cập nhật</Button>
+            </Modal.Footer>
         </Modal>
         
         <Form>
