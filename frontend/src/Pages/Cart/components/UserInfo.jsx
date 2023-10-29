@@ -136,6 +136,18 @@ const UserInfo = () => {
 
     const submitHandler= event => {
         event.preventDefault();
+
+        if(selectedProvince === undefined
+            || selectedProvince === '0'
+            || selectedDistrict === undefined 
+            || selectedDistrict === '0'
+            || selectedWard === undefined 
+            || selectedWard === '0'
+            || address === undefined
+            || address === '') {
+            return window.alert("Vui lòng nhập địa chỉ đặt hàng!");
+        }
+
         const sprovince= provinces.find(p=> p.province_id === selectedProvince);
         const sdistrict= districts.find(d=> d.district_id === selectedDistrict);
         const sward= wards.find(w=> w.ward_id === selectedWard);
@@ -234,13 +246,12 @@ const UserInfo = () => {
             <Col lg={3}><span>Số điện thoại:</span></Col>
             <Col lg={9}><span>{userInfo.phoneNumber}</span></Col>
         </Row>
-
         <Modal dialogClassName='modal-custom' show={openModal} onHide={closeModalHandler}>
             <Modal.Header closeButton>
                 <Modal.Title>Cập nhật thông tin</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <Form>
+            <Form onSubmit={updateInfoHandler}>
+                <Modal.Body>
                     <Row className='custom-row'>
                         <Col lg={3}><span>Email:</span></Col>
                         <Col><span>{userInfo.email}</span></Col>
@@ -263,18 +274,16 @@ const UserInfo = () => {
                             <Form.Control onChange={changePhoneNumberHandler} name='phoneNumber' type='text' pattern='[0-9]*' defaultValue={userInfo.phoneNumber}/>
                         </Col>
                     </Row>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant='danger' onClick={closeModalHandler}>Hủy</Button>
-                <Button variant='primary' onClick={updateInfoHandler}>Cập nhật</Button>
-            </Modal.Footer>
+                
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant='danger' onClick={closeModalHandler}>Hủy</Button>
+                    <Button variant='primary'type='submit' >Cập nhật</Button>
+                </Modal.Footer>
+            </Form>
         </Modal>
         
         <Form>
-            
-            
-            
             {/* <p className='form-title'>Cách thức nhận hàng</p>
             <Row className='form-row'>
                 <Col>
@@ -317,7 +326,7 @@ const UserInfo = () => {
                     <Row className='form-row'>
                         <Form.Group className='custom-form__input'>
                             <Form.Label>Địa chỉ</Form.Label>
-                            <Form.Control value={address} onChange={addressChangeHandler} type='text' required/>
+                            <Form.Control defaultValue={address} onChange={addressChangeHandler} type='text' required/>
                         </Form.Group>
                     </Row>
                 </div> 
