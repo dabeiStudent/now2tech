@@ -19,7 +19,7 @@ const OrdersContent = () => {
                 <table className="product-table">
                     <thead>
                         <tr>
-                            <td>Mã đơn hàng</td>
+                            <th>Mã đơn hàng</th>
                             <th>Địa chỉ</th>
                             <th>Phương thức thanh toán</th>
                             <th>Trạng thái thanh toán</th>
