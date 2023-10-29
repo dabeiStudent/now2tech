@@ -9,6 +9,62 @@ td {
     border-bottom: 1px solid black;
 }
 
+.oid_row {
+    font-weight: bold;
+}
+
+.my-order tr:hover {
+    background-color: rgb(243, 242, 164);
+}
+
 .my-order ul li {
     list-style-type: disc;
+}
+
+/* Bảng đơn hàng */
+.my-order table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+/* Header bảng */
+.my-order table thead {
+    background-color: #f2f2f2;
+}
+
+/* Thẻ th trong header bảng */
+.my-order table thead th {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Thân bảng */
+.my-order table tbody {
+    background-color: #fff;
+}
+
+/* Thẻ tr trong thân bảng */
+.my-order table tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+/* Thẻ td trong thân bảng */
+.my-order table tbody td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Nút Chi tiết */
+.my-order table tbody td button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Khi hover nút Chi tiết */
+.my-order table tbody td button:hover {
+    background-color: #0069d9;
 }
