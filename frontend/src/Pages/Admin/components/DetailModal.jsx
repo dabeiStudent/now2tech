@@ -1,6 +1,7 @@
 import React from "react";
 
 import './DetailModal.css';
+import { NavLink } from "react-router-dom";
 const DetailModal = ({ product, onClose }) => {
     if (!product) {
         return null;
@@ -14,6 +15,12 @@ const DetailModal = ({ product, onClose }) => {
                 <div className="table-container">
                     <table className="product-details">
                         <tbody>
+                            <tr>
+                                <td>Link trên shop:</td>
+                                <td>
+                                    <NavLink to={`/chi-tiet-san-pham/${product._id}`}>Xem tại đây</NavLink>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>ID:</td>
                                 <td>{product._id}</td>

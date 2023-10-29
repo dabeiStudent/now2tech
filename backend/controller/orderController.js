@@ -1,6 +1,7 @@
 const moment = require('moment');
 
 const Order = require('../models/ordersModel');
+const User = require('../models/usersModel');
 
 //create new order
 const createOrder = async (req, res) => {
@@ -30,10 +31,11 @@ const createOrder = async (req, res) => {
 //get order by id
 const getOrderById = async (req, res) => {
     const orderId = req.params.oid;
-
+    const userId = req.data.uid;
     let order;
     try {
-        order = await Order.findById(orderId).populate('user', 'firstName lastName email phoneNumber');
+        order = await Order.findById(orderId).populate('user', '_id firstName lastName email phoneNumber');
+        userFound = await User.findById(userId);
     } catch (err) {
         return res.status(404).json({ err: "Đã có lỗi xảy ra." })
     }
@@ -41,8 +43,12 @@ const getOrderById = async (req, res) => {
     if (!order) {
         return res.status(404).json({ err: "Không tìm thấy đơn hàng" });
     }
-
-    res.status(200).json(order);
+    if (order.user.email === userFound.email) {
+        return res.status(200).json(order);
+    }
+    else {
+        return res.status(404).json({ err: "Không tìm thấy đơn hàng" });
+    }
 }
 //get all order
 const getAllOrder = (req, res) => {
@@ -55,7 +61,7 @@ const getAllOrder = (req, res) => {
         })
 }
 //get order by user
-const getMyOrder = (req, res) => {
+const getMyOrder = async (req, res) => {
     Order.find({ user: req.data.uid })
         .then(result => {
             return res.status(200).json(result);

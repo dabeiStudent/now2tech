@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AuthContext } from "../../ultis/authContext";
 const LoginPage = () => {
-    const authContext= useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '', passWord: '' });
     const [noti, setNoti] = useState('');
@@ -77,3 +77,6 @@ const LoginPage = () => {
 }
 
 export default LoginPage;
+
+
+
