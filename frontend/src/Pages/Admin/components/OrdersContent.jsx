@@ -26,6 +26,7 @@ const OrdersContent = () => {
                             <th>Trạng thái đơn hàng</th>
                             <th>Tổng giá tiền</th>
                             <th>Phí giao hàng</th>
+                            <th>Tùy chỉnh</th>
                             <th>Chi tiết</th>
                         </tr>
                     </thead>
@@ -45,6 +46,14 @@ const OrdersContent = () => {
                                 <td>{order.status}</td>
                                 <td>{order.totalPrice}</td>
                                 <td>{order.shippingFee}</td>
+                                <td>
+                                    <select>
+                                        <option value=""></option>
+                                        <option value="Confirmed">Đã xác nhận</option>
+                                        <option value="InProgress">Đang Giao</option>
+                                        <option value="Done">Đã Giao</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <button className="detail-button">Chi tiết</button>
                                 </td>

@@ -19,7 +19,6 @@ const OrderMenu = () => {
                         <tr>
                             <th>Mã đơn</th>
                             <th>Trạng thái</th>
-                            <th>Phương thức thanh toán</th>
                             <th>Sản phẩm</th>
                             <th>Tổng tiền</th>
                             <th>Action</th>
@@ -34,7 +33,6 @@ const OrderMenu = () => {
                                 <tr key={order._id} >
                                     <td className="oid_row">{order._id}</td>
                                     <td>{order.status}</td>
-                                    <td>{order.paymentMethod}</td>
                                     <td>
                                         <ul>
                                             {order.items.map((item, itemIndex) => (
@@ -44,7 +42,7 @@ const OrderMenu = () => {
                                             ))}
                                         </ul>
                                     </td>
-                                    <td className="oid_row">{totalAmount} VND</td> {/* Hiển thị tổng giá tiền */}
+                                    <td className="oid_row">{totalAmount} VND - {order.paymentMethod}</td> {/* Hiển thị tổng giá tiền */}
                                     <td>
                                         <NavLink to={`/chi-tiet-don-hang/${order._id}`}>
                                             <button>Chi tiết</button>
