@@ -72,3 +72,17 @@
     margin-top: 15px;
 }
 
+.payment-btn{
+    margin: 10px 0;
+    padding: 0;
+}
+
+.payment-btn button{
+    border: none;
+    background: #2f80ed;
+    color: #fff;
+    height: 45px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+

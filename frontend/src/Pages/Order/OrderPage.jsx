@@ -21,6 +21,16 @@ const OrderPage = () => {
       });
   }, [oid]);
 
+  const paymentHandler= ()=> {
+    const getVNPayUrl= async ()=> {
+      await axios.post(`http://localhost:5000/order/create-vnpay-url/${order._id}`)
+      .then(res=> {
+          window.open(res.data)})
+      .catch(err=> console.log(err))
+  }
+    getVNPayUrl();
+  }
+
   return (
     <div>
       {order ? (
@@ -98,6 +108,15 @@ const OrderPage = () => {
                 <Col lg={4}><span>Tổng cộng: </span></Col>
                 <Col className='custom-col' lg={8}><span>{formatPrice(order.totalPrice)}</span></Col>
               </Row>
+
+              {order.paymentMethod === 'VNPAY' && order.paymentStatus.isPaid === false && (
+                <Row className='payment-btn'>
+                  <button onClick={paymentHandler}>Thanh toán với VNPAY</button>
+                </Row>
+              )}
+              
+              
+              
             </div>
             {/* {isPending ? (
              <div>Loading...

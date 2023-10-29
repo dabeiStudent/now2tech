@@ -9,7 +9,6 @@ const createOrder = async (req, res) => {
     if (!req.body.items) {
         return res.status(404).json({ err: "Không có sản phẩm" });
     } else {
-        const itemPrice= req.body.items.reduce((acc, item)=> acc + item.price * item.qty, 0);
         const newOrder = new Order({
             items: req.body.items.map((i) => ({
                 ...i,
@@ -17,12 +16,10 @@ const createOrder = async (req, res) => {
             })),
             user: req.data.uid,
             address: req.body.address,
-            // status: req.body.status,
             paymentMethod: req.body.paymentMethod,
-            // paymentStatus: req.body.paymentStatus,
-            price: itemPrice,
+            price: req.body.price,
             shippingFee: req.body.shippingFee,
-            totalPrice: itemPrice + req.body.shippingFee
+            totalPrice: req.body.totalPrice
         });
         const addNewOrder = await newOrder.save();
         return res.status(200).json(addNewOrder);
@@ -136,6 +133,10 @@ const createVNPayUrl = async (req, res) => {
         return res.status(404).json({ err: "Không tìm thấy đơn hàng." })
     }
 
+    if(order.paymentStatus.isPaid === true){
+        return res.status(404).json({msg: "Đơn hàng đã được thanh toán."})
+    }
+
     let date = new Date();
     let createDate = moment(date).format('YYYYMMDDHHmmss');
 
@@ -231,14 +232,14 @@ const vnpayIPN = async (req, res) => {
     }
 
     let checkAmount = true; // Kiểm tra số tiền "giá trị của vnp_Amout/100" trùng khớp với số tiền của đơn hàng trong CSDL của bạn
-    if(vnp_Params['vnp_Amout']/100 !== order.totalPrice){
+    if(vnp_Params['vnp_Amount']/100 !== order.totalPrice){
         checkAmount= false;
     }
 
     if (secureHash === signed) { //kiểm tra checksum
         if (checkOrderId) {
             if (checkAmount) {
-                if (order.paymentStatus.isPaid === false) { //kiểm tra tình trạng giao dịch trước khi cập nhật tình trạng thanh toán
+                // if (order.paymentStatus.isPaid === false) { //kiểm tra tình trạng giao dịch trước khi cập nhật tình trạng thanh toán
                     if (rspCode == "00") {
                         order.paymentStatus.isPaid = true;
                         order.paymentStatus.paidAt = new Date();
@@ -248,10 +249,10 @@ const vnpayIPN = async (req, res) => {
                     else {
                         res.status(200).json({ RspCode: rspCode, Message: 'Failed' })
                     }
-                }
-                else {
-                    res.status(200).json({ RspCode: '02', Message: 'This order has been updated to the payment status' })
-                }
+                // }
+                // else {
+                //     res.status(200).json({ RspCode: '02', Message: 'This order has been updated to the payment status' })
+                // }
             }
             else {
                 res.status(200).json({ RspCode: '04', Message: 'Amount invalid' })

@@ -162,9 +162,9 @@ const UserInfo = () => {
                 items: orderContext.selectedItems,
                 address: add,
                 paymentMethod: paymentMethod,
-                price: orderContext.selectedItems.reduce((acc, current)=> acc + current.price, 0),
+                price: orderContext.selectedItems.reduce((acc, current)=> acc + current.price * current.qty, 0),
                 shippingFee: 12000,
-                totalPrice: orderContext.selectedItems.reduce((acc, current)=> acc + current.price, 0)
+                totalPrice: orderContext.selectedItems.reduce((acc, current)=> acc + current.price * current.qty, 0) + 12000
             }, {withCredentials: true})
             .then(res=> {
                 cartContext.setCartItems(cartContext.items.filter(item=> !orderContext.selectedItems.includes(item)));
