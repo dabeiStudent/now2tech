@@ -14,9 +14,11 @@ const OrderPage = () => {
   const [order, setOrder] = useState();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/order/get-order/${oid}`)
+    axios.get(`http://localhost:5000/order/get-order/${oid}`, { withCredentials: true })
       .then(res => setOrder(res.data))
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+      });
   }, [oid]);
 
   return (

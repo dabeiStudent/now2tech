@@ -8,7 +8,7 @@ router.use(cookieParser());
 //getOrder
 router.get('/all-order', tokenCheck.checkJWT, tokenCheck.isAdmin, orderController.getAllOrder);
 router.get('/my-order', tokenCheck.checkJWT, getData.getData, orderController.getMyOrder);
-router.get('/get-order/:oid', orderController.getOrderById);
+router.get('/get-order/:oid', tokenCheck.checkJWT, getData.getData, orderController.getOrderById);
 router.get('/vnpay-ipn/:oid', orderController.vnpayIPN);
 //createOrder
 router.post('/create-order', tokenCheck.checkJWT, getData.getData, orderController.createOrder);
