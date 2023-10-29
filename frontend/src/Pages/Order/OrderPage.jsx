@@ -75,6 +75,7 @@ const OrderPage = () => {
             <ul className='list-order-item'>
               {order.items.map(item => (
                 <OrderItem
+                  key={item._id}
                   id={item._id}
                   name={item.name}
                   qty={item.qty}

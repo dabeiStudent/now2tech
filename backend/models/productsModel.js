@@ -46,7 +46,18 @@ const ProductSchema = new mongoose.Schema({
     },
     inStock: {
         type: Number
-    }
+    },
+    avgRating: { type: Number, default: 0 },
+    numOfReview: { type: Number, default: 0 },
+    reviews: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId, ref: 'user'
+            },
+            rating: { type: Number },
+            comment: { type: String }
+        }
+    ]
 });
 
 const Product = mongoose.model('product', ProductSchema);

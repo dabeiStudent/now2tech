@@ -3,6 +3,7 @@ const router = express.Router();
 const productController = require('../controller/productController');
 const tokenCheck = require('../middlewares/tokenCheck');
 const cookieParser = require('cookie-parser');
+const getData = require('../middlewares/getJWTData');
 router.use(cookieParser());
 
 //get all
@@ -21,4 +22,6 @@ router.put('/update-product/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, prod
 router.put('/update-product/specs/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.updateSpecs);
 //remove product
 router.delete('/remove-product/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.removeProduct);
+//add review
+router.post('/add-review/:pid', tokenCheck.checkJWT, getData.getData, productController.addReview);
 module.exports = router;

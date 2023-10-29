@@ -125,4 +125,37 @@ const removeProduct = (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getProduct, getProductAdmin, getOneProduct, addNewProduct, addSpecs4Product, updateProduct, updateSpecs, removeProduct };
+//add review
+const addReview= async (req, res)=> {
+    const productId= req.params.pid;
+
+    const product= await Product.findById(productId);
+
+    if(!product){
+        return res.status(404).json({err: "Không tìm thấy sản phẩm."});
+    }
+
+    product.reviews.push({
+        user: req.data.uid,
+        comment: req.body.comment,
+        rating: req.body.rating
+    });
+
+    product.numOfReview= product.reviews.length;
+
+    product.avgRating= product.reviews.reduce((acc, review)=> acc + review.rating, 0)/ product.reviews.length;
+
+    await product.save();
+    res.status(200).json({msg: "Thêm review thành công."});
+}
+module.exports = { 
+    getProduct, 
+    getProductAdmin, 
+    getOneProduct, 
+    addNewProduct, 
+    addSpecs4Product, 
+    updateProduct, 
+    updateSpecs, 
+    removeProduct,
+    addReview
+};
