@@ -46,3 +46,8 @@ app.use('/category', categoryRoutes);
 
 //test private repository
 //Chỉnh lại cơ chế lấy username sau khi đăng nhập ở navlink
+//Thêm ảnh sản phẩm
+//Tiếp tục làm set trạng thái order admin
+//Làm tiếp chat
+//Làm trang sản phẩm theodanh mục.... tìm kiếm sản phẩm
+//=> Tạm thời xong
