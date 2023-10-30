@@ -3,17 +3,18 @@ import React from 'react';
 import './RatingComponent.css';
 import StarRating from './StarRating';
 import RatingList from './RatingList';
+import { formatNum } from '../../../ultis/formatNum';
 
-const RatingComponent = () => {
+const RatingComponent = props => {
   return (
     <div className='rating-container'>
         <h2>Đánh giá sản phẩm</h2>
         <div className='box-star'>
-            <span className='avg-rating'>4.5</span>
-            <StarRating/>
-            <span className='rating-number'>10 đánh giá</span>
+            <span className='avg-rating'>{formatNum(props.avgRating)}</span>
+            <StarRating rating={props.avgRating}/>
+            <span className='rating-number'>{props.numOfReview} đánh giá</span>
         </div>
-        <RatingList/>        
+        <RatingList reviews={props.reviews}/>        
     </div>
   )
 }

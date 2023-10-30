@@ -6,7 +6,7 @@ import { faStar as regularStart} from '@fortawesome/free-regular-svg-icons';
 import './StarRating.css';
 
 const StarRating = props => {
-  let rating= 4.5;
+  let rating= props.rating;
   return (
     <div className='star-rating'>
       <span>

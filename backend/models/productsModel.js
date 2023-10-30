@@ -54,6 +54,7 @@ const ProductSchema = new mongoose.Schema({
             user: {
                 type: mongoose.Schema.Types.ObjectId, ref: 'user'
             },
+            userName: { type: String },
             rating: { type: Number },
             comment: { type: String }
         }

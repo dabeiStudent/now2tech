@@ -135,17 +135,35 @@ const addReview= async (req, res)=> {
         return res.status(404).json({err: "Không tìm thấy sản phẩm."});
     }
 
-    product.reviews.push({
-        user: req.data.uid,
-        comment: req.body.comment,
-        rating: req.body.rating
-    });
+    const existReview= product.reviews.find(review=> review.user.toString() === req.data.uid.toString());
 
-    product.numOfReview= product.reviews.length;
+    if(existReview){
+        product.reviews.forEach(review=> {
+            if(review.user.toString() === req.data.uid.toString()){
+                review.rating= req.body.rating;
+                review.comment= req.body.comment;
+            }
+        });
+
+    } else {
+        product.reviews.push({
+            user: req.data.uid,
+            userName: req.data.userName,
+            comment: req.body.comment,
+            rating: req.body.rating
+        })
+
+        product.numOfReview= product.reviews.length;       
+    }
 
     product.avgRating= product.reviews.reduce((acc, review)=> acc + review.rating, 0)/ product.reviews.length;
 
-    await product.save();
+    try {
+        await product.save();
+    } catch (error) {
+        return res.status(404).json({err: "Đã có lỗi xảy ra. Không thể thêm."});        
+    }
+    
     res.status(200).json({msg: "Thêm review thành công."});
 }
 module.exports = { 

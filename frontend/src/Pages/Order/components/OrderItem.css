@@ -1,11 +1,11 @@
-.order-item{
+.order-item__container{
     list-style: none;
+    border-bottom: 1px solid #dfdfdf;
     
 }
 .order-item{
     width: 100%;
     display: flex;
-    border-bottom: 1px solid #dfdfdf;
     padding: 0 5px 10px 5px;
 }
 
@@ -79,65 +79,57 @@
     margin: auto;
 }
 
-.order-item__info-bottom{
+.order-item__review-btn {
     display: flex;
     justify-content: flex-end;
-
+    margin-bottom: 8px;
 }
 
-.delete-btn {
-    border: none;
-    background: none;
-    color: #999;
-    line-height: 14px;
-}
-
-.delete-btn .icon-trash-can{
-    margin-right: 3px;
-}
-
-.quantity-group-btn {
-    display: inline-flex;
-    line-height: 16px;
-}
-
-.quantity-group-btn .minus-btn{
-    border: 1px solid #dfdfdf;
-    border-radius: 3px 0 0 3px;
-    font-size: 20px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    padding-top: 2px;
-    color: #dfdfdf;
-    font-weight: bolder;
-    cursor: pointer;
-}
-
-.quantity-group-btn .qty{
-    border-top: 1px solid #dfdfdf;
-    border-bottom: 1px solid #dfdfdf;
-    font-size: 14px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    padding-top: 3px;
-}
-
-.quantity-group-btn .plus-btn{
-    border: 1px solid #dfdfdf;
-    border-radius: 0 3px 0 3px;
-    font-size: 16px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    padding-top: 3px;
-    color: #dfdfdf;
-    font-weight: bolder;
-    cursor: pointer;
-}
-
-.quantity-group-btn .visible{
+.order-item__review-btn button{
+    border: 1px solid #2f80ed;
     color: #2f80ed;
+    background: none;
+    border-radius: 4px;
 }
 
+.review-item{
+    display: flex;
+    flex-direction: column;
+}
+
+.review-item__img, .review-item__name, .review-item__rating{
+    display: flex;
+    justify-content: center;
+}
+
+.review-item__img img{
+    width: 180px;
+    border-radius: 0;
+}
+
+.review-item__name p{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.review-item__rating .star-rating{
+    font-size: 25px;
+}
+
+.review-item__comment {
+    width: 100%;
+}
+
+.review-item__comment textarea{
+    width: 100%;
+    border: 1px solid #8f9bb3;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.review-item__comment label{
+    font-style: italic;
+    font-weight: 400;
+}

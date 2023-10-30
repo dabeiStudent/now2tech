@@ -92,7 +92,8 @@ const OrderPage = () => {
                   name={item.name}
                   qty={item.qty}
                   image={item.image}
-                  price={item.price} />))
+                  price={item.price}
+                  orderStatus= {order.status} />))
               }
             </ul>
             <div className='detail-container__fees'>

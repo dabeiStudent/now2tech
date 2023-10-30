@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import './ProductCard.css';
 import {formatPrice} from '../../ultis/formatPrice';
+import StarRating from '../../Pages/Product/components/StarRating';
 
 const ProductCard = props => {
     return (
@@ -16,14 +17,17 @@ const ProductCard = props => {
                     />
                 </div>
                 <h3>{props.name}</h3>
-                <div className="product-prods-group">
+                <div className="product-rating">
+                    <StarRating rating={props.avgRating}/>
+                </div>
+                {/* <div className="product-prods-group">
                     <ul>
                         <li className="active">256GB</li>
                         <li>512GB</li>
                         <li>1TB</li>
                     </ul>
 
-                </div>
+                </div> */}
                 <strong className="product-price">{formatPrice(props.price)}</strong>
             </div>
 

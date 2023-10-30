@@ -17,7 +17,7 @@ import { formatPrice } from '../../ultis/formatPrice';
 
 const ProductPage = () => {
     let {pid}= useParams();
-    const [product, setProduct]= useState([]);
+    const [product, setProduct]= useState();
     const navigate= useNavigate();
     const cart= useContext(CartContext);
 
@@ -29,15 +29,18 @@ const ProductPage = () => {
         })
     }, [pid]);
 
-    const cartItem= {
-        id: product._id,
-        name: product.name,
-        price: product.sellPrice,
-        image: product.image,
-        vouchers: product.vouchers,
-        qty: 1
+    let cartItem;
+    if(product){
+        cartItem= {
+            id: product._id,
+            name: product.name,
+            price: product.sellPrice,
+            image: product.image,
+            vouchers: product.vouchers,
+            qty: 1
+        }
     }
-
+    
     const buyNowHandler= async ()=> {
         cart.addToCart(cartItem);
         navigate("/gio-hang")
@@ -45,14 +48,15 @@ const ProductPage = () => {
 
     return (
         <div className='product-page'>
-            <div className='product-page__main-container'>
+            {product ? (
+                <div className='product-page__main-container'>
                 <h2>{product.name}</h2>
                 <div className='product-page__box-main'>
                     <div className='box-left'>
                         <ProductCarousel />
                         <PolicyComponent />
                         <DescComponent desc={product.desc} />
-                        <RatingComponent />
+                        <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating}/>
                         <CommentComponent/>                  
                     </div>
                     <div className='box-right'>
@@ -82,6 +86,10 @@ const ProductPage = () => {
                     </div>
                 </div>
             </div>
+            ): (
+                <div>Loading</div>
+            )}
+            
         </div>
     )
 }

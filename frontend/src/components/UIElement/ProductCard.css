@@ -80,3 +80,7 @@ h3{
     margin-top: 5px;
     padding-bottom: 30px;
 }
+
+.product-rating .star-rating{
+    font-size: 13px;
+}

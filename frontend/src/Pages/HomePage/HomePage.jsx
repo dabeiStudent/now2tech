@@ -48,7 +48,8 @@ const HomePage = () => {
                                 key={product._id}
                                 id={product._id}
                                 name={product.name}
-                                price={product.sellPrice} />
+                                price={product.sellPrice}
+                                avgRating={product.avgRating} />
                         ))}
                     </div>
                     {products.length >= page *10 && (
