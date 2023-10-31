@@ -19,6 +19,7 @@ const ProductCard = props => {
                 <h3>{props.name}</h3>
                 <div className="product-rating">
                     <StarRating rating={props.avgRating}/>
+                    <span className="num-rating">{props.numOfReview} đánh giá</span>
                 </div>
                 {/* <div className="product-prods-group">
                     <ul>

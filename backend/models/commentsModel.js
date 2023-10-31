@@ -5,15 +5,23 @@ const CommentSchema = new mongoose.Schema({
     content: {
         type: String
     },
+    product: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'product'
+    },
     user: {
-        type: User.schema
+        name: { type: String },
+        email: { type: String },
+        phoneNumber: { type: String },
     },
-    anonymous: {
-        type: User.schema
-    },
-    isVerified: {
-        type: Boolean
-    }
+    replies: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'comment', default: []}
+    ]
+    // anonymous: {
+    //     type: User.schema
+    // },
+    // isVerified: {
+    //     type: Boolean
+    // }
 });
 
 const Comments = mongoose.model('comment', CommentSchema);

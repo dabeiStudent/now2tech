@@ -11,6 +11,7 @@ const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoues');
 const voucherRoutes = require('./routes/voucherRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const commentRoutes= require('./routes/commentRoutes');
 
 const creatSocketIo = require('./utils/chatSocket');
 
@@ -42,7 +43,7 @@ app.use('/product', productRoutes);
 app.use('/order', orderRoutes);
 app.use('/voucher', voucherRoutes);
 app.use('/category', categoryRoutes);
-
+app.use('/comment', commentRoutes);
 
 //test private repository
 //Chỉnh lại cơ chế lấy username sau khi đăng nhập ở navlink

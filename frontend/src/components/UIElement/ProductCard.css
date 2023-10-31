@@ -81,6 +81,16 @@ h3{
     padding-bottom: 30px;
 }
 
+.product-rating {
+    display: flex;
+}
+
+.product-rating .num-rating{
+    margin-left: 5px;
+    font-size: 14px;
+    color: #288ad6;
+}
+
 .product-rating .star-rating{
     font-size: 13px;
 }

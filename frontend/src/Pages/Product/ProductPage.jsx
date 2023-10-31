@@ -57,7 +57,7 @@ const ProductPage = () => {
                         <PolicyComponent />
                         <DescComponent desc={product.desc} />
                         <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating}/>
-                        <CommentComponent/>                  
+                        <CommentComponent productId={product._id}/>                  
                     </div>
                     <div className='box-right'>
                         <div className='price-container'>

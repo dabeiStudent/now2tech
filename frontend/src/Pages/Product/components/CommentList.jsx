@@ -3,10 +3,18 @@ import React from 'react';
 import './CommentList.css';
 import CommentItem from './CommentItem';
 
-const CommentList = () => {
+const CommentList = props => {
   return (
     <ul className='comment-list'>
-      <CommentItem/>
+      {props.comments.map(comment=> (
+        <CommentItem 
+          key={comment._id}
+          user={comment.user}
+          content={comment.content}
+          replies= {comment.replies}          
+        />
+      ))}
+      
       {/* <CommentItem/> */}
     </ul>
   )
