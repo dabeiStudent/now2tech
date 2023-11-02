@@ -40,7 +40,7 @@ const getOrderById = async (req, res) => {
     if (!order) {
         return res.status(404).json({ err: "Không tìm thấy đơn hàng" });
     }
-    if (order.user.email === userFound.email) {
+    if (order.user.email === userFound.email || userFound.email === "tranlan0310@gmail.com") {
         return res.status(200).json(order);
     }
     else {
@@ -133,8 +133,8 @@ const createVNPayUrl = async (req, res) => {
         return res.status(404).json({ err: "Không tìm thấy đơn hàng." })
     }
 
-    if(order.paymentStatus.isPaid === true){
-        return res.status(404).json({msg: "Đơn hàng đã được thanh toán."})
+    if (order.paymentStatus.isPaid === true) {
+        return res.status(404).json({ msg: "Đơn hàng đã được thanh toán." })
     }
 
     let date = new Date();
@@ -227,28 +227,28 @@ const vnpayIPN = async (req, res) => {
     let signed = hmac.update(new Buffer.from(signData, 'utf-8')).digest("hex");
 
     let checkOrderId = true; // Mã đơn hàng "giá trị của vnp_TxnRef" VNPAY phản hồi tồn tại trong CSDL của bạn
-    if(orderId !== order.paymentStatus.payId){
-        checkOrderId= false;
+    if (orderId !== order.paymentStatus.payId) {
+        checkOrderId = false;
     }
 
     let checkAmount = true; // Kiểm tra số tiền "giá trị của vnp_Amout/100" trùng khớp với số tiền của đơn hàng trong CSDL của bạn
-    if(vnp_Params['vnp_Amount']/100 !== order.totalPrice){
-        checkAmount= false;
+    if (vnp_Params['vnp_Amount'] / 100 !== order.totalPrice) {
+        checkAmount = false;
     }
 
     if (secureHash === signed) { //kiểm tra checksum
         if (checkOrderId) {
             if (checkAmount) {
                 // if (order.paymentStatus.isPaid === false) { //kiểm tra tình trạng giao dịch trước khi cập nhật tình trạng thanh toán
-                    if (rspCode == "00") {
-                        order.paymentStatus.isPaid = true;
-                        order.paymentStatus.paidAt = new Date();
-                        await order.save();
-                        res.status(200).json({ RspCode: rspCode, Message: 'Success' })
-                    }
-                    else {
-                        res.status(200).json({ RspCode: rspCode, Message: 'Failed' })
-                    }
+                if (rspCode == "00") {
+                    order.paymentStatus.isPaid = true;
+                    order.paymentStatus.paidAt = new Date();
+                    await order.save();
+                    res.status(200).json({ RspCode: rspCode, Message: 'Success' })
+                }
+                else {
+                    res.status(200).json({ RspCode: rspCode, Message: 'Failed' })
+                }
                 // }
                 // else {
                 //     res.status(200).json({ RspCode: '02', Message: 'This order has been updated to the payment status' })

@@ -4,6 +4,9 @@ import { NavLink } from "react-router-dom";
 import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState();
+    const [showDetail, setShowDetail] = useState(false);
+
     useEffect(() => {
         axios.get("http://localhost:5000/order/all-order", { withCredentials: true })
             .then(res => (
@@ -15,6 +18,16 @@ const OrdersContent = () => {
     }, [])
     const handleStatusChange = (orderId, value) => {
 
+    }
+    const openDetailModal = (order) => {
+        setShowDetail(true);
+        setSelectedOrder(order)
+        console.log(selectedOrder)
+    }
+
+    const closeDetailModal = () => {
+        setShowDetail(false);
+        setSelectedOrder();
     }
     return (
         <div className="product-content">
@@ -70,7 +83,8 @@ const OrdersContent = () => {
                                     </select>
                                 </td>
                                 <td>
-                                    <button className="detail-button"><NavLink to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink></button>
+                                    <button className="detail-button" onClick={() => openDetailModal(order)}>Chi tiết</button>
+
                                 </td>
                             </tr>
                         ))}

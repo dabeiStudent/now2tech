@@ -6,11 +6,11 @@ import './CommentComponent.css';
 import CommentList from './CommentList';
 import { AuthContext } from '../../../ultis/authContext';
 const CommentComponent = props => {
-  const navigate= useNavigate();
-  const authContext= useContext(AuthContext);
-  const [isOpen, setIsOpen]= useState(false);
-  const [comments, setComments]= useState();
-  const [comment, setComment]= useState({
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const [comments, setComments] = useState();
+  const [comment, setComment] = useState({
     name: null,
     email: null,
     phoneNumber: null,
@@ -30,18 +30,18 @@ const CommentComponent = props => {
     setComment({ ...comment, [e.target.name]: e.target.value })
   };
 
-  const submitCommentHandler= async (e)=> {
+  const submitCommentHandler = async (e) => {
     e.preventDefault();
 
-    if(authContext.isLogin === false){
-      if(comment.content === null
+    if (authContext.isLogin === false) {
+      if (comment.content === null
         || comment.name === null
-        || comment.email === null 
-        || comment.phoneNumber === null){
-          return window.alert('Vui lòng nhập thông tin để bình luận.');
-        }
+        || comment.email === null
+        || comment.phoneNumber === null) {
+        return window.alert('Vui lòng nhập thông tin để bình luận.');
+      }
 
-        await axios.post(`http://localhost:5000/comment/create-comment/${props.productId}`,
+      await axios.post(`http://localhost:5000/comment/create-comment/${props.productId}`,
         {
           name: comment.name,
           email: comment.email,
@@ -60,16 +60,16 @@ const CommentComponent = props => {
         })
         .catch(err=> console.log(err));
     } else {
-      if(comment.content === null){
-          return window.alert('Vui lòng nhập bình luận của bạn.');
-        }
+      if (comment.content === null) {
+        return window.alert('Vui lòng nhập bình luận của bạn.');
+      }
 
-        await axios.post(`http://localhost:5000/comment/logged-create-comment/${props.productId}`,
+      await axios.post(`http://localhost:5000/comment/logged-create-comment/${props.productId}`,
         {
           content: comment.content
         }, { withCredentials: true })
-        .then(res=> navigate(0))
-        .catch(err=> console.log(err));
+        .then(res => navigate(0))
+        .catch(err => console.log(err));
     }
   }
   const openHandler = () => { setIsOpen(true) };
