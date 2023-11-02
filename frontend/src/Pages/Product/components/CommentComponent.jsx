@@ -48,7 +48,16 @@ const CommentComponent = props => {
           phoneNumber: comment.phoneNumber,
           content: comment.content
         })
-        .then(res=> navigate(0))
+        .then(res=> {
+          setComment({
+            name: null,
+            email: null,
+            phoneNumber: null,
+            content: null
+          });
+          setFlag(!flag);
+          setIsOpen(false);
+        })
         .catch(err=> console.log(err));
     } else {
       if(comment.content === null){
@@ -63,7 +72,6 @@ const CommentComponent = props => {
         .catch(err=> console.log(err));
     }
   }
-
   const openHandler = () => { setIsOpen(true) };
   return (
     <div className='comment-container'>
@@ -72,7 +80,7 @@ const CommentComponent = props => {
           <textarea onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>
           { (isOpen === true && authContext.isLogin === false ) ? (
             <div className='user-info'>
-              <input onChange={changeCommentHandler} name='name' type="text" placeholder='Họ và tên' required/>
+              <input defaultValue={comment.name} onChange={changeCommentHandler} name='name' type="text" placeholder='Họ và tên' required/>
               <input onChange={changeCommentHandler} name='email' type="email" placeholder='Email' required/>
               <input onChange={changeCommentHandler} name='phoneNumber' type="text" placeholder='Số điện thoại' pattern="[0-9]*" />
               <button type='submit' onClick={submitCommentHandler}>Gửi</button>
