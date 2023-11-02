@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import { NavLink } from "react-router-dom";
 import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
@@ -70,7 +70,7 @@ const OrdersContent = () => {
                                     </select>
                                 </td>
                                 <td>
-                                    <button className="detail-button">Chi tiết</button>
+                                    <button className="detail-button"><NavLink to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink></button>
                                 </td>
                             </tr>
                         ))}
