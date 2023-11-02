@@ -1,24 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
-import getCookie from "../../ultis/getCookie";
 import './NavLinks.css';
 import { CartContext } from '../../ultis/cartContext';
+import axios from "axios";
 
 const NavLinks = () => {
-    const usernameEncoded = getCookie('username');
-    const username = decodeURIComponent(usernameEncoded);
-    const roleEncoded = getCookie('role');
-    const role = decodeURIComponent(roleEncoded);
-    const userLoggedIn = {
-        userName: username,
-        role: role
-    }
+    const [userLoggedIn, setUserLogin] = useState({
+        userName: '',
+        role: ''
+    })
     const cart = useContext(CartContext);
     const { items } = cart;
-
+    useEffect(() => {
+        axios.get('http://localhost:5000/user/after-login', { withCredentials: true })
+            .then(result => {
+                setUserLogin(result.data);
+            })
+            .catch(err => {
+                console.log(err);
+                setUserLogin({
+                    userName: '',
+                    role: ''
+                })
+            })
+    }, [userLoggedIn])
     return (
         <ul className="nav-links">
             <li>
@@ -50,14 +58,14 @@ const NavLinks = () => {
                     <span>Giỏ hàng</span>
                 </NavLink>
             </li>
-            {username !== 'false' ? (
+            {userLoggedIn.userName !== 'false' ? (
                 <li>
                     <div className="dropdown-element">
                         <button className="dropdown-element__btn"><FontAwesomeIcon className="nav-links__icon-login" icon={faUser} />Hello, {userLoggedIn.userName} ({userLoggedIn.role})</button>
                         <div className="dropdown-element__menu">
                             <NavLink to='/my-profile'>Tài khoản của tôi</NavLink>
 
-                            {username === "admin" && (
+                            {userLoggedIn.userName === "admin" && (
                                 <NavLink to="/now2tech-management" className="nav-links__login">
                                     Quản lý
                                     {/* <FontAwesomeIcon className="nav-links__icon-login" icon={faBarsProgress} /> */}

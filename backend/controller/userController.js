@@ -73,6 +73,18 @@ const userLogin = async (req, res) => {
         return res.status(500).json({ err: err });
     }
 }
+const afterLogin = async (req, res) => {
+    const token = req.cookies.utoken;
+    if (!token) {
+        return res.status(401).json({ message: 'Không tìm thấy token' });
+    }
+    jwt.verify(token, process.env.JWT_KEY, (err, user) => {
+        if (err) {
+            return res.status(403).json({ message: 'Token không hợp lệ' });
+        }
+        res.json({ userName: user.userName, role: user.role });
+    })
+}
 //logout
 const userLogout = (req, res) => {
     res.clearCookie("utoken");
@@ -206,4 +218,4 @@ const removeUser = async (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllUser, getUser, getProfile, userLogin, userLogout, userRegister, updateUser, updateProfile, uploadProfileImage, changePassword, setStatus, removeUser };
+module.exports = { getAllUser, getUser, getProfile, userLogin, afterLogin, userLogout, userRegister, updateUser, updateProfile, uploadProfileImage, changePassword, setStatus, removeUser };
