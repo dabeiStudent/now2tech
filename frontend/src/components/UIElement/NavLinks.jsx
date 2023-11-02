@@ -6,27 +6,33 @@ import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBrack
 import './NavLinks.css';
 import { CartContext } from '../../ultis/cartContext';
 import axios from "axios";
-
+import getCookie from "../../ultis/getCookie";
 const NavLinks = () => {
-    const [userLoggedIn, setUserLogin] = useState({
-        userName: '',
-        role: ''
-    })
+    const usernameEncoded = getCookie('username');
+    const username = decodeURIComponent(usernameEncoded);
+    const roleEncoded = getCookie('role');
+    const role = decodeURIComponent(roleEncoded);
+    const userLoggedIn = {
+        userName: username,
+        role: role
+    }
+
     const cart = useContext(CartContext);
     const { items } = cart;
-    useEffect(() => {
-        axios.get('http://localhost:5000/user/after-login', { withCredentials: true })
-            .then(result => {
-                setUserLogin(result.data);
-            })
-            .catch(err => {
-                console.log(err);
-                setUserLogin({
-                    userName: '',
-                    role: ''
-                })
-            })
-    }, [userLoggedIn])
+    // useEffect(() => {
+    //     axios.get('http://localhost:5000/user/after-login', { withCredentials: true })
+    //         .then(result => {
+    //             setUserLogin(result.data);
+    //             setLogin(!isLogged)
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             setUserLogin({
+    //                 userName: '',
+    //                 role: ''
+    //             })
+    //         })
+    // }, [isLogged])
     return (
         <ul className="nav-links">
             <li>
