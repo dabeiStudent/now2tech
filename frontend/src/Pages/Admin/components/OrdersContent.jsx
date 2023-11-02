@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import { NavLink } from "react-router-dom";
 import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
@@ -13,6 +13,9 @@ const OrdersContent = () => {
                 console.log(err)
             ));
     }, [])
+    const handleStatusChange = (orderId, value) => {
+
+    }
     return (
         <div className="product-content">
             <div className="table-container">
@@ -47,15 +50,27 @@ const OrdersContent = () => {
                                 <td>{order.totalPrice}</td>
                                 <td>{order.shippingFee}</td>
                                 <td>
-                                    <select>
-                                        <option value=""></option>
-                                        <option value="Confirmed">Đã xác nhận</option>
-                                        <option value="InProgress">Đang Giao</option>
-                                        <option value="Done">Đã Giao</option>
+                                    <select
+                                        value={order.status}
+                                        onChange={(e) => handleStatusChange(order._id, e.target.value)}
+                                    >
+                                        {['Not_proccessed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map((status) => (
+                                            <option key={status} value={status}>
+                                                {status === 'Not_proccessed'
+                                                    ? 'Chưa xử lý'
+                                                    : status === 'Processing'
+                                                        ? 'Đang xử lý'
+                                                        : status === 'Shipped'
+                                                            ? 'Đã gửi'
+                                                            : status === 'Delivered'
+                                                                ? 'Đã giao'
+                                                                : 'Đã hủy'}
+                                            </option>
+                                        ))}
                                     </select>
                                 </td>
                                 <td>
-                                    <button className="detail-button">Chi tiết</button>
+                                    <button className="detail-button"><NavLink to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink></button>
                                 </td>
                             </tr>
                         ))}

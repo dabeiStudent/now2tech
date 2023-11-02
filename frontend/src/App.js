@@ -34,7 +34,7 @@ function App() {
   const username = decodeURIComponent(usernameEncoded);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-  const [isLogin, setIsLogin]= useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleChatButtonClick = () => {
     setIsChatOpen(true);
@@ -43,21 +43,21 @@ function App() {
   const { cartItems, addToCart, reduceQty, increaseQty, deleteItem, setCartItems } = useCart();
   const { selectedItems, address, setSelectedItems, setAddress } = useOrder();
 
-  const login= useCallback(()=> {
+  const login = useCallback(() => {
     // setUname(name);
-    setIsLogin(true);    
+    setIsLogin(true);
   }, []);
 
-  const logout= useCallback(()=> {
+  const logout = useCallback(() => {
     // setUname(name);
-    setIsLogin(false);    
+    setIsLogin(false);
   }, [])
 
-  useEffect(()=> {
+  useEffect(() => {
     const usernameEncoded = getCookie('username');
     const username = decodeURIComponent(usernameEncoded);
 
-    if(username !== 'false'){
+    if (username !== 'false') {
       login();
     }
   }, [login])
@@ -65,22 +65,22 @@ function App() {
   return (
     <React.Fragment>
       {/* <PayPalScriptProvider deferLoading={true}> */}
-      <AuthContext.Provider value={{isLogin: isLogin, login: login, logout: logout}}>
-      <CartContext.Provider value={{
-        items: cartItems,
-        addToCart: addToCart,
-        reduceQty: reduceQty,
-        increaseQty: increaseQty,
-        deleteItem: deleteItem,
-        setCartItems: setCartItems
-      }}>
-        <OrderContext.Provider value={{
-          selectedItems: selectedItems,
-          address: address,
-          setSelectedItems: setSelectedItems,
-          setAddress: setAddress
+      <AuthContext.Provider value={{ isLogin: isLogin, login: login, logout: logout }}>
+        <CartContext.Provider value={{
+          items: cartItems,
+          addToCart: addToCart,
+          reduceQty: reduceQty,
+          increaseQty: increaseQty,
+          deleteItem: deleteItem,
+          setCartItems: setCartItems
         }}>
-          
+          <OrderContext.Provider value={{
+            selectedItems: selectedItems,
+            address: address,
+            setSelectedItems: setSelectedItems,
+            setAddress: setAddress
+          }}>
+
             <Router>
               <div className="App">
                 <MainNavigation />
@@ -92,8 +92,8 @@ function App() {
 
                     <Route exact path='/gio-hang' element={<CartPage />} />
                     <Route exact path='/thong-tin-giao-hang' element={<Shipping />} />
-                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage/>}/>
-                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment/>}/>
+                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />} />
+                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
 
                     {username === "admin"
                       && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
@@ -104,7 +104,7 @@ function App() {
                     <Route path="/reset-password" element={<ResetPWPage />} />
                     {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
                       : <Route path="/my-profile" element={<LoginPage />} />}
-                       
+
                   </Routes>
                 </div>
                 <div className="App-footer">
@@ -119,8 +119,8 @@ function App() {
                 {isChatOpen && <Chat />}
               </div>
             </Router>
-        </OrderContext.Provider>
-      </CartContext.Provider>
+          </OrderContext.Provider>
+        </CartContext.Provider>
       </AuthContext.Provider>
       {/* </PayPalScriptProvider>               */}
     </React.Fragment >

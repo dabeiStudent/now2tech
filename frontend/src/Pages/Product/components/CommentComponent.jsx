@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 import './CommentComponent.css';
 import CommentList from './CommentList';
@@ -14,20 +13,20 @@ const CommentComponent = props => {
     name: null,
     email: null,
     phoneNumber: null,
-    comment: null
+    content: null
   })
-
-  useEffect(()=> {
-    const getComments= async ()=> {
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    const getComments = async () => {
       await axios.get(`http://localhost:5000/comment/get-comments/${props.productId}`)
-      .then(res=> setComments(res.data))
-      .catch(err=> console.log(err));
+        .then(res => setComments(res.data))
+        .catch(err => console.log(err));
     }
     getComments();
-  }, [props.productId]);
+  }, [props.productId, flag]);
 
-  const changeCommentHandler= (e)=> {
-    setComment({...comment, [e.target.name]: e.target.value})
+  const changeCommentHandler = (e) => {
+    setComment({ ...comment, [e.target.name]: e.target.value })
   };
 
   const submitCommentHandler= async (e)=> {
@@ -64,7 +63,7 @@ const CommentComponent = props => {
     }
   }
 
-  const openHandler= ()=> {setIsOpen(true)};
+  const openHandler = () => { setIsOpen(true) };
   return (
     <div className='comment-container'>
         <h2>Bình luận</h2>

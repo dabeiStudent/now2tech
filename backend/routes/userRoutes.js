@@ -30,6 +30,7 @@ router.get('/get-user/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userContro
 router.get('/profile/my-profile', tokenCheck.checkJWT, getJWT.getData, userController.getProfile);
 //login & logout
 router.post('/user-login', userController.userLogin);
+router.get('/after-login', userController.afterLogin);
 router.post('/user-logout', userController.userLogout);
 //resetPassword
 router.post('/reset-password/send-request', apiLimiter, emailSending.sendEmailReset);
