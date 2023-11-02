@@ -3,10 +3,13 @@
 }
 .comment-item li{
     margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
 }
 
 .comment-item__top{
     margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .comment-item__username{
@@ -31,3 +34,76 @@
     top: -10px;
     left: 10px;
 }
+
+.reply-btn{
+    border: none;
+    color: #2f80ed;
+    background: none;
+    font-size: 14px;
+}
+
+.reply-btn span{
+    margin-left: 3px;
+}
+
+.reply-btn:hover{
+    text-decoration: underline;
+}
+
+.comment-item__question{
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+.comment-item__reply{
+    margin-left: 10px;
+}
+
+.reply-form{
+    position: relative;
+    background: #f7f7f7;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.reply-form textarea, .reply-form input{
+    border: none;
+}
+
+.reply-form::before{
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f7f7f7;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+
+.logged-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.logged-btn button{
+    padding: 5px 10px;
+    background: #2f80ed;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+}
+
+.comment-item__user-role{
+    font-size: 14px;
+    margin-left: 8px;
+    color: #2f80ed;
+}
+
+
+
+
+
+

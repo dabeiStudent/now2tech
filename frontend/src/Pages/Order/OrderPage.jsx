@@ -98,12 +98,12 @@ const OrderPage = () => {
             </ul>
             <div className='detail-container__fees'>
               <Row>
-                <Col lg={4}><span>Tạm tính ({order.items.reduce((acc, current) => acc + current.qty, 0)} sản phẩm): </span></Col>
+                <Col lg={4}><span>Tổng ({order.items.reduce((acc, current) => acc + current.qty, 0)} sản phẩm): </span></Col>
                 <Col className='custom-col' lg={8}><span>{formatPrice(order.price)}</span></Col>
               </Row>
               <Row>
                 <Col lg={4}><span>Phí giao hàng: </span></Col>
-                <Col className='custom-col' lg={8}><span>{formatPrice(order.price)}</span></Col>
+                <Col className='custom-col' lg={8}><span>{formatPrice(order.shippingFee)}</span></Col>
               </Row>
               <Row>
                 <Col lg={4}><span>Tổng cộng: </span></Col>

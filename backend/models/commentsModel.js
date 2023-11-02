@@ -6,12 +6,15 @@ const CommentSchema = new mongoose.Schema({
         type: String
     },
     product: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'product'
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'product',
+        default: null
     },
     user: {
         name: { type: String },
         email: { type: String },
         phoneNumber: { type: String },
+        isAdmin: { type: Boolean, default: false }
     },
     replies: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'comment', default: []}

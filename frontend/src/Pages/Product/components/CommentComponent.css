@@ -38,12 +38,25 @@
     outline: none;
 }
 
-.user-info button{
-    width: 49%;
-    margin-top: 10px;
-    padding: 5px;
+.user-info button, .logged-submit__btn button{
+    
     background: #2f80ed;
     border-radius: 5px;
     border: none;
     color: #fff;
+}
+
+.user-info button {
+    width: 49%;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.logged-submit__btn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logged-submit__btn button {
+    padding: 5px 10px;
 }
