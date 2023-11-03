@@ -11,10 +11,10 @@ const CommentComponent = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [comments, setComments] = useState();
   const [comment, setComment] = useState({
-    name: null,
-    email: null,
-    phoneNumber: null,
-    content: null
+    name: '',
+    email: '',
+    phoneNumber: '',
+    content: ''
   })
   const [flag, setFlag] = useState(false);
   useEffect(() => {
@@ -34,10 +34,10 @@ const CommentComponent = props => {
     e.preventDefault();
 
     if (authContext.isLogin === false) {
-      if (comment.content === null
-        || comment.name === null
-        || comment.email === null
-        || comment.phoneNumber === null) {
+      if (comment.content === ''
+        || comment.name === ''
+        || comment.email === ''
+        || comment.phoneNumber === '') {
         return window.alert('Vui lòng nhập thông tin để bình luận.');
       }
 
@@ -50,10 +50,10 @@ const CommentComponent = props => {
         })
         .then(res=> {
           setComment({
-            name: null,
-            email: null,
-            phoneNumber: null,
-            content: null
+            name: '',
+            email: '',
+            phoneNumber: '',
+            content: ''
           });
           setFlag(!flag);
           setIsOpen(false);
@@ -68,21 +68,35 @@ const CommentComponent = props => {
         {
           content: comment.content
         }, { withCredentials: true })
-        .then(res => navigate(0))
+        .then(res => {
+          setComment({
+            name: '',
+            email: '',
+            phoneNumber: '',
+            content:''
+          });
+          setFlag(!flag);
+          setIsOpen(false);
+        })
         .catch(err => console.log(err));
     }
   }
   const openHandler = () => { setIsOpen(true) };
+
+  const reloadHandler= ()=> {
+    setFlag(!flag);
+  }
+
   return (
     <div className='comment-container'>
         <h2>Bình luận</h2>
         <form className='comment-form'>
-          <textarea onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>
+          <textarea value={comment.content} onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>
           { (isOpen === true && authContext.isLogin === false ) ? (
             <div className='user-info'>
-              <input defaultValue={comment.name} onChange={changeCommentHandler} name='name' type="text" placeholder='Họ và tên' required/>
-              <input onChange={changeCommentHandler} name='email' type="email" placeholder='Email' required/>
-              <input onChange={changeCommentHandler} name='phoneNumber' type="text" placeholder='Số điện thoại' pattern="[0-9]*" />
+              <input value={comment.name} onChange={changeCommentHandler} name='name' type="text" placeholder='Họ và tên' required/>
+              <input value={comment.email} onChange={changeCommentHandler} name='email' type="email" placeholder='Email' required/>
+              <input value={comment.phoneNumber} onChange={changeCommentHandler} name='phoneNumber' type="text" placeholder='Số điện thoại' pattern="[0-9]*" />
               <button type='submit' onClick={submitCommentHandler}>Gửi</button>
             </div>
           ) : ( isOpen === true && authContext.isLogin === true &&
@@ -90,7 +104,7 @@ const CommentComponent = props => {
           )
           }
         </form>
-        {comments && (<CommentList comments={comments}/>)}
+        {comments && (<CommentList flag={flag} setFlag={setFlag} comments={comments}/>)}
                
     </div>
   )

@@ -2,21 +2,19 @@ import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 import './CommentItem.css';
 import { AuthContext } from '../../../ultis/authContext';
 
 const CommentItem = props => {
-  const navigate= useNavigate();
   const authContext= useContext(AuthContext);
   const [isReply, setIsReply]= useState(false);
   const [replyMessage, setReplyMessage]= useState({
-    content: null,
-    name: null,
-    email: null,
-    phoneNumber: null
-  })
+    content: '',
+    name: '',
+    email: '',
+    phoneNumber: ''
+  });
 
   const replyHandler= ()=> {
     setIsReply(!isReply);
@@ -30,11 +28,10 @@ const CommentItem = props => {
     e.preventDefault();
 
     if(authContext.isLogin === false){
-
-      if(replyMessage.content === null
-        || replyMessage.email === null
-        || replyMessage.name === null
-        || replyMessage.phoneNumber === null){
+      if(replyMessage.content === ''
+        || replyMessage.email === ''
+        || replyMessage.name === ''
+        || replyMessage.phoneNumber === ''){
           return window.alert("Vui lòng nhập thông tin để phản hồi.");
         }
 
@@ -45,7 +42,16 @@ const CommentItem = props => {
         email: replyMessage.email,
         phoneNumber: replyMessage.phoneNumber
       })
-      .then(res=> navigate(0))
+      .then(res=> {
+        setIsReply(false);
+        setReplyMessage({
+          name: '',
+          email: '',
+          phoneNumber: '',
+          content: ''
+        });
+        props.setFlag(!props.flag);
+      })
       .catch(err=> console.log(err));
     } else{
 
@@ -57,7 +63,16 @@ const CommentItem = props => {
       {
         content: replyMessage.content,
       }, { withCredentials: true })
-      .then(res=> navigate(0))
+      .then(res=> {
+        setIsReply(false);
+        setReplyMessage({
+          name: '',
+          email: '',
+          phoneNumber: '',
+          content: ''
+        });
+        props.setFlag(!props.flag)
+      })
       .catch(err=> console.log(err));
     }
   } 

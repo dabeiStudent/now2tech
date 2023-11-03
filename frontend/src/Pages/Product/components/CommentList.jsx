@@ -12,7 +12,9 @@ const CommentList = props => {
           id={comment._id}
           user={comment.user}
           content={comment.content}
-          replies= {comment.replies}          
+          replies= {comment.replies}  
+          flag= {props.flag}
+          setFlag= {props.setFlag}
         />
       ))}
     </ul>
