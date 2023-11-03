@@ -5,7 +5,6 @@ const DetailModalUser = ({ user, onClose }) => {
     if (!user) {
         return null;
     }
-
     return (
         <div className="detail-modal">
             <div className="modal-content">

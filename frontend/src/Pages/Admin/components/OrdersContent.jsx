@@ -4,9 +4,6 @@ import { NavLink } from "react-router-dom";
 import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
-    const [selectedOrder, setSelectedOrder] = useState();
-    const [showDetail, setShowDetail] = useState(false);
-
     useEffect(() => {
         axios.get("http://localhost:5000/order/all-order", { withCredentials: true })
             .then(res => (
@@ -19,16 +16,7 @@ const OrdersContent = () => {
     const handleStatusChange = (orderId, value) => {
 
     }
-    const openDetailModal = (order) => {
-        setShowDetail(true);
-        setSelectedOrder(order)
-        console.log(selectedOrder)
-    }
 
-    const closeDetailModal = () => {
-        setShowDetail(false);
-        setSelectedOrder();
-    }
     return (
         <div className="product-content">
             <div className="table-container">
@@ -39,10 +27,9 @@ const OrdersContent = () => {
                             <th>Địa chỉ</th>
                             <th>Phương thức thanh toán</th>
                             <th>Trạng thái thanh toán</th>
-                            <th>Trạng thái đơn hàng</th>
                             <th>Tổng giá tiền</th>
                             <th>Phí giao hàng</th>
-                            <th>Tùy chỉnh</th>
+                            <th>Trạng thái đơn hàng</th>
                             <th>Chi tiết</th>
                         </tr>
                     </thead>
@@ -59,7 +46,6 @@ const OrdersContent = () => {
                                         <span>Chưa thanh toán</span>
                                     )}
                                 </td>
-                                <td>{order.status}</td>
                                 <td>{order.totalPrice}</td>
                                 <td>{order.shippingFee}</td>
                                 <td>
@@ -67,24 +53,29 @@ const OrdersContent = () => {
                                         value={order.status}
                                         onChange={(e) => handleStatusChange(order._id, e.target.value)}
                                     >
-                                        {['Not_proccessed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map((status) => (
-                                            <option key={status} value={status}>
-                                                {status === 'Not_proccessed'
-                                                    ? 'Chưa xử lý'
-                                                    : status === 'Processing'
-                                                        ? 'Đang xử lý'
-                                                        : status === 'Shipped'
-                                                            ? 'Đã gửi'
-                                                            : status === 'Delivered'
-                                                                ? 'Đã giao'
-                                                                : 'Đã hủy'}
-                                            </option>
-                                        ))}
+                                        <option key={order.status} value={order.status}>
+                                            {order.status === 'Not_proccessed'
+                                                ? 'Chưa xử lý'
+                                                : order.status === 'Processing'
+                                                    ? 'Đang xử lý'
+                                                    : order.status === 'Shipped'
+                                                        ? 'Đã gửi'
+                                                        : order.status === 'Delivered'
+                                                            ? 'Đã giao'
+                                                            : 'Đã hủy'}
+                                        </option>
+
+                                        <option value="Not_proccessed">Chưa xử lý</option>
+                                        <option value="Proccessing">Đang xử lý</option>
+                                        <option value="Shipped">Đã gửi</option>
+                                        <option value="Delivered">Đã giao</option>
+                                        <option value="Cancelled">Đã hủy</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <button className="detail-button" onClick={() => openDetailModal(order)}>Chi tiết</button>
-
+                                    <button className="detail-button" >
+                                        <NavLink to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink>
+                                    </button>
                                 </td>
                             </tr>
                         ))}
