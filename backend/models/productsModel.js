@@ -47,6 +47,9 @@ const ProductSchema = new mongoose.Schema({
     inStock: {
         type: Number
     },
+    sold: {
+        type: Number
+    },
     avgRating: { type: Number, default: 0 },
     numOfReview: { type: Number, default: 0 },
     reviews: [

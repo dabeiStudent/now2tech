@@ -16,7 +16,9 @@ router.post('/create-vnpay-url/:oid', orderController.createVNPayUrl);
 //updateToPaid
 router.put('/update-to-paid/:oid', tokenCheck.checkJWT, orderController.updateToPaid);
 router.put('/update-to-delivered/:oid', tokenCheck.checkJWT, orderController.updateToDelivered);
-
+//updateStatusAdmin
+router.put('/update-status/:oid/:ostatus', tokenCheck.checkJWT, tokenCheck.isAdmin, orderController.updateStatusOrderAdmin);
+router.put('/update-status-shipped/:oid/:ostatus', tokenCheck.checkJWT, tokenCheck.isAdmin, orderController.updateInstockAfterSent);
 router.get('/config/paypal', orderController.getPaypalClientId);
 
 //

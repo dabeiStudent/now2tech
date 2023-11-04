@@ -93,6 +93,7 @@ const ProductsContent = () => {
                                 <th>brand</th>
                                 <th>category</th>
                                 <th>inStock</th>
+                                <th>sold</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -108,6 +109,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.brand}</td>
                                     <td className="product-cell">{product.category}</td>
                                     <td className="product-cell">{product.inStock}</td>
+                                    <td className="product-cell">{product.sold}</td>
                                     <td className="product-cell">
                                         <button className="detail-button" onClick={() => openDetailModal(product)}>Chi tiết</button>
                                         <button className="edit-button" onClick={() => handleEdit(product)}>Cập nhật</button>

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
+    const [flag, setFlag] = useState(false);
     useEffect(() => {
         axios.get("http://localhost:5000/order/all-order", { withCredentials: true })
             .then(res => (
@@ -12,9 +13,27 @@ const OrdersContent = () => {
             .catch(err => (
                 console.log(err)
             ));
-    }, [])
+    }, [flag])
     const handleStatusChange = (orderId, value) => {
-
+        if (value === "Shipped") {
+            axios.put(`http://localhost:5000/order/update-status-shipped/${orderId}/${value}`, '', { withCredentials: true })
+                .then(result => {
+                    alert("Đã gửi hàng cho shipper");
+                    setFlag(!flag);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else {
+            axios.put(`http://localhost:5000/order/update-status/${orderId}/${value}`, '', { withCredentials: true })
+                .then(result => {
+                    alert("Cập nhật thành công");
+                    setFlag(!flag);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     return (
@@ -53,7 +72,7 @@ const OrdersContent = () => {
                                         value={order.status}
                                         onChange={(e) => handleStatusChange(order._id, e.target.value)}
                                     >
-                                        <option key={order.status} value={order.status}>
+                                        <option key={order.status} value={order.status} disabled>
                                             {order.status === 'Not_proccessed'
                                                 ? 'Chưa xử lý'
                                                 : order.status === 'Processing'
@@ -66,7 +85,7 @@ const OrdersContent = () => {
                                         </option>
 
                                         <option value="Not_proccessed">Chưa xử lý</option>
-                                        <option value="Proccessing">Đang xử lý</option>
+                                        <option value="Processing">Đang xử lý</option>
                                         <option value="Shipped">Đã gửi</option>
                                         <option value="Delivered">Đã giao</option>
                                         <option value="Cancelled">Đã hủy</option>
