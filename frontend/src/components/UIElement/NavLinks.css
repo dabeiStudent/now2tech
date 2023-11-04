@@ -21,21 +21,22 @@
 }
 
 .nav-links li:nth-child(1) {
-    width: 34%;
+    width: 45%;
 }
 
 .nav-links__search {
     position: relative;
     width: 100%;
-    border-radius: 4px;
-    background-color: #fff;
+    border-radius: 55px;
+    /* background-color: #fff; */
+    border: 2px solid #FFD400;
 }
 
 .nav-links__search input {
     border: none;
     outline: none;
     height: 30px;
-    border-radius: 4px;
+    border-radius: 55px;
     line-height: 14px;
     height: 35px;
     font-size: 12px;
@@ -44,11 +45,14 @@
 }
 
 .nav-links__search button {
+    height: 100%;
     border: none;
     position: absolute;
-    top: 7px;
-    right: 10px;
-    background: inherit;
+    top: 0;
+    right: 0;
+    background: #FFD400;
+    border-radius: 0 55px 55px 0;
+    width: 20%;
 }
 
 .nav-links li:nth-child(2) {
@@ -90,11 +94,12 @@
 .nav-links__cart-number {
     background: red;
     font-size: 10px;
+    font-weight: 500;
     height: 14px;
     width: 14px;
     border-radius: 50%;
     position: absolute;
-    top: 7px;
+    top: 9px;
     right: -3px;
     text-align: center;
 }
@@ -158,4 +163,14 @@
 
 .dropdown-element__menu a:hover{
     background: #f7f7f7;
+}
+
+.nav-links__login{
+    background: #FFD400;
+    border-radius: 55px;
+}
+
+.nav-links__login span{
+    font-weight: 500;
+    padding: 0 5px;
 }

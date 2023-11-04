@@ -43,8 +43,10 @@ const OrderItem = props => {
             comment: comment
         }, {withCredentials: true})
         .then(res=> {
-            window.alert(res.data.msg);
-            navigate(0);            
+            setOpenModal(false);
+            props.setIsReload(!props.isReload);
+            // window.alert(res.data.msg);
+            // navigate(0);            
         })
         .catch(err=> console.log(err)); 
     }
@@ -106,13 +108,13 @@ const OrderItem = props => {
                                     </div>
                                     <div className='review-item__comment'>
                                         <label htmlFor="comment">Viết bình luận:</label>
-                                        <textarea onChange={commentChangeHandler} id='comment' rows={3} placeholder='Bình luận của bạn...'/>
+                                        <textarea value={comment} onChange={commentChangeHandler} id='comment' rows={3} placeholder='Bình luận của bạn...'/>
                                     </div>
                                 </div>                     
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant='danger' onClick={closeModalHandler}>Hủy</Button>
-                                <Button variant='primary'type='submit' >Cập nhật</Button>
+                                <Button variant='primary'type='submit' >Gửi đánh giá</Button>
                             </Modal.Footer>
                         </Form>
                     </Modal>

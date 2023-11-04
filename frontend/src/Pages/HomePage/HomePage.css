@@ -1,13 +1,19 @@
 body{
-    background: #f3f3f3;
+    background: #f4f4f4;
+}
+
+.custom-slider{
+    max-width: 1220px;
+    margin: auto;
+    padding: 1%;
 }
 .home-page-container{
     max-width: 1200px;
     margin: auto;
-    padding: 1%;
+    /* padding: 1%; */
 }
 .all-product-container{
-    background: #28a2c9;
+    /* background: #28a2c9; */
     margin-top: 20px;
     margin-bottom: 10px;
     padding-bottom: 20px;
@@ -17,12 +23,13 @@ body{
 .all-product-container__title{
     display: block;
     overflow: hidden;
-    color: #fff;
-    font-size: 45px;
-    font-weight: 700;
-    line-height: 40px;
-    text-align: center;
-    padding: 26px 0;
+    /* color: #fff; */
+    font-size: 1.5rem;
+    font-weight: 550;
+    /* line-height: 40px; */
+    /* text-align: center; */
+    padding: 13px 0 0 0;
+    margin: 0;
 }
 
 .all-product-container .product-card{
@@ -33,7 +40,7 @@ body{
 
 .all-product-container__prod-list{
     display: grid;
-    gap: 8px;
+    gap: 12px;
     grid-auto-rows: minmax(min-content, max-content);
     grid-template-columns: repeat(5,minmax(0,1fr));
     padding: 0 8px;

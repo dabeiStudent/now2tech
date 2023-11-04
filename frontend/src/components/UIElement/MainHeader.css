@@ -1,5 +1,7 @@
 .main-header {
-    background: #FFD400;
+    /* background: #FFD400; */
+    background: #fff;
     width: 100%;
     padding: 0;
+    /* border-bottom: 1px solid #ddd; */
 }

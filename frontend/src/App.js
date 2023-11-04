@@ -26,6 +26,7 @@ import MainAdminPage from './Pages/Admin/MainAdminPage';
 import OrderPage from './Pages/Order/OrderPage';
 import VNPayPayment from './Pages/Order/VNPayPayment';
 import { AuthContext } from './ultis/authContext';
+import VoucherPage from './Pages/Voucher/VoucherPage';
 
 import './App.css';
 
@@ -91,9 +92,10 @@ function App() {
                     <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
 
                     <Route exact path='/gio-hang' element={<CartPage />} />
-                    <Route exact path='/thong-tin-giao-hang' element={<Shipping />} />
-                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />} />
-                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
+                    <Route exact path='/thong-tin-giao-hang' element={<Shipping />}/>
+                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />}/>
+                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment/>}/>
+                    <Route exact path='/khuyen-mai/:vid' element={<VoucherPage/>}/>
 
                     {username === "admin"
                       && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}

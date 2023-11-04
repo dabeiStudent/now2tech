@@ -12,6 +12,7 @@ import { formatPrice } from '../../ultis/formatPrice';
 const OrderPage = () => {
   let { oid } = useParams();
   const [order, setOrder] = useState();
+  const [isReload, setIsReload]= useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:5000/order/get-order/${oid}`, { withCredentials: true })
@@ -19,7 +20,7 @@ const OrderPage = () => {
       .catch(err => {
         alert(err);
       });
-  }, [oid]);
+  }, [oid, isReload]);
 
   const paymentHandler= ()=> {
     const getVNPayUrl= async ()=> {
@@ -29,7 +30,7 @@ const OrderPage = () => {
       .catch(err=> console.log(err))
   }
     getVNPayUrl();
-  }
+  };
 
   return (
     <div>
@@ -93,7 +94,9 @@ const OrderPage = () => {
                   qty={item.qty}
                   image={item.image}
                   price={item.price}
-                  orderStatus= {order.status} />))
+                  orderStatus= {order.status}
+                  isReload= {isReload}
+                  setIsReload={setIsReload} />))
               }
             </ul>
             <div className='detail-container__fees'>

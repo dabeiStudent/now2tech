@@ -1,0 +1,53 @@
+.voucher-page{
+    width: 100%;    
+}
+
+.voucher-page__container{
+    max-width: 1500px;
+    margin: auto;
+    /* padding: 20px; */
+}
+
+.voucher-page__banner {
+    background-image: url("https://viettelhightech.com/storage/anh-dan-su/banner-web-vht-dansu-1920x530-suckhoe-1903x520.png");
+    color: #fff;
+    max-width: 1500px;
+    /* margin: auto; */
+    padding: 30px 50px;
+}
+
+.voucher-detail {
+    max-width: 1220px;
+    margin: auto;
+}
+
+.voucher-detail__desc .desc-container{
+    background: hsla(0, 0%, 100%, 0.11);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
+}
+
+.voucher-detail__title h2{
+    text-align: center;
+}
+
+.voucher-page__product-list{
+    max-width: 1220px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.voucher-page__product-list .product-card__custom{
+    margin: 0px 6px 12px 6px;
+    width: 230.4px;
+    border-radius: 8px;
+}
+
+.voucher-page__product-list .product-card{
+    padding: 0 10px;
+    border-radius: 8px;
+}
+
+

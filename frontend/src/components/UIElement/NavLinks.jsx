@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 import './NavLinks.css';
 import { CartContext } from '../../ultis/cartContext';
@@ -61,18 +61,18 @@ const NavLinks = () => {
                         }
 
                     </div>
-                    <span>Giỏ hàng</span>
+                    {/* <span>Giỏ hàng</span> */}
                 </NavLink>
             </li>
             {userLoggedIn.userName !== 'false' ? (
                 <li>
                     <div className="dropdown-element">
-                        <button className="dropdown-element__btn"><FontAwesomeIcon className="nav-links__icon-login" icon={faUser} />Hello, {userLoggedIn.userName} ({userLoggedIn.role})</button>
+                        <button className="dropdown-element__btn"><FontAwesomeIcon className="nav-links__icon-login" icon={faUser} />{userLoggedIn.userName} ({userLoggedIn.role})</button>
                         <div className="dropdown-element__menu">
                             <NavLink to='/my-profile'>Tài khoản của tôi</NavLink>
 
                             {userLoggedIn.userName === "admin" && (
-                                <NavLink to="/now2tech-management" className="nav-links__login">
+                                <NavLink to="/now2tech-management">
                                     Quản lý
                                     {/* <FontAwesomeIcon className="nav-links__icon-login" icon={faBarsProgress} /> */}
                                     {/* <span>Quản lý</span> */}
@@ -84,7 +84,7 @@ const NavLinks = () => {
             ) : (
                 <li>
                     <NavLink to="/login" className="nav-links__login">
-                        <FontAwesomeIcon className="nav-links__icon-login" icon={faArrowRightToBracket} />
+                        {/* <FontAwesomeIcon className="nav-links__icon-login" icon={faArrowRightToBracket} /> */}
                         <span>Đăng nhập</span>
                     </NavLink>
                 </li>
