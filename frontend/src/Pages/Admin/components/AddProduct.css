@@ -70,3 +70,38 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* CSS cho input tải lên ảnh */
+input[type="file"] {
+    display: none;
+    /* Ẩn input thực sự */
+}
+
+label[for="images"] {
+    cursor: pointer;
+    /* Biến con trỏ thành một ngón tay trỏ khi di chuột vào nút tải lên */
+    background-color: rgb(31, 173, 86);
+    /* Màu nền của nút tải lên */
+    color: #fff;
+    /* Màu văn bản của nút tải lên */
+    padding: 8px 12px;
+    /* Kích thước nút tải lên */
+    border: none;
+    border-radius: 4px;
+    /* Bo tròn góc của nút */
+    cursor: pointer;
+    margin-top: 10px;
+    /* Khoảng cách từ nút trước đó */
+}
+
+label[for="images"]:hover {
+    background-color: rgb(0, 194, 74);
+    /* Màu nền khi di chuột qua nút */
+}
+
+/* Cài đặt cho khi input được chọn */
+input[type="file"]:focus+label[for="images"] {
+    outline: none;
+    box-shadow: 0 0 3px #007BFF;
+    /* Hiển thị một hiệu ứng đổ bóng khi input được chọn */
+}
