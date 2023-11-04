@@ -17,7 +17,8 @@ const AddProduct = ({ onClose }) => {
         category: '',
         specs: [],
         voucher: [],
-        inStock: ''
+        inStock: '',
+        sold: 0
     });
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -60,7 +61,8 @@ const AddProduct = ({ onClose }) => {
                     category: '',
                     specs: [],
                     voucher: [],
-                    inStock: ''
+                    inStock: '',
+                    sold: 0
                 });
             })
             .catch(err => {

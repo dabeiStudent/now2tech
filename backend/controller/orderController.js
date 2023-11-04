@@ -2,6 +2,7 @@ const moment = require('moment');
 
 const Order = require('../models/ordersModel');
 const User = require('../models/usersModel');
+const Product = require('../models/productsModel');
 
 //create new order
 const createOrder = async (req, res) => {
@@ -99,7 +100,30 @@ const updateToDelivered = async (req, res) => {
         return res.status(404).json({ err: "Không thấy đơn hàng" });
     }
 }
-
+const updateStatusOrderAdmin = async (req, res) => {
+    const { oid, ostatus } = req.params;
+    Order.findByIdAndUpdate(oid, { status: ostatus })
+        .then(result => {
+            return res.status(200).json({ msg: "Success" })
+        })
+        .catch(err => {
+            return res.status(400).json({ err: err })
+        })
+}
+const updateInstockAfterSent = async (req, res) => {
+    const { oid, ostatus } = req.params;
+    const orderFound = await Order.findById(oid);
+    if (orderFound) {
+        await Order.updateOne({ _id: orderFound._id }, { status: ostatus });
+        orderFound.items.map(async (item) => {
+            const productFound = await Product.findOne({ name: item.name })
+            productFound.inStock = productFound.inStock - item.qty;
+            productFound.sold = productFound.sold + item.qty;
+            productFound.save();
+            return res.status(200).json({ msg: "Success" });
+        })
+    }
+}
 const getPaypalClientId = async (req, res) => {
     res.status(200).json({ clientId: process.env.PAYPAL_CLIENT_ID });
 }
@@ -274,6 +298,8 @@ module.exports = {
     getMyOrder,
     updateToPaid,
     updateToDelivered,
+    updateStatusOrderAdmin,
+    updateInstockAfterSent,
     getPaypalClientId,
     createVNPayUrl,
     vnpayIPN
