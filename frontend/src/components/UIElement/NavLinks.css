@@ -11,12 +11,13 @@
 
 .nav-links li {
     margin: 1rem;
+    color: #fff;
 }
 
 .nav-links a {
     text-decoration: none;
     padding: 0.5rem;
-    color: black;
+    color: #fff;
     border: 1px solid transparent;
 }
 
@@ -27,16 +28,16 @@
 .nav-links__search {
     position: relative;
     width: 100%;
-    border-radius: 55px;
+    /* border-radius: 55px; */
     /* background-color: #fff; */
-    border: 2px solid #FFD400;
+    /* border: 2px solid #FFD400; */
 }
 
 .nav-links__search input {
     border: none;
     outline: none;
     height: 30px;
-    border-radius: 55px;
+    /* border-radius: 55px; */
     line-height: 14px;
     height: 35px;
     font-size: 12px;
@@ -50,8 +51,10 @@
     position: absolute;
     top: 0;
     right: 0;
-    background: #FFD400;
-    border-radius: 0 55px 55px 0;
+    /* background: #FFD400; */
+    background: #dd3036;
+    color: #fff;
+    /* border-radius: 0 55px 55px 0; */
     width: 20%;
 }
 
@@ -88,7 +91,7 @@
 .nav-links__box-cart {
     position: relative;
     display: inline-block;
-    margin-right: 6px;
+    /* margin-right: 6px; */
 }
 
 .nav-links__cart-number {
@@ -115,8 +118,8 @@
 }
 
 .nav-links__icon-login {
-    font-size: 22px;
-    margin-right: 6px;
+    font-size: 24px;
+    /* margin-right: 6px; */
 }
 
 .dropdown-element{
@@ -125,8 +128,7 @@
 
 .dropdown-element button{
     border: none;
-    background: none;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .dropdown-element .dropdown-element__menu{
@@ -139,6 +141,19 @@
 .dropdown-element:hover .dropdown-element__menu{
     display: flex;
     flex-direction: column;
+}
+
+.dropdown-element__btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0.5rem;
+    
+}
+
+.dropdown-element__btn .nav-links__icon-login {
+    margin-left: 3px;
 }
 
 .dropdown-element__menu{
@@ -166,8 +181,9 @@
 }
 
 .nav-links__login{
-    background: #FFD400;
-    border-radius: 55px;
+    /* background: #FFD400; */
+    background: #dd3036;
+    /* border-radius: 55px; */
 }
 
 .nav-links__login span{

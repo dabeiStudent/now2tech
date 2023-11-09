@@ -8,7 +8,7 @@ body{
     padding: 1%;
 }
 .home-page-container{
-    max-width: 1200px;
+    max-width: 1920px;
     margin: auto;
     /* padding: 1%; */
 }
@@ -46,6 +46,12 @@ body{
     padding: 0 8px;
 }
 
+.all-product-container__main {
+    max-width: 1220px;
+    margin: auto;
+    
+}
+
 .voucher-list-container{
     margin-top: 30px;
     background: #490A76;
@@ -72,5 +78,100 @@ body{
     height: 40px;
     border-radius: 5px;
     font-size: 20px;
+}
+
+.category-container{
+    width: 100%;
+    /* max-width: 1500px; */
+    background: #fff;
+    margin: auto;
+    padding: 30px 0;
+
+}
+
+.category-container h2, .voucher-container h2, .all-product-container h2{
+    text-align: center;
+    color: #003466;
+}
+
+.category-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.category-container__main, .voucher-container__main{
+    max-width: 1220px;
+    margin: auto;
+}
+
+.voucher-container {
+    padding: 30px;
+}
+
+.voucher-container__list{
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+}
+
+.voucher-container__main{
+    position: relative;
+}
+
+.scroll {
+    max-width: 1220px;
+    overflow-x: auto;
+    position: relative;
+    overflow-x: auto;
+}
+
+.prev-btn, .next-btn{
+    border: none;
+    background: #fff;
+    color: #003466;
+    font-size: 25px;
+    padding: 10px 5px;
+}
+
+.prev-btn{
+    position: absolute;
+    left: -20px;
+    top: 50%;
+} 
+
+.next-btn{
+    position: absolute;
+    right: -20px;
+    top: 50%;
+} 
+
+.scroll::-webkit-scrollbar{
+    height: 3px;
+    display: none;
+}
+
+.scroll::-webkit-scrollbar-track{
+    background: #154985;
+}
+
+.scroll::-webkit-scrollbar-thumb{
+    background: #fff;
+
+}
+
+.scroll::-webkit-scrollbar-thumb:hover{
+    background: #fff;
+}
+
+.voucher-container__main h2{
+    color: #fff;
+}
+
+
+.voucher-container{
+    max-width: 1920px;
+    margin: auto;
+    background: #154985;
 }
 

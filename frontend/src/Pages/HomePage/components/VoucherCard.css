@@ -1,4 +1,52 @@
 .voucher-card{
+    width: 280px;
+    padding: 20px;
+    background: #fff;
+    margin: 10px;
+    min-height: 320px;
+    position: relative;
+}
+
+.voucher-card img{
+   width: 100%;
+   border-radius: 0;
+}
+
+.voucher-card .voucher-card-body{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.voucher-card-body p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #003466;
+    overflow: hidden;
+    max-height: 80px;
+}
+
+.voucher-card__btn{
+    border: none;
+    width: calc(100% - 40px);
+    background: #dd3036;
+    color: #fff;
+    padding: 3px 10px;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
+
+
+
+
+
+
+
+/* .voucher-card{
     background: #fff;
     display: inline-block;
     vertical-align: middle;
@@ -20,4 +68,4 @@
     text-align: left;
     margin-left: 10px;
     max-width: 65%;
-}
+} */

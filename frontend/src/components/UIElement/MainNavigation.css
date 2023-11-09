@@ -8,8 +8,10 @@
 }
 
 .main-navigation__title a{
-    color: black;
+    color: #fff;
     text-decoration: none;
     font-size: 2rem;
     font-weight: bold;
 }
+
+

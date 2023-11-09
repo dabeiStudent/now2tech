@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCartShopping, faPhone, faUser, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCartShopping, faPhone, faUserCircle, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 import './NavLinks.css';
 import { CartContext } from '../../ultis/cartContext';
@@ -67,7 +67,7 @@ const NavLinks = () => {
             {userLoggedIn.userName !== 'false' ? (
                 <li>
                     <div className="dropdown-element">
-                        <button className="dropdown-element__btn"><FontAwesomeIcon className="nav-links__icon-login" icon={faUser} />{userLoggedIn.userName} ({userLoggedIn.role})</button>
+                        <button className="dropdown-element__btn">{userLoggedIn.userName} ({userLoggedIn.role})<FontAwesomeIcon className="nav-links__icon-login" icon={faUserCircle} /></button>
                         <div className="dropdown-element__menu">
                             <NavLink to='/my-profile'>Tài khoản của tôi</NavLink>
 

@@ -18,3 +18,12 @@
     height: 0;
     padding: 0;
 }
+
+.grey td {
+    background: #f3f3f3;
+}
+
+.custom-table-body td, .custom-table-head th{
+    border: none;
+} 
+

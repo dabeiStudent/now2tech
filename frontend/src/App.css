@@ -1,6 +1,6 @@
-/* .App-footer {
-    margin-top: 5%;
-} */
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .chat-button {
     position: fixed;

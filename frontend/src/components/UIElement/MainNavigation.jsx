@@ -11,11 +11,11 @@ const MainNavigation = () => {
     <MainHeader>
       <div className='main-navigation'>
         <div className='main-navigation__title'>
-          <Link to="/">Now2Tech.com</Link>
+          <Link to="/">now2tech</Link>
         </div>
         <NavLinks/>
       </div>
-      <MainMenu/>
+      {/* <MainMenu/> */}
     </MainHeader>
   )
 }
