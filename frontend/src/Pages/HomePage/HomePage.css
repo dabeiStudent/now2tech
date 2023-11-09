@@ -147,8 +147,7 @@ body{
 } 
 
 .scroll::-webkit-scrollbar{
-    height: 3px;
-    display: none;
+    height: 5px;
 }
 
 .scroll::-webkit-scrollbar-track{
@@ -157,12 +156,18 @@ body{
 
 .scroll::-webkit-scrollbar-thumb{
     background: #fff;
-
 }
 
-.scroll::-webkit-scrollbar-thumb:hover{
+.scroll::-webkit-scrollbar-track{
+    box-shadow: none;
+}
+
+.scroll:hover::-webkit-scrollbar-thumb{
     background: #fff;
 }
+/* .scroll::-webkit-scrollbar-thumb:hover{
+    background: #fff;
+} */
 
 .voucher-container__main h2{
     color: #fff;

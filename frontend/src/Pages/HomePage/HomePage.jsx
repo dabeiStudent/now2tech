@@ -47,7 +47,7 @@ const HomePage = () => {
         const scrollContainer= scrollRef.current;
 
         if(scrollContainer){
-            scrollContainer.scrollLeft += 1220;
+            scrollContainer.scrollLeft += 1200;
         }
     }
 
