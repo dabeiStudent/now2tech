@@ -1,9 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import './VoucherCard.css';
 
 const VoucherCard = props => {
+  const navigate= useNavigate();
+
+  const seeDetailsHandler= ()=>{
+    navigate(`/khuyen-mai/${props.id}`)
+  }
   return (
     // <li className='voucher-card' key={props.id}>
     //     <Link to={`/khuyen-mai/${props.id}`}>
@@ -16,7 +21,7 @@ const VoucherCard = props => {
       <div className='voucher-card-body'>
         <p>{props.name}</p>
       </div>
-      <button className='voucher-card__btn'>Xem chi tiết</button>
+      <button onClick={seeDetailsHandler} className='voucher-card__btn'>Xem chi tiết</button>
     </div>
   )
 }

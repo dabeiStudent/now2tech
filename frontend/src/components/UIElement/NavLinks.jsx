@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faPhone, faUserCircle, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 import './NavLinks.css';
 import { CartContext } from '../../ultis/cartContext';
-import axios from "axios";
 import getCookie from "../../ultis/getCookie";
 const NavLinks = () => {
     const usernameEncoded = getCookie('username');
@@ -15,10 +14,39 @@ const NavLinks = () => {
     const userLoggedIn = {
         userName: username,
         role: role
-    }
+    };
+    const [isSearch, setIsSearch]= useState(false);
+    const [searchKeyword, setSearchKeyword]= useState('');
+    const location= useLocation();
+    const navigate= useNavigate();
 
     const cart = useContext(CartContext);
     const { items } = cart;
+
+    const openSearchHandler= ()=> {
+        setIsSearch(true);
+    }
+
+    const closeSearchHandler= ()=> {
+        setIsSearch(false);
+    };
+
+    const searchKeywordChangeHandler= (e)=>{
+        setSearchKeyword(e.target.value)
+    };
+
+    const submitHandler= (e)=> {
+        e.preventDefault();
+        navigate('tim-kiem')
+        
+    }
+
+    useEffect(()=> {
+        if(location.pathname !== '/tim-kiem'){
+            setSearchKeyword('');
+        }
+    }, [location])
+
     // useEffect(() => {
     //     axios.get('http://localhost:5000/user/after-login', { withCredentials: true })
     //         .then(result => {
@@ -36,12 +64,20 @@ const NavLinks = () => {
     return (
         <ul className="nav-links">
             <li>
-                <form className="nav-links__search" action="/search">
-                    <input type="text" placeholder="Bạn tìm gì..." />
+                <form onSubmit={submitHandler} className="nav-links__search">
+                    <input value={searchKeyword} onChange={searchKeywordChangeHandler} onBlur={closeSearchHandler} onFocus={openSearchHandler} type="text" placeholder="Bạn tìm gì..." />
                     <button>
                         <FontAwesomeIcon className="nav-links__icon-glass" icon={faMagnifyingGlass} />
                     </button>
                 </form>
+                {isSearch && (
+                    <div className="search-menu-container">
+                        <div className="search-menu-body">
+                            <span>{searchKeyword}</span>
+                        </div>
+                    </div>
+                )}
+                
 
             </li>
             <li>

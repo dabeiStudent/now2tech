@@ -25,6 +25,7 @@ const HomePage = () => {
     const [products, setProduct] = useState([]);
     const [page, setPage]= useState(1);
     const scrollRef= useRef(0);
+    const [vouchers, setVoucher] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:5000/product/get-all-product", {params: {page: page}})
@@ -40,6 +41,16 @@ const HomePage = () => {
             console.log(err);
         })    
     }, [page]);
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/voucher/get-all-voucher")
+          .then(res => {
+            setVoucher(res.data)
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }, [])
 
     const seeMoreHandler= ()=>{ setPage(page+1)};
 
@@ -121,20 +132,12 @@ const HomePage = () => {
                         <h2>Chương trình khuyến mãi</h2>
                         <div className="scroll" ref={scrollRef}>
                             <div className="voucher-container__list">
-                                    <VoucherCard name={'vc 01'}/>
-                                    <VoucherCard name={'vc 01'}/>
-                                    <VoucherCard name={'vc 02'}/>
-                                    <VoucherCard name={'vc 03'}/>
-                                    <VoucherCard name={'vc 04'}/>
-                                    <VoucherCard name={'vc 05'}/>
-                                    <VoucherCard name={'vc 06'}/>
-                                    <VoucherCard name={'vc 07'}/>
-                                    <VoucherCard name={'vc 08'}/>
-                                    <VoucherCard name={'vc 09'}/>
-                                    <VoucherCard name={'vc 010'}/>
-                                    <VoucherCard name={'vc 011'}/>
-                                    <VoucherCard name={'vc 012'}/>
-                            
+                                {vouchers.map(voucher=> (
+                                    <VoucherCard 
+                                        name={voucher.name}
+                                        key={voucher._id}
+                                        id={voucher._id}/>
+                                ))}                            
                             </div>    
                         </div>
                         <button className="prev-btn" onClick={scrollPrev}>

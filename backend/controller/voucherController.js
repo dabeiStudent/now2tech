@@ -20,7 +20,7 @@ const getVoucherById= async (req, res)=> {
 
     let voucher;
     try {
-        voucher= await Voucher.findById(voucherId);
+        voucher= await Voucher.findById(voucherId).populate('productList');
     }catch (err){
         return res.status(404).json({err: "Đã có lỗi xảy ra. Vui lòng thử lại sau."});
     }
@@ -150,8 +150,6 @@ const removeProductFromVoucher= async (req, res)=>{
     }
     return res.status(200).json({msg: "Đã xóa xong."});
 }
-
-
 
 const getProductByVoucherId= async (req, res)=> {
     const voucherId= req.params.vid;
