@@ -1,0 +1,67 @@
+.search-page{
+    width: 100%;
+}
+
+.search-page-container{
+    max-width: 1220px;
+    margin: 20px auto;
+    display: flex;
+}
+
+.search-page-container .left-container{
+    background: #fff;
+}
+
+.search-page-container .left-container {
+    width: 20%;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+.search-page-container .left-container h2{
+    font-size: 20px;
+}
+
+.search-page-container .right-container{
+    width: calc(100% - 20% - 20px);
+}
+
+.filter-title{
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+}
+
+.search-by-price ul, .search-by-category ul{
+    list-style: none;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.is-selected{
+    font-weight: 500;
+}
+
+.right-container img{
+    border-radius: 0;
+    width: 100%;
+}
+
+.right-container .search-results{
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background: #fff;
+    margin-top: 20px; */
+    display: grid;
+    gap: 8px;
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    padding: 20px 0 0 0;
+}
+
+.search-results .custom-product-card{
+    background: #fff;
+    padding: 10px;
+}

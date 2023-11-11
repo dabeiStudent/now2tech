@@ -158,6 +158,8 @@
 
 .dropdown-element button{
     border: none;
+    background: #003466;
+    color: #fff;
     /* margin-bottom: 5px; */
 }
 
@@ -206,8 +208,13 @@
     border-bottom: 10px solid #fff;
 }
 
+.dropdown-element__menu a{
+    color: #003466;
+}
+
 .dropdown-element__menu a:hover{
-    background: #f7f7f7;
+    background: #003466;
+    color: #fff;
 }
 
 .nav-links__login{
