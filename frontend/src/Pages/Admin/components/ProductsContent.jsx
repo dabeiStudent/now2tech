@@ -6,12 +6,15 @@ import UpdateProductModal from "./UpdateProductModal";
 
 
 import './ProductsContent.css';
+import UploadModal from "./UploadModal";
 
 const ProductsContent = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showAdd, setShowAdd] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
+    const [showUpload, setShowUpload] = useState(false);
+    const [productId, setProductId] = useState(null);
     const [deleteProduct, setDeleteProduct] = useState(false);
     const [products, setProduct] = useState([{
         _id: '',
@@ -19,7 +22,7 @@ const ProductsContent = () => {
         name: '',
         importPrice: '',
         sellPrice: '',
-        pimage: '',
+        pimage: [],
         desc: '',
         tags: [],
         release: '',
@@ -35,7 +38,7 @@ const ProductsContent = () => {
             .then(result => {
                 setProduct(result.data);
             })
-    }, [deleteProduct, showAdd, showUpdate]);
+    }, [deleteProduct, showAdd, showUpdate, showUpload]);
     const handleEdit = (product) => {
         setShowUpdate(true);
         setSelectedProduct(product);
@@ -76,6 +79,14 @@ const ProductsContent = () => {
         setShowDetail(false);
         setSelectedProduct(null);
     }
+    const openUploadModal = (pid) => {
+        setShowUpload(true);
+        setProductId(pid);
+    }
+    const closeUploadModal = e => {
+        setShowUpload(false);
+        setProductId(null);
+    }
     return (
         <React.Fragment>
             <div className="product-content">
@@ -104,7 +115,9 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.name}</td>
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
-                                    <td className="product-cell">{product.pimage}</td>
+                                    <td className="product-cell">
+                                        <img src={`http://localhost:5000/images/${product.pimage[0]}`} />
+                                    </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>
                                     <td className="product-cell">{product.category}</td>
@@ -112,6 +125,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.sold}</td>
                                     <td className="product-cell">
                                         <button className="detail-button" onClick={() => openDetailModal(product)}>Chi tiết</button>
+                                        <button className="upload-button" onClick={() => openUploadModal(product._id)}>Thêm ảnh sản phẩm</button>
                                         <button className="edit-button" onClick={() => handleEdit(product)}>Cập nhật</button>
                                         <button className="remove-button" onClick={() => handleRemove(product._id)}>Xóa</button>
                                         {showDetail && selectedProduct && (
@@ -119,6 +133,9 @@ const ProductsContent = () => {
                                         )}
                                         {showUpdate && selectedProduct && (
                                             <UpdateProductModal product={selectedProduct} onClose={closeUpdateModal} />
+                                        )}
+                                        {showUpload && productId && (
+                                            <UploadModal pid={productId} onClose={closeUploadModal} />
                                         )}
                                     </td>
                                 </tr>

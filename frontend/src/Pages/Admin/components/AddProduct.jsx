@@ -41,13 +41,6 @@ const AddProduct = ({ onClose }) => {
         updatedSpecs.splice(index, 1);
         setProduct({ ...product, specs: updatedSpecs });
     };
-
-    const handleImageChange = (e) => {
-        const selectedImages = e.target.files;
-        // selectedImages là một mảng chứa các tệp ảnh đã chọn
-
-        // Xử lý các tệp ảnh ở đây (ví dụ: tải lên, hiển thị trước khi lưu, vv.)
-    };
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:5000/product/add-new-product", product, { withCredentials: true })
@@ -203,17 +196,6 @@ const AddProduct = ({ onClose }) => {
                             value={product.inStock}
                             onChange={handleChange}
                             required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="images">Thêm ảnh sản phẩm</label>
-                        <input
-                            type="file"
-                            id="images"
-                            name="images"
-                            onChange={handleImageChange}
-                            multiple
-                            accept="image/*"
                         />
                     </div>
                     <div>

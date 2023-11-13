@@ -15,7 +15,7 @@ const ProductSchema = new mongoose.Schema({
         type: Number
     },
     pimage: {
-        type: String
+        type: Array
     },
     desc: {
         type: String

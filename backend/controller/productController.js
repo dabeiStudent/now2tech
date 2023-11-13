@@ -77,6 +77,20 @@ const addNewProduct = (req, res) => {
         })
         .catch(err => { return res.status(400).json({ err: "Sản phẩm đã tồn tại" }) });
 }
+const addImagesProduct = async (req, res) => {
+    try {
+        const files = req.files;
+        const productFound = await Product.findById(req.params.pid);
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            productFound.pimage.push(file.filename);
+        }
+        productFound.save();
+        return res.status(200).json({ msg: "Upload thành công" });
+    } catch (err) {
+        return res.status(400).json({ err: "Có lỗi xảy ra" });
+    }
+}
 const addSpecs4Product = (req, res) => {
     const { specs } = req.body;
     Product.findById(req.params.pid)
@@ -126,22 +140,22 @@ const removeProduct = (req, res) => {
         })
 }
 //add review
-const addReview= async (req, res)=> {
-    const productId= req.params.pid;
+const addReview = async (req, res) => {
+    const productId = req.params.pid;
 
-    const product= await Product.findById(productId);
+    const product = await Product.findById(productId);
 
-    if(!product){
-        return res.status(404).json({err: "Không tìm thấy sản phẩm."});
+    if (!product) {
+        return res.status(404).json({ err: "Không tìm thấy sản phẩm." });
     }
 
-    const existReview= product.reviews.find(review=> review.user.toString() === req.data.uid.toString());
+    const existReview = product.reviews.find(review => review.user.toString() === req.data.uid.toString());
 
-    if(existReview){
-        product.reviews.forEach(review=> {
-            if(review.user.toString() === req.data.uid.toString()){
-                review.rating= req.body.rating;
-                review.comment= req.body.comment;
+    if (existReview) {
+        product.reviews.forEach(review => {
+            if (review.user.toString() === req.data.uid.toString()) {
+                review.rating = req.body.rating;
+                review.comment = req.body.comment;
             }
         });
 
@@ -153,27 +167,28 @@ const addReview= async (req, res)=> {
             rating: req.body.rating
         })
 
-        product.numOfReview= product.reviews.length;       
+        product.numOfReview = product.reviews.length;
     }
 
-    product.avgRating= product.reviews.reduce((acc, review)=> acc + review.rating, 0)/ product.reviews.length;
+    product.avgRating = product.reviews.reduce((acc, review) => acc + review.rating, 0) / product.reviews.length;
 
     try {
         await product.save();
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra. Không thể thêm."});        
+        return res.status(404).json({ err: "Đã có lỗi xảy ra. Không thể thêm." });
     }
-    
-    res.status(200).json({msg: "Thêm review thành công."});
+
+    res.status(200).json({ msg: "Thêm review thành công." });
 }
-module.exports = { 
-    getProduct, 
-    getProductAdmin, 
-    getOneProduct, 
-    addNewProduct, 
-    addSpecs4Product, 
-    updateProduct, 
-    updateSpecs, 
+module.exports = {
+    getProduct,
+    getProductAdmin,
+    getOneProduct,
+    addNewProduct,
+    addImagesProduct,
+    addSpecs4Product,
+    updateProduct,
+    updateSpecs,
     removeProduct,
     addReview
 };

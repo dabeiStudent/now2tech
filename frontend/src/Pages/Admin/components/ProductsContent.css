@@ -31,6 +31,10 @@
     border: 1px solid #ccc;
 }
 
+.product-table img {
+    width: 100px;
+    height: 100px;
+}
 
 .product-table th,
 .product-table td {
@@ -90,6 +94,21 @@
 
 .edit-button:hover {
     background-color: #1f8b4c;
+}
+
+.upload-button {
+    background-color: rgb(194, 67, 199);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.upload-button:hover {
+    background-color: rgb(129, 32, 133);
 }
 
 .remove-button {
