@@ -66,7 +66,6 @@ function App() {
 
   return (
     <React.Fragment>
-      {/* <PayPalScriptProvider deferLoading={true}> */}
       <AuthContext.Provider value={{ isLogin: isLogin, login: login, logout: logout }}>
         <CartContext.Provider value={{
           items: cartItems,
@@ -96,7 +95,7 @@ function App() {
                     <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />}/>
                     <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment/>}/>
                     <Route exact path='/khuyen-mai/:vid' element={<VoucherPage/>}/>
-                    <Route exact path='/tim-kiem' element={<SearchResultPage/>}/>
+                    <Route exact path='/tim-kiem/:keyword' element={<SearchResultPage/>}/>
 
                     {username === "admin"
                       && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
@@ -125,7 +124,6 @@ function App() {
           </OrderContext.Provider>
         </CartContext.Provider>
       </AuthContext.Provider>
-      {/* </PayPalScriptProvider>               */}
     </React.Fragment >
   );
 }
