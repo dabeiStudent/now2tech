@@ -63,6 +63,12 @@
     margin-bottom: 5px;
 }
 
+.product-image {
+    display: inline-block;
+    margin-right: 10px;
+    /* Khoảng cách giữa các ảnh */
+}
+
 @media screen and (max-width: 1368px) and (max-height: 619px) {
     .modal-content {
         height: 80%;
