@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import './OrderPage.css';
 import OrderItem from './components/OrderItem';
@@ -31,6 +29,33 @@ const OrderPage = () => {
   }
     getVNPayUrl();
   };
+
+  const cancelOrderHandler= ()=> {
+    const cancelOrder= async ()=> {
+      await axios.put(`http://localhost:5000/order/cancel-order/${order._id}`, {}, {withCredentials: true})
+      .then(res=> {
+        window.alert(res.data.msg);
+        setIsReload(!isReload)})
+      .catch(err=> console.log(err))
+    }
+    cancelOrder();
+  }
+
+  const confirmDelivered= ()=> {
+    const isConfirmed= window.confirm('Bạn chắc chắn đã nhận được hàng?');
+
+    const updateOrder= async ()=> {
+      await axios.put(`http://localhost:5000/order/update-to-delivered/${order._id}`, {}, {withCredentials: true})
+      .then(res=> {
+        window.alert(res.data.msg);
+        setIsReload(!isReload)})
+      .catch(err=> console.log(err))
+    }
+
+    if(isConfirmed){
+      updateOrder();
+    }
+  }
 
   return (
     <div>
@@ -118,22 +143,20 @@ const OrderPage = () => {
                   <button onClick={paymentHandler}>Thanh toán với VNPAY</button>
                 </Row>
               )}
-              
+              {order.status === 'Not_proccessed' && (
+                <Row className='cancel-btn'>
+                  <button onClick={cancelOrderHandler}>HỦY ĐẶT HÀNG</button>
+                </Row>
+              )}
+              {order.status === 'Shipped' && (
+                <Row className='delivered-btn'>
+                  <button onClick={confirmDelivered}>ĐÃ NHẬN ĐƯỢC HÀNG</button>
+                </Row>
+              )}
               
               
             </div>
-            {/* {isPending ? (
-             <div>Loading...
-             </div>
-           ): (
-             <div className='paypal-buttons'>
-               <PayPalButtons onApprove={onApprove} createOrder={createOrder} onError={onError}/>
-             </div>
-           )} */}
           </div>
-          {/* <div className='payment-container'>
-           
-         </div> */}
         </div>
       ) : (
         <div>Loading...</div>

@@ -72,17 +72,29 @@
     margin-top: 15px;
 }
 
-.payment-btn{
+.payment-btn, .cancel-btn, .delivered-btn{
     margin: 10px 0;
     padding: 0;
 }
 
-.payment-btn button{
+.payment-btn button, .cancel-btn button, .delivered-btn button{
     border: none;
-    background: #2f80ed;
     color: #fff;
     height: 45px;
     font-weight: bold;
     border-radius: 8px;
 }
 
+.payment-btn button{
+    background: #2f80ed;
+}
+
+.cancel-btn button{
+    background: #dd3036;
+}
+
+.delivered-btn button {
+    border: 1.5px solid #2f80ed;
+    color: #2f80ed;
+    background: none;
+}
