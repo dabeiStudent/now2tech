@@ -1,20 +1,31 @@
-.loader {
-    border: 16px solid #f3f3f3;
-    /* Light grey */
-    border-top: 16px solid #d8d52b;
-    /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
+.loading-component{
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+.loading-component p{
+    color: #154985;
+    font-size: 18px;
+    margin-top: 5px;
+    text-align: center;
+}
 
-    100% {
+.loader {
+    border: 4px solid #154985;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    width: 1cm;
+    height: 1cm;
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner{
+    100%{
         transform: rotate(360deg);
+        /* transition: 0.4s all ease; */
     }
 }

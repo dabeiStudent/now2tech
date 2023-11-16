@@ -7,7 +7,7 @@ const RatingList = props => {
   return (
     <ul className='rating-list'>
       {props.reviews.map(review=> (
-        <RatingItem userName={review.userName} comment={review.comment} rating={review.rating}/>
+        <RatingItem key={review._id} userName={review.userName} comment={review.comment} rating={review.rating}/>
       ))}
       
       

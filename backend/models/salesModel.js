@@ -1,22 +1,20 @@
 const mongoose= require('mongoose');
 
 const SalesSchema= new mongoose.Schema({
-    product: {
-        type: mongoose.Schema.Types.ObjectId
+    month: {
+        type: Number
     },
-    sales: [
-        {
-            month: {
-                type: Number
-            },
-            year: {
-                type: Number
-            },
-            value: {
-                type: Number,
-                default: 0
-            }
-        }]
+    year: {
+        type: Number
+    },
+    sold: [
+        { 
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'product'},
+            qty: { type: Number, default: 0 }
+        }
+    ]
 })
 
 const Sales= mongoose.model('sale', SalesSchema);

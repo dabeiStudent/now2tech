@@ -13,20 +13,30 @@ import SpecsComponent from './components/SpecsComponent';
 import RatingComponent from './components/RatingComponent';
 import CommentComponent from './components/CommentComponent';
 import {CartContext} from '../../ultis/cartContext';
+import { AuthContext } from '../../ultis/authContext';
+import { OrderContext } from '../../ultis/orderContext';
 import { formatPrice } from '../../ultis/formatPrice';
+import Loader from '../../components/UIElement/Loader';
 
 const ProductPage = () => {
     let {pid}= useParams();
     const [product, setProduct]= useState();
     const navigate= useNavigate();
     const cart= useContext(CartContext);
+    const authContext= useContext(AuthContext);
+    const orderContext= useContext(OrderContext);
 
     useEffect(()=> {
-        axios.get(`http://localhost:5000/product/get-product/${pid}`)
-        .then(res=> {setProduct(res.data)})
-        .catch(err=> {
-            window.alert(err)
-        })
+        const getData= async()=> {
+            await axios.get(`http://localhost:5000/product/get-product/${pid}`)
+            .then(res=> {
+                setProduct(res.data);
+            })
+            .catch(err=> {
+                window.alert(err)
+            })
+        };
+        getData();
     }, [pid]);
 
     let cartItem;
@@ -41,9 +51,18 @@ const ProductPage = () => {
         }
     }
     
-    const buyNowHandler= async ()=> {
+    const addToCartHandler= async ()=> {
         cart.addToCart(cartItem);
         navigate("/gio-hang")
+    };
+
+    const buyNowHandler= ()=> {
+        if(authContext.isLogin === false){
+            return window.alert("Vui lòng đăng nhập để mua hàng");
+        }
+
+        orderContext.setSelectedItems([cartItem]);
+        navigate('/thong-tin-giao-hang');
     }
 
     return (
@@ -77,7 +96,7 @@ const ProductPage = () => {
                         <VoucherComponent vouchers={product.vouchers}/>
                         <button onClick={buyNowHandler} className='product-page__btn buy-now-btn'>MUA NGAY</button>
                         <div className='button-group'>
-                            <button className='product-page__btn'>
+                            <button className='product-page__btn' onClick={addToCartHandler}>
                                 <FontAwesomeIcon className='product-page__icon' icon={faCartPlus} />
                                 Thêm vào giỏ hàng</button>
                             <button className='product-page__btn'>Trả góp 0%</button>
@@ -87,9 +106,8 @@ const ProductPage = () => {
                 </div>
             </div>
             ): (
-                <div>Loading</div>
-            )}
-            
+                <Loader/>
+            )}            
         </div>
     )
 }

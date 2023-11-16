@@ -6,7 +6,8 @@ import { faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons'
 
 import './SearchResultPage.css';
 import SearchBanner from '../../assets/background/SearchBanner.png'
-import ProductCard from '../../components/UIElement/ProductCard'
+import ProductCard from '../../components/UIElement/ProductCard';
+import Loader from '../../components/UIElement/Loader';
 
 const SearchResultPage = () => {
     let { keyword } = useParams();
@@ -93,7 +94,7 @@ const SearchResultPage = () => {
                             </div>
                         )
                     ) : (
-                        <div>Loading...</div>
+                        <Loader/>
                     )}
                 </div>
             </div>

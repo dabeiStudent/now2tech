@@ -6,6 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import './OrderPage.css';
 import OrderItem from './components/OrderItem';
 import { formatPrice } from '../../ultis/formatPrice';
+import Loader from '../../components/UIElement/Loader';
 
 const OrderPage = () => {
   let { oid } = useParams();
@@ -159,7 +160,7 @@ const OrderPage = () => {
           </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <Loader/>
       )}
 
     </div>

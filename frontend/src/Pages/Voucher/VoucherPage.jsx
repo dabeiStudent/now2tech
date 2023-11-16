@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import './VoucherPage.css';
 import ProductCard from '../../components/UIElement/ProductCard';
+import { formatDate } from '../../ultis/formatDate';
+import Loader from '../../components/UIElement/Loader';
 
 const VoucherPage = () => {
     let {vid}= useParams();
@@ -28,12 +30,14 @@ const VoucherPage = () => {
                             </div>
                             <div className='voucher-detail__desc'>
                                 <div className='desc-container'>
-                                    <h2>Thể lệ chương trình</h2>
-                                    <p>Khuyến mại giảm giá 1.000.000 VNĐ khi khách hàng mua sản phẩm iPhone 15 series và thanh toán thành công qua thẻ tín dụng UOB
-                                        Thông tin Khách Hàng trên đơn hàng phải trùng khớp với thông tin thẻ thanh toán. Trường hợp thông tin không trùng khớp, CellphoneS có quyền từ chối giao dịch.
-                                        Mỗi Khách Hàng chỉ được tham gia 01 lần ưu đãi (01 máy) trong suốt thời gian diễn ra chương trình khuyến mại.
-                                    
+                                    <h2>Thông tin khuyến mãi</h2>
+                                    <p>
+                                        <span>Thời gian diễn ra: </span>
+                                        <span>Từ {formatDate(voucher.start)} đến {formatDate(voucher.end)} </span>
                                     </p>
+                                    <p>Phần trăm khuyến mãi: {voucher.percent}%</p>
+                                    <p>{voucher.desc}</p>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -53,7 +57,7 @@ const VoucherPage = () => {
                     </div>
                 </div>
             ) : (
-                <div>loading...</div>
+                <Loader/>
             )}
             
         </div>

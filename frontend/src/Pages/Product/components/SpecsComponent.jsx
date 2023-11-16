@@ -17,7 +17,7 @@ const SpecsComponent = props => {
             </thead>
             <tbody className='custom-table-body'>
                 {props.specs && props.specs.map((spec, index)=> (
-                    <tr key={spec._id} className={index % 2 === 0 && "grey"}>
+                    <tr key={spec._id} className={index % 2 === 0 ? "grey" : undefined}>
                         <td>{spec.stype}</td>
                         <td>{spec.sdetail}</td>
                     </tr>
