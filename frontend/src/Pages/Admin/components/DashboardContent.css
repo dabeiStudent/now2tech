@@ -1,0 +1,50 @@
+.dashboard-component{
+    width: 100%;
+    padding: 0;
+}
+.stats-bar{
+   display: grid;
+   grid-template-columns: repeat(4, minmax(0, 1fr));
+   column-gap: 20px;
+}
+
+.stats-bar .stats-card{
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.stats-card h3, .stats-card p{
+    margin: 0;
+}
+
+.stats-card h3{
+    font-size: 20px;
+}
+
+.stats-card .stats-card__icon{
+    color: #999;
+    font-size: 18px;
+}
+
+.chart-container{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.chart-container .chart-container__left{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-right: 20px;
+}
+
+.chart-container .chart-container__left .user-chart{
+    margin-bottom: 20px;
+}
+
+.chart-container .chart-container__right{
+    width: calc(60% - 20px);
+}

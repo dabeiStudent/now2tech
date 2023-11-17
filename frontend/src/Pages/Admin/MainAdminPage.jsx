@@ -3,6 +3,7 @@ import OrdersContent from './components/OrdersContent';
 import ProductsContent from './components/ProductsContent';
 import UsersContent from './components/UsersContent';
 import SettingsContent from './components/SettingsContent';
+import DashboardContent from './components/DashboardContent';
 
 import './MainAdminPage.css';
 
@@ -59,10 +60,5 @@ const MainAdminPage = () => {
         </div>
     );
 };
-
-const DashboardContent = () => {
-    return <div>Dashboard Content Goes Here</div>;
-};
-
 
 export default MainAdminPage;
