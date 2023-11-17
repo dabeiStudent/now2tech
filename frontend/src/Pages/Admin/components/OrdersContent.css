@@ -26,3 +26,22 @@
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
+.status-checkboxes {
+    margin-bottom: 20px;
+}
+
+.status-checkboxes label {
+    margin-right: 15px;
+    display: inline-block;
+    align-items: center;
+}
+
+.status-checkboxes input {
+    margin-right: 5px;
+}
+
+.status-checkboxes h2 {
+    font-size: larger;
+    height: fit-content;
+}

@@ -3,7 +3,7 @@ import axios from "axios";
 import DetailModal from "./DetailModal";
 import AddProduct from "./AddProduct";
 import UpdateProductModal from "./UpdateProductModal";
-
+import Loader from '../../../components/UIElement/Loader';
 
 import './ProductsContent.css';
 import UploadModal from "./UploadModal";
@@ -16,6 +16,8 @@ const ProductsContent = () => {
     const [showUpload, setShowUpload] = useState(false);
     const [productId, setProductId] = useState(null);
     const [deleteProduct, setDeleteProduct] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+
     const [products, setProduct] = useState([{
         _id: '',
         sku: '',
@@ -39,6 +41,12 @@ const ProductsContent = () => {
                 setProduct(result.data);
             })
     }, [deleteProduct, showAdd, showUpdate, showUpload]);
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    const filterProducts = products.filter((product) => {
+        return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    })
     const handleEdit = (product) => {
         setShowUpdate(true);
         setSelectedProduct(product);
@@ -89,10 +97,19 @@ const ProductsContent = () => {
     }
     return (
         <React.Fragment>
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Tìm kiếm theo tên sản phẩm"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+            </div>
             <div className="product-content">
                 <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
                 <div className="table-container">
                     <table className="product-table">
+                        {!filterProducts ? <Loader></Loader> : <></>}
                         <thead>
                             <tr >
                                 <th>sku</th>
@@ -109,7 +126,7 @@ const ProductsContent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product) => (
+                            {filterProducts.map((product) => (
                                 <tr key={product._id} className="product-row">
                                     <td className="product-cell">{product.sku}</td>
                                     <td className="product-cell">{product.name}</td>

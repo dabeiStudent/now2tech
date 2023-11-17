@@ -99,69 +99,70 @@ const updateToDelivered = async (req, res) => {
     // } else {
     //     return res.status(404).json({ err: "Không thấy đơn hàng" });
     // }
-    const orderId= req.params.oid;
-    const user= req.data.uid;
+    const orderId = req.params.oid;
+    const user = req.data.uid;
     let order;
     try {
-        order= await Order.findById(orderId);        
+        order = await Order.findById(orderId);
     } catch (error) {
-        return res.status(404).json({err: 'Đã có lỗi xảy ra khi tìm đơn hàng'});        
+        return res.status(404).json({ err: 'Đã có lỗi xảy ra khi tìm đơn hàng' });
     }
 
-    if(!order){
-        return res.status(404).json({err: 'Không tìm thấy đơn hàng.'});
+    if (!order) {
+        return res.status(404).json({ err: 'Không tìm thấy đơn hàng.' });
     }
 
-    if(user.toString() !== order.user.toString()){
-        return res.status(404).json({err: 'Bạn không phải chủ đơn hàng.'});
+    if (user.toString() !== order.user.toString()) {
+        return res.status(404).json({ err: 'Bạn không phải chủ đơn hàng.' });
     }
 
-    if(order.status !== 'Shipped'){
-        return res.status(404).json({err: 'Không thể xác nhận khi đơn hàng chưa được gửi.'});
+    if (order.status !== 'Shipped') {
+        return res.status(404).json({ err: 'Không thể xác nhận khi đơn hàng chưa được gửi.' });
     }
 
-    order.status= 'Delivered';
+    order.status = 'Delivered';
+    order.paymentStatus.isPaid = true;
 
     try {
-        await order.save();        
+        await order.save();
     } catch (error) {
-        return res.status(404).json({err: 'Đã xảy ra lỗi khi xác nhận.'});
+        return res.status(404).json({ err: 'Đã xảy ra lỗi khi xác nhận.' });
     }
 
-    res.status(200).json({msg: 'Xác nhận thành công.'});
+    res.status(200).json({ msg: 'Xác nhận thành công.' });
 }
 
-const cancelOrder= async (req, res)=> {
-    const orderId= req.params.oid;
-    const user= req.data.uid;
+const cancelOrder = async (req, res) => {
+    const orderId = req.params.oid;
+    const user = req.data.uid;
     let order;
     try {
-        order= await Order.findById(orderId);        
+        order = await Order.findById(orderId);
     } catch (error) {
-        return res.status(404).json({err: 'Đã có lỗi xảy ra khi tìm đơn hàng'});        
+        return res.status(404).json({ err: 'Đã có lỗi xảy ra khi tìm đơn hàng' });
     }
 
-    if(!order){
-        return res.status(404).json({err: 'Không tìm thấy đơn hàng.'});
+    if (!order) {
+        return res.status(404).json({ err: 'Không tìm thấy đơn hàng.' });
     }
 
-    if(user.toString() !== order.user.toString()){
-        return res.status(404).json({err: 'Bạn không phải chủ đơn hàng.'});
+    if (user.toString() !== order.user.toString()) {
+        return res.status(404).json({ err: 'Bạn không phải chủ đơn hàng.' });
     }
 
-    if(order.status !== 'Not_proccessed'){
-        return res.status(404).json({err: 'Không thể hủy.'});
+    if (order.status !== 'Not_proccessed') {
+        return res.status(404).json({ err: 'Không thể hủy.' });
     }
 
-    order.status= 'Cancelled';
+    order.status = 'Cancelled';
 
     try {
-        await order.save();        
+        await order.save();
     } catch (error) {
-        return res.status(404).json({err: 'Đã xảy ra lỗi khi hủy đơn hàng.'});
+        return res.status(404).json({ err: 'Đã xảy ra lỗi khi hủy đơn hàng.' });
     }
 
-    res.status(200).json({msg: 'Huỷ thành công.'});
+    res.status(200).json({ msg: 'Huỷ thành công.' });
 
 }
 
@@ -330,7 +331,7 @@ const vnpayIPN = async (req, res) => {
             if (checkAmount) {
                 // if (order.paymentStatus.isPaid === false) { //kiểm tra tình trạng giao dịch trước khi cập nhật tình trạng thanh toán
                 if (rspCode == "00") {
-                    order.status= 'Processing';
+                    order.status = 'Processing';
                     order.paymentStatus.isPaid = true;
                     order.paymentStatus.paidAt = new Date();
                     await order.save();

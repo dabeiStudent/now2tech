@@ -11,6 +11,10 @@ const UsersContent = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [users, setUser] = useState([]);
     const [state, setState] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
     useEffect(() => {
         axios.get('http://localhost:5000/user/get-user', { withCredentials: true })
             .then(res => {
@@ -20,6 +24,9 @@ const UsersContent = () => {
                 console.log(err);
             })
     }, [state]);
+    const filteredUsers = users.filter((user) => {
+        return user.userName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
     const handleEdit = (user) => {
         setShowUpdate(true);
         setSelectedUser(user);
@@ -77,22 +84,30 @@ const UsersContent = () => {
     }
     return (
         <React.Fragment>
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Tìm kiếm theo username"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+            </div>
             <div className="product-content">
                 <div className="table-container">
                     <table className="user-table">
                         <thead>
                             <tr >
-                                <th>id</th>
-                                <th>firstName</th>
-                                <th>lastName</th>
-                                <th>phoneNumber</th>
-                                <th>userName</th>
-                                <th>email</th>
-                                <th>Action</th>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Họ</th>
+                                <th>Số điện thoại</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((user) => (
+                            {filteredUsers.map((user) => (
                                 <tr key={user._id} className="product-row">
                                     <td className="product-cell">{user._id}</td>
                                     <td className="product-cell">{user.firstName}</td>
