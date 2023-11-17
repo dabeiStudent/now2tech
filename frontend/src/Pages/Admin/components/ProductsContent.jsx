@@ -45,7 +45,10 @@ const ProductsContent = () => {
         setSearchTerm(e.target.value);
     };
     const filterProducts = products.filter((product) => {
-        return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+        return (
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.sku.toLowerCase().includes(searchTerm.toLowerCase())
+        );
     })
     const handleEdit = (product) => {
         setShowUpdate(true);
@@ -100,7 +103,7 @@ const ProductsContent = () => {
             <div className="search-bar">
                 <input
                     type="text"
-                    placeholder="Tìm kiếm theo tên sản phẩm"
+                    placeholder="Tìm kiếm tên sản phẩm/sku"
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
@@ -109,7 +112,6 @@ const ProductsContent = () => {
                 <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
                 <div className="table-container">
                     <table className="product-table">
-                        {!filterProducts ? <Loader></Loader> : <></>}
                         <thead>
                             <tr >
                                 <th>sku</th>

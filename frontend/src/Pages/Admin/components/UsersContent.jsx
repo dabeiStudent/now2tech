@@ -25,7 +25,11 @@ const UsersContent = () => {
             })
     }, [state]);
     const filteredUsers = users.filter((user) => {
-        return user.userName.toLowerCase().includes(searchTerm.toLowerCase());
+        const searchTermLowerCase = searchTerm.toLowerCase();
+        return (
+            user.userName.toLowerCase().includes(searchTermLowerCase) ||
+            user.email.toLowerCase().includes(searchTermLowerCase)
+        );
     });
     const handleEdit = (user) => {
         setShowUpdate(true);
@@ -87,7 +91,7 @@ const UsersContent = () => {
             <div className="search-bar">
                 <input
                     type="text"
-                    placeholder="Tìm kiếm theo username"
+                    placeholder="Tìm kiếm username/email"
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />

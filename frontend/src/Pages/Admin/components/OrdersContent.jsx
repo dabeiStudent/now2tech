@@ -28,7 +28,10 @@ const OrdersContent = () => {
         if (searchTerm) {
             return order._id.includes(searchTerm);
         } else if (selectedStatus.length !== 0) {
-            return order.status.includes(selectedStatus);
+            return (
+                order.status.includes(selectedStatus) ||
+                order.paymentMethod.includes(selectedStatus)
+            );
         }
         else {
             return order;
@@ -114,6 +117,27 @@ const OrdersContent = () => {
                     Đã hủy
                 </label>
             </div>
+            <div className="status-checkboxes">
+                <h2>Lọc theo phương thức thanh toán: </h2>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="COD"
+                        checked={selectedStatus.includes('COD')}
+                        onChange={() => handleCheckboxChange('COD')}
+                    />
+                    COD
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="VNPAY"
+                        checked={selectedStatus.includes('VNPAY')}
+                        onChange={() => handleCheckboxChange('VNPAY')}
+                    />
+                    VNPAY
+                </label>
+            </div>
             <div className="table-container">
                 <table className="product-table">
                     <thead>
@@ -169,7 +193,7 @@ const OrdersContent = () => {
                                 </td>
                                 <td>
                                     <button className="detail-button" >
-                                        <NavLink to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink>
+                                        <NavLink className="order-navlink-button" to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink>
                                     </button>
                                 </td>
                             </tr>

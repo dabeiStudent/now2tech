@@ -77,6 +77,14 @@ img {
     width: 70%;
 }
 
+.right_profile select {
+    margin-top: 14%;
+    border: none;
+    border-left: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid rgb(0, 0, 0);
+    text-align: center;
+    width: 70%;
+}
 
 .buttons {
     display: flex;

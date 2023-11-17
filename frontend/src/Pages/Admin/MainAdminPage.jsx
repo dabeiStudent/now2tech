@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import OrdersContent from './components/OrdersContent';
 import ProductsContent from './components/ProductsContent';
 import UsersContent from './components/UsersContent';
-import SettingsContent from './components/SettingsContent';
 import DashboardContent from './components/DashboardContent';
+import ChatContent from './components/ChatContent';
 
 import './MainAdminPage.css';
 
@@ -43,10 +43,10 @@ const MainAdminPage = () => {
                         Users
                     </li>
                     <li
-                        className={selectedContent === 'settings' ? 'active' : ''}
-                        onClick={() => handleTabClick('settings')}
+                        className={selectedContent === 'chat' ? 'active' : ''}
+                        onClick={() => handleTabClick('chat')}
                     >
-                        Settings
+                        Messages
                     </li>
                 </ul>
             </div>
@@ -55,7 +55,7 @@ const MainAdminPage = () => {
                 {selectedContent === 'orders' && <OrdersContent />}
                 {selectedContent === 'products' && <ProductsContent />}
                 {selectedContent === 'users' && <UsersContent />}
-                {selectedContent === 'settings' && <SettingsContent />}
+                {selectedContent === 'chat' && <ChatContent />}
             </div>
         </div>
     );
