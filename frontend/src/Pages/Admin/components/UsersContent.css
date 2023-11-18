@@ -41,3 +41,15 @@
 .block-button:hover {
     background-color: #ee7009;
 }
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    padding: 8px;
+    width: 230px;
+    border: 1px solid #363636;
+    border-radius: 4px;
+    margin-right: 10px;
+}

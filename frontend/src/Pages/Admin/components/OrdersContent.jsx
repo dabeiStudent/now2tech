@@ -5,6 +5,16 @@ import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
     const [flag, setFlag] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(null);
+    const [selectedStatus, setSelectedStatus] = useState([]);
+
+    const handleCheckboxChange = (status) => {
+        setSelectedStatus(status === selectedStatus ? '' : status);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
     useEffect(() => {
         axios.get("http://localhost:5000/order/all-order", { withCredentials: true })
             .then(res => (
@@ -14,6 +24,19 @@ const OrdersContent = () => {
                 console.log(err)
             ));
     }, [flag])
+    const filteredOrders = orders.filter((order) => {
+        if (searchTerm) {
+            return order._id.includes(searchTerm);
+        } else if (selectedStatus.length !== 0) {
+            return (
+                order.status.includes(selectedStatus) ||
+                order.paymentMethod.includes(selectedStatus)
+            );
+        }
+        else {
+            return order;
+        }
+    });
     const handleStatusChange = (orderId, value) => {
         if (value === "Shipped") {
             axios.put(`http://localhost:5000/order/update-status-shipped/${orderId}/${value}`, '', { withCredentials: true })
@@ -38,6 +61,83 @@ const OrdersContent = () => {
 
     return (
         <div className="product-content">
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Tìm kiếm theo mã đơn hàng"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+            </div>
+            <div className="status-checkboxes">
+                <h2>Lọc theo trạng thái đơn hàng: </h2>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Not_proccessed"
+                        checked={selectedStatus.includes('Not_proccessed')}
+                        onChange={() => handleCheckboxChange('Not_proccessed')}
+                    />
+                    Chưa xử lý
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Processing"
+                        checked={selectedStatus.includes('Processing')}
+                        onChange={() => handleCheckboxChange('Processing')}
+                    />
+                    Đang xử lý
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Shipped"
+                        checked={selectedStatus.includes('Shipped')}
+                        onChange={() => handleCheckboxChange('Shipped')}
+                    />
+                    Đã gửi
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Delivered"
+                        checked={selectedStatus.includes('Delivered')}
+                        onChange={() => handleCheckboxChange('Delivered')}
+                    />
+                    Đã giao
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Cancelled"
+                        checked={selectedStatus.includes('Cancelled')}
+                        onChange={() => handleCheckboxChange('Cancelled')}
+                    />
+                    Đã hủy
+                </label>
+            </div>
+            <div className="status-checkboxes">
+                <h2>Lọc theo phương thức thanh toán: </h2>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="COD"
+                        checked={selectedStatus.includes('COD')}
+                        onChange={() => handleCheckboxChange('COD')}
+                    />
+                    COD
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        value="VNPAY"
+                        checked={selectedStatus.includes('VNPAY')}
+                        onChange={() => handleCheckboxChange('VNPAY')}
+                    />
+                    VNPAY
+                </label>
+            </div>
             <div className="table-container">
                 <table className="product-table">
                     <thead>
@@ -53,7 +153,7 @@ const OrdersContent = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => (
+                        {filteredOrders.map((order) => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
                                 <td>{order.address}</td>
@@ -93,7 +193,7 @@ const OrdersContent = () => {
                                 </td>
                                 <td>
                                     <button className="detail-button" >
-                                        <NavLink to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink>
+                                        <NavLink className="order-navlink-button" to={`/chi-tiet-don-hang/${order._id}`}>Chi tiết</NavLink>
                                     </button>
                                 </td>
                             </tr>

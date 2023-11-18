@@ -215,8 +215,16 @@ const ProfileMenu = () => {
                                     <div className="right_profile">
                                         <input name='email' value={updateUser.email} onChange={onChange2} placeholder="Email" disabled />
                                         <input name='userName' value={updateUser.userName} onChange={onChange2} placeholder="Username" required />
-                                        <input name='gender' value={updateUser.gender} onChange={onChange2} placeholder="Giới tính (Male/Female)" required />
-                                        <input name='getNotice' value={updateUser.getNotice} onChange={onChange2} placeholder="Thông báo (false/true)" required />
+                                        <select name='gender' value={updateUser.gender} onChange={onChange2} required>
+                                            <option disabled>Giới tính của bạn là:</option>
+                                            <option value="male">Nam</option>
+                                            <option value="female">Nữ</option>
+                                        </select>
+                                        <select name='getNotice' value={updateUser.getNotice} onChange={onChange2} required >
+                                            <option disabled>Nhận thông báo?</option>
+                                            <option value="true">Có</option>
+                                            <option value="false">Không</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="buttons-1">

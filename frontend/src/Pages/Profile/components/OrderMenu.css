@@ -1,6 +1,6 @@
 .my-order {
     padding: 10px;
-    height: 80%;
+    height: 63%;
     overflow: auto;
 }
 
@@ -67,4 +67,10 @@ td {
 /* Khi hover nút Chi tiết */
 .my-order table tbody td button:hover {
     background-color: #0069d9;
+}
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {
+    .my-order {
+        height: 60%;
+    }
 }
