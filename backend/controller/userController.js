@@ -2,6 +2,7 @@ require('dotenv').config();
 const User = require('../models/usersModel');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+const Stats= require('../models/userStatsModel');
 
 //get all user
 const getAllUser = function (req, res) {
@@ -93,6 +94,60 @@ const userLogout = (req, res) => {
     return res.status(200).json({ msg: 'Good bye!' });
 }
 //register
+const statsUser= async()=> {
+    const currentDate= new Date;
+    const currentYear= currentDate.getFullYear();
+    const currentMonth= currentDate.getMonth();
+    
+    let existStats;
+
+    try {
+        existStats= await Stats.findOne({year: currentYear});        
+    } catch (error) {
+        return error;
+    }
+
+    if(!existStats || existStats.length === 0){
+        let newStats;
+        newStats= new Stats({
+            year: currentYear,
+            monthlyStats: [
+                { month: 1 },
+                { month: 2 },
+                { month: 3 },
+                { month: 4 },
+                { month: 5 },
+                { month: 6 },
+                { month: 7 },
+                { month: 8 },
+                { month: 9 },
+                { month: 10 },
+                { month: 11 },
+                { month: 12 },
+            ]
+        });
+
+        try {
+            newStats.monthlyStats[currentMonth].userNum += 1;
+            await newStats.save();        
+        } catch (error) {
+            return error;      
+        }
+    } else {
+
+        existStats.monthlyStats.map(monthStats=> {
+            if(monthStats.month === currentMonth + 1){
+                monthStats.userNum += 1;
+            }
+        });
+
+        try {
+            await existStats.save();        
+        } catch (error) {
+            return error;        
+        }
+    }
+};
 const userRegister = async (req, res) => {
     if (req.body.userName == "admin") {
         return res.status(400).json({ err: "Không thể đặt tên này" });
@@ -113,7 +168,9 @@ const userRegister = async (req, res) => {
             status: "active",
             getNotice: true
         })
-            .then(user => { return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
+            .then(user => { 
+                statsUser();
+                return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
             .catch(err => { return res.status(403).json({ err: err }) });
     } catch (err) {
         return res.json({ err: err })

@@ -3,6 +3,7 @@ const moment = require('moment');
 const Order = require('../models/ordersModel');
 const User = require('../models/usersModel');
 const Product = require('../models/productsModel');
+const SalesStats= require('../models/salesStatsModel');
 
 //create new order
 const createOrder = async (req, res) => {
@@ -91,14 +92,6 @@ const updateToPaid = async (req, res) => {
 }
 //update order to delivered
 const updateToDelivered = async (req, res) => {
-    // const order = await Order.findById(req.params.oid);
-    // if (order) {
-    //     order.status = req.body.status;
-    //     const update = await order.save();
-    //     return res.status(200).json({ msg: update });
-    // } else {
-    //     return res.status(404).json({ err: "Không thấy đơn hàng" });
-    // }
     const orderId = req.params.oid;
     const user = req.data.uid;
     let order;
@@ -176,19 +169,86 @@ const updateStatusOrderAdmin = async (req, res) => {
             return res.status(400).json({ err: err })
         })
 }
+
+const statsSales= async(sales)=> {
+    const currentDate= new Date;
+    const currentYear= currentDate.getFullYear();
+    const currentMonth= currentDate.getMonth();
+    
+    let existStats;
+
+    try {
+        existStats= await SalesStats.findOne({year: currentYear});        
+    } catch (error) {
+        return error;
+    }
+
+    if(!existStats || existStats.length === 0){
+        let newStats;
+        newStats= new SalesStats({
+            year: currentYear,
+            totalSales: 0,
+            monthlyStats: [
+                { month: 1 },
+                { month: 2 },
+                { month: 3 },
+                { month: 4 },
+                { month: 5 },
+                { month: 6 },
+                { month: 7 },
+                { month: 8 },
+                { month: 9 },
+                { month: 10 },
+                { month: 11 },
+                { month: 12 },
+            ]
+        });
+
+        try {
+            newStats.totalSales += sales;
+            newStats.monthlyStats[currentMonth].sales += sales;
+            await newStats.save();        
+        } catch (error) {
+            return error;      
+        }
+    } else {
+        existStats.totalSales += sales;
+        existStats.monthlyStats.map(monthStats=> {
+            if(monthStats.month === currentMonth + 1){
+                monthStats.sales += sales;
+            }
+        });
+
+        try {
+            await existStats.save();        
+        } catch (error) {
+            return error;        
+        }
+    }
+};
+
 const updateInstockAfterSent = async (req, res) => {
     const { oid, ostatus } = req.params;
     const orderFound = await Order.findById(oid);
+
+    let sales = 0;
+
     if (orderFound) {
         await Order.updateOne({ _id: orderFound._id }, { status: ostatus });
-        orderFound.items.map(async (item) => {
+        await Promise.all(orderFound.items.map(async (item) => {
             const productFound = await Product.findOne({ name: item.name })
             productFound.inStock = productFound.inStock - item.qty;
             productFound.sold = productFound.sold + item.qty;
-            productFound.save();
-            return res.status(200).json({ msg: "Success" });
-        })
-    }
+            sales += (item.price - productFound.importPrice)*item.qty;
+            // await statsSales(sales);
+            await productFound.save();
+        }));
+        
+    };
+
+    await statsSales(sales);
+    return res.status(200).json({ msg: "Success" });
+
 }
 const getPaypalClientId = async (req, res) => {
     res.status(200).json({ clientId: process.env.PAYPAL_CLIENT_ID });
