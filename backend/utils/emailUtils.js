@@ -28,7 +28,6 @@ const generateNewPassword = async () => {
 }
 
 //reset password with email (exist in database) 
-//optional (Sau khi hoàn thiện mọi thứ): cải tiến cần xác thực email trước rồi mới đổi password 
 const sendEmailReset = async (req, res) => {
     try {
         const localhost = process.env.url_localhost;

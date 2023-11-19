@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './AddProduct.css';
 import axios from 'axios';
 const AddProduct = ({ onClose }) => {
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [brands, setBrand] = useState([]);
     const [product, setProduct] = useState({
         sku: '',
         name: '',
@@ -20,11 +23,35 @@ const AddProduct = ({ onClose }) => {
         inStock: '',
         sold: 0
     });
+    useEffect(() => {
+        axios.get('http://localhost:5000/category/get-category')
+            .then(result => {
+                setCategories(result.data);
+            })
+            .catch(err => {
+                alert('Có lỗi khi hiển thị');
+            })
+    }, []);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value });
     };
-
+    const handleChangeCate = (e) => {
+        const { name, value } = e.target;
+        setProduct({ ...product, [name]: value });
+        setSelectedCategory(value);
+        setBrand([]);
+    }
+    const handleChangeBrand = (e) => {
+        axios.get(`http://localhost:5000/brand/get-brand-cate/${selectedCategory}`)
+            .then(result => {
+                console.log(result.data)
+                setBrand(result.data);
+            })
+            .catch(err => {
+                alert(err);
+            })
+    }
     const addSpec = () => {
         const newSpec = { stype: '', sdetail: '' };
         setProduct({ ...product, specs: [...product.specs, newSpec] });
@@ -65,7 +92,11 @@ const AddProduct = ({ onClose }) => {
                 });
             })
             .catch(err => {
-                console.log(err);
+                if (err === "AxiosError: Request failed with status code 400") {
+                    alert("Sản phẩm đã tồn tại");
+                } else {
+                    alert(err)
+                }
             })
     };
 
@@ -166,26 +197,39 @@ const AddProduct = ({ onClose }) => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="brand">Thương hiệu:</label>
-                        <input
-                            type="text"
-                            id="brand"
-                            name="brand"
-                            value={product.brand}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
                         <label htmlFor="category">Danh mục:</label>
-                        <input
-                            type="text"
+                        <select
                             id="category"
                             name="category"
                             value={product.category}
+                            onChange={handleChangeCate}
+                            required
+                        >
+                            <option value="" disabled>Chọn danh mục</option>
+                            {categories.map(category => (
+                                <option key={category._id} value={category.name}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="brand">Thương hiệu:</label>
+                        <select
+                            id="brand"
+                            name="brand"
+                            value={product.brand}
+                            onClick={handleChangeBrand}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="" disabled>Chọn thương hiệu</option>
+                            {brands.map(brand => (
+                                <option key={brand._id} value={brand.name}>
+                                    {brand.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
                         <label htmlFor="inStock">Số lượng:</label>

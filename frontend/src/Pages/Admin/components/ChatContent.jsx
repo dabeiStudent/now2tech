@@ -1,70 +1,95 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from 'react';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { io } from 'socket.io-client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
+
 
 import './ChatContent.css';
+
+
+const host = "http://localhost:5000";
 const ChatContent = () => {
-    const [messages, setMessages] = useState([
-        { id: 1, sender: 'John', content: 'Hello there!' },
-        { id: 2, sender: 'Alice', content: 'Hi John!' },
-        // ... more messages
-    ]);
+    const senders = ['User1', 'User2', 'User3'];
 
-    const [selectedMessage, setSelectedMessage] = useState(null);
-    const [newMessage, setNewMessage] = useState('');
+    const [socket, setSocket] = useState();
+    const [text, setText] = useState('');
+    const [content, setContent] = useState([]);
+    const [typing, setTyping] = useState(false);
+    useEffect(() => {
+        setSocket(io(host));
+    }, []);
 
-    const handleSelectMessage = (id) => {
-        const selected = messages.find((message) => message.id === id);
-        setSelectedMessage(selected);
-    };
+    useEffect(() => {
+        if (!socket) return;
+        socket.on("sendDataServer", (data) => {
+            setContent((prev) => [...prev, { text: data, received: true }]);
+        });
+        socket.on("start-typingServer", () => {
+            setTyping(true);
+        });
+        socket.on("stop-typingServer", () => {
+            setTyping(false);
+        });
+    }, [socket])
 
-    const handleSendMessage = () => {
-        if (newMessage.trim() === '') return;
+    const messagesEndRef = useRef(null);
 
-        const newMessageObj = {
-            id: messages.length + 1,
-            sender: 'Admin', // You can set the sender to the current user or any default value
-            content: newMessage,
-        };
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
 
-        setMessages([...messages, newMessageObj]);
-        setNewMessage('');
-    };
+    useEffect(() => {
+        scrollToBottom()
+    }, [content]);
 
+    const [typingTimeout, settypingTimeout] = useState(null);
+
+    const onChange = event => {
+        event.preventDefault();
+        setText(event.target.value);
+        socket.emit('start-typingClient');
+        if (typingTimeout) clearTimeout(typingTimeout);
+        settypingTimeout(
+            setTimeout(() => {
+                socket.emit('stop-typingClient');
+            }, 1000)
+        );
+    }
+
+    const sendChat = e => {
+        e.preventDefault();
+        if (text) {
+            socket.emit("sendDataClient", text)
+            setContent((prev) => [...prev, { text, received: false }]);
+            setText('');
+            setTyping(false);
+        }
+    }
     return (
-        <div className="chat-container">
-            <div className="message-list">
-                <h2>Messages</h2>
-                <ul>
-                    {messages.map((message) => (
-                        <li key={message.id} onClick={() => handleSelectMessage(message.id)}>
-                            {message.sender}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="chat-box">
-                <h2>Chat</h2>
-                {selectedMessage ? (
-                    <div>
-                        <p><strong>{selectedMessage.sender}:</strong> {selectedMessage.content}</p>
+        <React.Fragment>
+            <div id="chat_window_admin" className='chat_window_admin'>
+                <form className='chat_admin' onSubmit={sendChat}>
+                    <h1 id="project_name_admin">Now2Tech</h1>
+                    <div className='chat_content_admin'>
+                        <ul className='chat_lines'>
+                            {content.map((data) => (
+                                data.received ? <li className="left" key={data.text}>{data.text}</li>
+                                    : <li className="right" key={data.text}>{data.text}</li>
+                            ))}
+                            <li id="a" className="anchor" ref={messagesEndRef} />
+                        </ul>
                     </div>
-                ) : (
-                    <p>Select a message to start chatting</p>
-                )}
+                    {typing ? <p>Đang nhập....</p> : <></>}
+                    <input type="text" value={text} placeholder='Nhập tin nhắn...' onChange={onChange} />
+                    <button type="submit"><FontAwesomeIcon icon={faPaperPlane} /></button>
 
-                {/* Textarea for typing messages */}
-                <textarea
-                    placeholder="Type your message..."
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                ></textarea>
-
-                {/* Button to send a message */}
-                <button onClick={handleSendMessage}>Send</button>
+                </form>
             </div>
-        </div>
+        </React.Fragment>
     );
-};
+}
 
 
 export default ChatContent;

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const orderController = require('../controller/orderController');
 const tokenCheck = require('../middlewares/tokenCheck');
 const getData = require('../middlewares/getJWTData');
+const emailUtil = require('../utils/emailUtils');
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 

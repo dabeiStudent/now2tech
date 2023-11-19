@@ -71,6 +71,7 @@ const SearchResultPage = () => {
                 </div>
                 <div className="right-container">
                     <img src={SearchBanner} alt="search" />
+                    <h1>Tìm với từ khóa: {keyword}</h1>
                     {products ? (
                         products.length > 0 ? (
                             <div className="search-results">
@@ -94,7 +95,7 @@ const SearchResultPage = () => {
                             </div>
                         )
                     ) : (
-                        <Loader/>
+                        <Loader />
                     )}
                 </div>
             </div>
