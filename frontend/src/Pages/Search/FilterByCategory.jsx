@@ -12,7 +12,7 @@ import axios from "axios";
 const FilterByCategory = () => {
     const navigate = useNavigate();
     const { category, brand, min, max } = useParams();
-    const [items, setItem] = useState([]);  //product
+    const [items, setItem] = useState([]);
     const [brands, setBrand] = useState([]);
     const [categories, setCategories] = useState([]);
     const [flag, setFlag] = useState(false);
