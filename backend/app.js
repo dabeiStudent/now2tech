@@ -12,7 +12,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const voucherRoutes = require('./routes/voucherRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const commentRoutes = require('./routes/commentRoutes');
-const salesRoutes = require('./routes/salesRoutes');
+const statisticRoutes = require('./routes/statisticRoutes');
 const brandRoutes = require('./routes/brandRoutes');
 
 const creatSocketIo = require('./utils/chatSocket');
@@ -46,7 +46,7 @@ app.use('/order', orderRoutes);
 app.use('/voucher', voucherRoutes);
 app.use('/category', categoryRoutes);
 app.use('/comment', commentRoutes);
-app.use('/statistic', statisticRoute);
+app.use('/statistic', statisticRoutes);
 app.use('/brand', brandRoutes);
 
 //test private repository
