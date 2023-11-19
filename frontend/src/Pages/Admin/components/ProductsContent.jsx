@@ -7,11 +7,15 @@ import Loader from '../../../components/UIElement/Loader';
 
 import './ProductsContent.css';
 import UploadModal from "./UploadModal";
+import AddCategory from "./AddCategory";
+import AddBrand from "./AddBrand";
 
 const ProductsContent = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showAdd, setShowAdd] = useState(false);
+    const [showAddCate, setShowAddCate] = useState(false);
+    const [showAddBrand, setShowAddBrand] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [showUpload, setShowUpload] = useState(false);
     const [productId, setProductId] = useState(null);
@@ -79,7 +83,18 @@ const ProductsContent = () => {
     const closeAddModal = () => {
         setShowAdd(false);
         setSelectedProduct(null);
-
+    }
+    const openAddCateModal = () => {
+        setShowAddCate(true);
+    }
+    const closeAddCateModal = () => {
+        setShowAddCate(false);
+    }
+    const openAddBrandModal = () => {
+        setShowAddBrand(true);
+    }
+    const closeAddBrandModal = () => {
+        setShowAddBrand(false);
     }
     const openDetailModal = (product) => {
         setShowDetail(true);
@@ -109,21 +124,25 @@ const ProductsContent = () => {
                 />
             </div>
             <div className="product-content">
-                <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
+                <div className="button-product-content">
+                    <button onClick={openAddCateModal} className="add-product-button">Tạo danh mục</button>
+                    <button onClick={openAddBrandModal} className="add-product-button">Thêm thương hiệu</button>
+                    <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
+                </div>
                 <div className="table-container">
                     <table className="product-table">
                         <thead>
                             <tr >
-                                <th>sku</th>
-                                <th>name</th>
-                                <th>importPrice</th>
-                                <th>sellPrice</th>
-                                <th>pimage</th>
-                                <th>made</th>
-                                <th>brand</th>
-                                <th>category</th>
-                                <th>inStock</th>
-                                <th>sold</th>
+                                <th>Mã SKU</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá nhập</th>
+                                <th>Giá bán</th>
+                                <th>Ảnh sản phẩm</th>
+                                <th>Nơi sản xuất</th>
+                                <th>Hãng</th>
+                                <th>Danh mục</th>
+                                <th>Tồn kho</th>
+                                <th>Đã bán</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -162,6 +181,8 @@ const ProductsContent = () => {
                         </tbody>
                     </table>
                     {showAdd && <AddProduct onClose={closeAddModal} />}
+                    {showAddCate && <AddCategory onClose={closeAddCateModal} />}
+                    {showAddBrand && <AddBrand onClose={closeAddBrandModal} />}
                 </div>
             </div>
         </React.Fragment>

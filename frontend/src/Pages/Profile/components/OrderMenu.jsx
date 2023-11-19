@@ -35,7 +35,7 @@ const OrderMenu = () => {
                         checked={selectedStatus.includes('Not_proccessed')}
                         onChange={() => handleCheckboxChange('Not_proccessed')}
                     />
-                    Chưa xử lý
+                    Chờ xác nhận
                 </label>
                 <label>
                     <input
@@ -44,7 +44,7 @@ const OrderMenu = () => {
                         checked={selectedStatus.includes('Processing')}
                         onChange={() => handleCheckboxChange('Processing')}
                     />
-                    Đang xử lý
+                    Đang chuẩn bị hàng
                 </label>
                 <label>
                     <input
@@ -53,7 +53,7 @@ const OrderMenu = () => {
                         checked={selectedStatus.includes('Shipped')}
                         onChange={() => handleCheckboxChange('Shipped')}
                     />
-                    Đã gửi
+                    Đang giao
                 </label>
                 <label>
                     <input
@@ -62,7 +62,7 @@ const OrderMenu = () => {
                         checked={selectedStatus.includes('Delivered')}
                         onChange={() => handleCheckboxChange('Delivered')}
                     />
-                    Đã giao
+                    Giao thành công
                 </label>
                 <label>
                     <input

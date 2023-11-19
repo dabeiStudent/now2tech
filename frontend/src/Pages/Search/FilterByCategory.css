@@ -1,0 +1,8 @@
+.filter-by-cate h1 {
+    font-size: 100;
+}
+
+.selected {
+    font-weight: bold;
+    background-color: rgb(160, 212, 247);
+}

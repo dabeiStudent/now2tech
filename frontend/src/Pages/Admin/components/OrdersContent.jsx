@@ -138,7 +138,7 @@ const OrdersContent = () => {
                     VNPAY
                 </label>
             </div>
-            <div className="table-container">
+            <div className="table-container_1">
                 <table className="product-table">
                     <thead>
                         <tr>

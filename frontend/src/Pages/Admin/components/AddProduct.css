@@ -53,6 +53,13 @@
     border-radius: 5px;
 }
 
+.product-modal-content form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .product-modal-content form button[type="button"] {
     background-color: #4caf50;
     color: white;

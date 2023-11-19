@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import './ProductCard.css';
-import {formatPrice} from '../../ultis/formatPrice';
+import { formatPrice } from '../../ultis/formatPrice';
 import StarRating from '../../Pages/Product/components/StarRating';
 
 const ProductCard = props => {
@@ -11,14 +11,14 @@ const ProductCard = props => {
             <div className="product-card">
                 <div className="product-image">
                     <img
-                        src='https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg'
+                        src={`http://localhost:5000/images/${props.image}`}
                         alt='place'
                         height={200}
                     />
                 </div>
                 <h3>{props.name}</h3>
                 <div className="product-rating">
-                    <StarRating rating={props.avgRating}/>
+                    <StarRating rating={props.avgRating} />
                     <span className="num-rating">{props.numOfReview} đánh giá</span>
                 </div>
                 {/* <div className="product-prods-group">

@@ -15,40 +15,40 @@ const NavLinks = () => {
         userName: username,
         role: role
     };
-    let { keyword }= useParams();
-    const [isSearch, setIsSearch]= useState(false);
-    const [searchKeyword, setSearchKeyword]= useState('');
-    const location= useLocation();
-    const navigate= useNavigate();
-    const [latedSearch, setLatedSearch]= useState([]);
+    let { keyword } = useParams();
+    const [isSearch, setIsSearch] = useState(false);
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [latedSearch, setLatedSearch] = useState([]);
 
     const cart = useContext(CartContext);
     const { items } = cart;
 
-    const openSearchHandler= ()=> {
+    const openSearchHandler = () => {
         setIsSearch(true);
     }
 
-    const closeSearchHandler= ()=> {
+    const closeSearchHandler = () => {
         setIsSearch(false);
     };
 
-    const searchKeywordChangeHandler= (e)=>{
+    const searchKeywordChangeHandler = (e) => {
         setSearchKeyword(e.target.value)
     };
 
-    const submitHandler= (e)=> {
+    const submitHandler = (e) => {
         e.preventDefault();
         document.getElementById('search-box').blur();
-        if(searchKeyword.trim()){
+        if (searchKeyword.trim()) {
             navigate(`/tim-kiem/${searchKeyword}`);
-        } else{
+        } else {
             navigate('/')
-        }          
+        }
     }
 
-    useEffect(()=> {
-        if(location.pathname !== `/tim-kiem/${searchKeyword}`){
+    useEffect(() => {
+        if (location.pathname !== `/tim-kiem/${searchKeyword}`) {
             setSearchKeyword('');
         }
     }, [location])
@@ -84,7 +84,7 @@ const NavLinks = () => {
                         </div>
                     </div>
                 )}
-                
+
 
             </li>
             <li>

@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
 import './AddProduct.css';
 const UpdateitemModal = ({ product, onClose }) => {
+    const [categories, setCategories] = useState([]);
     const [item, setItem] = useState(product);
+    useEffect(() => {
+        axios.get('http://localhost:5000/category/get-category')
+            .then(result => {
+                setCategories(result.data);
+            })
+            .catch(err => {
+                alert('Có lỗi khi hiển thị');
+            })
+    }, []);
     if (!product) {
         return null;
     }
@@ -45,7 +55,7 @@ const UpdateitemModal = ({ product, onClose }) => {
                 <span className="close" onClick={onClose}>
                     &times;
                 </span>
-                <h2>Thêm Sản Phẩm</h2>
+                <h2>Cập nhật Sản Phẩm</h2>
                 <form onSubmit={handleUpdate}>
                     <div>
                         <label htmlFor="_id">ID:</label>
@@ -159,14 +169,20 @@ const UpdateitemModal = ({ product, onClose }) => {
                     </div>
                     <div>
                         <label htmlFor="category">Danh mục:</label>
-                        <input
-                            type="text"
+                        <select
                             id="category"
                             name="category"
                             value={item.category}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="" disabled>Chọn danh mục</option>
+                            {categories.map(category => (
+                                <option key={category._id} value={category.name}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
                         <label htmlFor="inStock">Số lượng:</label>

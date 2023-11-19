@@ -30,6 +30,7 @@ import VoucherPage from './Pages/Voucher/VoucherPage';
 import SearchResultPage from './Pages/Search/SearchResultPage';
 
 import './App.css';
+import FilterByCategory from './Pages/Search/FilterByCategory';
 
 function App() {
   const usernameEncoded = getCookie('username');
@@ -91,12 +92,12 @@ function App() {
                     <Route exact path="/" element={<HomePage />} />
                     <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
                     <Route exact path='/gio-hang' element={<CartPage />} />
-                    <Route exact path='/thong-tin-giao-hang' element={<Shipping />}/>
-                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />}/>
-                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment/>}/>
-                    <Route exact path='/khuyen-mai/:vid' element={<VoucherPage/>}/>
-                    <Route exact path='/tim-kiem/:keyword' element={<SearchResultPage/>}/>
-
+                    <Route exact path='/thong-tin-giao-hang' element={<Shipping />} />
+                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />} />
+                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
+                    <Route exact path='/khuyen-mai/:vid' element={<VoucherPage />} />
+                    <Route exact path='/tim-kiem/:keyword' element={<SearchResultPage />} />
+                    <Route exact path='/loctheodanhmuc/:category/:brand/:min/:max' element={<FilterByCategory />} />
                     {username === "admin"
                       && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
                     {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
