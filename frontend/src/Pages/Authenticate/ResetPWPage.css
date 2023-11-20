@@ -18,9 +18,12 @@
 }
 
 .form__rspw input[type=email] {
-    margin-left: 1%;
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 18px;
     border: none;
-    border-bottom: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid #ccc;
+    outline: none;
     text-align: center;
     width: 70%;
 }
@@ -29,28 +32,31 @@
     font-size: 27px;
     border: none;
     border-radius: 1%;
-    color: white;
-    background-color: rgb(255, 136, 1);
+    font-weight: 700;
+    color: #dd3036;
+    background-color: #ffffff;
+    border: 2px solid #dd3036;
     width: 60%;
 }
 
-.form__rspw input[type=email]:focus {
-    background-color: lightgoldenrodyellow;
-}
 
 .form__rspw input[type=submit]:hover {
-    color: black;
-    background-color: #FFD400;
+    color: rgb(255, 255, 255);
+    background-color: #dd1b22;
 }
 
 .form__rspw p {
-    margin-top: 3%;
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 5%;
+    opacity: .8;
     color: rgb(0, 0, 0);
 }
 
 .form__rspw p:hover {
-    color: rgb(122, 122, 81);
+    color: rgb(0, 0, 0);
+    opacity: 1;
+    cursor: pointer;
 }
 
 .element__rspw {
@@ -65,7 +71,8 @@
 .notification {
     text-align: center;
     font-size: 20px;
-    background-color: rgb(104, 241, 104);
+    color: #dd1b22;
+    font-weight: 500;
 }
 
 @media screen and (max-width: 1368px) and (max-height: 619px) {

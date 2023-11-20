@@ -1,0 +1,32 @@
+.update-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* CSS cho modal content */
+.update-modal .update-modal-content {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    width: 50%;
+}
+
+.update-modal-content select,
+input {
+    text-align: left;
+    width: 70%;
+}
+
+.update-modal-content button {
+    margin-top: 10px;
+}

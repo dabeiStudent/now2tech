@@ -70,20 +70,12 @@ const FilterByCategory = () => {
         navigate(`/loctheodanhmuc/${selectedCategory}/${selectedBrand}/${valueMin}/${valueMax}`);
         setFlag(!flag);
     }
+
     return (
         <div className='search-page'>
             <div className='search-page-container'>
                 <div className="left-container">
                     <h2>Bộ lọc sản phẩm</h2>
-                    {/* <div className="search-by-price">
-                        <p className='filter-title'>Giá bán</p>
-                        <ul>
-                            <li onClick={() => searchByPriceHandler(0, 0)} className={searchByPrice === '0' ? 'is-selected' : undefined}>Tất cả</li>
-                            <li onClick={() => searchByPriceHandler(0, 2000000)} className={searchByPrice.min === 0 && searchByPrice.max === 2000000 ? 'is-selected' : undefined}>Dưới 2 triệu</li>
-                            <li onClick={() => searchByPriceHandler(2000000, 4000000)} className={searchByPrice.min === 2000000 && searchByPrice.max === 4000000 ? 'is-selected' : undefined}>Từ 2 - 4 triệu</li>
-                            <li onClick={() => searchByPriceHandler(4000000, 7000000)} className={searchByPrice.min === 4000000 && searchByPrice.max === 7000000 ? 'is-selected' : undefined}>Từ 4 - 7 triệu</li>
-                        </ul>
-                    </div>*/}
                     <div className="search-by-category">
                         <p className='filter-title'>Danh mục</p>
                         <ul>
@@ -153,7 +145,6 @@ const FilterByCategory = () => {
                     </div>
                 </div>
                 <div className="right-container">
-                    <img src={SearchBanner} alt="search" />
                     <h1>{category} - {brand === "All" ? "Tất cả" : brand}</h1>
                     {items ? (
                         items.length > 0 ? (
@@ -167,7 +158,7 @@ const FilterByCategory = () => {
                                             price={item.sellPrice}
                                             avgRating={item.avgRating}
                                             numOfReview={item.numOfReview}
-                                            image={item.pimage[0]} />
+                                            image={item.pimage[1]} />
                                     </div>))}
                             </div>
                         ) : (

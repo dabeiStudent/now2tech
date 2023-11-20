@@ -14,7 +14,7 @@ td {
 }
 
 .my-order tr:hover {
-    background-color: rgb(243, 242, 164);
+    background-color: #ccc;
 }
 
 .my-order ul li {

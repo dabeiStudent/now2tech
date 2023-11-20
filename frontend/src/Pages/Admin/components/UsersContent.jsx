@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import DetailModalUser from "./DetailModalUser";
 
 import './UsersContent.css';
@@ -36,7 +38,6 @@ const UsersContent = () => {
         setSelectedUser(user);
     };
     const closeEditModal = event => {
-        event.preventDefault();
         setShowUpdate(false);
         setState(!state);
     }
@@ -45,11 +46,11 @@ const UsersContent = () => {
         if (window.confirm('Bạn có chắc muốn xóa tài khoản này?')) {
             axios.delete(`http://localhost:5000/user/user-remove/${userId}`, { withCredentials: true })
                 .then((res) => {
-                    alert('Xóa thành công');
+                    toast('Xóa thành công');
                     setState(!state);
                 })
                 .catch((err) => {
-                    alert('Không thể xóa tài khoản admin');
+                    toast('Không thể xóa tài khoản admin');
                     console.log({ err: err });
                 })
         }
@@ -59,7 +60,7 @@ const UsersContent = () => {
         if (userStatus === "active") {
             axios.put(`http://localhost:5000/user/user-status/${userId}/1`, '', { withCredentials: true })
                 .then(result => {
-                    alert("Đã khóa tài khoản");
+                    toast("Đã khóa tài khoản");
                     setState(!state);
                 })
                 .catch(err => {
@@ -68,7 +69,7 @@ const UsersContent = () => {
         } else {
             axios.put(`http://localhost:5000/user/user-status/${userId}/0`, '', { withCredentials: true })
                 .then(result => {
-                    alert("Đã mở khóa tài khoản");
+                    toast("Đã mở khóa tài khoản");
                     setState(!state);
                 })
                 .catch(err => {
@@ -88,6 +89,7 @@ const UsersContent = () => {
     }
     return (
         <React.Fragment>
+            <ToastContainer />
             <div className="search-bar">
                 <input
                     type="text"

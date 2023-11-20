@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 const AddBrand = ({ onClose }) => {
     const [newBrand, setNewBrand] = useState({
@@ -26,7 +28,7 @@ const AddBrand = ({ onClose }) => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, [onClose])
 
@@ -36,7 +38,7 @@ const AddBrand = ({ onClose }) => {
                 setBrand(result.data);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             })
     }, [isUpdate])
     const handleChange = (e) => {
@@ -55,9 +57,9 @@ const AddBrand = ({ onClose }) => {
             })
             .catch(err => {
                 if (err == "AxiosError: Request failed with status code 401") {
-                    alert("Đã có thương hiệu này trong danh mục bạn chọn");
+                    toast("Đã có thương hiệu này trong danh mục bạn chọn");
                 } else {
-                    alert(err);
+                    toast(err);
                 }
             })
     }
@@ -67,11 +69,12 @@ const AddBrand = ({ onClose }) => {
                 setIsUpdate(!isUpdate);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             })
     }
     return (
         <div className='add-product-modal'>
+            <ToastContainer />
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;

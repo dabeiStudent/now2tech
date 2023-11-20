@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './AddCategory.css';
 const AddCategory = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
@@ -25,7 +26,7 @@ const AddCategory = ({ onClose }) => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, [isUpdate]);
     const handleChange = (e) => {
@@ -44,9 +45,9 @@ const AddCategory = ({ onClose }) => {
             })
             .catch(err => {
                 if (err == "AxiosError: Request failed with status code 400") {
-                    alert("Đã có danh mục này");
+                    toast("Đã có danh mục này");
                 } else {
-                    alert(err);
+                    toast(err);
                 }
             })
     }
@@ -56,11 +57,12 @@ const AddCategory = ({ onClose }) => {
                 setIsUpdate(!isUpdate);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             });
     }
     return (
         <div className='add-product-modal'>
+            <ToastContainer />
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 import './UploadModal.css';
@@ -12,7 +14,7 @@ const UploadModal = ({ pid, onClose }) => {
     const handleUpload = async () => {
         try {
             if (selectedFiles.length === 0) {
-                alert("Chưa chọn hình");
+                toast("Chưa chọn hình");
                 return;
             }
             const formData = new FormData();
@@ -27,11 +29,11 @@ const UploadModal = ({ pid, onClose }) => {
                 },
             })
                 .then(result => {
-                    alert(result.data.msg)
+                    toast('Cập nhật ảnh thành công')
                     onClose();
                 })
                 .catch(err => {
-                    alert(err)
+                    toast(err)
                 });
 
         } catch (error) {
@@ -46,16 +48,17 @@ const UploadModal = ({ pid, onClose }) => {
         if (window.confirm("Bạn có chắc muốn xóa ảnh sản phẩm này?") === true) {
             axios.put(`http://localhost:5000/product/update-product/${pid}`, pimage, { withCredentials: true })
                 .then(result => {
-                    alert(result.data.msg);
+                    toast(result.data.msg);
                     onClose();
                 })
                 .catch(err => {
-                    alert(err);
+                    toast(err);
                 })
         }
     }
     return (
         <div className="image-upload-modal">
+            <ToastContainer />
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h1>Thêm hình ảnh sản phẩm</h1>

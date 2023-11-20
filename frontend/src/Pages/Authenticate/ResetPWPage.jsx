@@ -5,12 +5,13 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './ResetPWPage.css';
 const ResetPWPage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '' });
-    const [noti, setNoti] = useState('');
     useEffect(() => {
         window.scrollTo(0, 0);
     })
@@ -29,14 +30,14 @@ const ResetPWPage = () => {
         )
             .then(res => {
                 console.log(user);
-                setNoti(res.data.msg);
+                toast(res.data.msg);
                 setUser({ email: '' });;
             })
             .catch((err) => {
                 if (err.message === "Request failed with status code 429") {
-                    setNoti('Vui lòng chờ 60 giây để thực hiện lại');
+                    toast('Vui lòng chờ 60 giây để thực hiện lại');
                 } else if (err.message === "Request failed with status code 404") {
-                    setNoti('Email không đúng');
+                    toast('Email không đúng');
                 }
             })
     }
@@ -44,8 +45,9 @@ const ResetPWPage = () => {
         <div className="container">
             <div className="form__rspw">
                 <form className="element__rspw" onSubmit={resetPasswordHandler}>
+
                     <div className="notification">
-                        {noti}
+                        <ToastContainer />
                     </div>
                     <div>
                         <h1>Lấy lại mật khẩu</h1>
