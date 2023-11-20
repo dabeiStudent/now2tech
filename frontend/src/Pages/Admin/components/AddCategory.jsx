@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './AddCategory.css';
 const AddCategory = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
@@ -10,14 +11,22 @@ const AddCategory = ({ onClose }) => {
         name: '',
         keyword: ''
     });
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    const filterCategories = categories.filter((category) => {
+        return (
+            category.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    })
     useEffect(() => {
         axios.get('http://localhost:5000/category/get-category')
             .then(result => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, [isUpdate]);
     const handleChange = (e) => {
@@ -36,9 +45,9 @@ const AddCategory = ({ onClose }) => {
             })
             .catch(err => {
                 if (err == "AxiosError: Request failed with status code 400") {
-                    alert("Đã có danh mục này");
+                    toast("Đã có danh mục này");
                 } else {
-                    alert(err);
+                    toast(err);
                 }
             })
     }
@@ -48,11 +57,12 @@ const AddCategory = ({ onClose }) => {
                 setIsUpdate(!isUpdate);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             });
     }
     return (
         <div className='add-product-modal'>
+            <ToastContainer />
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;
@@ -83,6 +93,14 @@ const AddCategory = ({ onClose }) => {
                     </div>
                     <button type="submit">Lưu danh mục</button>
                 </form>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm tên danh mục"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
                 <div className="table-cate">
                     <h2>Danh sách Danh Mục</h2>
                     <table>
@@ -94,7 +112,7 @@ const AddCategory = ({ onClose }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.map(category => (
+                            {filterCategories.map(category => (
                                 <tr key={category._id}>
                                     <td>{category.name}</td>
                                     <td>{category.keyword}</td>

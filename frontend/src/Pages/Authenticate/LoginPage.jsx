@@ -4,13 +4,13 @@ import './LoginPage.css';
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../ultis/authContext";
 const LoginPage = () => {
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '', passWord: '' });
-    const [noti, setNoti] = useState('');
     useEffect(() => {
         window.scrollTo(0, 0);
     })
@@ -31,9 +31,9 @@ const LoginPage = () => {
             })
             .catch((err) => {
                 if (err.message === "Request failed with status code 404") {
-                    setNoti('Email/Mật khẩu không đúng');
+                    toast('Email/Mật khẩu không đúng');
                 } else if (err.message === "Request failed with status code 400") {
-                    setNoti('Tài khoản đang bị khóa');
+                    toast('Tài khoản đang bị khóa');
                 }
             })
     }
@@ -50,9 +50,9 @@ const LoginPage = () => {
             <div className="form__login">
                 <form className="element__login" onSubmit={loginHandler}>
                     <div className="error_signup">
-                        {noti}
+                        <ToastContainer />
                     </div>
-                    <div>
+                    <div className="label-login">
                         <h1>Đăng nhập</h1>
                     </div>
                     <div className="input">

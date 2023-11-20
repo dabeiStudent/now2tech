@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './OrdersContent.css';
 const OrdersContent = () => {
     const [orders, setOrder] = useState([]);
@@ -41,7 +43,7 @@ const OrdersContent = () => {
         if (value === "Shipped") {
             axios.put(`http://localhost:5000/order/update-status-shipped/${orderId}/${value}`, '', { withCredentials: true })
                 .then(result => {
-                    alert("Đã gửi hàng cho shipper");
+                    toast("Đã gửi hàng cho shipper");
                     setFlag(!flag);
                 })
                 .catch(err => {
@@ -50,7 +52,7 @@ const OrdersContent = () => {
         } else {
             axios.put(`http://localhost:5000/order/update-status/${orderId}/${value}`, '', { withCredentials: true })
                 .then(result => {
-                    alert("Cập nhật thành công");
+                    toast("Cập nhật thành công");
                     setFlag(!flag);
                 })
                 .catch(err => {
@@ -61,6 +63,7 @@ const OrdersContent = () => {
 
     return (
         <div className="product-content">
+            <ToastContainer />
             <div className="search-bar">
                 <input
                     type="text"

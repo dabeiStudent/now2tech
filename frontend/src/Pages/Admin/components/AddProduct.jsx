@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './AddProduct.css';
 import axios from 'axios';
 const AddProduct = ({ onClose }) => {
@@ -29,7 +30,7 @@ const AddProduct = ({ onClose }) => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, []);
     const handleChange = (e) => {
@@ -49,7 +50,7 @@ const AddProduct = ({ onClose }) => {
                 setBrand(result.data);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             })
     }
     const addSpec = () => {
@@ -72,7 +73,7 @@ const AddProduct = ({ onClose }) => {
         e.preventDefault();
         axios.post("http://localhost:5000/product/add-new-product", product, { withCredentials: true })
             .then(result => {
-                alert("Thêm sản phẩm thành công")
+                toast("Thêm sản phẩm thành công")
                 setProduct({
                     sku: '',
                     name: '',
@@ -92,16 +93,25 @@ const AddProduct = ({ onClose }) => {
                 });
             })
             .catch(err => {
-                if (err === "AxiosError: Request failed with status code 400") {
-                    alert("Sản phẩm đã tồn tại");
+                if (err.response) {
+                    // Nếu có phản hồi từ máy chủ và mã lỗi không phải 2xx
+                    console.error("Server error response:", err.response.data);
+                    toast(`Lỗi: Sản phẩm đã tồn tại`);
+                } else if (err.request) {
+                    // Nếu có yêu cầu nhưng không có phản hồi
+                    console.error("No response received:", err.request);
+                    toast("Không nhận được phản hồi từ máy chủ");
                 } else {
-                    alert(err)
+                    // Xử lý lỗi khác
+                    console.error("Error:", err.message);
+                    toast(`Lỗi: ${err.message}`);
                 }
             })
     };
 
     return (
         <div className='add-product-modal'>
+            <ToastContainer />
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;

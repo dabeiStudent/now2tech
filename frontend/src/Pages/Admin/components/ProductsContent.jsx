@@ -4,7 +4,8 @@ import DetailModal from "./DetailModal";
 import AddProduct from "./AddProduct";
 import UpdateProductModal from "./UpdateProductModal";
 import Loader from '../../../components/UIElement/Loader';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './ProductsContent.css';
 import UploadModal from "./UploadModal";
 import AddCategory from "./AddCategory";
@@ -60,7 +61,6 @@ const ProductsContent = () => {
         console.log(product)
     };
     const closeUpdateModal = event => {
-        event.preventDefault();
         setShowUpdate(false);
         setSelectedProduct(null);
     }
@@ -69,7 +69,7 @@ const ProductsContent = () => {
         if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
             axios.delete(`http://localhost:5000/product/remove-product/${productId}`, { withCredentials: true })
                 .then((res) => {
-                    console.log('Xóa thành công');
+                    toast('Xóa thành công');
                     setDeleteProduct(!deleteProduct);
                 })
                 .catch((err) => {
@@ -115,6 +115,7 @@ const ProductsContent = () => {
     }
     return (
         <React.Fragment>
+            <ToastContainer />
             <div className="search-bar">
                 <input
                     type="text"
@@ -154,7 +155,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
                                     <td className="product-cell">
-                                        <img src={`http://localhost:5000/images/${product.pimage[0]}`} />
+                                        <img src={`http://localhost:5000/images/${product.pimage[1]}`} />
                                     </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>
@@ -186,7 +187,7 @@ const ProductsContent = () => {
                 </div>
             </div>
         </React.Fragment>
-    );
+    )
 }
 
 export default ProductsContent;

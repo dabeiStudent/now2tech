@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './UpdateModal.css';
 const UpdateModal = ({ user, onClose }) => {
     const [account, setAccount] = useState(user);
     if (!user) {
@@ -13,15 +16,17 @@ const UpdateModal = ({ user, onClose }) => {
         event.preventDefault();
         axios.put(`http://localhost:5000/user/user-update/${account._id}`, account, { withCredentials: true })
             .then(result => {
-                alert("Cập nhật thành công");
+                toast("Cập nhật thành công");
+                onClose();
             })
             .catch(err => {
                 console.log(err);
             })
     }
     return (
-        <div className="detail-modal">
-            <div className="modal-content">
+        <div className="update-modal">
+            <ToastContainer />
+            <div className="update-modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <form onSubmit={handleUpdate}>
                     <h2>Cập nhật tài khoản</h2>
@@ -82,7 +87,7 @@ const UpdateModal = ({ user, onClose }) => {
                             </tbody>
                         </table>
                     </div>
-                    <input type="submit" value="Cập nhật" />
+                    <button className="edit-button" type="submit" >Cập nhật</button>
                 </form>
             </div>
         </div >

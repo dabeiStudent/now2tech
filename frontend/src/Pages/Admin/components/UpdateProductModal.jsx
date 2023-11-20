@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './AddProduct.css';
 const UpdateitemModal = ({ product, onClose }) => {
@@ -12,7 +13,7 @@ const UpdateitemModal = ({ product, onClose }) => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, []);
     if (!product) {
@@ -43,7 +44,8 @@ const UpdateitemModal = ({ product, onClose }) => {
         event.preventDefault();
         axios.put(`http://localhost:5000/product/update-product/${item._id}`, item, { withCredentials: true })
             .then(result => {
-                alert("Cập nhật thành công");
+                toast("Cập nhật thành công");
+                onClose();
             })
             .catch(err => {
                 console.log(err);
@@ -51,6 +53,7 @@ const UpdateitemModal = ({ product, onClose }) => {
     }
     return (
         <div className='add-product-modal'>
+            <ToastContainer />
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;

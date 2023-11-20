@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Form, Col, Row, Modal, Button } from 'react-bootstrap';
@@ -10,67 +10,68 @@ import { OrderContext } from '../../../ultis/orderContext';
 import { CartContext } from '../../../ultis/cartContext';
 
 const UserInfo = () => {
-    const navigate= useNavigate();
-    const orderContext= useContext(OrderContext);
-    const cartContext= useContext(CartContext);
-    const [ordered, setOrdered]= useState();
-    const [openModal, setOpenModal]= useState(false);
+    const navigate = useNavigate();
+    const orderContext = useContext(OrderContext);
+    const cartContext = useContext(CartContext);
+    const [ordered, setOrdered] = useState();
+    const [openModal, setOpenModal] = useState(false);
 
-    const cart= JSON.parse(localStorage.getItem('cart'));
+    const cart = JSON.parse(localStorage.getItem('cart'));
 
-    if(cart.address === undefined){
-        const ad= {
+    if (cart.address === undefined) {
+        const ad = {
             add: '',
             province_id: null,
             district_id: null,
-            ward_id: null};
-        cart.address= ad;        
+            ward_id: null
+        };
+        cart.address = ad;
     };
 
     const [provinces, setProvinces]= useState([]);
     const [selectedProvince, setSelectedProvince]=useState(cart.address.province_id);
 
-    const [districts, setDistrict]= useState([]);
-    const [selectedDistrict, setSelectedDistrict]= useState(cart.address.district_id);
+    const [districts, setDistrict] = useState([]);
+    const [selectedDistrict, setSelectedDistrict] = useState(cart.address.district_id);
 
     const [wards, setWards]= useState([]);
     const [selectedWard, setSelectedWard]= useState(cart.address.ward_id);
 
-    const [address, setAddress]= useState(cart.address.add);
+    const [address, setAddress] = useState(cart.address.add);
 
-    const [paymentMethod, setPaymentMethod]= useState('VNPAY');
+    const [paymentMethod, setPaymentMethod] = useState('VNPAY');
 
-    const [userInfo, setUserInfo]= useState({
+    const [userInfo, setUserInfo] = useState({
         firstName: '',
         lastName: '',
         phoneNumber: '',
         email: ''
     });
 
-    const [updateInfo, setUpdateInfo]= useState({
+    const [updateInfo, setUpdateInfo] = useState({
         firstName: '',
         lastName: '',
         phoneNumber: '',
     });
 
-    useEffect(()=> {
-        const getUserInfo= async ()=> {
-            await axios.get('http://localhost:5000/user/profile/my-profile', {withCredentials: true})
-            .then(res=> {
-                setUserInfo({
-                    firstName: res.data.firstName,
-                    lastName: res.data.lastName,
-                    phoneNumber: res.data.phoneNumber,
-                    email: res.data.email
-                });
-                setUpdateInfo({
-                    firstName: res.data.firstName,
-                    lastName: res.data.lastName,
-                    phoneNumber: res.data.phoneNumber,
-                    email: res.data.email
+    useEffect(() => {
+        const getUserInfo = async () => {
+            await axios.get('http://localhost:5000/user/profile/my-profile', { withCredentials: true })
+                .then(res => {
+                    setUserInfo({
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName,
+                        phoneNumber: res.data.phoneNumber,
+                        email: res.data.email
+                    });
+                    setUpdateInfo({
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName,
+                        phoneNumber: res.data.phoneNumber,
+                        email: res.data.email
+                    })
                 })
-            })
-            .catch(err=> console.log(err));
+                .catch(err => console.log(err));
         };
         getUserInfo();
     }, []);
@@ -82,7 +83,7 @@ const UserInfo = () => {
             .then(res=> setProvinces(res.data))
             .catch(err=> console.log(err));
         }
-        getListProvince();        
+        getListProvince();
     }, []);
 
     useEffect(()=> {
@@ -104,19 +105,19 @@ const UserInfo = () => {
         getListWard();
     }, [selectedDistrict]);
 
-    const selectProvinceHandler= (e)=> {
+    const selectProvinceHandler = (e) => {
         setSelectedProvince(e.target.value);
     }
 
-    const selectedDistrictHandler= (e)=>{
+    const selectedDistrictHandler = (e) => {
         setSelectedDistrict(e.target.value);
     }
 
-    const selectedWardHandler= (e)=> {
+    const selectedWardHandler = (e) => {
         setSelectedWard(e.target.value);
     }
 
-    const paymentMethodCheckedHandler= (e)=> {
+    const paymentMethodCheckedHandler = (e) => {
         setPaymentMethod(e.target.value)
     }
 
@@ -124,12 +125,12 @@ const UserInfo = () => {
         setAddress(e.target.value);
     }
 
-    if(orderContext.selectedItems.length === 0){
+    if (orderContext.selectedItems.length === 0) {
         window.alert("Vui lòng chọn sản phẩm trước khi đặt hàng");
         navigate('/gio-hang');
     }
 
-    const submitHandler= event => {
+    const submitHandler = event => {
         event.preventDefault();
 
         if(selectedProvince === undefined
@@ -150,24 +151,25 @@ const UserInfo = () => {
 
         const add= address + ', ' + sward.name + ', ' + sdistrict.name + ', ' + sprovince.name;
 
-        const a= {province_id: selectedProvince, district_id: selectedDistrict, ward_id: selectedWard, add: address}
+        const a = { province_id: selectedProvince, district_id: selectedDistrict, ward_id: selectedWard, add: address }
         orderContext.setAddress(a);
 
-        const createOrder= async()=> {
+        const createOrder = async () => {
             await axios.post('http://localhost:5000/order/create-order', {
                 items: orderContext.selectedItems,
                 address: add,
                 paymentMethod: paymentMethod,
-                price: orderContext.selectedItems.reduce((acc, current)=> acc + current.price * current.qty, 0),
+                price: orderContext.selectedItems.reduce((acc, current) => acc + current.price * current.qty, 0),
                 shippingFee: 12000,
-                totalPrice: orderContext.selectedItems.reduce((acc, current)=> acc + current.price * current.qty, 0) + 12000
-            }, {withCredentials: true})
-            .then(res=> {
-                cartContext.setCartItems(cartContext.items.filter(item=> !orderContext.selectedItems.includes(item)));
-                setOrdered(res.data)})
-            .catch(err=> console.log(err))
+                totalPrice: orderContext.selectedItems.reduce((acc, current) => acc + current.price * current.qty, 0) + 12000
+            }, { withCredentials: true })
+                .then(res => {
+                    cartContext.setCartItems(cartContext.items.filter(item => !orderContext.selectedItems.includes(item)));
+                    setOrdered(res.data)
+                })
+                .catch(err => console.log(err))
         }
-        createOrder(); 
+        createOrder();
     }
 
 
@@ -176,40 +178,41 @@ const UserInfo = () => {
             if(ordered.paymentMethod === 'VNPAY' && ordered.paymentStatus.isPaid === false){
                 const getVNPayUrl= async ()=> {
                     await axios.post(`http://localhost:5000/order/create-vnpay-url/${ordered._id}`)
-                    .then(res=> {
-                        navigate(`/chi-tiet-don-hang/${ordered._id}`);
-                        window.open(res.data)})
-                    .catch(err=> console.log(err))
+                        .then(res => {
+                            navigate(`/chi-tiet-don-hang/${ordered._id}`);
+                            window.open(res.data)
+                        })
+                        .catch(err => console.log(err))
                 }
                 getVNPayUrl();
-            } else{
+            } else {
                 navigate(`/chi-tiet-don-hang/${ordered._id}`);
             }
         }
     }, [ordered, navigate])
 
-    const openModalHandler= ()=> {
+    const openModalHandler = () => {
         setOpenModal(true);
     }
 
-    const closeModalHandler= ()=> {
+    const closeModalHandler = () => {
         setOpenModal(false);
         setUpdateInfo(userInfo);
     }
 
-    const changeLastNameHandler= (e)=>{
-        setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
-    } 
-    
-    const changeFirstNameHandler= (e)=> {
+    const changeLastNameHandler = (e) => {
         setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
     }
 
-    const changePhoneNumberHandler= (e)=> {
+    const changeFirstNameHandler = (e) => {
         setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
     }
 
-    const updateInfoHandler= async (e)=> {
+    const changePhoneNumberHandler = (e) => {
+        setUpdateInfo({ ...updateInfo, [e.target.name]: e.target.value });
+    }
+
+    const updateInfoHandler = async (e) => {
         e.preventDefault();
         await axios.put('http://localhost:5000/user/profile/update', updateInfo, { withCredentials: true })
             .then(res => {

@@ -8,7 +8,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.signup-page__form{
+.signup-page__form {
     display: flex;
     justify-content: space-between;
 }
@@ -35,33 +35,37 @@
 }
 
 .form__signup input[type=text] {
-    margin-left: 1%;
+    margin-left: 8px;
     border: none;
-    border-bottom: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid #ccc;
+    outline: none;
     text-align: center;
     width: 80%;
 }
 
 .form__signup input[type=number] {
-    margin-left: 1%;
+    margin-left: 8px;
     border: none;
-    border-bottom: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid #ccc;
+    outline: none;
     text-align: center;
     width: 80%;
 }
 
 .form__signup input[type=email] {
-    margin-left: 1%;
+    margin-left: 8px;
     border: none;
-    border-bottom: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid #ccc;
+    outline: none;
     text-align: center;
     width: 80%;
 }
 
 .form__signup input[type=password] {
-    margin-left: 1%;
+    margin-left: 8px;
     border: none;
-    border-bottom: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid #ccc;
+    outline: none;
     text-align: center;
     width: 80%;
 }
@@ -71,40 +75,31 @@
     font-size: 27px;
     border: none;
     border-radius: 1%;
-    color: white;
-    background-color: rgb(255, 136, 1);
+    font-weight: 700;
+    color: #dd3036;
+    background-color: #ffffff;
+    border: 2px solid #dd3036;
     width: 60%;
 }
 
-.form__signup input[type=text]:focus {
-    background-color: lightgoldenrodyellow;
-}
-
-.form__signup input[type=number]:focus {
-    background-color: lightgoldenrodyellow;
-}
-
-.form__signup input[type=email]:focus {
-    background-color: lightgoldenrodyellow;
-}
-
-.form__signup input[type=password]:focus {
-    background-color: lightgoldenrodyellow;
-}
 
 .form__signup input[type=submit]:hover {
-    color: black;
-    background-color: #FFD400;
+    color: rgb(255, 255, 255);
+    background-color: #dd1b22;
 }
 
 .form__signup p {
     font-size: 13px;
+    font-weight: 600;
     margin-top: 10%;
+    opacity: .8;
     color: rgb(0, 0, 0);
 }
 
 .form__signup p:hover {
-    color: rgb(122, 122, 81);
+    color: rgb(0, 0, 0);
+    opacity: 1;
+    cursor: pointer;
 }
 
 .element__signup {
@@ -126,6 +121,10 @@
     .form__signup {
         height: 70vh;
         margin-top: 3%;
+    }
+
+    .form__signup h1 {
+        margin-top: -4%;
     }
 
     .form__signup input[type=submit] {

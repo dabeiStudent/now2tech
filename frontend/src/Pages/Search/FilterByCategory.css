@@ -6,3 +6,76 @@
     font-weight: bold;
     background-color: rgb(160, 212, 247);
 }
+
+.search-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.search-page-container {
+    display: flex;
+    width: 100%;
+}
+
+.left-container {
+    width: 25%;
+    padding-right: 20px;
+}
+
+.right-container {
+    flex: 1;
+}
+
+.filter-title {
+    font-weight: bold;
+}
+
+.search-by-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.search-by-category li {
+    cursor: pointer;
+
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.search-by-category li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-by-category li.selected {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.search-by-category input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom-product-card {
+    margin: 10px;
+}
+
+.product-not-found {
+    text-align: center;
+    padding: 20px;
+}
+
+.icon-container {
+    margin-bottom: 10px;
+}
+
+.magnify-glass-icon {
+    font-size: 48px;
+    color: #3498db;
+}

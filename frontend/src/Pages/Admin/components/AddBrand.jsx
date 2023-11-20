@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 const AddBrand = ({ onClose }) => {
     const [newBrand, setNewBrand] = useState({
@@ -10,13 +12,23 @@ const AddBrand = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    const filterBrands = brands.filter((brand) => {
+        return (
+            brand.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            brand.category.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    })
     useEffect(() => {
         axios.get('http://localhost:5000/category/get-category')
             .then(result => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, [onClose])
 
@@ -26,7 +38,7 @@ const AddBrand = ({ onClose }) => {
                 setBrand(result.data);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             })
     }, [isUpdate])
     const handleChange = (e) => {
@@ -45,9 +57,9 @@ const AddBrand = ({ onClose }) => {
             })
             .catch(err => {
                 if (err == "AxiosError: Request failed with status code 401") {
-                    alert("Đã có thương hiệu này trong danh mục bạn chọn");
+                    toast("Đã có thương hiệu này trong danh mục bạn chọn");
                 } else {
-                    alert(err);
+                    toast(err);
                 }
             })
     }
@@ -57,11 +69,12 @@ const AddBrand = ({ onClose }) => {
                 setIsUpdate(!isUpdate);
             })
             .catch(err => {
-                alert(err);
+                toast(err);
             })
     }
     return (
         <div className='add-product-modal'>
+            <ToastContainer />
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;
@@ -98,6 +111,14 @@ const AddBrand = ({ onClose }) => {
                     </div>
                     <button type="submit">Lưu danh mục</button>
                 </form>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Tìm thương hiệu/danh mục"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
                 <div className="table-cate">
                     <h2>Danh sách Thương Hiệu</h2>
                     <table>
@@ -109,7 +130,7 @@ const AddBrand = ({ onClose }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {brands.map(brand => (
+                            {filterBrands.map(brand => (
                                 <tr key={brand._id}>
                                     <td>{brand.name}</td>
                                     <td>{brand.category}</td>

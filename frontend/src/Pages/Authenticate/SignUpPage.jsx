@@ -3,32 +3,36 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { faEnvelope, faLock, faUser, faH, faT, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './SignUpPage.css';
 import axios from "axios";
 const SignUpPage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ firstName: '', lastName: '', phoneNumber: '', userName: '', email: '', passWord: '' });
-    const [noti, setNoti] = useState('');
     useEffect(() => {
         window.scrollTo(0, 0);
     })
 
     const signUpHandler = event => {
         event.preventDefault();
-        axios.post('http://localhost:5000/user/user-register', user, { withCredentials: true })
-            .then(result => {
-                alert(`${result.data.msg}`);
-                setUser({ firstName: '', lastName: '', phoneNumber: '', userName: '', email: '', passWord: '' });
-                navigate('/login');
-            })
-            .catch(err => {
-                if (err.message === "Request failed with status code 400") {
-                    setNoti('Username không hợp lệ');
-                } else if (err.message === "Request failed with status code 403") {
-                    setNoti("Email đã được sử dụng")
-                }
-            })
+        if (regex.test(user.phoneNumber) == false) {
+            toast("Số điện thoại không hợp lệ")
+        } else {
+            axios.post('http://localhost:5000/user/user-register', user, { withCredentials: true })
+                .then(result => {
+                    toast(`${result.data.msg}`);
+                    setUser({ firstName: '', lastName: '', phoneNumber: '', userName: '', email: '', passWord: '' });
+                    navigate('/login');
+                })
+                .catch(err => {
+                    if (err.message === "Request failed with status code 400") {
+                        toast('Username không hợp lệ');
+                    } else if (err.message === "Request failed with status code 403") {
+                        toast("Email đã được sử dụng")
+                    }
+                })
+        }
     }
     const onChange = event => {
         event.preventDefault();
@@ -38,12 +42,13 @@ const SignUpPage = () => {
         event.preventDefault();
         navigate('/login');
     }
+    const regex = /^(09|08|03|07|05)[0-9]{8}$/igm;
     return (
         <div className="container">
             <div className="form__signup">
                 <form className="element__signup" onSubmit={signUpHandler}>
                     <div className="error_signup">
-                        {noti}
+                        <ToastContainer />
                     </div>
                     <div>
                         <h1>Đăng ký tài khoản</h1>
@@ -78,7 +83,7 @@ const SignUpPage = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="input">
                         <input type="submit" value="TIẾP TỤC" />
                     </div>
