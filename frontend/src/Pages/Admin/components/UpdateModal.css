@@ -22,7 +22,7 @@
 }
 
 .update-modal-content select,
-input {
+input [type="text"] {
     text-align: left;
     width: 70%;
 }

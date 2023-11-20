@@ -155,7 +155,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
                                     <td className="product-cell">
-                                        <img src={`http://localhost:5000/images/${product.pimage[1]}`} />
+                                        <img src={`http://localhost:5000/images/${product.pimage ? product.pimage[0] : 'chưa có'}`} />
                                     </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>

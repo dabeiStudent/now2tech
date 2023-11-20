@@ -83,7 +83,8 @@ const SearchResultPage = () => {
                                             name={product.name}
                                             price={product.sellPrice}
                                             avgRating={product.avgRating}
-                                            numOfReview={product.numOfReview} />
+                                            numOfReview={product.numOfReview}
+                                            image={product.pimage[0]} />
                                     </div>))}
                             </div>
                         ) : (
