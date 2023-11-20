@@ -101,7 +101,7 @@ const HomePage = () => {
     }
 
     const filterByCate = (categoryName) => {
-        navigate(`/loctheodanhmuc/${categoryName}/All/0/0`);
+        navigate(`/loctheodanhmuc/${categoryName}/All/0/0/1`);
     }
     return (
         <React.Fragment>

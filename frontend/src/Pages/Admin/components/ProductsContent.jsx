@@ -22,7 +22,13 @@ const ProductsContent = () => {
     const [productId, setProductId] = useState(null);
     const [deleteProduct, setDeleteProduct] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [categories, setCategories] = useState([]);
 
+    const [selectedStatus, setSelectedStatus] = useState([]);
+
+    const handleCheckboxChange = (status) => {
+        setSelectedStatus(status === selectedStatus ? '' : status);
+    };
     const [products, setProduct] = useState([{
         _id: '',
         sku: '',
@@ -45,15 +51,30 @@ const ProductsContent = () => {
             .then(result => {
                 setProduct(result.data);
             })
-    }, [deleteProduct, showAdd, showUpdate, showUpload]);
+    }, [deleteProduct, showAdd, showUpdate, showUpload, showAddBrand, showAddCate]);
+    useEffect(() => {
+        axios.get('http://localhost:5000/category/get-category')
+            .then(result => {
+                setCategories(result.data);
+            })
+            .catch(err => {
+                alert('Có lỗi khi hiển thị');
+            })
+    }, [showAddCate])
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
     const filterProducts = products.filter((product) => {
-        return (
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.sku.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        if (selectedStatus.length !== 0) {
+            return (
+                product.category.toLowerCase().includes(selectedStatus.toLowerCase())
+            );
+        } else {
+            return (
+                product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.sku.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
     })
     const handleEdit = (product) => {
         setShowUpdate(true);
@@ -130,6 +151,22 @@ const ProductsContent = () => {
                     <button onClick={openAddBrandModal} className="add-product-button">Thêm thương hiệu</button>
                     <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
                 </div>
+                <div className="status-checkboxes">
+                    <h2>Lọc theo danh mục sản phẩm: </h2>
+                    <label>
+                        {categories.map(category => (
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    value={category.name}
+                                    checked={selectedStatus.includes(category.name)}
+                                    onChange={() => handleCheckboxChange(category.name)}
+                                />
+                                {category.name}
+                            </label>
+                        ))}
+                    </label>
+                </div>
                 <div className="table-container">
                     <table className="product-table">
                         <thead>
@@ -186,7 +223,7 @@ const ProductsContent = () => {
                     {showAddBrand && <AddBrand onClose={closeAddBrandModal} />}
                 </div>
             </div>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 

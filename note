@@ -1,0 +1,18 @@
+===Xử lí chỉnh trạng thái order/Xử lí order ở admin
+===Xử lí ảnh product
+==Hoàn thành chat
+===Làm lại hàm getProduct
+===Thanh search
+=Thay đổi cơ chế lấy data sau khi login để vào quản lý
+
+
+-------------------------------------------------------------
+--- Hoàn thành Danh mục và lúc add sản phẩm sẽ chọn danh mục
+-- Mỗi sản phẩm có 1 danh mục, Danh mục chỉ bao gồm: Tên
+--- Add sản phẩm, làm tìm kiếm
+
+
+
+--Danh muc (ten,keyword) -> Add danh muc vo san pham 
+
+--Tra ve tong so san pham theo gia tri search

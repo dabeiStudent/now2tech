@@ -15,12 +15,9 @@
 }
 
 .user-table tr:hover {
-    background-color: rgb(243, 242, 164);
+    background-color: #e4e2e2;
 }
 
-.user-table td:hover {
-    background-color: rgb(252, 249, 108);
-}
 
 .user-table th {
     background-color: #f2f2f2;
@@ -43,8 +40,7 @@
 }
 
 .search-bar {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .search-bar input {

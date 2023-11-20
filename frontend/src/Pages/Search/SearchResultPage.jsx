@@ -46,61 +46,45 @@ const SearchResultPage = () => {
     }, [keyword]);
 
     return (
-        <div className='search-page'>
-            <div className='search-page-container'>
-                <div className="left-container">
-                    <h2>Bộ lọc sản phẩm</h2>
-                    <div className="search-by-price">
-                        <p className='filter-title'>Giá bán</p>
-                        <ul>
-                            <li onClick={() => searchByPriceHandler(0, 0)} className={searchByPrice === '0' ? 'is-selected' : undefined}>Tất cả</li>
-                            <li onClick={() => searchByPriceHandler(0, 2000000)} className={searchByPrice.min === 0 && searchByPrice.max === 2000000 ? 'is-selected' : undefined}>Dưới 2 triệu</li>
-                            <li onClick={() => searchByPriceHandler(2000000, 4000000)} className={searchByPrice.min === 2000000 && searchByPrice.max === 4000000 ? 'is-selected' : undefined}>Từ 2 - 4 triệu</li>
-                            <li onClick={() => searchByPriceHandler(4000000, 7000000)} className={searchByPrice.min === 4000000 && searchByPrice.max === 7000000 ? 'is-selected' : undefined}>Từ 4 - 7 triệu</li>
-                        </ul>
-                    </div>
-                    <div className="search-by-category">
-                        <p className='filter-title'>Danh mục</p>
-                        <ul>
-                            <li onClick={() => searchByCategoryHandler('0')} value={0} className={searchByCategory === '0' ? 'is-selected' : undefined}>Tất cả</li>
-                            <li onClick={() => searchByCategoryHandler('1')} value={1} className={searchByCategory === '1' ? 'is-selected' : undefined}>Điện thoại</li>
-                            <li onClick={() => searchByCategoryHandler('2')} value={2} className={searchByCategory === '2' ? 'is-selected' : undefined}>Laptop</li>
-                            <li onClick={() => searchByCategoryHandler('3')} value={3} className={searchByCategory === '3' ? 'is-selected' : undefined}>Máy tính bảng</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="right-container">
-                    <img src={SearchBanner} alt="search" />
-                    <h1>Tìm với từ khóa: {keyword}</h1>
-                    {products ? (
-                        products.length > 0 ? (
-                            <div className="search-results">
-                                {products.map(product => (
-                                    <div className='custom-product-card' key={product._id}>
-                                        <ProductCard
-                                            key={product._id}
-                                            id={product._id}
-                                            name={product.name}
-                                            price={product.sellPrice}
-                                            avgRating={product.avgRating}
-                                            numOfReview={product.numOfReview}
-                                            image={product.pimage[0]} />
-                                    </div>))}
-                            </div>
-                        ) : (
-                            <div className='product-not-found'>
-                                <div className='icon-container'>
-                                    <FontAwesomeIcon className='magnify-glass-icon' icon={faMagnifyingGlassPlus} />
+        <React.Fragment>
+            <div className='search-page'>
+                <div className='search-page-container'>
+                    <div className="right-container">
+                        <img src={SearchBanner} alt="search" />
+                        <h1>Tìm với từ khóa: {keyword}</h1>
+                        {products ? (
+                            products.length > 0 ? (
+                                <React.Fragment>
+                                    <h2>Tất cả: {products.length}</h2>
+                                    <div className="search-results">
+                                        {products.map(product => (
+                                            <div className='custom-product-card' key={product._id}>
+                                                <ProductCard
+                                                    key={product._id}
+                                                    id={product._id}
+                                                    name={product.name}
+                                                    price={product.sellPrice}
+                                                    avgRating={product.avgRating}
+                                                    numOfReview={product.numOfReview}
+                                                    image={product.pimage[0]} />
+                                            </div>))}
+                                    </div>
+                                </React.Fragment>
+                            ) : (
+                                <div className='product-not-found'>
+                                    <div className='icon-container'>
+                                        <FontAwesomeIcon className='magnify-glass-icon' icon={faMagnifyingGlassPlus} />
+                                    </div>
+                                    <p>Không có sản phẩm phù hợp</p>
                                 </div>
-                                <p>Không có sản phẩm phù hợp</p>
-                            </div>
-                        )
-                    ) : (
-                        <Loader />
-                    )}
+                            )
+                        ) : (
+                            <Loader />
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </React.Fragment>
     )
 }
 

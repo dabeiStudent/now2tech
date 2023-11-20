@@ -46,6 +46,12 @@
 
 .search-by-category input[type="checkbox"] {
     margin-right: 5px;
+    cursor: pointer;
+}
+
+.search-by-category label {
+    width: 90%;
+    cursor: pointer;
 }
 
 .search-results {
@@ -70,3 +76,31 @@
     font-size: 48px;
     color: #3498db;
 }
+
+.pages {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pages-bar {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.pages-bar li {
+    margin: 0 5px;
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pages-bar li:hover {
+    background-color: #e0e0e0;
+}
+
+@media screen and (max-width: 1368px) and (max-height: 619px) {}

@@ -99,7 +99,7 @@ const UsersContent = () => {
                 />
             </div>
             <div className="product-content">
-                <div className="table-container">
+                <div className="table-container-user">
                     <table className="user-table">
                         <thead>
                             <tr >

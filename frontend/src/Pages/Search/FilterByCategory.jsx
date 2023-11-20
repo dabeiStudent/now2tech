@@ -11,7 +11,7 @@ import './FilterByCategory.css';
 import axios from "axios";
 const FilterByCategory = () => {
     const navigate = useNavigate();
-    const { category, brand, min, max } = useParams();
+    const { category, brand, minp, maxp, page } = useParams();
     const [items, setItem] = useState([]);
     const [brands, setBrand] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -20,9 +20,9 @@ const FilterByCategory = () => {
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [minPrice, setMinPrice] = useState(null);
     const [maxPrice, setMaxPrice] = useState(null);
-
+    const [pageNumber, setPageNumber] = useState(null);
     useEffect(() => {
-        axios.get(`http://localhost:5000/product/get-all-product/?category=${category}&brand=${brand}&min=${min}&max=${max}`)
+        axios.get(`http://localhost:5000/product/get-all-product/?category=${category}&brand=${brand}&min=${minp}&max=${maxp}&page=${page}`)
             .then(result => {
                 setItem(result.data);
                 axios.get(`http://localhost:5000/brand/get-brand-cate/${category}`)
@@ -30,6 +30,8 @@ const FilterByCategory = () => {
                         setBrand(success.data);
                         setSelectedCategory(category);
                         setSelectedBrand(brand);
+                        setMaxPrice(maxp);
+                        setMinPrice(minp)
                     })
                     .catch(err => {
                         alert(err);
@@ -53,12 +55,12 @@ const FilterByCategory = () => {
         setSelectedBrand(null);
         setMinPrice(null);
         setMaxPrice(null);
-        navigate(`/loctheodanhmuc/${categoryName}/All/0/0`);
+        navigate(`/loctheodanhmuc/${categoryName}/All/0/0/1`);
         setFlag(!flag);
     }
     const handleSelectBrand = (brandName) => {
         setSelectedBrand(brandName);
-        navigate(`/loctheodanhmuc/${selectedCategory}/${brandName}/0/0`);
+        navigate(`/loctheodanhmuc/${selectedCategory}/${brandName}/0/0/1`);
         setMinPrice(null);
         setMaxPrice(null);
         setFlag(!flag);
@@ -67,7 +69,12 @@ const FilterByCategory = () => {
         setMinPrice(valueMin);
         setMaxPrice(valueMax)
         console.log(valueMin, valueMax);
-        navigate(`/loctheodanhmuc/${selectedCategory}/${selectedBrand}/${valueMin}/${valueMax}`);
+        navigate(`/loctheodanhmuc/${selectedCategory}/${selectedBrand}/${valueMin}/${valueMax}/1`);
+        setFlag(!flag);
+    }
+    const handleSelectPage = (page) => {
+        setPageNumber(page);
+        navigate(`/loctheodanhmuc/${selectedCategory}/${selectedBrand}/${minPrice}/${maxPrice}/${page}`);
         setFlag(!flag);
     }
 
@@ -109,7 +116,7 @@ const FilterByCategory = () => {
                                 <input
                                     type="checkbox"
                                     id="price-all"
-                                    checked={minPrice === 0 && maxPrice === 0}
+                                    checked={minPrice == 0 && maxPrice == 0}
                                     onChange={() => handleSelectPrice(0, 0)}
                                 />
                                 <label htmlFor="price-all">Tất cả</label>
@@ -118,7 +125,7 @@ const FilterByCategory = () => {
                                 <input
                                     type="checkbox"
                                     id="price-under-10m"
-                                    checked={minPrice === 0 && maxPrice === 10000000}
+                                    checked={minPrice == 0 && maxPrice == 10000000}
                                     onChange={() => handleSelectPrice(0, 10000000)}
                                 />
                                 <label htmlFor="price-under-10m">Dưới 10 triệu</label>
@@ -127,7 +134,7 @@ const FilterByCategory = () => {
                                 <input
                                     type="checkbox"
                                     id="price-10m-to-15m"
-                                    checked={minPrice === 10000000 && maxPrice === 15000000}
+                                    checked={minPrice == 10000000 && maxPrice == 15000000}
                                     onChange={() => handleSelectPrice(10000000, 15000000)}
                                 />
                                 <label htmlFor="price-10m-to-15m">Từ 10 tới 15 triệu</label>
@@ -136,7 +143,7 @@ const FilterByCategory = () => {
                                 <input
                                     type="checkbox"
                                     id="price-over-15m"
-                                    checked={minPrice === 15000000 && maxPrice === 9999999999999999}
+                                    checked={minPrice == 15000000 && maxPrice == 9999999999999999}
                                     onChange={() => handleSelectPrice(15000000, 9999999999999999)}
                                 />
                                 <label htmlFor="price-over-15m">Trên 15 triệu</label>
@@ -172,6 +179,13 @@ const FilterByCategory = () => {
                     ) : (
                         <Loader />
                     )}
+                    <div className="pages">
+                        <ul className="pages-bar">
+                            <li onClick={() => { handleSelectPage(1) }}>1</li>
+                            <li onClick={() => { handleSelectPage(2) }}>2</li>
+                            <li onClick={() => { handleSelectPage(3) }}>3</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

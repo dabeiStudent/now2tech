@@ -21,7 +21,13 @@
 
 .table-container {
     max-width: 100%;
-    max-height: 700px;
+    max-height: 600px;
+    overflow: auto;
+}
+
+.table-container-user {
+    max-width: 100%;
+    max-height: 750px;
     overflow: auto;
 }
 
@@ -51,12 +57,10 @@
 }
 
 .product-table tr:hover {
-    background-color: rgb(243, 242, 164);
+    background-color: #e4e2e2;
 }
 
-.product-table td:hover {
-    background-color: rgb(252, 249, 108);
-}
+
 
 .product-table th {
     background-color: #f2f2f2;
@@ -138,13 +142,19 @@
 @media screen and (max-width: 1368px) and (max-height: 619px) {
     .table-container {
         max-width: 100%;
-        max-height: 400px;
+        max-height: 320px;
+        overflow: auto;
+    }
+
+    .table-container-user {
+        max-width: 100%;
+        max-height: 460px;
         overflow: auto;
     }
 
     .table-container_1 {
         max-width: 100%;
-        max-height: 300px;
+        max-height: 310px;
         overflow: auto;
     }
 }

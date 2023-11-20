@@ -9,6 +9,7 @@ import './SignUpPage.css';
 import axios from "axios";
 const SignUpPage = () => {
     const navigate = useNavigate();
+    const regex = /^(09|08|03|07|05)[0-9]{8}$/igm;
     const [user, setUser] = useState({ firstName: '', lastName: '', phoneNumber: '', userName: '', email: '', passWord: '' });
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -42,7 +43,7 @@ const SignUpPage = () => {
         event.preventDefault();
         navigate('/login');
     }
-    const regex = /^(09|08|03|07|05)[0-9]{8}$/igm;
+
     return (
         <div className="container">
             <div className="form__signup">
