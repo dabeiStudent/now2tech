@@ -289,7 +289,7 @@ const UserInfo = () => {
                 <Row className='form-row'>
                     <Col>
                         <Form.Select onChange={selectProvinceHandler} value={selectedProvince !== null ? selectedProvince : 0}>
-                            <option value={0}>Chọn tỉnh/thành phố</option>
+                            <option value={79}>Thành phố Hồ Chí Minh</option>
                             {provinces.map(p => (
                                 <option value={p.code} key={p.code}>{p.name}</option>
                             ))}
@@ -298,7 +298,7 @@ const UserInfo = () => {
                     </Col>
                     <Col>
                         <Form.Select onChange={selectedDistrictHandler} value={selectedDistrict !== null ? selectedDistrict : 0}>
-                            <option value={0} >Chọn quận/huyện</option>
+                            <option value={769} >Thành phố Thủ Đức</option>
                             {districts.map(d=>(
                                 <option key={d.code} value={d.code}>{d.name}</option>
                             ))}
@@ -306,7 +306,7 @@ const UserInfo = () => {
                     </Col>
                     <Col>
                         <Form.Select onChange={selectedWardHandler} value={selectedWard !== null ? selectedWard : 0}>
-                            <option value={0}>Chọn phường/xã</option>
+                            <option value={26815}>Phường Linh Chiểu</option>
                             {wards.map(ward=> (
                                 <option key={ward.code} value={ward.code}>{ward.name}</option>
                             ))}
