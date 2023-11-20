@@ -27,7 +27,7 @@ const UserInfo = () => {
         cart.address= ad;        
     };
 
-    const [provinces, setProvince]= useState([]);
+    const [provinces, setProvinces]= useState([]);
     const [selectedProvince, setSelectedProvince]=useState(cart.address.province_id);
 
     const [districts, setDistrict]= useState([]);
@@ -35,8 +35,6 @@ const UserInfo = () => {
 
     const [wards, setWards]= useState([]);
     const [selectedWard, setSelectedWard]= useState(cart.address.ward_id);
-
-    // const [getOderMethod, setGetOrderMethod]= useState('at-store');
 
     const [address, setAddress]= useState(cart.address.add);
 
@@ -78,18 +76,20 @@ const UserInfo = () => {
     }, []);
 
     useEffect(()=>{
+        // https://vapi.vnappmob.com/api/province
         const getListProvince= async()=> {
-            await axios.get('https://vapi.vnappmob.com/api/province')
-            .then(res=> setProvince(res.data.results))
+            await axios.get('https://provinces.open-api.vn/api/p/')
+            .then(res=> setProvinces(res.data))
             .catch(err=> console.log(err));
         }
         getListProvince();        
     }, []);
 
     useEffect(()=> {
+        // https://vapi.vnappmob.com/api/province/district/${selectedProvince}
         const getListDistrict= async ()=>{
-            await axios.get(`https://vapi.vnappmob.com/api/province/district/${selectedProvince}`)
-            .then(res=> setDistrict(res.data.results))
+            await axios.get(`https://provinces.open-api.vn/api/p/${selectedProvince}?depth=2`)
+            .then(res=> setDistrict(res.data.districts))
             .catch(err=> console.log(err));
         }
         getListDistrict();
@@ -97,8 +97,8 @@ const UserInfo = () => {
 
     useEffect(()=> {
         const getListWard= async ()=> {
-            await axios.get(`https://vapi.vnappmob.com/api/province/ward/${selectedDistrict}`)
-            .then(res=> setWards(res.data.results))
+            await axios.get(`https://provinces.open-api.vn/api/d/${selectedDistrict}?depth=2`)
+            .then(res=> setWards(res.data.wards))
             .catch(err=> console.log(err));
         }
         getListWard();
@@ -120,11 +120,6 @@ const UserInfo = () => {
         setPaymentMethod(e.target.value)
     }
 
-
-    // const getOrderMethodHandler= (e)=> {
-    //     setGetOrderMethod(e.target.value);
-    // }
-
     const addressChangeHandler= (e)=> {
         setAddress(e.target.value);
     }
@@ -138,21 +133,22 @@ const UserInfo = () => {
         event.preventDefault();
 
         if(selectedProvince === undefined
-            || selectedProvince === '0'
+            || selectedProvince === 0
             || selectedDistrict === undefined 
-            || selectedDistrict === '0'
+            || selectedDistrict === 0
             || selectedWard === undefined 
-            || selectedWard === '0'
+            || selectedWard === 0
             || address === undefined
             || address === '') {
             return window.alert("Vui lòng nhập địa chỉ đặt hàng!");
         }
 
-        const sprovince= provinces.find(p=> p.province_id === selectedProvince);
-        const sdistrict= districts.find(d=> d.district_id === selectedDistrict);
-        const sward= wards.find(w=> w.ward_id === selectedWard);
+        const sprovince= provinces.find(p=> p.code.toString() === selectedProvince);
+        const sdistrict= districts.find(d=> d.code.toString() === selectedDistrict);
+        const sward= wards.find(w=> w.code.toString() === selectedWard);
 
-        const add= address + ', ' + sward.ward_name + ', ' + sdistrict.district_name + ', ' + sprovince.province_name;
+
+        const add= address + ', ' + sward.name + ', ' + sdistrict.name + ', ' + sprovince.name;
 
         const a= {province_id: selectedProvince, district_id: selectedDistrict, ward_id: selectedWard, add: address}
         orderContext.setAddress(a);
@@ -173,6 +169,7 @@ const UserInfo = () => {
         }
         createOrder(); 
     }
+
 
     useEffect(()=> {
         if(ordered !== undefined){
@@ -284,53 +281,42 @@ const UserInfo = () => {
         </Modal>
         
         <Form>
-            {/* <p className='form-title'>Cách thức nhận hàng</p>
-            <Row className='form-row'>
-                <Col>
-                    <Form.Check checked={getOderMethod === 'at-store'} value={'at-store'} onChange={getOrderMethodHandler} id='at-store' name='get-order' type='radio' inline label='Nhận tại cửa hàng'/>
-                </Col>
-                <Col>
-                    <Form.Check checked={getOderMethod === 'shipping'} value={'shipping'} onChange={getOrderMethodHandler} id='shipping' name='get-order' type='radio' inline label='Giao hàng tận nơi'/>
-                </Col>                
-            </Row> */}
-            {/* {getOderMethod === 'shipping' && ( */}
-                <div>
-                    <p className='form-title'>Địa chỉ nhận hàng:</p>
-                    <Row className='form-row'>
-                        <Col>
-                            <Form.Select onChange={selectProvinceHandler} value={selectedProvince !== null ? selectedProvince : 0}>
-                                <option value="0">Chọn tỉnh/thành phố</option>
-                                {provinces.map(p => (
-                                    <option value={p.province_id} key={p.province_id}>{p.province_name}</option>
-                                ))}
-                                
-                            </Form.Select>
-                        </Col>
-                        <Col>
-                            <Form.Select onChange={selectedDistrictHandler} value={selectedDistrict !== null ? selectedDistrict : 0}>
-                                <option value="0" >Chọn quận/huyện</option>
-                                {districts.map(d=>(
-                                    <option key={d.district_id} value={d.district_id}>{d.district_name}</option>
-                                ))}
-                            </Form.Select>
-                        </Col>
-                        <Col>
-                            <Form.Select onChange={selectedWardHandler} value={selectedWard !== null ? selectedWard : 0}>
-                                <option value="0">Chọn phường/xã</option>
-                                {wards.map(ward=> (
-                                    <option key={ward.ward_id} value={ward.ward_id}>{ward.ward_name}</option>
-                                ))}
-                            </Form.Select>
-                        </Col>
-                    </Row>
-                    <Row className='form-row'>
-                        <Form.Group className='custom-form__input'>
-                            <Form.Label>Địa chỉ</Form.Label>
-                            <Form.Control defaultValue={address} onChange={addressChangeHandler} type='text' required/>
-                        </Form.Group>
-                    </Row>
-                </div> 
-            {/* )}                       */}
+            <div>
+                <p className='form-title'>Địa chỉ nhận hàng:</p>
+                <Row className='form-row'>
+                    <Col>
+                        <Form.Select onChange={selectProvinceHandler} value={selectedProvince !== null ? selectedProvince : 0}>
+                            <option value={0}>Chọn tỉnh/thành phố</option>
+                            {provinces.map(p => (
+                                <option value={p.code} key={p.code}>{p.name}</option>
+                            ))}
+                            
+                        </Form.Select>
+                    </Col>
+                    <Col>
+                        <Form.Select onChange={selectedDistrictHandler} value={selectedDistrict !== null ? selectedDistrict : 0}>
+                            <option value={0} >Chọn quận/huyện</option>
+                            {districts.map(d=>(
+                                <option key={d.code} value={d.code}>{d.name}</option>
+                            ))}
+                        </Form.Select>
+                    </Col>
+                    <Col>
+                        <Form.Select onChange={selectedWardHandler} value={selectedWard !== null ? selectedWard : 0}>
+                            <option value={0}>Chọn phường/xã</option>
+                            {wards.map(ward=> (
+                                <option key={ward.code} value={ward.code}>{ward.name}</option>
+                            ))}
+                        </Form.Select>
+                    </Col>
+                </Row>
+                <Row className='form-row'>
+                    <Form.Group className='custom-form__input'>
+                        <Form.Label>Địa chỉ</Form.Label>
+                        <Form.Control defaultValue={address} onChange={addressChangeHandler} type='text' required/>
+                    </Form.Group>
+                </Row>
+            </div> 
             <p className='form-title'>Phương thức thanh toán</p>
             <Row className='form-row'>
                 <Col>

@@ -31,7 +31,7 @@ const DashboardContent = () => {
 
     useEffect(()=> {
         const getUserStats= async(req, res)=> {
-          await axios.get(`http://localhost:5000/statistic/user-statistic?year=${year}`)
+          await axios.get(`http://localhost:5000/statistic/user-statistic?year=${year}`, {withCredentials: true})
           .then(res=> {
             setUserStats(res.data);
           })
@@ -42,7 +42,7 @@ const DashboardContent = () => {
 
     useEffect(()=> {
         const getSalesStats= async(req, res)=> {
-          await axios.get(`http://localhost:5000/statistic/sales-statistic?year=${year}`)
+          await axios.get(`http://localhost:5000/statistic/sales-statistic?year=${year}`, { withCredentials: true })
           .then(res=> {
             setSalesStats(res.data);
           })

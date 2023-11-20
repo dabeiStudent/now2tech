@@ -4,6 +4,7 @@ import ProductsContent from './components/ProductsContent';
 import UsersContent from './components/UsersContent';
 import DashboardContent from './components/DashboardContent';
 import ChatContent from './components/ChatContent';
+import VouchersContent from './components/VouchersContent';
 
 import './MainAdminPage.css';
 
@@ -43,6 +44,12 @@ const MainAdminPage = () => {
                         Users
                     </li>
                     <li
+                        className={selectedContent === 'vouchers' ? 'active' : ''}
+                        onClick={() => handleTabClick('vouchers')}
+                    >
+                        Vouchers
+                    </li>
+                    <li
                         className={selectedContent === 'chat' ? 'active' : ''}
                         onClick={() => handleTabClick('chat')}
                     >
@@ -56,6 +63,7 @@ const MainAdminPage = () => {
                 {selectedContent === 'products' && <ProductsContent />}
                 {selectedContent === 'users' && <UsersContent />}
                 {selectedContent === 'chat' && <ChatContent />}
+                {selectedContent === 'vouchers' && <VouchersContent />}
             </div>
         </div>
     );
