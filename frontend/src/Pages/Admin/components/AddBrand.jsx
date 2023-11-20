@@ -10,6 +10,16 @@ const AddBrand = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    const filterBrands = brands.filter((brand) => {
+        return (
+            brand.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            brand.category.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    })
     useEffect(() => {
         axios.get('http://localhost:5000/category/get-category')
             .then(result => {
@@ -98,6 +108,14 @@ const AddBrand = ({ onClose }) => {
                     </div>
                     <button type="submit">Lưu danh mục</button>
                 </form>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Tìm thương hiệu/danh mục"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
                 <div className="table-cate">
                     <h2>Danh sách Thương Hiệu</h2>
                     <table>
@@ -109,7 +127,7 @@ const AddBrand = ({ onClose }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {brands.map(brand => (
+                            {filterBrands.map(brand => (
                                 <tr key={brand._id}>
                                     <td>{brand.name}</td>
                                     <td>{brand.category}</td>

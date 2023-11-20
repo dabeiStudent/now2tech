@@ -10,7 +10,15 @@ const AddCategory = ({ onClose }) => {
         name: '',
         keyword: ''
     });
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    const filterCategories = categories.filter((category) => {
+        return (
+            category.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    })
     useEffect(() => {
         axios.get('http://localhost:5000/category/get-category')
             .then(result => {
@@ -83,6 +91,14 @@ const AddCategory = ({ onClose }) => {
                     </div>
                     <button type="submit">Lưu danh mục</button>
                 </form>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm tên danh mục"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
                 <div className="table-cate">
                     <h2>Danh sách Danh Mục</h2>
                     <table>
@@ -94,7 +110,7 @@ const AddCategory = ({ onClose }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.map(category => (
+                            {filterCategories.map(category => (
                                 <tr key={category._id}>
                                     <td>{category.name}</td>
                                     <td>{category.keyword}</td>
