@@ -144,13 +144,11 @@ const ProductsContent = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
+                <button onClick={openAddCateModal} className="add-product-button">Tạo danh mục</button>
+                <button onClick={openAddBrandModal} className="add-product-button">Thêm thương hiệu</button>
+                <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
             </div>
             <div className="product-content">
-                <div className="button-product-content">
-                    <button onClick={openAddCateModal} className="add-product-button">Tạo danh mục</button>
-                    <button onClick={openAddBrandModal} className="add-product-button">Thêm thương hiệu</button>
-                    <button onClick={openAddModal} className="add-product-button">Thêm sản phẩm</button>
-                </div>
                 <div className="status-checkboxes">
                     <h2>Lọc theo danh mục sản phẩm: </h2>
                     <label>

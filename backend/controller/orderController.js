@@ -3,7 +3,7 @@ const moment = require('moment');
 const Order = require('../models/ordersModel');
 const User = require('../models/usersModel');
 const Product = require('../models/productsModel');
-const SalesStats= require('../models/salesStatsModel');
+const SalesStats = require('../models/salesStatsModel');
 
 //create new order
 const createOrder = async (req, res) => {
@@ -115,7 +115,7 @@ const updateToDelivered = async (req, res) => {
 
     order.status = 'Delivered';
     order.paymentStatus.isPaid = true;
-
+    order.paymentStatus.paidAt = new Date();
     try {
         await order.save();
     } catch (error) {
@@ -161,6 +161,21 @@ const cancelOrder = async (req, res) => {
 
 const updateStatusOrderAdmin = async (req, res) => {
     const { oid, ostatus } = req.params;
+    if (ostatus == "Delivered") {
+        const orderFound = await Order.findById(oid);
+        if (orderFound.paymentMethod == "COD") {
+            orderFound.status = ostatus;
+            orderFound.paymentStatus.isPaid = true;
+            orderFound.paymentStatus.paidAt = new Date();
+            orderFound.save();
+            return res.status(200).json({ msg: 'success' });
+        }
+        else {
+            orderFound.status = ostatus;
+            orderFound.save();
+            return res.status(200).json({ msg: 'success' });
+        }
+    }
     Order.findByIdAndUpdate(oid, { status: ostatus })
         .then(result => {
             return res.status(200).json({ msg: "Success" })
@@ -170,22 +185,22 @@ const updateStatusOrderAdmin = async (req, res) => {
         })
 }
 
-const statsSales= async(sales)=> {
-    const currentDate= new Date;
-    const currentYear= currentDate.getFullYear();
-    const currentMonth= currentDate.getMonth();
-    
+const statsSales = async (sales) => {
+    const currentDate = new Date;
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
     let existStats;
 
     try {
-        existStats= await SalesStats.findOne({year: currentYear});        
+        existStats = await SalesStats.findOne({ year: currentYear });
     } catch (error) {
         return error;
     }
 
-    if(!existStats || existStats.length === 0){
+    if (!existStats || existStats.length === 0) {
         let newStats;
-        newStats= new SalesStats({
+        newStats = new SalesStats({
             year: currentYear,
             totalSales: 0,
             monthlyStats: [
@@ -207,22 +222,22 @@ const statsSales= async(sales)=> {
         try {
             newStats.totalSales += sales;
             newStats.monthlyStats[currentMonth].sales += sales;
-            await newStats.save();        
+            await newStats.save();
         } catch (error) {
-            return error;      
+            return error;
         }
     } else {
         existStats.totalSales += sales;
-        existStats.monthlyStats.map(monthStats=> {
-            if(monthStats.month === currentMonth + 1){
+        existStats.monthlyStats.map(monthStats => {
+            if (monthStats.month === currentMonth + 1) {
                 monthStats.sales += sales;
             }
         });
 
         try {
-            await existStats.save();        
+            await existStats.save();
         } catch (error) {
-            return error;        
+            return error;
         }
     }
 };
@@ -239,11 +254,11 @@ const updateInstockAfterSent = async (req, res) => {
             const productFound = await Product.findOne({ name: item.name })
             productFound.inStock = productFound.inStock - item.qty;
             productFound.sold = productFound.sold + item.qty;
-            sales += (item.price - productFound.importPrice)*item.qty;
+            sales += (item.price - productFound.importPrice) * item.qty;
             // await statsSales(sales);
             await productFound.save();
         }));
-        
+
     };
 
     await statsSales(sales);

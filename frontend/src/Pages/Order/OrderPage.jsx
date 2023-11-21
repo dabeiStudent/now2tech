@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './OrderPage.css';
 import OrderItem from './components/OrderItem';
 import { formatPrice } from '../../ultis/formatPrice';
@@ -11,7 +12,7 @@ import Loader from '../../components/UIElement/Loader';
 const OrderPage = () => {
   let { oid } = useParams();
   const [order, setOrder] = useState();
-  const [isReload, setIsReload]= useState(false);
+  const [isReload, setIsReload] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:5000/order/get-order/${oid}`, { withCredentials: true })
@@ -21,39 +22,42 @@ const OrderPage = () => {
       });
   }, [oid, isReload]);
 
-  const paymentHandler= ()=> {
-    const getVNPayUrl= async ()=> {
+  const paymentHandler = () => {
+    const getVNPayUrl = async () => {
       await axios.post(`http://localhost:5000/order/create-vnpay-url/${order._id}`)
-      .then(res=> {
-          window.open(res.data)})
-      .catch(err=> console.log(err))
-  }
+        .then(res => {
+          window.open(res.data)
+        })
+        .catch(err => console.log(err))
+    }
     getVNPayUrl();
   };
 
-  const cancelOrderHandler= ()=> {
-    const cancelOrder= async ()=> {
-      await axios.put(`http://localhost:5000/order/cancel-order/${order._id}`, {}, {withCredentials: true})
-      .then(res=> {
-        window.alert(res.data.msg);
-        setIsReload(!isReload)})
-      .catch(err=> console.log(err))
+  const cancelOrderHandler = () => {
+    const cancelOrder = async () => {
+      await axios.put(`http://localhost:5000/order/cancel-order/${order._id}`, {}, { withCredentials: true })
+        .then(res => {
+          toast(res.data.msg);
+          setIsReload(!isReload)
+        })
+        .catch(err => console.log(err))
     }
     cancelOrder();
   }
 
-  const confirmDelivered= ()=> {
-    const isConfirmed= window.confirm('Bạn chắc chắn đã nhận được hàng?');
+  const confirmDelivered = () => {
+    const isConfirmed = window.confirm('Bạn chắc chắn đã nhận được hàng?');
 
-    const updateOrder= async ()=> {
-      await axios.put(`http://localhost:5000/order/update-to-delivered/${order._id}`, {}, {withCredentials: true})
-      .then(res=> {
-        window.alert(res.data.msg);
-        setIsReload(!isReload)})
-      .catch(err=> console.log(err))
+    const updateOrder = async () => {
+      await axios.put(`http://localhost:5000/order/update-to-delivered/${order._id}`, {}, { withCredentials: true })
+        .then(res => {
+          toast(res.data.msg);
+          setIsReload(!isReload)
+        })
+        .catch(err => console.log(err))
     }
 
-    if(isConfirmed){
+    if (isConfirmed) {
       updateOrder();
     }
   }
@@ -62,6 +66,7 @@ const OrderPage = () => {
     <div>
       {order ? (
         <div className='order-page'>
+          <ToastContainer />
           <div className='order-page__top' >
             {/* <button><FontAwesomeIcon icon={faArrowLeft}/></button> */}
             <h2>Chi tiết đơn hàng: #{order._id}</h2>
@@ -120,8 +125,8 @@ const OrderPage = () => {
                   qty={item.qty}
                   image={item.image}
                   price={item.price}
-                  orderStatus= {order.status}
-                  isReload= {isReload}
+                  orderStatus={order.status}
+                  isReload={isReload}
                   setIsReload={setIsReload} />))
               }
             </ul>
@@ -154,13 +159,13 @@ const OrderPage = () => {
                   <button onClick={confirmDelivered}>ĐÃ NHẬN ĐƯỢC HÀNG</button>
                 </Row>
               )}
-              
-              
+
+
             </div>
           </div>
         </div>
       ) : (
-        <Loader/>
+        <Loader />
       )}
 
     </div>

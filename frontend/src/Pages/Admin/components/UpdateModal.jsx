@@ -86,8 +86,8 @@ const UpdateModal = ({ user, onClose }) => {
                                 </tr>
                             </tbody>
                         </table>
+                        <button className="edit-button" type="submit" >Cập nhật</button>
                     </div>
-                    <button className="edit-button" type="submit" >Cập nhật</button>
                 </form>
             </div>
         </div >

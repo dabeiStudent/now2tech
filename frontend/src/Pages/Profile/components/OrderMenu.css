@@ -2,6 +2,7 @@
     padding: 10px;
     height: 63%;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .my-order th,

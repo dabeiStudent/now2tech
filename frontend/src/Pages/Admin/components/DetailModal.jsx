@@ -8,7 +8,7 @@ const DetailModal = ({ product, onClose }) => {
     }
 
     return (
-        <div className="detail-modal">
+        <div className="detail-modal-product">
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Chi tiết sản phẩm</h2>

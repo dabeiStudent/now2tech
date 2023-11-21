@@ -92,4 +92,6 @@
     margin-right: 10px;
 }
 
-@media screen and (max-width: 1368px) and (max-height: 619px) {}
+.search-bar button {
+    margin: 10px;
+}

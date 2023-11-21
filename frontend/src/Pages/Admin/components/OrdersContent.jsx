@@ -119,8 +119,6 @@ const OrdersContent = () => {
                     />
                     Đã hủy
                 </label>
-            </div>
-            <div className="status-checkboxes">
                 <h2>Lọc theo phương thức thanh toán: </h2>
                 <label>
                     <input

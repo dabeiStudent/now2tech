@@ -19,13 +19,15 @@
     padding: 20px;
     border-radius: 5px;
     position: relative;
-    width: 50%;
+    width: 500px;
+    height: 650px;
 }
 
 .update-modal-content select,
-input [type="text"] {
+.update-modal-content input [type="text"],
+.update-modal-content input [type="date"] {
     text-align: left;
-    width: 70%;
+    width: 90%;
 }
 
 .update-modal-content button {
