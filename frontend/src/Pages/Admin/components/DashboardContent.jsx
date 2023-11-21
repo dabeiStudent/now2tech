@@ -53,6 +53,7 @@ const DashboardContent = () => {
 
     return (
         <React.Fragment>
+            <div className='dashboard'>
             {(statistic && userStats) ? (
             <div className='dashboard-component'>
                 <div className="stats-bar">
@@ -100,6 +101,7 @@ const DashboardContent = () => {
 
                 </div>
             </div>) : (<Loader/>)}
+            </div>
         </React.Fragment>
     )
 }
