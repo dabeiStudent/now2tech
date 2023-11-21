@@ -10,7 +10,7 @@ const OrderItem = props => {
         <li className='selected-item__container'>
             <div className='selected-item'>
                 <div className='selected-item__img'>
-                    <img src="https://cdn.tgdd.vn/Products/Images/58/312263/cap-type-c-lightning-mfi-0-9m-anker-322-a81b5-1-2.jpg" alt="product" />
+                    <img src={`http://localhost:5000/images/${props.image}`} alt="product" />
                 </div>
                 <div className='selected-item__info'>
                     <div className='selected-item__info-left'>

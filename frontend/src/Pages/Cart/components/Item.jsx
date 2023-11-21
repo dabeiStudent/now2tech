@@ -25,7 +25,7 @@ const Item = props => {
         <div className='product-item'>
             {/* <Form.Check className='custom__check-box' value={props.id} name='item' aria-label='option'/> */}
             <div className='product-item__img'>
-                <img src="https://cdn.tgdd.vn/Products/Images/58/312263/cap-type-c-lightning-mfi-0-9m-anker-322-a81b5-1-2.jpg" alt="product" />
+                <img src={`http://localhost:5000/images/${props.image}`} alt="product" />
             </div>
             <div className='product-item__info'>
                 <div className='product-item__info-top'>

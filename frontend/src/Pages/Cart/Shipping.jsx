@@ -14,7 +14,7 @@ const Shipping = () => {
             <div className='list-item'>
               <h3>Sản phẩm:</h3>
               {orderContext.selectedItems.map(item=> (
-                <SelectedItem key={item.id} name={item.name} qty={item.qty} price={item.price}/>
+                <SelectedItem key={item.id} name={item.name} qty={item.qty} price={item.price} image={item.image}/>
               ))}
               
             </div>

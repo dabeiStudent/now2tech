@@ -77,7 +77,7 @@ const CartPage = () => {
                 {cart.items.length > 0 && cart.items.map(item => (
                   <div className='list-item__single-item' key={item.id}>
                     <Form.Check checked={selectedItems.includes(item)} onChange={checkboxChangeHandler} className='custom__check-box' value={item.id} name='item' aria-label='option' />
-                    <Item id={item.id} name={item.name} price={item.price} qty={item.qty} vouchers={item.vouchers} />
+                    <Item id={item.id} name={item.name} price={item.price} qty={item.qty} vouchers={item.vouchers} image={item.image} />
                   </div>
                 ))}
               </Form>
