@@ -67,10 +67,10 @@ const ProductPage = () => {
         navigate('/thong-tin-giao-hang');
     }
     const navigateToCategory = (pCate) => {
-        navigate(`/loctheodanhmuc/${pCate}/All/0/0`);
+        navigate(`/loctheodanhmuc/${pCate}/All/0/0/1`);
     }
     const navigateToBrand = (pCate, pBrand) => {
-        navigate(`/loctheodanhmuc/${pCate}/${pBrand}/0/0`);
+        navigate(`/loctheodanhmuc/${pCate}/${pBrand}/0/0/1`);
     }
     return (
         <div className='product-page'>
@@ -79,7 +79,8 @@ const ProductPage = () => {
                 <div className='product-page__main-container'>
                     <div className="top_product-page">
                         <h2 className='product-cate' onClick={() => navigateToCategory(product.category)}>{product.category}</h2>
-                        <h2 className='product-cate' onClick={() => navigateToBrand(product.category, product.brand)}> {'>'} {product.brand} </h2>
+                        <h2> {'>'} </h2>
+                        <h2 className='product-cate' onClick={() => navigateToBrand(product.category, product.brand)}>{product.brand}</h2>
                         <h2> {'>'} {product.name}</h2>
                     </div>
                     <div className='product-page__box-main'>

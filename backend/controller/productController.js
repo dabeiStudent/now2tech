@@ -77,6 +77,19 @@ const getProduct = (req, res) => {
             .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
     }
 }
+const getGoodProduct = (req, res) => {
+    const pageLimit = process.env.Pagination_limit;
+    const pageNumber = Number(req.query.page) || 1;
+    Product.find({
+        avgRating: {
+            $gte: 3,
+            $lte: 5
+        }
+    })
+        .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+        .then(product => { return res.status(200).json(product) })
+        .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
+}
 const getProductAdmin = (req, res) => {
     Product.find()
         .then(result => { return res.status(200).json(result) })
@@ -204,6 +217,7 @@ module.exports = {
     getProduct,
     getProductAdmin,
     getOneProduct,
+    getGoodProduct,
     addNewProduct,
     addImagesProduct,
     addSpecs4Product,

@@ -11,11 +11,12 @@
 
 .product-cate {
     border-radius: 5px;
-    padding: 4px;
+    padding: 5px;
+    background-color: #e4e3e3;
 }
 
 .product-cate:hover {
-    box-shadow: 5px 5px 2px 1px rgba(0, 0, 0, .1);
+    box-shadow: 5px 5px 2px 1px rgba(0, 0, 0, .4);
 }
 
 .product-page__main-container {
