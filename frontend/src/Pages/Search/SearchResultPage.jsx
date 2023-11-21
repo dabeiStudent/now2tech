@@ -13,28 +13,6 @@ const SearchResultPage = () => {
     let { keyword } = useParams();
 
     const [products, setProducts] = useState();
-    const [searchByPrice, setSearchByPrice] = useState({
-        min: 0,
-        max: 0
-    });
-    const [searchByCategory, setSearchByCategory] = useState('0');
-
-    const searchByCategoryHandler = (value) => {
-        setSearchByCategory(value)
-    };
-
-    const searchByPriceHandler = (min, max) => {
-        setSearchByPrice({ min: min, max: max })
-    }
-
-    useEffect(() => {
-        const fileterByPrice = async () => {
-            await axios.get(`http://localhost:5000/product/get-all-product`, { params: { min: searchByPrice.min, max: searchByPrice.max } })
-                .then(res => setProducts(res.data))
-                .catch(err => console.log(err));
-        }
-        fileterByPrice();
-    }, [searchByPrice]);
 
     useEffect(() => {
         const searchProduct = async () => {

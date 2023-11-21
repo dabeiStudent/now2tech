@@ -8,12 +8,15 @@ import { CartContext } from '../../ultis/cartContext';
 import getCookie from "../../ultis/getCookie";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { formatPrice } from "../../ultis/formatPrice";
+import StarRating from "../../Pages/Product/components/StarRating";
 const NavLinks = () => {
     const [authorizedUser, setAuthorizeUser] = useState({
         userName: '',
         role: ''
     });
     const [products, setProducts] = useState([]);
+    const [goodProducts, setGoodProduct] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
     const [searchKeyword, setSearchKeyword] = useState('');
     const location = useLocation();
@@ -33,6 +36,7 @@ const NavLinks = () => {
 
     const searchKeywordChangeHandler = (e) => {
         setSearchKeyword(e.target.value);
+        setIsSearch(true);
     };
 
     const submitHandler = (e) => {
@@ -40,6 +44,7 @@ const NavLinks = () => {
         document.getElementById('search-box').blur();
         if (searchKeyword.trim()) {
             navigate(`/tim-kiem/${searchKeyword}`);
+            setIsSearch(false)
         } else {
             navigate('/')
         }
@@ -53,6 +58,15 @@ const NavLinks = () => {
                 toast(err);
             })
     }, [searchKeyword]);
+    useEffect(() => {
+        axios.get(`http://localhost:5000/product/get-good-product`)
+            .then(result => {
+                setGoodProduct(result.data);
+            })
+            .catch(err => {
+                toast(err);
+            })
+    }, [searchKeyword])
     useEffect(() => {
         if (location.pathname !== `/tim-kiem/${searchKeyword}`) {
             setSearchKeyword('');
@@ -80,32 +94,62 @@ const NavLinks = () => {
         <React.Fragment>
             <ToastContainer />
             <ul className="nav-links">
-                <li onMouseLeave={closeSearchHandler}>
+                <li className="list-of-search" onMouseLeave={closeSearchHandler}>
                     <form onSubmit={submitHandler} className="nav-links__search">
-                        {/* onBlur={closeSearchHandler} */}
-                        <input autoComplete="off" id="search-box" value={searchKeyword} onChange={searchKeywordChangeHandler} onClick={openSearchHandler} type="text" placeholder="Bạn tìm gì..." />
+                        <input className="input-search" autoComplete="off" id="search-box" value={searchKeyword} onChange={searchKeywordChangeHandler} onClick={openSearchHandler} type="text" placeholder="Bạn tìm gì..." />
                         <button>
                             <FontAwesomeIcon className="nav-links__icon-glass" icon={faMagnifyingGlass} />
                         </button>
                     </form>
                     {isSearch && (
                         <div className="search-menu-container">
-                            <div className="search-menu-body">
-                                {products.map((product) => (
-                                    <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
-                                        {product.pimage.length > 0
-                                            ? <img src={`http://localhost:5000/images/${product.pimage[1]}`}
-                                                alt="ảnh sản phẩm"
-                                                width="50px"
-                                                height="50px" />
-                                            : <img src="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
-                                                alt="ảnh sản phẩm"
-                                                width="50px"
-                                                height="50px" />}
-                                        <p>{product.name}</p>
+                            {products.length > 0 && searchKeyword !== ''
+                                ? <div className="search-menu-body">
+                                    <div className="recommend">
+                                        <p>Kết quả tìm kiếm: </p>
                                     </div>
-                                ))}
-                            </div>
+                                    {products.map((product) => (
+                                        <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
+                                            {product.pimage.length > 0
+                                                ? <img src={`http://localhost:5000/images/${product.pimage[1]}`}
+                                                    alt="ảnh sản phẩm"
+                                                    width="50px"
+                                                    height="50px" />
+                                                : <img src="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
+                                                    alt="ảnh sản phẩm"
+                                                    width="50px"
+                                                    height="50px" />}
+                                            <p>{product.name}</p>
+                                            <h3> <StarRating rating={product.avgRating} /></h3>
+                                            <h4>{formatPrice(product.sellPrice)}</h4>
+                                        </div>
+                                    ))
+                                    }
+                                </div>
+                                : <div className="search-menu-body">
+                                    <div className="not-found">
+                                        <p>Chúng tôi có vài gợi ý cho bạn</p>
+                                    </div>
+                                    <div className="recommend">
+                                        <p>Sản phẩm gợi ý: </p>
+                                    </div>
+                                    {goodProducts.map((product) => (
+                                        <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
+                                            {product.pimage.length > 0
+                                                ? <img src={`http://localhost:5000/images/${product.pimage[1]}`}
+                                                    alt="ảnh sản phẩm"
+                                                    width="50px"
+                                                    height="50px" />
+                                                : <img src="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
+                                                    alt="ảnh sản phẩm"
+                                                    width="50px"
+                                                    height="50px" />}
+                                            <p>{product.name}</p>
+                                            <h3> <StarRating rating={product.avgRating} /></h3>
+                                        </div>
+                                    ))
+                                    }
+                                </div>}
                         </div>
                     )}
                 </li>
