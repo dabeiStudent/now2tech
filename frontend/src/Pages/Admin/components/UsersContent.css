@@ -15,36 +15,73 @@
 }
 
 .user-table tr:hover {
-    background-color: rgb(243, 242, 164);
+    background-color: #e4e2e2;
 }
 
-.user-table td:hover {
-    background-color: rgb(252, 249, 108);
-}
 
 .user-table th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
 
-.block-button {
-    background-color: #ec7f26;
-    color: #fff;
+/* Add this to your main CSS file or create a new one for UserTable */
+.user-cards-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* Adjust as needed */
+}
+
+/* CSS */
+.group-user {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin-right: 10px;
+    margin-top: 7px;
+    background-color: #ccc;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-button,
+.edit-button,
+.block-button,
+.remove-button {
+    padding: 10px 10px;
+    margin-right: 10px;
     border: none;
-    padding: 5px 10px;
-    margin-right: 5px;
-    border-radius: 4px;
     cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.detail-button {
+    background-color: #3498db;
+}
+
+.edit-button {
+    background-color: #2ecc71;
+}
+
+.block-button {
+    background-color: #e74c3c;
     font-weight: bold;
 }
 
-.block-button:hover {
-    background-color: #ee7009;
+.remove-button {
+    background-color: #d35400;
 }
 
+
 .search-bar {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .search-bar input {

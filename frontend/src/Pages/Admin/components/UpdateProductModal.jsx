@@ -6,6 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import './AddProduct.css';
 const UpdateitemModal = ({ product, onClose }) => {
     const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(product.category);
+    const [brands, setBrand] = useState([]);
+
     const [item, setItem] = useState(product);
     useEffect(() => {
         axios.get('http://localhost:5000/category/get-category')
@@ -16,9 +19,25 @@ const UpdateitemModal = ({ product, onClose }) => {
                 toast('Có lỗi khi hiển thị');
             })
     }, []);
+    const handleChangeCate = (e) => {
+        const { name, value } = e.target;
+        setItem({ ...item, [name]: value });
+        setSelectedCategory(value);
+        setBrand([]);
+    }
+    const handleChangeBrand = (e) => {
+        axios.get(`http://localhost:5000/brand/get-brand-cate/${selectedCategory}`)
+            .then(result => {
+                setBrand(result.data);
+            })
+            .catch(err => {
+                toast(err);
+            })
+    }
     if (!product) {
         return null;
     }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setItem({ ...item, [name]: value });
@@ -160,29 +179,36 @@ const UpdateitemModal = ({ product, onClose }) => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="brand">Thương hiệu:</label>
-                        <input
-                            type="text"
-                            id="brand"
-                            name="brand"
-                            value={item.brand}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
                         <label htmlFor="category">Danh mục:</label>
                         <select
                             id="category"
                             name="category"
                             value={item.category}
-                            onChange={handleChange}
+                            onChange={handleChangeCate}
                             required
                         >
                             <option value="" disabled>Chọn danh mục</option>
                             {categories.map(category => (
                                 <option key={category._id} value={category.name}>
                                     {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="brand">Thương hiệu:</label>
+                        <select
+                            id="brand"
+                            name="brand"
+                            value={item.brand}
+                            onClick={handleChangeBrand}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="" disabled>Chọn thương hiệu</option>
+                            {brands.map(brand => (
+                                <option key={brand._id} value={brand.name}>
+                                    {brand.name}
                                 </option>
                             ))}
                         </select>

@@ -17,7 +17,8 @@ import { AuthContext } from '../../ultis/authContext';
 import { OrderContext } from '../../ultis/orderContext';
 import { formatPrice } from '../../ultis/formatPrice';
 import Loader from '../../components/UIElement/Loader';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ProductPage = () => {
     let { pid } = useParams();
     const [product, setProduct] = useState();
@@ -58,7 +59,8 @@ const ProductPage = () => {
 
     const buyNowHandler = () => {
         if (authContext.isLogin === false) {
-            return window.alert("Vui lòng đăng nhập để mua hàng");
+            toast("Vui lòng đăng nhập để mua hàng");
+            return;
         }
 
         orderContext.setSelectedItems([cartItem]);
@@ -72,6 +74,7 @@ const ProductPage = () => {
     }
     return (
         <div className='product-page'>
+            <ToastContainer />
             {product ? (
                 <div className='product-page__main-container'>
                     <div className="top_product-page">
@@ -81,7 +84,7 @@ const ProductPage = () => {
                     </div>
                     <div className='product-page__box-main'>
                         <div className='box-left'>
-                            <ProductCarousel />
+                            <ProductCarousel images={product.pimage} />
                             <PolicyComponent />
                             <DescComponent desc={product.desc} />
                             <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating} />

@@ -8,7 +8,7 @@ const checkJWT = (req, res, next) => {
         req.user = token;
         next();
     } else {
-        return res.status(403).json({ err: 'Không thể thực hiện' });
+        return res.status(403).json({ err: "Chưa đăng nhập" });
     }
 };
 const isAdmin = (req, res, next) => {
@@ -20,5 +20,25 @@ const isAdmin = (req, res, next) => {
         return res.status(403).json({ err: "Không phải admin" });
     }
 }
+const authorizeUser = (req, res, next) => {
+    let token = req.cookies.utoken;
+    if (token) {
+        let data = jwt.verify(token, process.env.JWT_KEY);
+        if (data.role == "admin") {
+            req.admin = data;
+            next();
+        } else {
+            req.user = data;
+            next();
+        }
+    } else {
+        req.guest = {
+            userName: 'khách hàng',
+            role: 'user'
+        }
+        next();
+    }
+}
 
-module.exports = { checkJWT, isAdmin }
+
+module.exports = { checkJWT, isAdmin, authorizeUser }

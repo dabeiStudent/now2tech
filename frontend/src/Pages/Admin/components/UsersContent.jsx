@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DetailModalUser from "./DetailModalUser";
-
+import UserCard from "../../../components/UIElement/UserCard";
 import './UsersContent.css';
 import axios from "axios";
 import UpdateModal from "./UpdateModal";
@@ -34,12 +34,13 @@ const UsersContent = () => {
         );
     });
     const handleEdit = (user) => {
+        console.log("Open Edit Modal for:", user);
         setShowUpdate(true);
         setSelectedUser(user);
     };
     const closeEditModal = event => {
         setShowUpdate(false);
-        setState(!state);
+        setState(prevState => !prevState);
     }
 
     const handleRemove = (userId) => {
@@ -79,6 +80,8 @@ const UsersContent = () => {
     }
 
     const openDetailModal = (user) => {
+        console.log("Open Detail Modal for:", user);
+
         setShowDetail(true);
         setSelectedUser(user);
     }
@@ -99,29 +102,18 @@ const UsersContent = () => {
                 />
             </div>
             <div className="product-content">
-                <div className="table-container">
-                    <table className="user-table">
-                        <thead>
-                            <tr >
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Họ</th>
-                                <th>Số điện thoại</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredUsers.map((user) => (
-                                <tr key={user._id} className="product-row">
-                                    <td className="product-cell">{user._id}</td>
-                                    <td className="product-cell">{user.firstName}</td>
-                                    <td className="product-cell">{user.lastName}</td>
-                                    <td className="product-cell">{user.phoneNumber}</td>
-                                    <td className="product-cell">{user.userName}</td>
-                                    <td className="product-cell">{user.email}</td>
-                                    <td className="product-cell">
+                <div className="table-container-user">
+                    <div className="user-cards-container">
+                        {filteredUsers.map((user) => (
+                            <React.Fragment>
+                                <div className="group-user">
+                                    <UserCard key={user._id}
+                                        user={user}
+                                        detail={() => openDetailModal()}
+                                        edit={() => handleEdit()}
+                                        block={() => handleBlock(user._id, user.status)}
+                                        remove={() => handleRemove(user._id)} />
+                                    <div className="button-container">
                                         <button className="detail-button" onClick={() => openDetailModal(user)}>Chi tiết</button>
                                         <button className="edit-button" onClick={() => handleEdit(user)}>Cập nhật</button>
                                         {showUpdate && selectedUser && (
@@ -134,14 +126,12 @@ const UsersContent = () => {
                                         <button className="remove-button" onClick={() => handleRemove(user._id)}>Xóa</button>
                                         {showDetail && selectedUser && (
                                             <DetailModalUser user={selectedUser} onClose={closeDetailModal} />)}
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                        ))}
+                    </div>
                 </div>
-
             </div>
         </React.Fragment>
     );

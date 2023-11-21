@@ -28,7 +28,7 @@ import VNPayPayment from './Pages/Order/VNPayPayment';
 import { AuthContext } from './ultis/authContext';
 import VoucherPage from './Pages/Voucher/VoucherPage';
 import SearchResultPage from './Pages/Search/SearchResultPage';
-
+import axios from 'axios';
 import './App.css';
 import FilterByCategory from './Pages/Search/FilterByCategory';
 
@@ -97,7 +97,7 @@ function App() {
                     <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
                     <Route exact path='/khuyen-mai/:vid' element={<VoucherPage />} />
                     <Route exact path='/tim-kiem/:keyword' element={<SearchResultPage />} />
-                    <Route exact path='/loctheodanhmuc/:category/:brand/:min/:max' element={<FilterByCategory />} />
+                    <Route exact path='/loctheodanhmuc/:category/:brand/:minp/:maxp/:page' element={<FilterByCategory />} />
                     {username === "admin"
                       && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
                     {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
@@ -111,7 +111,7 @@ function App() {
                   </Routes>
                 </div>
                 <div className="App-footer">
-                  {username !== "admin" && <Footer />}
+                  <Footer />
                 </div>
                 {!isChatOpen && username !== "admin" ?
                   < button className="chat-button" onClick={handleChatButtonClick} >

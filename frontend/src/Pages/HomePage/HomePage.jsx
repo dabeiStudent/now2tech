@@ -12,7 +12,8 @@ import BigBanner from "./components/BigBanner";
 import ProductCard from "../../components/UIElement/ProductCard";
 import CategoryCard from "./components/CategoryCard";
 import Loader from "../../components/UIElement/Loader";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './HomePage.css'
 import VoucherCard from "./components/VoucherCard";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +78,7 @@ const HomePage = () => {
                     setIsLoading(false)
                 })
                 .catch(err => {
-                    alert('Có lỗi khi hiển thị');
+                    toast('Có lỗi khi hiển thị');
                 })
         };
         getCate();
@@ -101,10 +102,11 @@ const HomePage = () => {
     }
 
     const filterByCate = (categoryName) => {
-        navigate(`/loctheodanhmuc/${categoryName}/All/0/0`);
+        navigate(`/loctheodanhmuc/${categoryName}/All/0/0/1`);
     }
     return (
         <React.Fragment>
+            <ToastContainer />
             {isLoading ? (
                 <Loader />) : (
                 <div>

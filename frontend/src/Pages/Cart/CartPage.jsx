@@ -12,7 +12,8 @@ import { CartContext } from '../../ultis/cartContext';
 import { formatPrice } from '../../ultis/formatPrice';
 import getCookie from '../../ultis/getCookie';
 import { OrderContext } from '../../ultis/orderContext';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const CartPage = () => {
   const cart = useContext(CartContext);
   const orderContext = useContext(OrderContext);
@@ -53,13 +54,13 @@ const CartPage = () => {
       orderContext.setSelectedItems(selectedItems);
       navigate('/thong-tin-giao-hang')
     } else {
-      window.alert('Vui long dang nhap truoc khi dat hang.')
-      navigate('/login')
+      toast("Vui lòng đăng nhập để mua hàng");
     }
   }
 
   return (
     <div className='cart-page'>
+      <ToastContainer />
       <div className='cart-page__main'>
         <p className='cart-page__title'>Giỏ hàng của bạn:</p>
         {cart.items.length === 0 ? (

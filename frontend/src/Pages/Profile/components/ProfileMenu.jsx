@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './ProfileMenu.css';
 
 const ProfileMenu = () => {
@@ -72,17 +73,22 @@ const ProfileMenu = () => {
         setNoti('');
         setProfileState(3);
     }
+    const regex = /^(09|08|03|07|05)[0-9]{8}$/igm;
     const updateProfileHandler = event => {
         event.preventDefault();
-        axios.put('http://localhost:5000/user/profile/update', updateUser, { withCredentials: true })
-            .then(res => {
-                window.location.href = "/my-profile"
-            })
-            .catch(err => {
-                if (err.message === "Request failed with status code 400") {
-                    setNoti("Không thể đặt username này");
-                }
-            });
+        if (regex.test(updateUser.phoneNumber) == false) {
+            toast("Số điện thoại không hợp lệ")
+        } else {
+            axios.put('http://localhost:5000/user/profile/update', updateUser, { withCredentials: true })
+                .then(res => {
+                    window.location.href = "/my-profile"
+                })
+                .catch(err => {
+                    if (err.message === "Request failed with status code 400") {
+                        toast("Không thể đặt username này");
+                    }
+                });
+        }
     }
     const deleteImageHandler = event => {
         event.preventDefault();
@@ -160,6 +166,7 @@ const ProfileMenu = () => {
     }
     return (
         <React.Fragment>
+            <ToastContainer />
             <h2>Thông tin tài khoản</h2>
             {profileState === 0
                 ? <div className="my_profile">

@@ -2,7 +2,7 @@ require('dotenv').config();
 const User = require('../models/usersModel');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
-const Stats= require('../models/userStatsModel');
+const Stats = require('../models/userStatsModel');
 
 //get all user
 const getAllUser = function (req, res) {
@@ -86,6 +86,18 @@ const afterLogin = async (req, res) => {
         res.json({ userName: user.userName, role: user.role });
     })
 }
+const authUser = async (req, res) => {
+    if (req.admin) {
+        const { userName, role } = req.admin;
+        return res.status(200).json({ msg: "Đây là admin", name: userName, role: role });
+    } else if (req.user) {
+        const { userName, role } = req.user;
+        return res.status(200).json({ msg: "Đây là khách hàng", name: userName, role: role });
+    } else {
+        const { userName, role } = req.guest;
+        return res.status(200).json({ msg: "Chưa đăng nhập", name: userName, role: role });
+    }
+}
 //logout
 const userLogout = (req, res) => {
     res.clearCookie("utoken");
@@ -94,22 +106,22 @@ const userLogout = (req, res) => {
     return res.status(200).json({ msg: 'Good bye!' });
 }
 //register
-const statsUser= async()=> {
-    const currentDate= new Date;
-    const currentYear= currentDate.getFullYear();
-    const currentMonth= currentDate.getMonth();
-    
+const statsUser = async () => {
+    const currentDate = new Date;
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
     let existStats;
 
     try {
-        existStats= await Stats.findOne({year: currentYear});        
+        existStats = await Stats.findOne({ year: currentYear });
     } catch (error) {
         return error;
     }
 
-    if(!existStats || existStats.length === 0){
+    if (!existStats || existStats.length === 0) {
         let newStats;
-        newStats= new Stats({
+        newStats = new Stats({
             year: currentYear,
             monthlyStats: [
                 { month: 1 },
@@ -129,22 +141,22 @@ const statsUser= async()=> {
 
         try {
             newStats.monthlyStats[currentMonth].userNum += 1;
-            await newStats.save();        
+            await newStats.save();
         } catch (error) {
-            return error;      
+            return error;
         }
     } else {
 
-        existStats.monthlyStats.map(monthStats=> {
-            if(monthStats.month === currentMonth + 1){
+        existStats.monthlyStats.map(monthStats => {
+            if (monthStats.month === currentMonth + 1) {
                 monthStats.userNum += 1;
             }
         });
 
         try {
-            await existStats.save();        
+            await existStats.save();
         } catch (error) {
-            return error;        
+            return error;
         }
     }
 };
@@ -168,9 +180,10 @@ const userRegister = async (req, res) => {
             status: "active",
             getNotice: true
         })
-            .then(user => { 
+            .then(user => {
                 statsUser();
-                return res.status(200).json({ msg: 'Tạo tài khoản thành công' }) })
+                return res.status(200).json({ msg: 'Tạo tài khoản thành công' })
+            })
             .catch(err => { return res.status(403).json({ err: err }) });
     } catch (err) {
         return res.json({ err: err })
@@ -275,4 +288,4 @@ const removeUser = async (req, res) => {
             return res.status(400).json({ err: err });
         })
 }
-module.exports = { getAllUser, getUser, getProfile, userLogin, afterLogin, userLogout, userRegister, updateUser, updateProfile, uploadProfileImage, changePassword, setStatus, removeUser };
+module.exports = { getAllUser, getUser, getProfile, userLogin, authUser, userLogout, userRegister, updateUser, updateProfile, uploadProfileImage, changePassword, setStatus, removeUser };
