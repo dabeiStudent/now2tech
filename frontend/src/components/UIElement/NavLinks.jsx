@@ -146,6 +146,7 @@ const NavLinks = () => {
                                                     height="50px" />}
                                             <p>{product.name}</p>
                                             <h3> <StarRating rating={product.avgRating} /></h3>
+                                            <h4>{formatPrice(product.sellPrice)}</h4>
                                         </div>
                                     ))
                                     }
