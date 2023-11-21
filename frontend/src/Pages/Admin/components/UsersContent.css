@@ -24,20 +24,60 @@
     font-weight: bold;
 }
 
-.block-button {
-    background-color: #ec7f26;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    margin-right: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+/* Add this to your main CSS file or create a new one for UserTable */
+.user-cards-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* Adjust as needed */
 }
 
-.block-button:hover {
-    background-color: #ee7009;
+/* CSS */
+.group-user {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin-right: 10px;
+    margin-top: 7px;
+    background-color: #ccc;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-button,
+.edit-button,
+.block-button,
+.remove-button {
+    padding: 10px 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.detail-button {
+    background-color: #3498db;
+}
+
+.edit-button {
+    background-color: #2ecc71;
+}
+
+.block-button {
+    background-color: #e74c3c;
+}
+
+.remove-button {
+    background-color: #d35400;
+}
+
 
 .search-bar {
     margin-bottom: 2px;

@@ -43,11 +43,11 @@ const UpdateModal = ({ user, onClose }) => {
                                 </tr>
                                 <tr>
                                     <td>Họ:</td>
-                                    <td><input name="lastName" onChange={onChange} value={account.lastName} /></td>
+                                    <td><input type="text" name="lastName" onChange={onChange} value={account.lastName} /></td>
                                 </tr>
                                 <tr>
                                     <td>Tên:</td>
-                                    <td><input name="firstName" onChange={onChange} value={account.firstName} /></td>
+                                    <td><input type="text" name="firstName" onChange={onChange} value={account.firstName} /></td>
                                 </tr>
                                 <tr>
                                     <td>Giới tính:</td>
@@ -65,15 +65,15 @@ const UpdateModal = ({ user, onClose }) => {
                                 </tr>
                                 <tr>
                                     <td>Username:</td>
-                                    <td><input name="userName" onChange={onChange} value={account.userName} /></td>
+                                    <td><input type="text" name="userName" onChange={onChange} value={account.userName} /></td>
                                 </tr>
                                 <tr>
                                     <td>Số điện thoại:</td>
-                                    <td><input name="phoneNumber" onChange={onChange} value={account.phoneNumber} /></td>
+                                    <td><input type="text" name="phoneNumber" onChange={onChange} value={account.phoneNumber} /></td>
                                 </tr>
                                 <tr>
                                     <td>Trạng thái:</td>
-                                    <td><input name="status" onChange={onChange} value={account.status} readOnly /></td>
+                                    <td><input type="text" name="status" onChange={onChange} value={account.status} readOnly /></td>
                                 </tr>
                                 <tr>
                                     <td>Nhận thông báo:</td>

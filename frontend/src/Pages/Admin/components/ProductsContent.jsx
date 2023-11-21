@@ -58,7 +58,7 @@ const ProductsContent = () => {
                 setCategories(result.data);
             })
             .catch(err => {
-                alert('Có lỗi khi hiển thị');
+                toast('Có lỗi khi hiển thị');
             })
     }, [showAddCate])
     const handleSearchChange = (e) => {
