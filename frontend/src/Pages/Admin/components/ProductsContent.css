@@ -4,9 +4,10 @@
 
 .add-product-button {
     background-color: #007bff;
+    font-size: 13px;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 7px 7px;
     border-radius: 4px;
     cursor: pointer;
     margin: 10px 0 10px 0;

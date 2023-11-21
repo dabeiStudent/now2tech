@@ -45,7 +45,6 @@ const AddProduct = ({ onClose }) => {
     const handleChangeBrand = (e) => {
         axios.get(`http://localhost:5000/brand/get-brand-cate/${selectedCategory}`)
             .then(result => {
-                console.log(result.data)
                 setBrand(result.data);
             })
             .catch(err => {

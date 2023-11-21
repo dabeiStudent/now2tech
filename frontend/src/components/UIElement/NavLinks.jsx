@@ -13,7 +13,7 @@ const NavLinks = () => {
         userName: '',
         role: ''
     });
-    let { keyword } = useParams();
+    const [products, setProducts] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
     const [searchKeyword, setSearchKeyword] = useState('');
     const location = useLocation();
@@ -32,7 +32,7 @@ const NavLinks = () => {
     };
 
     const searchKeywordChangeHandler = (e) => {
-        setSearchKeyword(e.target.value)
+        setSearchKeyword(e.target.value);
     };
 
     const submitHandler = (e) => {
@@ -44,7 +44,15 @@ const NavLinks = () => {
             navigate('/')
         }
     }
-
+    useEffect(() => {
+        axios.get(`http://localhost:5000/product/get-all-product?keyword=${searchKeyword}`)
+            .then(result => {
+                setProducts(result.data);
+            })
+            .catch(err => {
+                toast(err);
+            })
+    }, [searchKeyword]);
     useEffect(() => {
         if (location.pathname !== `/tim-kiem/${searchKeyword}`) {
             setSearchKeyword('');
@@ -63,27 +71,19 @@ const NavLinks = () => {
             })
     }, [])
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:5000/user/after-login', { withCredentials: true })
-    //         .then(result => {
-    //             setUserLogin(result.data);
-    //             setLogin(!isLogged)
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //             setUserLogin({
-    //                 userName: '',
-    //                 role: ''
-    //             })
-    //         })
-    // }, [isLogged])
+    const gotoProductHandle = (productId) => {
+        navigate(`/chi-tiet-san-pham/${productId}`);
+        setSearchKeyword('');
+        setIsSearch(false);
+    }
     return (
         <React.Fragment>
             <ToastContainer />
             <ul className="nav-links">
-                <li>
+                <li onMouseLeave={closeSearchHandler}>
                     <form onSubmit={submitHandler} className="nav-links__search">
-                        <input autoComplete="off" id="search-box" value={searchKeyword} onChange={searchKeywordChangeHandler} onBlur={closeSearchHandler} onFocus={openSearchHandler} type="text" placeholder="Bạn tìm gì..." />
+                        {/* onBlur={closeSearchHandler} */}
+                        <input autoComplete="off" id="search-box" value={searchKeyword} onChange={searchKeywordChangeHandler} onClick={openSearchHandler} type="text" placeholder="Bạn tìm gì..." />
                         <button>
                             <FontAwesomeIcon className="nav-links__icon-glass" icon={faMagnifyingGlass} />
                         </button>
@@ -91,12 +91,23 @@ const NavLinks = () => {
                     {isSearch && (
                         <div className="search-menu-container">
                             <div className="search-menu-body">
-                                <span>{searchKeyword}</span>
+                                {products.map((product) => (
+                                    <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
+                                        {product.pimage.length > 0
+                                            ? <img src={`http://localhost:5000/images/${product.pimage[1]}`}
+                                                alt="ảnh sản phẩm"
+                                                width="50px"
+                                                height="50px" />
+                                            : <img src="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
+                                                alt="ảnh sản phẩm"
+                                                width="50px"
+                                                height="50px" />}
+                                        <p>{product.name}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     )}
-
-
                 </li>
                 <li>
                     <FontAwesomeIcon className="nav-links__icon-phone" icon={faPhone} />
