@@ -124,7 +124,6 @@ const HomePage = () => {
                                     </div>
                                 ))}
                             </div>
-
                         </div>
                         <div className="voucher-container">
                             <div className="voucher-container__main">
@@ -135,7 +134,8 @@ const HomePage = () => {
                                             <VoucherCard
                                                 name={voucher.name}
                                                 key={voucher._id}
-                                                id={voucher._id} />
+                                                id={voucher._id} 
+                                                image={voucher.image}/>
                                         ))}
                                     </div>
                                 </div>

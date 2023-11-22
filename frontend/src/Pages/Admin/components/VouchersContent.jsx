@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './VouchersContent.css';
 import Loader from '../../../components/UIElement/Loader';
@@ -8,7 +10,7 @@ import AddVoucherModal from './AddVoucherModal';
 
 const VouchersContent = () => {
     const [vouchers, setVouchers]= useState([]);
-    const [isAddVoucher, setIsAddVoucher]= useState(false);
+    const [isReload, setIsReload]= useState(false);
 
     useEffect(()=> {
         const getVouchers= async ()=>{
@@ -17,24 +19,32 @@ const VouchersContent = () => {
             .catch(err=> console.log(err))
         }
         getVouchers();
-    }, []);
+    }, [isReload]);
 
-    const closeAddVoucherHandler= ()=> {
-        setIsAddVoucher(false);
+    const deleteVoucherHandler= async(voucherId)=> {
+        const confirmed= window.confirm('Bạn muốn xóa khuyến mãi này?');
+
+        if(confirmed){
+            await axios.delete(`http://localhost:5000/voucher/delete-voucher/${voucherId}`, { withCredentials: true })
+            .then(res=> {
+                toast(res.data.msg);
+                setIsReload(!isReload);
+            })
+            .catch(err=> toast('Đã xảy ra lỗi. Thử lại sau'))
+        }
     }
 
-    const openAddVoucherHandler= ()=> {
-        setIsAddVoucher(true);
+    const addSuccess= ()=> {
+        toast('Thêm thành công')
+        setIsReload(!isReload);
     }
 
     return (
         <React.Fragment>
+            <ToastContainer/>
             {vouchers ? (
                 <div className="product-content">
-                    <AddVoucherModal isAddVoucher={isAddVoucher} onClose={()=> closeAddVoucherHandler}/>
-                    <div className="button-product-content">
-                        <button onClick={openAddVoucherHandler} className="add-product-button">Tạo khuyến mãi</button>
-                    </div>
+                    <AddVoucherModal addSuccess={()=> addSuccess()}/>
                     <div className="table-container">
                         <table className="product-table">
                             <thead>
@@ -51,7 +61,7 @@ const VouchersContent = () => {
                             </thead>
                             <tbody>
                                 {vouchers.map(voucher=> 
-                                    <tr className="product-row">
+                                    <tr key={voucher._id} className="product-row">
                                         <td className="product-cell">{voucher._id}</td>
                                         <td className="product-cell">{voucher.name}</td>
                                         <td className="product-cell">{voucher.percent}</td>
@@ -59,13 +69,13 @@ const VouchersContent = () => {
                                         <td className="product-cell">{formatDate(voucher.start)}</td>
                                         <td className="product-cell">{formatDate(voucher.end)}</td>
                                         <td className="product-cell">
-                                            <img src='#' />
+                                            <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner'/>
                                         </td>
                                         <td className="product-cell">
                                             <button className="detail-button" >Chi tiết</button>
                                             <button className="upload-button" >Danh sách KM</button>
                                             <button className="edit-button" >Cập nhật</button>
-                                            <button className="remove-button" >Xóa</button>                                        
+                                            <button className="remove-button" onClick={()=> deleteVoucherHandler(voucher._id)}>Xóa</button>                                        
                                         </td>
                                     </tr>
                                 )}

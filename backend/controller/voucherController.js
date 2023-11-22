@@ -34,6 +34,7 @@ const getVoucherById= async (req, res)=> {
 
 const createVoucher= async (req, res)=> {
     const {name, desc, percent, startDate, endDate}= req.body;
+    const image= req.file.filename;
     
     const voucher= new Voucher({
         name,
@@ -41,6 +42,7 @@ const createVoucher= async (req, res)=> {
         percent,
         start: startDate,
         end: endDate,
+        image: image
     });
 
     try{
