@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const Product = require('../models/productsModel');
 
 //get all & filter by brand, price, category.
@@ -5,7 +6,7 @@ const Product = require('../models/productsModel');
 //nếu không truyền req.query mặc định xử lý tìm kiếm tất cả sản phẩm 
 //với keyword từ người dùng
 //tất cả hàm tìm đều xử lý pagination (10sp/trang)
-const getProduct = (req, res) => {
+const getProduct = async (req, res) => {
     const pageLimit = process.env.Pagination_limit;
     const pageNumber = Number(req.query.page) || 1;
     const { brand, category } = req.query;
@@ -18,77 +19,155 @@ const getProduct = (req, res) => {
             },
         }
         : {};
-    if (category) {
-        if (brand != "All") {
-            if (max == 0) {
-                Product.find({
-                    category: category,
-                    brand: brand
-                })
-                    .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-                    .then(product => { return res.status(200).json(product) })
-                    .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
-            } else {
-                Product.find({
-                    category: category,
-                    brand: brand,
-                    sellPrice: { $gte: min, $lte: max }
-                })
-                    .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-                    .then(product => { return res.status(200).json(product) })
-                    .catch(err => {
-                        return res.status(404).json({ err: "Không có sản phẩm" })
+    try {
+        if (category) {
+            if (brand != "All") {
+                if (max == 0) {
+                    const productFound = await Product.find({
+                        category: category,
+                        brand: brand
                     });
+                    const returnStart = (pageLimit * (pageNumber - 1));
+                    const returnEnd = returnStart + pageLimit;
+                    return res.status(200).json({
+                        result: productFound.slice(returnStart, returnEnd),
+                        maxLength: productFound.length
+                    });
+                    // Product.find({
+                    //     category: category,
+                    //     brand: brand
+                    // })
+                    //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+                    //     .then(product => { return res.status(200).json(product) })
+                    //     .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
+                } else {
+                    const productFound = await Product.find({
+                        category: category,
+                        brand: brand,
+                        sellPrice: { $gte: min, $lte: max }
+                    });
+                    const returnStart = (pageLimit * (pageNumber - 1));
+                    const returnEnd = returnStart + pageLimit;
+                    return res.status(200).json({
+                        result: productFound.slice(returnStart, returnEnd),
+                        maxLength: productFound.length
+                    });
+                    // Product.find({
+                    //     category: category,
+                    //     brand: brand,
+                    //     sellPrice: { $gte: min, $lte: max }
+                    // })
+                    //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+                    //     .then(product => { return res.status(200).json(product) })
+                    //     .catch(err => {
+                    //         return res.status(404).json({ err: "Không có sản phẩm" })
+                    //     });
+                }
+            } else if (brand === "All") {
+                if (max == 0) {
+                    const productFound = await Product.find({
+                        category: category,
+                    });
+                    const returnStart = (pageLimit * (pageNumber - 1));
+                    const returnEnd = returnStart + pageLimit;
+                    return res.status(200).json({
+                        result: productFound.slice(returnStart, returnEnd),
+                        maxLength: productFound.length
+                    });
+                    // Product.find({
+                    //     category: category
+                    // })
+                    //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+                    //     .then(product => { return res.status(200).json(product) })
+                    //     .catch(err => {
+                    //         return res.status(404).json({ err: "Không có sản phẩm" })
+                    //     });
+                } else {
+                    const productFound = await Product.find({
+                        category: category,
+                        sellPrice: { $gte: min, $lte: max }
+                    });
+                    const returnStart = (pageLimit * (pageNumber - 1));
+                    const returnEnd = returnStart + pageLimit;
+                    return res.status(200).json({
+                        result: productFound.slice(returnStart, returnEnd),
+                        maxLength: productFound.length
+                    });
+                    // Product.find({
+                    //     category: category,
+                    //     sellPrice: { $gte: min, $lte: max }
+                    // })
+                    //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+                    //     .then(product => { return res.status(200).json(product) })
+                    //     .catch(err => {
+                    //         return res.status(404).json({ err: "Không có sản phẩm" })
+                    //     });
+                }
             }
-        } else if (brand === "All") {
-            if (max == 0) {
-                Product.find({
-                    category: category
-                })
-                    .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-                    .then(product => { return res.status(200).json(product) })
-                    .catch(err => {
-                        return res.status(404).json({ err: "Không có sản phẩm" })
-                    });
-            } else {
-                Product.find({
+            else {
+                const productFound = await Product.find({
                     category: category,
-                    sellPrice: { $gte: min, $lte: max }
-                })
-                    .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-                    .then(product => { return res.status(200).json(product) })
-                    .catch(err => {
-                        return res.status(404).json({ err: "Không có sản phẩm" })
-                    });
+                });
+                const returnStart = (pageLimit * (pageNumber - 1));
+                const returnEnd = returnStart + pageLimit;
+                return res.status(200).json({
+                    result: productFound.slice(returnStart, returnEnd),
+                    maxLength: productFound.length
+                });
+                // Product.find({
+                //     category: category
+                // })
+                //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+                //     .then(product => { return res.status(200).json(product) })
+                //     .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
             }
+        } else {
+            const productFound = await Product.find({
+                ...keyWord
+            });
+            const returnStart = (pageLimit * (pageNumber - 1));
+            const returnEnd = returnStart + pageLimit;
+            return res.status(200).json({
+                result: productFound.slice(returnStart, returnEnd),
+                maxLength: productFound.length
+            });
+            // Product.find({ ...keyWord })
+            //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+            //     .then(product => { return res.status(200).json(product) })
+            //     .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
         }
-        else {
-            Product.find({
-                category: category
-            })
-                .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-                .then(product => { return res.status(200).json(product) })
-                .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
-        }
-    } else {
-        Product.find({ ...keyWord })
-            .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-            .then(product => { return res.status(200).json(product) })
-            .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
+    } catch (err) {
+        return res.status(500).json({ err: err });
     }
 }
-const getGoodProduct = (req, res) => {
+const getGoodProduct = async (req, res) => {
     const pageLimit = process.env.Pagination_limit;
     const pageNumber = Number(req.query.page) || 1;
-    Product.find({
-        avgRating: {
-            $gte: 3,
-            $lte: 5
-        }
-    })
-        .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
-        .then(product => { return res.status(200).json(product) })
-        .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
+    try {
+        const productFound = await Product.find({
+            avgRating: {
+                $gte: 3,
+                $lte: 5
+            }
+        });
+        const returnStart = (pageLimit * (pageNumber - 1));
+        const returnEnd = returnStart + pageLimit;
+        return res.status(200).json({
+            result: productFound.slice(returnStart, returnEnd),
+            maxLength: productFound.length
+        });
+    } catch (err) {
+        return res.status(500).json({ err: err });
+    }
+    // Product.find({
+    //     avgRating: {
+    //         $gte: 3,
+    //         $lte: 5
+    //     }
+    // })
+    //     .limit(pageLimit).skip(pageLimit * (pageNumber - 1))
+    //     .then(product => { return res.status(200).json(product) })
+    //     .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
 }
 const getProductAdmin = (req, res) => {
     Product.find()

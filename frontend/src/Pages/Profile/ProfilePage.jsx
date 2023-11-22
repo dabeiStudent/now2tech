@@ -6,7 +6,7 @@ import './ProfilePage.css';
 
 import { AuthContext } from "../../ultis/authContext";
 const ProfilePage = () => {
-    const authContext= useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const [initialMenu, setInitialMenu] = useState(0);
     const signOutHandler = async (event) => {
         event.preventDefault();
@@ -34,13 +34,13 @@ const ProfilePage = () => {
                     <div className="menu__left">
                         <div className="menu__left__element">
                             <div className="hello__profile">
-                                <h2>Thông tin</h2>
+                                <h2>THÔNG TIN</h2>
                             </div>
                             <div className="profile">
-                                <label onClick={changeToProfile}>Hồ sơ</label>
+                                <label className={initialMenu === 0 ? 'profile_active' : ""} onClick={changeToProfile}>Hồ sơ</label>
                             </div>
                             <div className="order">
-                                <label onClick={changeToOrder}>Đơn hàng</label>
+                                <label className={initialMenu === 1 ? 'profile_active' : ""} onClick={changeToOrder}>Đơn hàng</label>
                             </div>
                             <div className="logout">
                                 <label onClick={signOutHandler}>Đăng xuất</label>

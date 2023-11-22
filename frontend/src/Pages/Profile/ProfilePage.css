@@ -1,5 +1,5 @@
 .profile__body {
-    background-color: rgb(241, 241, 241);
+    background-color: rgb(253, 244, 244);
 }
 
 .profile__page {
@@ -7,13 +7,14 @@
     justify-content: center;
     margin-top: 7%;
     height: 50vh;
+    box-shadow: 10px 5px 5px 5px black;
 }
 
 .menu__left {
-    background-color: rgb(218, 219, 219);
-    border-radius: 2%;
+    background-color: #003466;
     text-align: center;
-    width: 27%;
+    width: 30%;
+    color: #fff;
 }
 
 .menu__left .menu__left__element {
@@ -37,8 +38,14 @@
     cursor: pointer;
 }
 
+
 .menu__left__element label:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: #dd3036;
+    transition: background-color 0.3s;
+}
+
+.profile_active {
+    background-color: #dd3036;
 }
 
 .main {
@@ -53,9 +60,12 @@
     font-size: 30px;
     text-align: left;
     margin-left: 2%;
-    margin-top: 2%;
 }
 
+.hello__profile h2 {
+    font-weight: 600;
+    padding-bottom: 10px;
+}
 
 @media screen and (max-width: 1368px) and (max-height: 619px) {
     .profile__page {

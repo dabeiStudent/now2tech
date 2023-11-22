@@ -33,10 +33,10 @@ const HomePage = () => {
             await axios.get("http://localhost:5000/product/get-all-product", { params: { page: page } })
                 .then((res) => {
                     if (page === 1) {
-                        setProduct(res.data);
+                        setProduct(res.data.result);
                     }
                     else {
-                        setProduct((prevProducts) => [...prevProducts, ...res.data]);
+                        setProduct((prevProducts) => [...prevProducts, ...res.data.result]);
                     }
                     setIsLoading(false);
                 })

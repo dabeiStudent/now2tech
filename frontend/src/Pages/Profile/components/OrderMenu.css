@@ -1,12 +1,11 @@
 .my-order {
-    padding: 10px;
-    height: 63%;
+    height: 70%;
+    width: 100%;
     overflow: auto;
-    overflow-x: hidden;
 }
 
 .my-order th,
-td {
+.my-order td {
     border-bottom: 1px solid black;
 }
 
@@ -70,8 +69,29 @@ td {
     background-color: #0069d9;
 }
 
+.status-check-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.status-check-profile h2 {
+    margin-right: 5px;
+    /* Khoảng cách giữa tiêu đề và các checkbox */
+}
+
+.status-check-profile label {
+    margin-right: 5px;
+    /* Khoảng cách giữa các checkbox */
+}
+
+.status-check-profile input {
+    margin-right: 5px;
+    /* Khoảng cách giữa checkbox và nội dung văn bản */
+}
+
 @media screen and (max-width: 1368px) and (max-height: 619px) {
     .my-order {
-        height: 60%;
+        height: 75%;
     }
 }
