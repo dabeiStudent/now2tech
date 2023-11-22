@@ -17,7 +17,10 @@ const SearchResultPage = () => {
     useEffect(() => {
         const searchProduct = async () => {
             await axios.get(`http://localhost:5000/product/get-all-product?keyword=${keyword}`)
-                .then(res => setProducts(res.data))
+                .then(res => {
+                    setProducts(res.data.result);
+                    console.log(res.data.maxLength);
+                })
                 .catch(err => console.log(err));
         }
         searchProduct();

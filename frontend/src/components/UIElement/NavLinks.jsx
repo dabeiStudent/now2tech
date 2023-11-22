@@ -52,7 +52,7 @@ const NavLinks = () => {
     useEffect(() => {
         axios.get(`http://localhost:5000/product/get-all-product?keyword=${searchKeyword}`)
             .then(result => {
-                setProducts(result.data);
+                setProducts(result.data.result);
             })
             .catch(err => {
                 toast(err);
@@ -61,7 +61,7 @@ const NavLinks = () => {
     useEffect(() => {
         axios.get(`http://localhost:5000/product/get-good-product`)
             .then(result => {
-                setGoodProduct(result.data);
+                setGoodProduct(result.data.result);
             })
             .catch(err => {
                 toast(err);

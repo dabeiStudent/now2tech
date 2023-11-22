@@ -7,7 +7,7 @@ const DetailModalUser = ({ user, onClose }) => {
     }
     return (
         <div className="detail-modal">
-            <div className="modal-content">
+            <div className="modal-body">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Chi tiết tài khoản</h2>
                 <div className="table-container">

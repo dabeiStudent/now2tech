@@ -5,7 +5,8 @@ import Loader from '../../components/UIElement/Loader';
 import SearchBanner from '../../assets/background/SearchBanner.png'
 import { faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './FilterByCategory.css';
 import axios from "axios";
@@ -21,10 +22,16 @@ const FilterByCategory = () => {
     const [minPrice, setMinPrice] = useState(null);
     const [maxPrice, setMaxPrice] = useState(null);
     const [pageNumber, setPageNumber] = useState(null);
+    const [maxItem, setMaxItem] = useState(null);
+    const [totalPages, setTotalPages] = useState(0);
+
     useEffect(() => {
         axios.get(`http://localhost:5000/product/get-all-product/?category=${category}&brand=${brand}&min=${minp}&max=${maxp}&page=${page}`)
             .then(result => {
-                setItem(result.data);
+                setItem(result.data.result);
+                setMaxItem(result.data.maxLength);
+                const calculatedTotalPages = Math.ceil(result.data.maxLength / 12);
+                setTotalPages(calculatedTotalPages);
                 axios.get(`http://localhost:5000/brand/get-brand-cate/${category}`)
                     .then(success => {
                         setBrand(success.data);
@@ -34,7 +41,7 @@ const FilterByCategory = () => {
                         setMinPrice(minp)
                     })
                     .catch(err => {
-                        alert(err);
+                        toast(err);
                     })
             })
             .catch(err => {
@@ -80,6 +87,7 @@ const FilterByCategory = () => {
 
     return (
         <div className='search-page'>
+            <ToastContainer />
             <div className='search-page-container'>
                 <div className="left-container">
                     <h2>Bộ lọc sản phẩm</h2>
@@ -181,9 +189,12 @@ const FilterByCategory = () => {
                     )}
                     <div className="pages">
                         <ul className="pages-bar">
-                            <li onClick={() => { handleSelectPage(1) }}>1</li>
-                            <li onClick={() => { handleSelectPage(2) }}>2</li>
-                            <li onClick={() => { handleSelectPage(3) }}>3</li>
+                            {/* Render danh sách các trang */}
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <li key={index + 1} onClick={() => handleSelectPage(index + 1)}>
+                                    {index + 1}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>

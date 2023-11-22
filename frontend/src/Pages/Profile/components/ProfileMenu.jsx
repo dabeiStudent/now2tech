@@ -167,105 +167,106 @@ const ProfileMenu = () => {
     return (
         <React.Fragment>
             <ToastContainer />
-            <h2>Thông tin tài khoản</h2>
-            {profileState === 0
-                ? <div className="my_profile">
-                    <div className="left_profile">
-                        {user.image !== "Chưa có"
-                            ? <img src={`http://localhost:5000/images/${user.image}`} alt="Hình đại diện" />
-                            : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
-                    </div>
-                    <div className="mid_profile">
-                        <p>Tên: {user.firstName}</p>
-                        <p>Họ: {user.lastName}</p>
-                        <p>Số điện thoại: {user.phoneNumber}</p>
-                        <p>Ngày sinh: {user.dob}</p>
-                    </div>
-                    <div className="right_profile">
-                        <p>Email: {user.email}</p>
-                        <p>Username: {user.userName}</p>
-                        <p>Giới tính: {user.gender === "Male" ? "Nam" : "Nữ"}</p>
-                        <p>Nhận thông báo: {user.getNotice === false ? "Không" : "Có"}</p>
+            <div className="main_profile">
+                <h1>Thông tin tài khoản</h1>
+                {profileState === 0
+                    ? <div className="my_profile">
+                        <div className="left_profile">
+                            {user.image !== "Chưa có"
+                                ? <img src={`http://localhost:5000/images/${user.image}`} alt="Hình đại diện" />
+                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
+                        </div>
+                        <div className="mid_profile">
+                            <p>Tên: {user.firstName}</p>
+                            <p>Họ: {user.lastName}</p>
+                            <p>Số điện thoại: {user.phoneNumber}</p>
+                            <p>Ngày sinh: {user.dob}</p>
+                        </div>
+                        <div className="right_profile">
+                            <p>Email: {user.email}</p>
+                            <p>Username: {user.userName}</p>
+                            <p>Giới tính: {user.gender === "Male" ? "Nam" : "Nữ"}</p>
+                            <p>Nhận thông báo: {user.getNotice === false ? "Không" : "Có"}</p>
 
+                        </div>
                     </div>
-                </div>
-                : profileState === 1
-                    ? <div className="update_image">
-                        <form className="upload_image" onSubmit={uploadHandler}>
-                            <div className="image">
-                                <input type="file" accept="image/*" onChange={onChange1} />
-                            </div>
-                            <div className="buttons-1">
-                                {file ? <input type="submit" className="custom-button-1" value="Cập nhật" />
-                                    : <button onClick={deleteImageHandler} className="custom-button-1">Xóa ảnh đại diện</button>}
-
-                                <button className="custom-button-1" onClick={changeToProfile}>Quay lại</button>
-                            </div>
-                        </form>
-                    </div>
-                    : profileState === 2
-                        ? <div className="update_profile">
-                            <p>{noti}</p>
-                            <form onSubmit={updateProfileHandler}>
-                                <div className="my_profile">
-                                    <div className="left_profile">
-                                        {user.image !== "Chưa có"
-                                            ? <img src={`http://localhost:5000/images/${user.image}`} alt="Hình đại diện" />
-                                            : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
-                                    </div>
-                                    <div className="mid_profile">
-                                        <input name='firstName' value={updateUser.firstName} onChange={onChange2} placeholder="Tên" required />
-                                        <input name='lastName' value={updateUser.lastName} onChange={onChange2} placeholder="Họ" required />
-                                        <input name='phoneNumber' value={updateUser.phoneNumber} onChange={onChange2} placeholder="Số điện thoại" required />
-                                        <input name='dob' value={updateUser.dob} type="date" onChange={onChange2} placeholder="Ngày sinh" required />
-                                    </div>
-                                    <div className="right_profile">
-                                        <input name='email' value={updateUser.email} onChange={onChange2} placeholder="Email" disabled />
-                                        <input name='userName' value={updateUser.userName} onChange={onChange2} placeholder="Username" required />
-                                        <select name='gender' value={updateUser.gender} onChange={onChange2} required>
-                                            <option disabled>Giới tính của bạn là:</option>
-                                            <option value="male">Nam</option>
-                                            <option value="female">Nữ</option>
-                                        </select>
-                                        <select name='getNotice' value={updateUser.getNotice} onChange={onChange2} required >
-                                            <option disabled>Nhận thông báo?</option>
-                                            <option value="true">Có</option>
-                                            <option value="false">Không</option>
-                                        </select>
-                                    </div>
+                    : profileState === 1
+                        ? <div className="update_image">
+                            <form className="upload_image" onSubmit={uploadHandler}>
+                                <div className="image">
+                                    <input type="file" accept="image/*" onChange={onChange1} />
                                 </div>
                                 <div className="buttons-1">
-                                    <input type="submit" className="custom-button-1" value="Cập nhật" />
+                                    {file ? <input type="submit" className="custom-button-1" value="Cập nhật" />
+                                        : <button onClick={deleteImageHandler} className="custom-button-1">Xóa ảnh đại diện</button>}
+
                                     <button className="custom-button-1" onClick={changeToProfile}>Quay lại</button>
                                 </div>
                             </form>
                         </div>
-                        : <div className="update_password">
-                            <p>{noti}</p>
-                            <form onSubmit={updatePassWordHandler}>
-                                <div className="profile_password">
-                                    <input id="oldPassword" name='oldPassword' value={password.oldPassword} onChange={onChange3} type="password" placeholder="Mật khẩu cũ" required /><br></br>
-                                    <input id="newPassword" name='newPassword' value={password.newPassword} onChange={onChange3} type="password" placeholder="Mật khẩu mới" required /><br></br>
-                                    <input id="repeatPassword" placeholder="Nhập lại mật khẩu mới" type="password" required />
-                                </div>
-                                <div className="buttons-1">
-                                    <input type="submit" className="custom-button-1" value="Cập nhật" />
-                                    <button className="custom-button-1" onClick={changeToProfile}>Quay lại</button>
-                                </div>
-                            </form>
-                        </div>}
-            {
-                profileState === 0
-                    ? <div className="container">
-                        <div className="buttons">
-                            <button className="custom-button" onClick={changeToUpdateImage}>Cập nhật ảnh đại diện</button>
-                            <button className="custom-button" onClick={changeToUpdateProfile}>Cập nhật thông tin</button>
-                            <button className="custom-button" onClick={changeToUpdatePassword}>Đổi mật khẩu</button>
+                        : profileState === 2
+                            ? <div className="update_profile">
+                                <p>{noti}</p>
+                                <form onSubmit={updateProfileHandler}>
+                                    <div className="my_profile">
+                                        <div className="left_profile">
+                                            {user.image !== "Chưa có"
+                                                ? <img src={`http://localhost:5000/images/${user.image}`} alt="Hình đại diện" />
+                                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
+                                        </div>
+                                        <div className="mid_profile">
+                                            <input name='firstName' value={updateUser.firstName} onChange={onChange2} placeholder="Tên" required />
+                                            <input name='lastName' value={updateUser.lastName} onChange={onChange2} placeholder="Họ" required />
+                                            <input name='phoneNumber' value={updateUser.phoneNumber} onChange={onChange2} placeholder="Số điện thoại" required />
+                                            <input name='dob' value={updateUser.dob} type="date" onChange={onChange2} placeholder="Ngày sinh" required />
+                                        </div>
+                                        <div className="right_profile">
+                                            <input name='email' value={updateUser.email} onChange={onChange2} placeholder="Email" disabled />
+                                            <input name='userName' value={updateUser.userName} onChange={onChange2} placeholder="Username" required />
+                                            <select name='gender' value={updateUser.gender} onChange={onChange2} required>
+                                                <option disabled>Giới tính của bạn là:</option>
+                                                <option value="male">Nam</option>
+                                                <option value="female">Nữ</option>
+                                            </select>
+                                            <select name='getNotice' value={updateUser.getNotice} onChange={onChange2} required >
+                                                <option disabled>Nhận thông báo?</option>
+                                                <option value="true">Có</option>
+                                                <option value="false">Không</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="buttons-1">
+                                        <input type="submit" className="custom-button-1" value="Cập nhật" />
+                                        <button className="custom-button-1" onClick={changeToProfile}>Quay lại</button>
+                                    </div>
+                                </form>
+                            </div>
+                            : <div className="update_password">
+                                <p>{noti}</p>
+                                <form onSubmit={updatePassWordHandler}>
+                                    <div className="profile_password">
+                                        <input id="oldPassword" name='oldPassword' value={password.oldPassword} onChange={onChange3} type="password" placeholder="Mật khẩu cũ" required /><br></br>
+                                        <input id="newPassword" name='newPassword' value={password.newPassword} onChange={onChange3} type="password" placeholder="Mật khẩu mới" required /><br></br>
+                                        <input id="repeatPassword" placeholder="Nhập lại mật khẩu mới" type="password" required />
+                                    </div>
+                                    <div className="buttons-1">
+                                        <input type="submit" className="custom-button-1" value="Cập nhật" />
+                                        <button className="custom-button-1" onClick={changeToProfile}>Quay lại</button>
+                                    </div>
+                                </form>
+                            </div>}
+                {
+                    profileState === 0
+                        ? <div className="container">
+                            <div className="buttons">
+                                <button className="custom-button" onClick={changeToUpdateImage}>Cập nhật ảnh đại diện</button>
+                                <button className="custom-button" onClick={changeToUpdateProfile}>Cập nhật thông tin</button>
+                                <button className="custom-button" onClick={changeToUpdatePassword}>Đổi mật khẩu</button>
+                            </div>
                         </div>
-                    </div>
-                    : <div></div>
-            }
-
+                        : <div></div>
+                }
+            </div>
         </React.Fragment >
     )
 }

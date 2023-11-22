@@ -25,9 +25,8 @@ const OrderMenu = () => {
     });
     return (
         <React.Fragment>
-            <h2>Đơn hàng của bạn</h2>
+            <h1>Đơn hàng của bạn</h1>
             <div className="status-checkboxes">
-                <h2>Lọc theo trạng thái đơn hàng: </h2>
                 <label>
                     <input
                         type="checkbox"
@@ -86,7 +85,7 @@ const OrderMenu = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredOrders.map(order => {
+                        {filteredOrders.reverse().map(order => {
                             // Tính tổng giá tiền cho đơn hàng
                             const totalAmount = order.items.reduce((total, item) => total + item.qty * item.price, 0);
 
