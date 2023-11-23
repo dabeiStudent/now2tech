@@ -13,8 +13,13 @@
 
 
 
---Danh muc (ten,keyword) -> Add danh muc vo san pham 
+--Danh muc ten,keyword -> Add danh muc vo san pham 
 
 --Tra ve tong so san pham theo gia tri search
 
 --Chi tiet san pham va cap nhat user bi loi o man hinh 13 inch
+
+
+--Quan ly comment
+--Danh sach san pham goi y theo cac tieu chi
+--ProductCard cho profile order
