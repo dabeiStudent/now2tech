@@ -11,8 +11,12 @@
 
 .product-cate {
     border-radius: 5px;
+    cursor: pointer;
     padding: 5px;
-    background-color: #e4e3e3;
+    padding-top: 2px;
+    padding-bottom: 7px;
+    /* background-color: #e4e3e3; */
+    background-color: rgb(255, 124, 128);
 }
 
 .product-cate:hover {

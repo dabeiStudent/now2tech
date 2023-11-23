@@ -30,7 +30,7 @@ img {
 }
 
 .profile_password input:focus {
-    background-color: antiquewhite;
+    background-color: #f3f3f3;
 }
 
 .my_profile img {
@@ -105,7 +105,7 @@ img {
     margin: 10px 0;
     width: 70%;
     border: none;
-    background-color: #007bff;
+    background-color: #034786;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -140,7 +140,7 @@ img {
     margin: 5% 0;
     width: 20%;
     border: none;
-    background-color: #007bff;
+    background-color: #034786;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;

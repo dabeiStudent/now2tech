@@ -53,7 +53,8 @@
 .detail-button,
 .edit-button,
 .block-button,
-.remove-button {
+.remove-button,
+.upload-button {
     padding: 10px 10px;
     margin-right: 10px;
     border: none;

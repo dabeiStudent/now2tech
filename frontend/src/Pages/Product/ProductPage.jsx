@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './ProductPage.css';
@@ -17,6 +16,8 @@ import { AuthContext } from '../../ultis/authContext';
 import { OrderContext } from '../../ultis/orderContext';
 import { formatPrice } from '../../ultis/formatPrice';
 import Loader from '../../components/UIElement/Loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const ProductPage = () => {
@@ -79,9 +80,9 @@ const ProductPage = () => {
                 <div className='product-page__main-container'>
                     <div className="top_product-page">
                         <h2 className='product-cate' onClick={() => navigateToCategory(product.category)}>{product.category}</h2>
-                        <h2> {'>'} </h2>
+                        <h2> <FontAwesomeIcon icon={faArrowRight} />  </h2>
                         <h2 className='product-cate' onClick={() => navigateToBrand(product.category, product.brand)}>{product.brand}</h2>
-                        <h2> {'>'} {product.name}</h2>
+                        <h2> <FontAwesomeIcon icon={faArrowRight} /> {product.name}</h2>
                     </div>
                     <div className='product-page__box-main'>
                         <div className='box-left'>

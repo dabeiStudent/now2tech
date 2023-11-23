@@ -1,4 +1,4 @@
-.update-modal {
+.detail-user-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,50 +8,40 @@
     text-align: center;
 }
 
-.update-modal-content {
-    background-color: #fff;
+.modal-body {
+    background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    width: 60%;
-    max-width: 600px;
-    max-height: 500px;
-    position: relative;
-    border-radius: 8px;
+    border: 1px solid #888;
+    width: 600px !important;
+    max-height: 650px;
     overflow: auto;
-}
-
-.update-modal-content input[type="text"],
-.update-modal-content input[type="date"],
-.update-modal-content select {
-    width: 100%;
-}
-
-.table-container-update-user {
-    overflow: auto;
+    /* Giảm độ rộng xuống 60% */
 }
 
 .close {
     color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 .close:hover {
-    color: #333;
+    color: black;
+}
+
+.table-container-user {
+    margin-top: 20px;
 }
 
 .product-details {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
 }
 
 .product-details td {
-    padding: 12px;
+    padding: 8px;
     border-bottom: 1px solid #ddd;
 }
 
