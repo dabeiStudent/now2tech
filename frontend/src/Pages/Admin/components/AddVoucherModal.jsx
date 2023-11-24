@@ -177,6 +177,83 @@ const AddVoucherModal = props => {
                             </div>
                             
                         </div>
+                        <div className='voucher_row'>
+                            <label>Danh sách sản phẩm</label>
+                            <ul className='product-list__choose'>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                                <li className='product-list__option'>
+                                    <input type="checkbox" />
+                                    <div className='image'>
+                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
+                                    </div>
+                                    <div className='prod-info'>
+                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
+                                    </div>
+                                </li>
+                            </ul>                            
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant='primary'type='submit'>Thêm</Button>

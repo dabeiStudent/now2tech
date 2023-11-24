@@ -114,7 +114,8 @@ const UsersContent = () => {
                                         block={() => handleBlock(user._id, user.status)}
                                         remove={() => handleRemove(user._id)} />
                                     <div className="button-container">
-                                        <button className="detail-button" onClick={() => openDetailModal(user)}>Chi tiết</button>
+                                        {/* <button className="detail-button" onClick={() => openDetailModal(user)}>Chi tiết</button> */}
+                                        <DetailModalUser userId={user._id}/>
                                         <button className="edit-button" onClick={() => handleEdit(user)}>Cập nhật</button>
                                         {showUpdate && selectedUser && (
                                             <UpdateModal user={selectedUser} onClose={closeEditModal} />

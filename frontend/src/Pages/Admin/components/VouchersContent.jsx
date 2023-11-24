@@ -9,6 +9,7 @@ import { formatDate } from '../../../ultis/formatDate';
 import AddVoucherModal from './AddVoucherModal';
 import DetailVoucherModal from './DetailVoucherModal';
 import UpdateVoucherModal from './UpdateVoucherModal';
+import AddProductDiscount from './AddProductDiscount';
 
 const VouchersContent = () => {
     const [vouchers, setVouchers]= useState([]);
@@ -75,7 +76,7 @@ const VouchersContent = () => {
                                         <td className="product-cell">
                                             <DetailVoucherModal voucherId={voucher._id}/>
                                             <UpdateVoucherModal isSuccess={()=> isSuccess()} voucherId={voucher._id}/>
-                                            <button className="edit-button" >Cập nhật</button>
+                                            <AddProductDiscount voucherId={voucher._id}/>
                                             <button className="remove-button" onClick={()=> deleteVoucherHandler(voucher._id)}>Xóa</button>                                        
                                         </td>
                                     </tr>

@@ -1,0 +1,30 @@
+.product-list__choose{
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.product-list__choose .product-list__option{
+    display: flex;
+}
+
+.product-list__option .image{
+    padding: 10px;
+    width: 25%;
+}
+
+.product-list__option .prod-info{
+    padding: 10px;
+}
+
+.product-list__option .prod-info p{
+    margin: 0;
+    font-size: 14px;
+}
+
+.product-list__option .image img{
+    width: 100%;
+    max-height: 50px;
+}
