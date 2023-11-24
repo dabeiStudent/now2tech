@@ -199,7 +199,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.sold}</td>
                                     <td className="product-cell">
                                         <button className="detail-button" onClick={() => openDetailModal(product)}>Chi tiết</button>
-                                        <button className="upload-button" onClick={() => openUploadModal(product._id)}>Thêm ảnh sản phẩm</button>
+                                        <button className="upload-button" onClick={() => openUploadModal(product._id)}>Thêm ảnh</button>
                                         <button className="edit-button" onClick={() => handleEdit(product)}>Cập nhật</button>
                                         <button className="remove-button" onClick={() => handleRemove(product._id)}>Xóa</button>
                                         {showDetail && selectedProduct && (

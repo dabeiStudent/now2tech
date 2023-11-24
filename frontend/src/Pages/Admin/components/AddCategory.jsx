@@ -4,6 +4,8 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './AddCategory.css';
+import './AddProduct.css';
+
 const AddCategory = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);

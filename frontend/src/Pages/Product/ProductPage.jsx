@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './ProductPage.css';
@@ -17,9 +16,13 @@ import { AuthContext } from '../../ultis/authContext';
 import { OrderContext } from '../../ultis/orderContext';
 import { formatPrice } from '../../ultis/formatPrice';
 import Loader from '../../components/UIElement/Loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import StarRating from './components/StarRating';
 const ProductPage = () => {
+    const ref = useRef(null);
     let { pid } = useParams();
     const [product, setProduct] = useState();
     const navigate = useNavigate();
@@ -53,6 +56,7 @@ const ProductPage = () => {
     }
 
     const addToCartHandler = async () => {
+        toast("Đã thêm vào giỏ hàng")
         cart.addToCart(cartItem);
         navigate("/gio-hang")
     };
@@ -72,23 +76,41 @@ const ProductPage = () => {
     const navigateToBrand = (pCate, pBrand) => {
         navigate(`/loctheodanhmuc/${pCate}/${pBrand}/0/0/1`);
     }
+    const scrollToReviews = (e) => {
+        e.preventDefault();
+        ref.current?.scrollIntoView({ behavior: 'smooth' });
+    }
     return (
         <div className='product-page'>
             <ToastContainer />
             {product ? (
                 <div className='product-page__main-container'>
                     <div className="top_product-page">
-                        <h2 className='product-cate' onClick={() => navigateToCategory(product.category)}>{product.category}</h2>
-                        <h2> {'>'} </h2>
-                        <h2 className='product-cate' onClick={() => navigateToBrand(product.category, product.brand)}>{product.brand}</h2>
-                        <h2> {'>'} {product.name}</h2>
+                        <h3 className='product-cate' onClick={() => navigateToCategory(product.category)}>{product.category}</h3>
+                        <h3> <FontAwesomeIcon icon={faArrowRight} />  </h3>
+                        <h3 className='product-cate' onClick={() => navigateToBrand(product.category, product.brand)}>{product.brand}</h3>
+                    </div>
+                    <div className='top_name_product'>
+                        <div className='product_name'>
+                            <h2>{product.name}</h2>
+                        </div>
+                        <div className='product_rating_group' onClick={scrollToReviews}>
+                            <div className='product_rating'>
+                                <h3><StarRating rating={product.avgRating} /></h3>
+                            </div>
+                            <div className='product_numb_rating'>
+                                <h3>{product.numOfReview} lượt đánh giá</h3>
+                            </div>
+                        </div>
                     </div>
                     <div className='product-page__box-main'>
                         <div className='box-left'>
                             <ProductCarousel images={product.pimage} />
                             <PolicyComponent />
                             <DescComponent desc={product.desc} />
-                            <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating} />
+                            <div ref={ref}>
+                                <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating} />
+                            </div>
                             <CommentComponent productId={product._id} />
                         </div>
                         <div className='box-right'>
@@ -111,7 +133,6 @@ const ProductPage = () => {
                                 <button className='product-page__btn' onClick={addToCartHandler}>
                                     <FontAwesomeIcon className='product-page__icon' icon={faCartPlus} />
                                     Thêm vào giỏ hàng</button>
-                                <button className='product-page__btn'>Trả góp 0%</button>
                             </div>
                             <SpecsComponent specs={product.specs} />
                         </div>

@@ -83,6 +83,10 @@ body {
     font-size: 20px;
 }
 
+.see-more-btn button:hover {
+    background-color: #3498db;
+}
+
 .category-container {
     width: 100%;
     /* max-width: 1500px; */

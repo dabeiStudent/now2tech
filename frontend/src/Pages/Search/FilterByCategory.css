@@ -93,6 +93,8 @@
     margin: 0 5px;
     cursor: pointer;
     padding: 8px 12px;
+    font-size: 15px;
+    font-weight: 700;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -101,6 +103,10 @@
 
 .pages-bar li:hover {
     background-color: #e0e0e0;
+}
+
+.pages-bar li.selected {
+    background-color: #3498db;
 }
 
 @media screen and (max-width: 1368px) and (max-height: 619px) {}

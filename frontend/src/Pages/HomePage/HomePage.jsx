@@ -84,8 +84,11 @@ const HomePage = () => {
         getCate();
     }, []);
 
+
     const seeMoreHandler = () => { setPage(page + 1) };
 
+    const seeMoreBestSellerHandler = () => {
+    };
     const scrollNext = () => {
         const scrollContainer = scrollRef.current;
 
@@ -134,8 +137,8 @@ const HomePage = () => {
                                             <VoucherCard
                                                 name={voucher.name}
                                                 key={voucher._id}
-                                                id={voucher._id} 
-                                                image={voucher.image}/>
+                                                id={voucher._id}
+                                                image={voucher.image} />
                                         ))}
                                     </div>
                                 </div>
@@ -146,6 +149,27 @@ const HomePage = () => {
                                     <FontAwesomeIcon icon={faChevronRight} />
                                 </button>
                             </div>
+                        </div>
+                        <div className="all-product-container">
+                            <div className="all-product-container__main">
+                                <h2>Sản phẩm bán chạy</h2>
+                                <div className="all-product-container__prod-list">
+                                    {products && products.map(product => (
+                                        <ProductCard
+                                            key={product._id}
+                                            id={product._id}
+                                            name={product.name}
+                                            price={product.sellPrice}
+                                            avgRating={product.avgRating}
+                                            numOfReview={product.numOfReview}
+                                            image={product.pimage[0]} />
+                                    ))}
+                                </div>
+                                {products.length >= page * 10 && (
+                                    <div className="see-more-btn"><button onClick={seeMoreBestSellerHandler}>Xem thêm &raquo;</button></div>
+                                )}
+                            </div>
+
                         </div>
                         <div className="all-product-container">
                             <div className="all-product-container__main">

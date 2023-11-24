@@ -1,16 +1,16 @@
 import React from "react";
 
-import './DetailModal.css';
+import './DetailModalUser.css';
 const DetailModalUser = ({ user, onClose }) => {
     if (!user) {
         return null;
     }
     return (
-        <div className="detail-modal">
+        <div className="detail-user-modal">
             <div className="modal-body">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Chi tiết tài khoản</h2>
-                <div className="table-container">
+                <div className="table-container-user">
                     <table className="product-details">
                         <tbody>
                             <tr>

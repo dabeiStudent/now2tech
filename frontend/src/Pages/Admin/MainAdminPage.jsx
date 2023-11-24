@@ -23,37 +23,37 @@ const MainAdminPage = () => {
                         className={selectedContent === 'dashboard' ? 'active' : ''}
                         onClick={() => handleTabClick('dashboard')}
                     >
-                        Dashboard
+                        Thống kê
                     </li>
                     <li
                         className={selectedContent === 'orders' ? 'active' : ''}
                         onClick={() => handleTabClick('orders')}
                     >
-                        Orders
+                        Đơn hàng
                     </li>
                     <li
                         className={selectedContent === 'products' ? 'active' : ''}
                         onClick={() => handleTabClick('products')}
                     >
-                        Products
+                        Sản phẩm
                     </li>
                     <li
                         className={selectedContent === 'users' ? 'active' : ''}
                         onClick={() => handleTabClick('users')}
                     >
-                        Users
+                        Tài khoản
                     </li>
                     <li
                         className={selectedContent === 'vouchers' ? 'active' : ''}
                         onClick={() => handleTabClick('vouchers')}
                     >
-                        Vouchers
+                        Khuyến mãi
                     </li>
                     <li
                         className={selectedContent === 'chat' ? 'active' : ''}
                         onClick={() => handleTabClick('chat')}
                     >
-                        Messages
+                        Tin nhắn
                     </li>
                 </ul>
             </div>

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+
+import './AddProduct.css';
 const AddBrand = ({ onClose }) => {
     const [newBrand, setNewBrand] = useState({
         name: '',

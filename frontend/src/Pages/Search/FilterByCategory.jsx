@@ -21,9 +21,9 @@ const FilterByCategory = () => {
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [minPrice, setMinPrice] = useState(null);
     const [maxPrice, setMaxPrice] = useState(null);
-    const [pageNumber, setPageNumber] = useState(null);
     const [maxItem, setMaxItem] = useState(null);
     const [totalPages, setTotalPages] = useState(0);
+    const [selectedPage, setSelectedPage] = useState(1);
 
     useEffect(() => {
         axios.get(`http://localhost:5000/product/get-all-product/?category=${category}&brand=${brand}&min=${minp}&max=${maxp}&page=${page}`)
@@ -62,6 +62,7 @@ const FilterByCategory = () => {
         setSelectedBrand(null);
         setMinPrice(null);
         setMaxPrice(null);
+        setSelectedPage(1);
         navigate(`/loctheodanhmuc/${categoryName}/All/0/0/1`);
         setFlag(!flag);
     }
@@ -70,17 +71,17 @@ const FilterByCategory = () => {
         navigate(`/loctheodanhmuc/${selectedCategory}/${brandName}/0/0/1`);
         setMinPrice(null);
         setMaxPrice(null);
+        setSelectedPage(1);
         setFlag(!flag);
     }
     const handleSelectPrice = (valueMin, valueMax) => {
         setMinPrice(valueMin);
         setMaxPrice(valueMax)
-        console.log(valueMin, valueMax);
+        setSelectedPage(1);
         navigate(`/loctheodanhmuc/${selectedCategory}/${selectedBrand}/${valueMin}/${valueMax}/1`);
         setFlag(!flag);
     }
     const handleSelectPage = (page) => {
-        setPageNumber(page);
         navigate(`/loctheodanhmuc/${selectedCategory}/${selectedBrand}/${minPrice}/${maxPrice}/${page}`);
         setFlag(!flag);
     }
@@ -191,7 +192,10 @@ const FilterByCategory = () => {
                         <ul className="pages-bar">
                             {/* Render danh sách các trang */}
                             {Array.from({ length: totalPages }, (_, index) => (
-                                <li key={index + 1} onClick={() => handleSelectPage(index + 1)}>
+                                <li className={selectedPage === index + 1 ? "selected" : ''} key={index + 1} onClick={() => {
+                                    handleSelectPage(index + 1);
+                                    setSelectedPage(index + 1);
+                                }}>
                                     {index + 1}
                                 </li>
                             ))}

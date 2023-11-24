@@ -3,6 +3,13 @@ import React, { useEffect, useState } from "react";
 
 import './OrderMenu.css';
 import { NavLink } from "react-router-dom";
+const statusMapping = {
+    'Not_proccessed': 'Chờ xác nhận',
+    'Processing': 'Đang chuẩn bị hàng',
+    'Shipped': 'Đang giao',
+    'Delivered': 'Giao thành công',
+    'Cancelled': 'Đã hủy'
+};
 const OrderMenu = () => {
     const [orders, setOrder] = useState([])
     const [selectedStatus, setSelectedStatus] = useState([]);
@@ -27,51 +34,17 @@ const OrderMenu = () => {
         <React.Fragment>
             <h1>Đơn hàng của bạn</h1>
             <div className="status-checkboxes">
-                <label>
-                    <input
-                        type="checkbox"
-                        value="Not_proccessed"
-                        checked={selectedStatus.includes('Not_proccessed')}
-                        onChange={() => handleCheckboxChange('Not_proccessed')}
-                    />
-                    Chờ xác nhận
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        value="Processing"
-                        checked={selectedStatus.includes('Processing')}
-                        onChange={() => handleCheckboxChange('Processing')}
-                    />
-                    Đang chuẩn bị hàng
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        value="Shipped"
-                        checked={selectedStatus.includes('Shipped')}
-                        onChange={() => handleCheckboxChange('Shipped')}
-                    />
-                    Đang giao
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        value="Delivered"
-                        checked={selectedStatus.includes('Delivered')}
-                        onChange={() => handleCheckboxChange('Delivered')}
-                    />
-                    Giao thành công
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        value="Cancelled"
-                        checked={selectedStatus.includes('Cancelled')}
-                        onChange={() => handleCheckboxChange('Cancelled')}
-                    />
-                    Đã hủy
-                </label>
+                {Object.keys(statusMapping).map((statusKey) => (
+                    <label key={statusKey}>
+                        <input
+                            type="checkbox"
+                            value={statusKey}
+                            checked={selectedStatus.includes(statusKey)}
+                            onChange={() => handleCheckboxChange(statusKey)}
+                        />
+                        {statusMapping[statusKey]}
+                    </label>
+                ))}
             </div>
             <div className="my-order">
                 <table>
@@ -81,7 +54,7 @@ const OrderMenu = () => {
                             <th>Trạng thái</th>
                             <th>Sản phẩm</th>
                             <th>Tổng tiền</th>
-                            <th>Action</th>
+                            <th>Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,11 +66,11 @@ const OrderMenu = () => {
                                 <tr key={order._id} >
                                     <td className="oid_row">{order._id}</td>
                                     <td>{order.status}</td>
-                                    <td>
+                                    <td className="price-product">
                                         <ul>
                                             {order.items.map((item, itemIndex) => (
                                                 <li key={itemIndex}>
-                                                    {item.name} - {item.price} - {item.qty}
+                                                    <img src={`http://localhost:5000/images/${item.image}`} /> - {item.name} {'('}{item.qty}{')'}
                                                 </li>
                                             ))}
                                         </ul>
@@ -105,7 +78,7 @@ const OrderMenu = () => {
                                     <td className="oid_row">{totalAmount} VND - {order.paymentMethod}</td> {/* Hiển thị tổng giá tiền */}
                                     <td>
                                         <NavLink to={`/chi-tiet-don-hang/${order._id}`}>
-                                            <button>Chi tiết</button>
+                                            <button>Xem</button>
                                         </NavLink>
                                     </td>
                                 </tr>

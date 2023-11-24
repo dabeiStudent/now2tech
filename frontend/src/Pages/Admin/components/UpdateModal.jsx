@@ -30,7 +30,7 @@ const UpdateModal = ({ user, onClose }) => {
                 <span className="close" onClick={onClose}>&times;</span>
                 <form onSubmit={handleUpdate}>
                     <h2>Cập nhật tài khoản</h2>
-                    <div className="table-container">
+                    <div className="table-container-update-user">
                         <table className="product-details">
                             <tbody>
                                 <tr>
