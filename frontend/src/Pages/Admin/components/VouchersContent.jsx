@@ -7,6 +7,7 @@ import './VouchersContent.css';
 import Loader from '../../../components/UIElement/Loader';
 import { formatDate } from '../../../ultis/formatDate';
 import AddVoucherModal from './AddVoucherModal';
+import DetailVoucherModal from './DetailVoucherModal';
 
 const VouchersContent = () => {
     const [vouchers, setVouchers]= useState([]);
@@ -72,7 +73,7 @@ const VouchersContent = () => {
                                             <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner'/>
                                         </td>
                                         <td className="product-cell">
-                                            <button className="detail-button" >Chi tiết</button>
+                                            <DetailVoucherModal voucherId={voucher._id}/>
                                             <button className="upload-button" >Danh sách KM</button>
                                             <button className="edit-button" >Cập nhật</button>
                                             <button className="remove-button" onClick={()=> deleteVoucherHandler(voucher._id)}>Xóa</button>                                        

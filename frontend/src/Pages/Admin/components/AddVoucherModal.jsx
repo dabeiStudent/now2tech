@@ -60,7 +60,9 @@ const AddVoucherModal = props => {
                 desc: '',
                 end: '',
                 start: ''
-            })
+            });
+            setImgFile(undefined);
+            setPreviewUrl(undefined);
             closeModalHandler();
             props.addSuccess();
         })
@@ -71,6 +73,7 @@ const AddVoucherModal = props => {
 
     useEffect(()=> {
         if(!imgFile){
+            setPreviewUrl(undefined);
             return
         }
         const fileReader= new FileReader();

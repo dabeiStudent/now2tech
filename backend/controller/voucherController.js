@@ -1,4 +1,6 @@
 const mongoose= require('mongoose');
+const fs= require('fs');
+const path= require('path');
 
 const Voucher= require('../models/vouchersModel');
 const Product= require('../models/productsModel');
@@ -211,6 +213,9 @@ const deleteVoucher= async (req, res)=>{
         return res.status(400).json({err: "Không tìm thấy voucher. Vui lòng thử lại sau."});
     };
 
+    const currentPath= process.cwd();
+    const imgLink= currentPath + '/backend/public/images/vouchers/' + voucher.image;
+
     try {
         const sess= await mongoose.startSession();
         sess.startTransaction();
@@ -223,6 +228,10 @@ const deleteVoucher= async (req, res)=>{
     }catch(err){
         return res.status(404).json({err: "Không thể xóa. Đã có lỗi xảy ra."})
     }
+
+    fs.unlink(imgLink, (err)=> {
+        if(err){ console.log(err)}
+    })
 
     res.status(200).json({msg: "Đã xóa."})
 }

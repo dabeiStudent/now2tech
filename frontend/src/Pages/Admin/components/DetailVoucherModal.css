@@ -1,0 +1,15 @@
+.detail-voucher__table{
+    width: 100%;
+}
+
+.detail-voucher__table th{
+    width: 30%;
+}
+
+.detail-voucher__table .voucher-title{
+    font-weight: 500;
+}
+
+.voucher_image{
+    width: 50%;
+}
