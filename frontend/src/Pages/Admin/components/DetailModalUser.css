@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-.modal-body {
+.detail-user-modal .modal-body {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;

@@ -8,6 +8,7 @@ import Loader from '../../../components/UIElement/Loader';
 import { formatDate } from '../../../ultis/formatDate';
 import AddVoucherModal from './AddVoucherModal';
 import DetailVoucherModal from './DetailVoucherModal';
+import UpdateVoucherModal from './UpdateVoucherModal';
 
 const VouchersContent = () => {
     const [vouchers, setVouchers]= useState([]);
@@ -35,8 +36,7 @@ const VouchersContent = () => {
         }
     }
 
-    const addSuccess= ()=> {
-        toast('Thêm thành công')
+    const isSuccess= ()=> {
         setIsReload(!isReload);
     }
 
@@ -45,7 +45,7 @@ const VouchersContent = () => {
             <ToastContainer/>
             {vouchers ? (
                 <div className="product-content">
-                    <AddVoucherModal addSuccess={()=> addSuccess()}/>
+                    <AddVoucherModal addSuccess={()=> isSuccess()}/>
                     <div className="table-container">
                         <table className="product-table">
                             <thead>
@@ -74,7 +74,7 @@ const VouchersContent = () => {
                                         </td>
                                         <td className="product-cell">
                                             <DetailVoucherModal voucherId={voucher._id}/>
-                                            <button className="upload-button" >Danh sách KM</button>
+                                            <UpdateVoucherModal isSuccess={()=> isSuccess()} voucherId={voucher._id}/>
                                             <button className="edit-button" >Cập nhật</button>
                                             <button className="remove-button" onClick={()=> deleteVoucherHandler(voucher._id)}>Xóa</button>                                        
                                         </td>

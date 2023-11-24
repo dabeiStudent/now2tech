@@ -64,6 +64,7 @@ const AddVoucherModal = props => {
             setImgFile(undefined);
             setPreviewUrl(undefined);
             closeModalHandler();
+            toast('Thêm thành công');
             props.addSuccess();
         })
         .catch(err => toast('Đã xảy ra lỗi. Thử lại sau'))
