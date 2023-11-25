@@ -111,6 +111,9 @@ const ProductPage = () => {
                             <div ref={ref}>
                                 <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating} />
                             </div>
+                            <div className="recommend-related-products">
+                                Sản phẩm thường mua cùng
+                            </div>
                             <CommentComponent productId={product._id} />
                         </div>
                         <div className='box-right'>
