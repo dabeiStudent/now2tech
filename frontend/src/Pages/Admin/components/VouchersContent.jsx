@@ -14,7 +14,6 @@ import AddProductDiscount from './AddProductDiscount';
 const VouchersContent = () => {
     const [vouchers, setVouchers] = useState([]);
     const [isReload, setIsReload] = useState(false);
-
     useEffect(() => {
         const getVouchers = async () => {
             await axios.get('http://localhost:5000/voucher/get-all-voucher', { withCredentials: true })
@@ -24,6 +23,19 @@ const VouchersContent = () => {
         getVouchers();
     }, [isReload]);
 
+    const [showFilteredVouchers, setShowFilteredVouchers] = useState(false);
+
+    const filteredVouchers = vouchers.filter((voucher) => {
+        if (showFilteredVouchers) {
+            return (voucher) => (
+                new Date(voucher.end) - new Date() <= 3 * 24 * 60 * 60 * 1000 ||
+                new Date(voucher.end) < new Date()
+            );
+        }
+        else {
+            return voucher;
+        }
+    });
     const deleteVoucherHandler = async (voucherId) => {
         const confirmed = window.confirm('Bạn muốn xóa khuyến mãi này?');
 
@@ -40,13 +52,34 @@ const VouchersContent = () => {
     const isSuccess = () => {
         setIsReload(!isReload);
     }
-
+    const filteringNow = () => {
+        console.log('Checked');
+        setShowFilteredVouchers(!showFilteredVouchers)
+    }
+    const sendEmailToUsers = (voucherId) => {
+        if (window.confirm('Bạn muốn thông báo tới tất cả user?')) {
+            axios.post('http://localhost:5000/voucher/notice-voucher-to-all', { vid: voucherId }, { withCredentials: true })
+                .then(result => {
+                    toast('Đã thông báo tới user');
+                })
+                .catch(err => {
+                    toast('Có lỗi');
+                    console.log(err);
+                })
+        }
+    }
     return (
         <React.Fragment>
             <ToastContainer />
             {vouchers ? (
                 <div className="product-content">
                     <AddVoucherModal addSuccess={() => isSuccess()} />
+                    <input
+                        type="checkbox"
+                        checked={showFilteredVouchers}
+                        onChange={() => { filteringNow() }}
+                    />
+                    <label>Show filtered vouchers</label>
                     <div className="table-container">
                         <table className="product-table">
                             <thead>
@@ -62,7 +95,7 @@ const VouchersContent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {vouchers.map(voucher =>
+                                {filteredVouchers.map(voucher =>
                                     <tr key={voucher._id} className="product-row">
                                         <td className="product-cell">{voucher._id}</td>
                                         <td className="product-cell">{voucher.name}</td>
@@ -78,6 +111,7 @@ const VouchersContent = () => {
                                                 <DetailVoucherModal voucherId={voucher._id} />
                                                 <UpdateVoucherModal isSuccess={() => isSuccess()} voucherId={voucher._id} />
                                                 <AddProductDiscount voucherId={voucher._id} />
+                                                <button className='upload-button' onClick={() => sendEmailToUsers(voucher._id)}>Gửi thông báo</button>
                                                 <button className="block-button" onClick={() => deleteVoucherHandler(voucher._id)}>Xóa</button>
                                             </div>
                                         </td>
