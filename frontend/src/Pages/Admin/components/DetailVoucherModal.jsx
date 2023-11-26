@@ -8,23 +8,23 @@ import Loader from '../../../components/UIElement/Loader';
 import { formatDate } from '../../../ultis/formatDate';
 
 const DetailVoucherModal = props => {
-    const [isOpenModal, setIsOpenModal]= useState(false);
-    const [voucher, setVoucher]= useState();
-    const closeModalHandler= ()=> {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [voucher, setVoucher] = useState();
+    const closeModalHandler = () => {
         setIsOpenModal(false);
     }
 
-    const openModalHandler= ()=> {
+    const openModalHandler = () => {
         setIsOpenModal(true);
     }
 
-    useEffect(()=> {
-        const getVoucher= async (req, res)=> {
+    useEffect(() => {
+        const getVoucher = async (req, res) => {
             await axios.get(`http://localhost:5000/voucher/get-voucher/${props.voucherId}`)
-            .then(res=> {
-                setVoucher(res.data);
-            })
-            .catch(err=> console.log(err))
+                .then(res => {
+                    setVoucher(res.data);
+                })
+                .catch(err => console.log(err))
         };
         getVoucher();
     }, [])
@@ -34,7 +34,7 @@ const DetailVoucherModal = props => {
                 <button className="detail-button" onClick={openModalHandler}>Chi tiết</button>
             </div>
             <Modal dialogClassName='modal-custom' show={isOpenModal} onHide={closeModalHandler}>
-                
+
                 <Modal.Header closeButton>
                     <Modal.Title>Chi tiết khuyến mãi</Modal.Title>
                 </Modal.Header>
@@ -82,13 +82,11 @@ const DetailVoucherModal = props => {
                                 <td>{formatDate(voucher.end)}</td>
                             </tr>
                         </table>
-                        
-                    ) : (<Loader/>)}
-                    
+                    ) : (<Loader />)}
                 </Modal.Body>
             </Modal>
         </div>
-  )
+    )
 }
 
 export default DetailVoucherModal

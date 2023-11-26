@@ -5,6 +5,7 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './ProductPage.css';
 import ProductCarousel from './components/ProductCarousel';
+import ProductCard from '../../components/UIElement/ProductCard';
 import PolicyComponent from './components/PolicyComponent';
 import DescComponent from './components/DescComponent';
 import VoucherComponent from './components/VoucherComponent';
@@ -22,9 +23,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StarRating from './components/StarRating';
 const ProductPage = () => {
+    const targetDivRef = useRef(null);
     const ref = useRef(null);
     let { pid } = useParams();
     const [product, setProduct] = useState();
+    const [relatedProducts, setRelatedProducts] = useState([]);
     const navigate = useNavigate();
     const cart = useContext(CartContext);
     const authContext = useContext(AuthContext);
@@ -35,6 +38,13 @@ const ProductPage = () => {
             await axios.get(`http://localhost:5000/product/get-product/${pid}`)
                 .then(res => {
                     setProduct(res.data);
+                    axios.get(`http://localhost:5000/product/get-product-by/?category=${res.data.category}&brand=All&min=0&max=0&page=1`)
+                        .then(result => {
+                            setRelatedProducts(result.data.result);
+                        })
+                        .catch(err => {
+                            window.alert(err);
+                        })
                 })
                 .catch(err => {
                     window.alert(err)
@@ -42,14 +52,13 @@ const ProductPage = () => {
         };
         getData();
     }, [pid]);
-
     let cartItem;
     if (product) {
         cartItem = {
             id: product._id,
             name: product.name,
             price: product.sellPrice,
-            image: product.pimage[1],
+            image: product.pimage[0],
             vouchers: product.vouchers,
             qty: 1
         }
@@ -111,9 +120,6 @@ const ProductPage = () => {
                             <div ref={ref}>
                                 <RatingComponent reviews={product.reviews} numOfReview={product.numOfReview} avgRating={product.avgRating} />
                             </div>
-                            <div className="recommend-related-products">
-                                Sản phẩm thường mua cùng
-                            </div>
                             <CommentComponent productId={product._id} />
                         </div>
                         <div className='box-right'>
@@ -131,19 +137,46 @@ const ProductPage = () => {
                                 )}
                             </div>
                             <VoucherComponent vouchers={product.vouchers} />
-                            <button onClick={buyNowHandler} className='product-page__btn buy-now-btn'>MUA NGAY</button>
-                            <div className='button-group'>
-                                <button className='product-page__btn' onClick={addToCartHandler}>
-                                    <FontAwesomeIcon className='product-page__icon' icon={faCartPlus} />
-                                    Thêm vào giỏ hàng</button>
-                            </div>
+                            {product.inStock !== 0
+                                ? <div>
+                                    <button onClick={buyNowHandler} className='product-page__btn buy-now-btn'>MUA NGAY</button>
+                                    <div className='button-group'>
+                                        <button className='product-page__btn' onClick={addToCartHandler}>
+                                            <FontAwesomeIcon className='product-page__icon' icon={faCartPlus} />
+                                            Thêm vào giỏ hàng</button>
+                                    </div>
+                                </div>
+                                : <div>
+                                    <button className='product-page__btn buy-now-btn'>TẠM HẾT HÀNG</button>
+                                </div>}
                             <SpecsComponent specs={product.specs} />
+                        </div>
+                    </div>
+                    <div className="all-product-container">
+                        <div className="all-product-container__main">
+                            <h2>Sản phẩm cùng loại</h2>
+                            <div className="all-product-container__prod-list_2">
+                                {relatedProducts.length > 0 && relatedProducts.map(product => (
+                                    <ProductCard
+                                        key={product._id}
+                                        id={product._id}
+                                        name={product.name}
+                                        price={product.sellPrice}
+                                        avgRating={product.avgRating}
+                                        numOfReview={product.numOfReview}
+                                        image={product.pimage[0]} />
+                                ))}
+                            </div>
+                            <div className='see-more-btn'>
+                                <button onClick={() => navigateToCategory(product.category)}>Xem thêm {product.category}</button>
+                            </div>
                         </div>
                     </div>
                 </div >
             ) : (
                 <Loader />
-            )}
+            )
+            }
         </div >
     )
 }

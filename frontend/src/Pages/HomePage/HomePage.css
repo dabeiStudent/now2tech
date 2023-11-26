@@ -49,11 +49,22 @@ body {
     padding: 0 8px;
 }
 
+.all-product-container__prod-list_2 {
+    display: grid;
+    gap: 12px;
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 0 8px;
+}
+
 .all-product-container__main {
     max-width: 1220px;
+    padding: 10px;
     margin: auto;
-
+    background-color: rgb(194, 64, 69);
+    border-radius: 7px;
 }
+
 
 .voucher-list-container {
     margin-top: 30px;
@@ -83,9 +94,6 @@ body {
     font-size: 20px;
 }
 
-.see-more-btn button:hover {
-    background-color: #3498db;
-}
 
 .category-container {
     width: 100%;
@@ -100,7 +108,7 @@ body {
 .voucher-container h2,
 .all-product-container h2 {
     text-align: center;
-    color: #003466;
+    color: #ffffff;
 }
 
 .category-list {

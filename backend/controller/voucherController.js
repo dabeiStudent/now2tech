@@ -17,52 +17,16 @@ const getAllVoucher = async (req, res) => {
     res.status(200).json(vouchers);
 }
 
-const getProductForVoucher = async (req, res) => {
-    const voucherId = req.params.vid;
-
-    let voucher;
-    try {
-        voucher = await Voucher.findById(voucherId).populate('productList');
-    } catch (err) {
-        return res.status(404).json({ err: "Đã có lỗi xảy ra. Vui lòng thử lại sau." });
-    }
-
-    if (!voucher) {
-        return res.status(404).json({ err: "Không tìm thấy voucher." });
-    }
-
-    let products;
-    try {
-        products = await Product.find({}, '_id name pimage vouchers').populate('vouchers');
-    } catch (err) {
-        return res.status(404).json({ err: "Đã có lỗi xảy ra. Vui lòng thử lại sau." });
-    }
-
-    let productsForVoucher;
-    try {
-        productsForVoucher = products.filter(product => product.vouchers === null || product.vouchers.end < voucher.start);
-    } catch (err) {
-        return res.status(404).json({ err: "Đã có lỗi xảy ra. Vui lòng thử lại sau." });
-    }
-
-    res.status(200).json(productsForVoucher);
-}
 
 const getVoucherById = async (req, res) => {
     const voucherId = req.params.vid;
-
-    let voucher;
-    try {
-        voucher = await Voucher.findById(voucherId).populate('productList');
-    } catch (err) {
-        return res.status(404).json({ err: "Đã có lỗi xảy ra. Vui lòng thử lại sau." });
-    }
-
-    if (!voucher) {
-        return res.status(404).json({ err: "Không tìm thấy voucher." });
-    }
-
-    res.status(200).json(voucher);
+    Voucher.findById(voucherId)
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            res.status(404).json({ err: err });
+        })
 }
 
 const createVoucher = async (req, res) => {
@@ -80,94 +44,66 @@ const createVoucher = async (req, res) => {
 
     try {
         await voucher.save();
+        return res.status(200).json({ msg: "Đã thêm thành công" });
     } catch (error) {
         return res.status(404).json({ err: "Không thể thêm voucher. Vui lòng thử lại sau." });
     }
-
-    res.status(200).json({ msg: "Thêm voucher thành công." });
 };
+const getProductForVoucher = async (req, res) => {
+    try {
+        const productFount = await Product.find({ voucher: null })
+        if (productFount) {
+            return res.status(200).json(productFount);
+        }
+        return res.status(404).json({ err: "Không thấy" });
+    } catch (err) {
+        return res.status(500).json({ err: err });
+    }
+}
 
 const addProductToVoucher = async (req, res) => {
     const voucherId = req.params.vid;
     const { products } = req.body;
-
-    let existingVoucher;
-    try {
-        existingVoucher = await Voucher.findById(voucherId).populate('productList');
-    } catch (error) {
-        return res.status(404).json({ err: error });
+    for (const productId of products) {
+        const updateProduct = await Product.findOne({ _id: productId }).exec();
+        if (!updateProduct) {
+            return res.status(404).json({ err: "Không tìm thấy" });
+        }
+        const voucherFound = await Voucher.findById(voucherId).exec();
+        if (!voucherFound) {
+            return res.status(404).json({ err: "Không tìm thấy" });
+        }
+        try {
+            updateProduct.voucher = voucherFound.name;
+            updateProduct.save();
+        } catch (err) {
+            return res.status(401).json({ err: err.message });
+        }
     }
+    return res.status(200).json({ msg: "Đã thêm" });
+}
 
-    if (!existingVoucher) {
-        return res.status(404).json({ err: "Không tìm thấy voucher." });
-    };
-
-    try {
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-
-        await Promise.all(products.map(async (product) => {
-            const existProduct = await Product.findById(product);
-            if (existProduct != null) {
-                return res.status(401).json({ err: "Đã áp dụng ctkm khác" });
-            }
-            existProduct.vouchers = existingVoucher._id;
-            await existingVoucher.productList.push(existProduct);
-            await existProduct.save();
-        }));
-        await existingVoucher.save();
-        await sess.commitTransaction();
-    } catch (error) {
-        return res.status(404).json({ err: "Không thể thêm. Vui lòng thử lại sau." })
+const getProductOfVoucher = async (req, res) => {
+    const voucherId = req.params.vid;
+    const voucherFound = await Voucher.findById(voucherId);
+    if (!voucherFound) {
+        return res.status(404).json({ err: "Không thấy" });
     }
-    return res.status(200).json({ msg: "Thêm thành công." });
+    const productFound = await Product.find({ voucher: voucherFound.name });
+    if (!productFound) {
+        return res.status(404).json({ err: "Không thấy" });
+    }
+    return res.status(200).json(productFound)
 }
 
 const removeProductFromVoucher = async (req, res) => {
-    const voucherId = req.params.vid;
-    const { productId } = req.body;
-
-    let existingVoucher;
-    try {
-        existingVoucher = await Voucher.findById(voucherId).populate('productList');
-    } catch (error) {
-        return res.status(404).json({ err: error });
+    const productFound = await Product.findById(req.params.pid);
+    if (!productFound) {
+        return res.status(404).json({ err: "Không thấy" });
     }
-
-    if (!existingVoucher) {
-        return res.status(404).json({ err: "Không tìm thấy voucher." });
-    }
-
-    let productInVoucher;
-    productInVoucher = existingVoucher.productList.find(product => product.equals(productId));
-
-    if (!productInVoucher) {
-        return res.status(404).json({ err: "Sản phẩm không thuộc khuyến mãi này." });
-    }
-
-    let existingProduct;
-    try {
-        existingProduct = await Product.findById(productId);
-    } catch (error) {
-        return res.status(404).json({ err: error })
-    }
-
-    if (!existingProduct) {
-        return res.status(404).json({ err: "Không tìm thấy sản phẩm." });
-    }
-
-    try {
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-        await existingVoucher.productList.pop(existingProduct);
-        await existingVoucher.save();
-        await existingProduct.vouchers.pop(existingVoucher);
-        await existingProduct.save();
-        await sess.commitTransaction();
-    } catch (error) {
-        return res.status(404).json({ err: "Không thể xóa. Vui lòng thử lại sau." })
-    }
-    return res.status(200).json({ msg: "Đã xóa xong." });
+    productFound.voucher = null;
+    productFound.save();
+    return res.status(200).json({ msg: "Đã xóa thành công" });
 }
 
 const getProductByVoucherId = async (req, res) => {
@@ -216,40 +152,44 @@ const updateVoucher = async (req, res) => {
 
 const deleteVoucher = async (req, res) => {
     const voucherId = req.params.vid;
-
-    let voucher;
-    try {
-        voucher = await Voucher.findById(voucherId).populate('productList');
-    } catch (err) {
-        return res.status(404).json({ err: "Không thể xóa. Vui lòng thử lại sau." });
+    const voucherFound = await Voucher.findById(voucherId);
+    if (!voucherFound) {
+        return res.status(404).json({ err: "Không thấy" });
     }
+    const productFound = await Product.find({ voucher: voucherFound.name });
 
-    if (!voucher) {
-        return res.status(400).json({ err: "Không tìm thấy voucher. Vui lòng thử lại sau." });
-    };
-
-    const currentPath = process.cwd();
-    const imgLink = currentPath + '/backend/public/images/vouchers/' + voucher.image;
-
-    try {
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-        voucher.productList.map(async (product) => {
-            const existProduct = await Product.findById(product);
-            existProduct.vouchers = null;
-            await existProduct.save();
+    if (productFound) {
+        const currentPath = process.cwd();
+        const imgLink = currentPath + '/backend/public/images/vouchers/' + voucherFound.image;
+        try {
+            const sess = await mongoose.startSession();
+            sess.startTransaction();
+            productFound.map((product) => {
+                product.voucher = null;
+                product.save();
+            })
+            voucherFound.deleteOne();
+            await sess.commitTransaction();
+        } catch (err) {
+            return res.status(404).json({ err: "Không thể xóa. Đã có lỗi xảy ra." })
+        }
+        fs.unlink(imgLink, (err) => {
+            if (err) { console.log(err) }
         })
-        await voucher.deleteOne();
-        await sess.commitTransaction();
-    } catch (err) {
-        return res.status(404).json({ err: "Không thể xóa. Đã có lỗi xảy ra." })
+        res.status(200).json({ msg: "Đã xóa." })
+    } else {
+        const currentPath = process.cwd();
+        const imgLink = currentPath + '/backend/public/images/vouchers/' + voucherFound.image;
+        try {
+            voucherFound.deleteOne();
+        } catch (err) {
+            return res.status(404).json({ err: "Không thể xóa. Đã có lỗi xảy ra." })
+        }
+        fs.unlink(imgLink, (err) => {
+            if (err) { console.log(err) }
+        })
+        res.status(200).json({ msg: "Đã xóa." })
     }
-
-    fs.unlink(imgLink, (err) => {
-        if (err) { console.log(err) }
-    })
-
-    res.status(200).json({ msg: "Đã xóa." })
 }
 
 module.exports = {
@@ -261,5 +201,6 @@ module.exports = {
     removeProductFromVoucher,
     updateVoucher,
     deleteVoucher,
-    getProductForVoucher
+    getProductForVoucher,
+    getProductOfVoucher
 };

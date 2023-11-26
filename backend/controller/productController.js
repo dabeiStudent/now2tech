@@ -146,9 +146,11 @@ const getGoodProduct = async (req, res) => {
     try {
         const productFound = await Product.find({
             avgRating: {
-                $gte: 3,
+                $gte: 4,
                 $lte: 5
             }
+        }).sort({
+            avgRating: -1
         });
         const returnStart = (pageLimit * (pageNumber - 1));
         const returnEnd = returnStart + pageLimit;
@@ -173,7 +175,9 @@ const getMaxSelling = async (req, res) => {
     const pageLimit = process.env.Pagination_limit;
     const pageNumber = Number(req.query.page) || 1;
     try {
-        const productFound = await Product.find().sort({
+        const productFound = await Product.find({
+            avgRating: { $gte: 3 }
+        }).sort({
             sold: -1
         })
         const returnStart = (pageLimit * (pageNumber - 1));
@@ -194,7 +198,6 @@ const getProductAdmin = (req, res) => {
 //get one
 const getOneProduct = async (req, res) => {
     Product.findById(req.params.pid)
-        .populate('vouchers')
         .then(product => { return res.status(200).json(product) })
         .catch(err => { return res.status(404).json({ err: "Không tìm thấy" }) });
 }

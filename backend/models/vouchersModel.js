@@ -16,14 +16,6 @@ const VoucherSchema = new mongoose.Schema({
     end: {
         type: Date
     },
-    productList: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'product',
-            default: [],
-            unique: true
-        }
-    ],
     image: {
         type: String
     }

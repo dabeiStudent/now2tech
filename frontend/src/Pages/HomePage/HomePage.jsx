@@ -6,8 +6,6 @@ import {
     faChevronLeft,
     faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
-import { faKeyboard, faHardDrive } from '@fortawesome/free-regular-svg-icons'
-
 import BigBanner from "./components/BigBanner";
 import ProductCard from "../../components/UIElement/ProductCard";
 import CategoryCard from "./components/CategoryCard";
@@ -189,7 +187,7 @@ const HomePage = () => {
                         <div className="all-product-container">
                             <div className="all-product-container__main">
                                 <h2>Sản phẩm được nhiều người tin dùng</h2>
-                                <div className="all-product-container__prod-list">
+                                <div className="all-product-container__prod-list_2">
                                     {bestSeller && bestSeller.map(product => (
                                         <ProductCard
                                             key={product._id}
@@ -209,16 +207,18 @@ const HomePage = () => {
                         <div className="all-product-container">
                             <div className="all-product-container__main">
                                 <h2>Sản phẩm bán chạy</h2>
-                                <div className="all-product-container__prod-list">
+                                <div className="all-product-container__prod-list_2">
                                     {maxSelling && maxSelling.map(product => (
-                                        <ProductCard
-                                            key={product._id}
-                                            id={product._id}
-                                            name={product.name}
-                                            price={product.sellPrice}
-                                            avgRating={product.avgRating}
-                                            numOfReview={product.numOfReview}
-                                            image={product.pimage[0]} />
+                                        <div>
+                                            <ProductCard
+                                                key={product._id}
+                                                id={product._id}
+                                                name={product.name}
+                                                price={product.sellPrice}
+                                                avgRating={product.avgRating}
+                                                numOfReview={product.numOfReview}
+                                                image={product.pimage[0]} />
+                                        </div>
                                     ))}
                                 </div>
                                 {maxSelling.length >= page3 * 10 && (

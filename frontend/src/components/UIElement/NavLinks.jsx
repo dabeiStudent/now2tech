@@ -136,7 +136,7 @@ const NavLinks = () => {
                                     {goodProducts.map((product) => (
                                         <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
                                             {product.pimage.length > 0
-                                                ? <img src={`http://localhost:5000/images/${product.pimage[1]}`}
+                                                ? <img src={`http://localhost:5000/images/${product.pimage[0]}`}
                                                     alt="ảnh sản phẩm"
                                                     width="50px"
                                                     height="50px" />
