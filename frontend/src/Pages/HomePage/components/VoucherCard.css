@@ -1,19 +1,20 @@
-.voucher-card{
+.voucher-card {
     width: 280px;
     padding: 20px;
     background: #fff;
     margin: 10px;
     min-height: 320px;
     position: relative;
+    border-radius: 5px;
 }
 
-.voucher-card img{
-   width: 100%;
-   border-radius: 0;
-   max-height: 200px;
+.voucher-card img {
+    width: 100%;
+    border-radius: 0;
+    max-height: 200px;
 }
 
-.voucher-card .voucher-card-body{
+.voucher-card .voucher-card-body {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -21,7 +22,7 @@
     position: relative;
 }
 
-.voucher-card-body p{
+.voucher-card-body p {
     font-size: 18px;
     font-weight: 500;
     color: #003466;
@@ -29,7 +30,7 @@
     max-height: 80px;
 }
 
-.voucher-card__btn{
+.voucher-card__btn {
     border: none;
     width: calc(100% - 40px);
     background: #dd3036;
