@@ -90,7 +90,7 @@ const DetailModal = ({ product, onClose }) => {
                             <tr>
                                 <td>Vouchers:</td>
                                 <td>
-                                    {product.vouchers}
+                                    {product.voucher}
                                 </td>
                             </tr>
                         </tbody>

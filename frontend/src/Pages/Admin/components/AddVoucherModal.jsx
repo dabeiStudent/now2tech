@@ -7,10 +7,10 @@ import axios from 'axios';
 import './AddVoucherModal.css';
 
 const AddVoucherModal = props => {
-    const [isOpenModal, setIsOpenModal]= useState(false);
-    const [imgFile, setImgFile]= useState();
-    const [previewUrl, setPreviewUrl]= useState(); 
-    const [voucherInfo, setVoucherInfo]= useState({
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [imgFile, setImgFile] = useState();
+    const [previewUrl, setPreviewUrl] = useState();
+    const [voucherInfo, setVoucherInfo] = useState({
         name: '',
         desc: '',
         percent: '',
@@ -18,33 +18,33 @@ const AddVoucherModal = props => {
         end: '',
         image: imgFile
     });
-    
-    const changeVoucherInfoHandler= (e)=> {
-        const { name, value }= e.target;
-        setVoucherInfo({...voucherInfo, [name]: value })
+
+    const changeVoucherInfoHandler = (e) => {
+        const { name, value } = e.target;
+        setVoucherInfo({ ...voucherInfo, [name]: value })
     }
 
-    const closeModalHandler= ()=> {
+    const closeModalHandler = () => {
         setIsOpenModal(false);
     }
 
-    const openModalHandler= ()=> {
+    const openModalHandler = () => {
         setIsOpenModal(true);
     }
 
-    const addVoucherHandler= async (e)=>{
+    const addVoucherHandler = async (e) => {
         e.preventDefault();
 
-        if(voucherInfo.name === '' ||
-            voucherInfo.desc === ''||
+        if (voucherInfo.name === '' ||
+            voucherInfo.desc === '' ||
             voucherInfo.percent === '' ||
             voucherInfo.start === '' ||
             voucherInfo.end === ''
-        ){
+        ) {
             return toast("Nhập đầy đủ thông tin để thêm.")
         }
 
-        const formData= new FormData();
+        const formData = new FormData();
         formData.append('name', voucherInfo.name);
         formData.append('desc', voucherInfo.desc);
         formData.append('percent', voucherInfo.percent);
@@ -52,41 +52,41 @@ const AddVoucherModal = props => {
         formData.append('endDate', voucherInfo.end);
         formData.append('file', imgFile);
 
-        await axios.post('http://localhost:5000/voucher/add-new-voucher', formData, { withCredentials: true, headers: { "Content-Type": 'multipart/form-data'} })
-        .then(res=> {
-            setVoucherInfo({
-                name: '',
-                percent: '',
-                desc: '',
-                end: '',
-                start: ''
-            });
-            setImgFile(undefined);
-            setPreviewUrl(undefined);
-            closeModalHandler();
-            toast('Thêm thành công');
-            props.addSuccess();
-        })
-        .catch(err => toast('Đã xảy ra lỗi. Thử lại sau'))
-        
-    }
-    
+        await axios.post('http://localhost:5000/voucher/add-new-voucher', formData, { withCredentials: true, headers: { "Content-Type": 'multipart/form-data' } })
+            .then(res => {
+                setVoucherInfo({
+                    name: '',
+                    percent: '',
+                    desc: '',
+                    end: '',
+                    start: ''
+                });
+                setImgFile(undefined);
+                setPreviewUrl(undefined);
+                closeModalHandler();
+                toast('Thêm thành công');
+                props.addSuccess();
+            })
+            .catch(err => toast('Đã xảy ra lỗi. Thử lại sau'))
 
-    useEffect(()=> {
-        if(!imgFile){
+    }
+
+
+    useEffect(() => {
+        if (!imgFile) {
             setPreviewUrl(undefined);
             return
         }
-        const fileReader= new FileReader();
-        fileReader.onload= ()=> {
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
             setPreviewUrl(fileReader.result);
         };
         fileReader.readAsDataURL(imgFile);
-        
+
     }, [imgFile])
 
-    const imgChangeHandler= (e)=> {
-        if(e.target.files && e.target.files.length === 1){
+    const imgChangeHandler = (e) => {
+        if (e.target.files && e.target.files.length === 1) {
             setImgFile(e.target.files[0]);
         }
     };
@@ -97,9 +97,9 @@ const AddVoucherModal = props => {
             <div className="button-product-content">
                 <button className="add-product-button" onClick={openModalHandler}>Tạo khuyến mãi</button>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
             <Modal dialogClassName='modal-custom' show={isOpenModal} onHide={closeModalHandler}>
-                
+
                 <Modal.Header closeButton>
                     <Modal.Title>Thêm khuyến mãi</Modal.Title>
                 </Modal.Header>
@@ -175,88 +175,11 @@ const AddVoucherModal = props => {
                                 {previewUrl && <img src={previewUrl} alt="preview" />}
                                 {!previewUrl && <p>Chưa có ảnh nào!</p>}
                             </div>
-                            
-                        </div>
-                        <div className='voucher_row'>
-                            <label>Danh sách sản phẩm</label>
-                            <ul className='product-list__choose'>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                                <li className='product-list__option'>
-                                    <input type="checkbox" />
-                                    <div className='image'>
-                                        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg" alt="product" />
-                                    </div>
-                                    <div className='prod-info'>
-                                        <p>Truogn địa học sư pham kỹ thậut thành phôs hồ chí minh</p>
-                                    </div>
-                                </li>
-                            </ul>                            
+
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant='primary'type='submit'>Thêm</Button>
+                        <Button variant='primary' type='submit'>Thêm</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>

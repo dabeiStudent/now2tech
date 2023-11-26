@@ -19,7 +19,6 @@ const AddProduct = ({ onClose }) => {
         brand: '',
         category: '',
         specs: [],
-        voucher: [],
         inStock: '',
         sold: 0
     });
@@ -84,7 +83,6 @@ const AddProduct = ({ onClose }) => {
                     brand: '',
                     category: '',
                     specs: [],
-                    voucher: [],
                     inStock: '',
                     sold: 0
                 });

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,17 +8,26 @@ import { formatDate } from '../../ultis/formatDate';
 import Loader from '../../components/UIElement/Loader';
 
 const VoucherPage = () => {
-    let {vid}= useParams();
-    const [voucher, setVoucher]= useState();
-
-    useEffect(()=> {
-        const getVoucher= async (req, res)=> {
+    let { vid } = useParams();
+    const [voucher, setVoucher] = useState('');
+    const [productList, setProductList] = useState([]);
+    useEffect(() => {
+        const getVoucher = async (req, res) => {
             await axios.get(`http://localhost:5000/voucher/get-voucher/${vid}`)
-            .then(res=> setVoucher(res.data))
-            .catch(err=> console.log(err));
+                .then(res => setVoucher(res.data))
+                .catch(err => console.log(err));
         }
         getVoucher();
     }, [vid]);
+    useEffect(() => {
+        axios.get(`http://localhost:5000/voucher/get-product-of-voucher/${vid}`)
+            .then(res => {
+                setProductList(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [])
     return (
         <div className='voucher-page'>
             {voucher ? (
@@ -37,29 +46,30 @@ const VoucherPage = () => {
                                     </p>
                                     <p>Phần trăm khuyến mãi: {voucher.percent}%</p>
                                     <p>{voucher.desc}</p>
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='voucher-page__product-list'>
                         <div className='product-card__custom'>
-                            {voucher.productList.map(product=> (
+                            {productList.length > 0 && productList.map(product => (
                                 <ProductCard
                                     key={product._id}
                                     id={product._id}
                                     name={product.name}
                                     price={product.sellPrice}
                                     avgRating={product.avgRating}
-                                    numOfReview={product.numOfReview}/>
+                                    numOfReview={product.numOfReview}
+                                    image={product.pimage} />
                             ))}
-                        </div>                    
+                        </div>
                     </div>
                 </div>
             ) : (
-                <Loader/>
+                <Loader />
             )}
-            
+
         </div>
     )
 }

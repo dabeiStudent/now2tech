@@ -55,7 +55,6 @@ body {
     grid-auto-rows: minmax(min-content, max-content);
     grid-template-columns: repeat(5, minmax(0, 1fr));
     padding: 0 8px;
-    overflow-x: auto;
 }
 
 .all-product-container__main {
