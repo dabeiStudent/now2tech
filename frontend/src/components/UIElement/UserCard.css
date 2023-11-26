@@ -1,16 +1,11 @@
-/* UserCard.css */
 .user-card {
     border: 1px solid #ddd;
     padding: 10px;
-    margin: 10px;
-    width: 340px;
     background-color: #fff;
     border-radius: 5px;
     text-align: center;
-    /* Adjust the width as needed */
-    /* Add any other styling you want for each user card */
+ 
 }
-
 
 .user-card img {
     width: 100px;
@@ -28,4 +23,43 @@
 
 .user-details p {
     margin: 5px 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-details p span{
+    margin-left: 4px;
+}
+
+.user-card__footer button{
+    border: none;
+    margin: 10px 4px 0 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 10px;
+    flex-grow: 1;
+}
+
+.user-card__footer .group-top, .user-card__footer .group-bottom{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.user-card__footer .detail-btn{
+    background: #3498db;
+}
+
+.user-card__footer .update-btn{
+    background: #2ecc71;
+}
+
+.user-card__footer .block-btn{
+    background: rgb(194, 67, 199);
+}
+
+.user-card__footer .remove-btn{
+    background: #dc3545;
 }

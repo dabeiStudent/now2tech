@@ -1,34 +1,18 @@
-.user-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ccc;
+.user-content .user-list{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    max-height: 750px;
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
 
-.user-table th,
-.user-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-    width: fit-content;
-    overflow: auto;
-}
-
-.user-table tr:hover {
-    background-color: #e4e2e2;
-}
-
-
-.user-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-/* Add this to your main CSS file or create a new one for UserTable */
 .user-cards-container {
-    display: inline-flex;
+    display: flex;
+    /* display: inline-flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-between; */
     /* Adjust as needed */
 }
 
