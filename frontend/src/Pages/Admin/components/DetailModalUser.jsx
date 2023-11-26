@@ -24,9 +24,6 @@ const DetailModalUser = props => {
         };
         getUser();
     }, [props.userId])
-    // if (!user) {
-    //     return null;
-    // }
     return (
         <div>
             <div className="button-product-content">

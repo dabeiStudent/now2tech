@@ -116,17 +116,15 @@ const UsersContent = () => {
                                     <div className="button-container">
                                         {/* <button className="detail-button" onClick={() => openDetailModal(user)}>Chi tiết</button> */}
                                         <DetailModalUser userId={user._id}/>
-                                        <button className="edit-button" onClick={() => handleEdit(user)}>Cập nhật</button>
-                                        {showUpdate && selectedUser && (
+                                        {/* <button className="edit-button" onClick={() => handleEdit(user)}>Cập nhật</button> */}
+                                        {/* {showUpdate && selectedUser && (
                                             <UpdateModal user={selectedUser} onClose={closeEditModal} />
-                                        )}
+                                        )} */}
                                         {user.status === "active"
                                             ? <button className="block-button" onClick={() => handleBlock(user._id, user.status)}>Khóa</button>
                                             : <button className="block-button" onClick={() => handleBlock(user._id, user.status)}>Mở khóa</button>}
 
                                         <button className="remove-button" onClick={() => handleRemove(user._id)}>Xóa</button>
-                                        {showDetail && selectedUser && (
-                                            <DetailModalUser user={selectedUser} onClose={closeDetailModal} />)}
                                     </div>
                                 </div>
                             </React.Fragment>
