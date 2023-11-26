@@ -19,7 +19,11 @@ import VoucherCard from "./components/VoucherCard";
 import { useNavigate } from "react-router-dom";
 const HomePage = () => {
     const [products, setProduct] = useState([]);
+    const [bestSeller, setBestSeller] = useState([]);
+    const [maxSelling, setMaxSelling] = useState([]);
     const [page, setPage] = useState(1);
+    const [page2, setPage2] = useState(1);
+    const [page3, setPage3] = useState(1);
     const scrollRef = useRef(0);
     const scrollListVoucherRef = useRef(0);
     const [vouchers, setVoucher] = useState([]);
@@ -44,8 +48,40 @@ const HomePage = () => {
                     console.log(err);
                 })
         };
+        const getBestSeller = async () => {
+            await axios.get(`http://localhost:5000/product/get-good-product?page=${page2}`)
+                .then(result => {
+                    if (page2 === 1) {
+                        setBestSeller(result.data.result);
+                        console.log(bestSeller)
+                    }
+                    else {
+                        setBestSeller((prevProducts) => [...prevProducts, ...result.data.result]);
+                    }
+                })
+                .catch(err => {
+                    toast(err);
+                })
+        }
+        const getMaxSelling = async () => {
+            await axios.get(`http://localhost:5000/product/get-max-selling?page=${page3}`)
+                .then(result => {
+                    if (page3 === 1) {
+                        setMaxSelling(result.data.result);
+                        console.log(bestSeller)
+                    }
+                    else {
+                        setMaxSelling((prevProducts) => [...prevProducts, ...result.data.result]);
+                    }
+                })
+                .catch(err => {
+                    toast(err);
+                })
+        }
         getData();
-    }, [page]);
+        getBestSeller();
+        getMaxSelling();
+    }, [page, page2, page3]);
 
     useEffect(() => {
         const getVouchers = async () => {
@@ -152,9 +188,9 @@ const HomePage = () => {
                         </div>
                         <div className="all-product-container">
                             <div className="all-product-container__main">
-                                <h2>Sản phẩm bán chạy</h2>
+                                <h2>Sản phẩm được nhiều người tin dùng</h2>
                                 <div className="all-product-container__prod-list">
-                                    {products && products.map(product => (
+                                    {bestSeller && bestSeller.map(product => (
                                         <ProductCard
                                             key={product._id}
                                             id={product._id}
@@ -165,11 +201,30 @@ const HomePage = () => {
                                             image={product.pimage[0]} />
                                     ))}
                                 </div>
-                                {products.length >= page * 10 && (
+                                {bestSeller.length >= page2 * 10 && (
                                     <div className="see-more-btn"><button onClick={seeMoreBestSellerHandler}>Xem thêm &raquo;</button></div>
                                 )}
                             </div>
-
+                        </div>
+                        <div className="all-product-container">
+                            <div className="all-product-container__main">
+                                <h2>Sản phẩm bán chạy</h2>
+                                <div className="all-product-container__prod-list">
+                                    {maxSelling && maxSelling.map(product => (
+                                        <ProductCard
+                                            key={product._id}
+                                            id={product._id}
+                                            name={product.name}
+                                            price={product.sellPrice}
+                                            avgRating={product.avgRating}
+                                            numOfReview={product.numOfReview}
+                                            image={product.pimage[0]} />
+                                    ))}
+                                </div>
+                                {maxSelling.length >= page3 * 10 && (
+                                    <div className="see-more-btn"><button onClick={seeMoreBestSellerHandler}>Xem thêm &raquo;</button></div>
+                                )}
+                            </div>
                         </div>
                         <div className="all-product-container">
                             <div className="all-product-container__main">

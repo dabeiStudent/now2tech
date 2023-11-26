@@ -169,6 +169,23 @@ const getGoodProduct = async (req, res) => {
     //     .then(product => { return res.status(200).json(product) })
     //     .catch(err => { return res.status(404).json({ err: "Không có sản phẩm" }) });
 }
+const getMaxSelling = async (req, res) => {
+    const pageLimit = process.env.Pagination_limit;
+    const pageNumber = Number(req.query.page) || 1;
+    try {
+        const productFound = await Product.find().sort({
+            sold: -1
+        })
+        const returnStart = (pageLimit * (pageNumber - 1));
+        const returnEnd = returnStart + pageLimit;
+        return res.status(200).json({
+            result: productFound.slice(returnStart, returnEnd),
+            maxLength: productFound.length
+        });
+    } catch (err) {
+        return res.status(500).json({ err: err });
+    }
+}
 const getProductAdmin = (req, res) => {
     Product.find()
         .then(result => { return res.status(200).json(result) })
@@ -297,6 +314,7 @@ module.exports = {
     getProductAdmin,
     getOneProduct,
     getGoodProduct,
+    getMaxSelling,
     addNewProduct,
     addImagesProduct,
     addSpecs4Product,
