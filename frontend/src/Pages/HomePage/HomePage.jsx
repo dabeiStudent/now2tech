@@ -184,11 +184,31 @@ const HomePage = () => {
                                 </button>
                             </div>
                         </div>
+                        <div className="best-seller-container">
+                            <div className="best-seller-container__main">
+                                <h2>Sản phẩm được nhiều người tin dùng</h2>
+                                <div className="scroll">
+                                    <div className="best-seller-container__list">
+                                    {bestSeller && bestSeller.map(product => ( 
+                                        <ProductCard
+                                            key={product._id}
+                                            id={product._id}
+                                            name={product.name}
+                                            price={product.sellPrice}
+                                            avgRating={product.avgRating}
+                                            numOfReview={product.numOfReview}
+                                            image={product.pimage[0]} />                                            
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="all-product-container">
                             <div className="all-product-container__main">
-                                <h2>Sản phẩm được nhiều người tin dùng</h2>
+                                <h2>Sản phẩm bán chạy</h2>
                                 <div className="all-product-container__prod-list_2">
-                                    {bestSeller && bestSeller.map(product => (
+                                    {maxSelling && maxSelling.map(product => (
+                                        
                                         <ProductCard
                                             key={product._id}
                                             id={product._id}
@@ -197,28 +217,7 @@ const HomePage = () => {
                                             avgRating={product.avgRating}
                                             numOfReview={product.numOfReview}
                                             image={product.pimage[0]} />
-                                    ))}
-                                </div>
-                                {bestSeller.length >= page2 * 10 && (
-                                    <div className="see-more-btn"><button onClick={seeMoreBestSellerHandler}>Xem thêm &raquo;</button></div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="all-product-container">
-                            <div className="all-product-container__main">
-                                <h2>Sản phẩm bán chạy</h2>
-                                <div className="all-product-container__prod-list_2">
-                                    {maxSelling && maxSelling.map(product => (
-                                        <div>
-                                            <ProductCard
-                                                key={product._id}
-                                                id={product._id}
-                                                name={product.name}
-                                                price={product.sellPrice}
-                                                avgRating={product.avgRating}
-                                                numOfReview={product.numOfReview}
-                                                image={product.pimage[0]} />
-                                        </div>
+                                    
                                     ))}
                                 </div>
                                 {maxSelling.length >= page3 * 10 && (

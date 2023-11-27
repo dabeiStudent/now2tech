@@ -9,7 +9,7 @@ const ProductCard = props => {
     return (
         <NavLink to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">
-                <div className="product-image">
+                <div className="product-img">
                     <img
                         src={`http://localhost:5000/images/${props.image}`}
                         alt='place'

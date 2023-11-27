@@ -5,6 +5,7 @@
 .carousel-item img{
     width: 710px;
     max-width: 100%;
+    border-radius: 0;
 }
 
 .custom-indicators{

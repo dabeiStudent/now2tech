@@ -1,6 +1,7 @@
 a {
     text-decoration: none;
     color: #333;
+    height: fit-content;
     /* color: #288ad6; */
 }
 
@@ -14,7 +15,7 @@ a {
     width: 220px;
 }
 
-.product-image {
+.product-img {
     position: relative;
     margin: 10px 0;
     display: block;
@@ -23,17 +24,21 @@ a {
     line-height: 225px;
 }
 
+.product-img img{
+    border-radius: 0;
+}
+
 .product-card:hover {
     text-decoration: none;
     transition: 0.2s;
     color: #288ad6;
 }
 
-.product-card:hover .product-image img {
+.product-card:hover .product-img img {
     margin-top: 0;
 }
 
-.product-image img {
+.product-img img {
     max-width: 100%;
     margin-top: 8px;
     transition: all 0.2s ease-in-out;
