@@ -144,9 +144,18 @@ const sendVoucherMail = async (req, res) => {
                 from: 'Now2Tech <tranlan0310@gmail.com>',
                 to: userMail,
                 subject: 'Thông báo khuyến mãi',
-                html: `<h1 style="color:red;">Chương trình: ${name} đang có khuyến mãi tới ${percent}% </h1>
-                    <h2 style="color:black;">Hãy tới ngay Now2Tech để chọn sản phẩm ưng ý nhất</h2>
-                    <p2 style="color:black;">Để hủy nhận thông tin khuyến mãi hãy cập nhật ở "Hồ sơ của tôi"</p>`
+                html: `<div class="advertisement" style=" width: 80%;
+                        max-width: 600px;
+                        margin: 20px auto;
+                        padding: 20px;
+                        background-color: #fff;
+                        border: 2px solid #e74c3c;
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                            <h1 class="header" style="color: red;">Chương trình: ${name} đang có khuyến mãi tới ${percent}% </h1>
+                            <h2 class="sub-header" style="color: black;">Hãy tới ngay Now2Tech để chọn sản phẩm ưng ý nhất</h2>
+                            <p2 class="info" style="color: black;">Để hủy nhận thông tin khuyến mãi hãy cập nhật ở "Hồ sơ của tôi"</p2>
+                        </div>`
             }
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {

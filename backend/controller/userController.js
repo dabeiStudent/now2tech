@@ -204,6 +204,7 @@ const updateUser = function (req, res) {
 }
 //update profile (user signed in)
 const updateProfile = function (req, res) {
+    // console.log(req.body)
     if (req.body.userName == "admin") {
         return res.status(400).json({ err: "Không thể dùng username này" })
     }
