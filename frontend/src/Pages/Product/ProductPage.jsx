@@ -28,6 +28,7 @@ const ProductPage = () => {
     let { pid } = useParams();
     const [product, setProduct] = useState();
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [discount, setDiscount] = useState('')
     const navigate = useNavigate();
     const cart = useContext(CartContext);
     const authContext = useContext(AuthContext);
@@ -43,7 +44,15 @@ const ProductPage = () => {
                             setRelatedProducts(result.data.result);
                         })
                         .catch(err => {
-                            window.alert(err);
+                            toast(err);
+                        })
+                    axios.get(`http://localhost:5000/voucher/get-voucher-by-name?vname=${res.data.voucher}`)
+                        .then(result => {
+                            console.log(result.data)
+                            setDiscount(result.data);
+                        })
+                        .catch(err => {
+                            toast(err);
                         })
                 })
                 .catch(err => {
@@ -59,7 +68,7 @@ const ProductPage = () => {
             name: product.name,
             price: product.sellPrice,
             image: product.pimage[0],
-            vouchers: product.vouchers,
+            voucher: discount,
             qty: 1
         }
     }
@@ -125,9 +134,9 @@ const ProductPage = () => {
                         <div className='box-right'>
                             <div className='price-container'>
                                 <p className='price-container__title'>Giá bán:</p>
-                                {product.vouchers ? (
+                                {product.voucher ? (
                                     <div className='box-price'>
-                                        <p className='box-price-present'>{formatPrice((100 - product.vouchers.percent) * product.sellPrice / 100)}  *</p>
+                                        <p className='box-price-present'>{formatPrice((100 - discount.percent) * product.sellPrice / 100)}  *</p>
                                         <p className='box-price-old'>{formatPrice(product.sellPrice)}</p>
                                     </div>
                                 ) : (
@@ -136,7 +145,7 @@ const ProductPage = () => {
                                     </div>
                                 )}
                             </div>
-                            <VoucherComponent vouchers={product.vouchers} />
+                            <VoucherComponent vouchers={discount} />
                             {product.inStock !== 0
                                 ? <div>
                                     <button onClick={buyNowHandler} className='product-page__btn buy-now-btn'>MUA NGAY</button>

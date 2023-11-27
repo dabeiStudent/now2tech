@@ -95,7 +95,7 @@ const VouchersContent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredVouchers.map(voucher =>
+                                {vouchers.map(voucher =>
                                     <tr key={voucher._id} className="product-row">
                                         <td className="product-cell">{voucher._id}</td>
                                         <td className="product-cell">{voucher.name}</td>

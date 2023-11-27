@@ -28,6 +28,16 @@ const getVoucherById = async (req, res) => {
             res.status(404).json({ err: err });
         })
 }
+const getVoucherByName = async (req, res) => {
+    const voucherName = req.query.vname;
+    Voucher.findOne({ name: voucherName })
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            res.status(404).json({ err: err });
+        })
+}
 
 const createVoucher = async (req, res) => {
     const { name, desc, percent, startDate, endDate } = req.body;
@@ -197,6 +207,7 @@ module.exports = {
     addProductToVoucher,
     getAllVoucher,
     getVoucherById,
+    getVoucherByName,
     getProductByVoucherId,
     removeProductFromVoucher,
     updateVoucher,
