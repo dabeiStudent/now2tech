@@ -25,6 +25,7 @@ const HomePage = () => {
     const scrollRef = useRef(0);
     const scrollListVoucherRef = useRef(0);
     const [vouchers, setVoucher] = useState([]);
+    const [currentDate, setCurrentDate] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
     const [isOverflow, setIsOverflow] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -94,8 +95,12 @@ const HomePage = () => {
                 })
         };
         getVouchers();
+        setCurrentDate(new Date());
     }, []);
 
+    const filteredVoucher = vouchers.filter((voucher) => {
+        return new Date(voucher.end) > currentDate;
+    });
     useEffect(() => {
         const scrollContainer = scrollRef.current;
         const scrollListVoucher = scrollListVoucherRef.current;
@@ -164,10 +169,10 @@ const HomePage = () => {
                         </div>
                         <div className="voucher-container">
                             <div className="voucher-container__main">
-                                <h2>Chương trình khuyến mãi</h2>
+                                <h2>CHƯƠNG TRÌNH KHUYẾN MÃI</h2>
                                 <div className="scroll" ref={scrollRef}>
                                     <div ref={scrollListVoucherRef} className="voucher-container__list">
-                                        {vouchers.map(voucher => (
+                                        {filteredVoucher.map(voucher => (
                                             <VoucherCard
                                                 name={voucher.name}
                                                 key={voucher._id}
@@ -186,18 +191,18 @@ const HomePage = () => {
                         </div>
                         <div className="best-seller-container">
                             <div className="best-seller-container__main">
-                                <h2>Sản phẩm được nhiều người tin dùng</h2>
+                                <h2>SẢN PHẨM ĐƯỢC ĐÁNH GIÁ CAO</h2>
                                 <div className="scroll">
                                     <div className="best-seller-container__list">
-                                    {bestSeller && bestSeller.map(product => ( 
-                                        <ProductCard
-                                            key={product._id}
-                                            id={product._id}
-                                            name={product.name}
-                                            price={product.sellPrice}
-                                            avgRating={product.avgRating}
-                                            numOfReview={product.numOfReview}
-                                            image={product.pimage[0]} />                                            
+                                        {bestSeller && bestSeller.map(product => (
+                                            <ProductCard
+                                                key={product._id}
+                                                id={product._id}
+                                                name={product.name}
+                                                price={product.sellPrice}
+                                                avgRating={product.avgRating}
+                                                numOfReview={product.numOfReview}
+                                                image={product.pimage[0]} />
                                         ))}
                                     </div>
                                 </div>
@@ -205,10 +210,10 @@ const HomePage = () => {
                         </div>
                         <div className="all-product-container">
                             <div className="all-product-container__main">
-                                <h2>Sản phẩm bán chạy</h2>
+                                <h2>SẢN PHẨM BÁN CHẠY</h2>
                                 <div className="all-product-container__prod-list_2">
                                     {maxSelling && maxSelling.map(product => (
-                                        
+
                                         <ProductCard
                                             key={product._id}
                                             id={product._id}
@@ -217,7 +222,7 @@ const HomePage = () => {
                                             avgRating={product.avgRating}
                                             numOfReview={product.numOfReview}
                                             image={product.pimage[0]} />
-                                    
+
                                     ))}
                                 </div>
                                 {maxSelling.length >= page3 * 10 && (
@@ -227,7 +232,7 @@ const HomePage = () => {
                         </div>
                         <div className="all-product-container">
                             <div className="all-product-container__main">
-                                <h2>Tất cả sản phẩm</h2>
+                                <h2>TẤT CẢ SẢN PHẨM</h2>
                                 <div className="all-product-container__prod-list">
                                     {products && products.map(product => (
                                         <ProductCard

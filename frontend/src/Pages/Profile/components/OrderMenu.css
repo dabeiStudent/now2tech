@@ -1,4 +1,5 @@
 .my-order {
+    display: flex;
     height: 70%;
     width: 100%;
     overflow: auto;
@@ -24,7 +25,7 @@
 
 .price-product {
     display: flex;
-    width: 200px;
+
     text-align: left;
     justify-content: left;
 }
