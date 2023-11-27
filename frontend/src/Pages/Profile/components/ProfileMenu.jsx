@@ -22,7 +22,17 @@ const ProfileMenu = () => {
         oldPassword: '',
         newPassword: ''
     });
-    const [updateUser, setUpdateUser] = useState({})
+    const [updateUser, setUpdateUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        userName: '',
+        gender: '',
+        getNotice: '',
+        image: '',
+        dob: ''
+    })
 
     useEffect(() => {
         axios.get('http://localhost:5000/user/profile/my-profile', { withCredentials: true })
@@ -185,7 +195,7 @@ const ProfileMenu = () => {
                         <div className="right_profile">
                             <p>Email: {user.email}</p>
                             <p>Username: {user.userName}</p>
-                            <p>Giới tính: {user.gender === "Male" ? "Nam" : "Nữ"}</p>
+                            <p>Giới tính: {user.gender === "male" ? "Nam" : "Nữ"}</p>
                             <p>Nhận thông báo: {user.getNotice === false ? "Không" : "Có"}</p>
 
                         </div>
@@ -225,8 +235,8 @@ const ProfileMenu = () => {
                                             <input name='userName' value={updateUser.userName} onChange={onChange2} placeholder="Username" required />
                                             <select name='gender' value={updateUser.gender} onChange={onChange2} required>
                                                 <option disabled>Giới tính của bạn là:</option>
-                                                <option value="male">Nam</option>
-                                                <option value="female">Nữ</option>
+                                                <option name="gender" value="male">Nam</option>
+                                                <option name="gender" value="female">Nữ</option>
                                             </select>
                                             <select name='getNotice' value={updateUser.getNotice} onChange={onChange2} required >
                                                 <option disabled>Nhận thông báo?</option>
