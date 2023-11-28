@@ -65,8 +65,14 @@ const OrderMenu = () => {
                             return (
                                 <tr key={order._id} >
                                     <td className="oid_row">{order._id}</td>
-                                    <td>{order.status}</td>
-                                    <td className="price-product">
+                                    <td>
+                                        {order.status === 'Not_proccessed' && 'Chờ xác nhận'}
+                                        {order.status === 'Processing' && 'Đang xử lý'}
+                                        {order.status === 'Shipped' && 'Đang giao'}
+                                        {order.status === 'Delivered' && 'Giao thành công'}
+                                        {order.status === 'Cancelled' && 'Đã hủy'}
+                                    </td>
+                                    <td>
                                         <ul>
                                             {order.items.map((item, itemIndex) => (
                                                 <li key={itemIndex}>

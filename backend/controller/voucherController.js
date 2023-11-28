@@ -116,6 +116,22 @@ const removeProductFromVoucher = async (req, res) => {
     return res.status(200).json({ msg: "Đã xóa thành công" });
 }
 
+const removeAllProductFromVoucher = async (req, res) => {
+    const voucherId = req.params.vid;
+    const voucherFound = await Voucher.findOne({ _id: voucherId });
+    if (!voucherFound) {
+        return res.status(404).json({ err: "Không thấy voucher" });
+    }
+    const productsFound = await Product.find({ voucher: voucherFound.name })
+    if (!productsFound) {
+        return res.status(404).json({ err: "Không thấy sản phẩm" });
+    }
+    productsFound.map((product) => {
+        product.voucher = null;
+        product.save();
+    });
+    return res.status(200).json({ msg: "Đã xóa" });
+}
 const getProductByVoucherId = async (req, res) => {
     const voucherId = req.params.vid;
     // console.log(req.params)
@@ -210,6 +226,7 @@ module.exports = {
     getVoucherByName,
     getProductByVoucherId,
     removeProductFromVoucher,
+    removeAllProductFromVoucher,
     updateVoucher,
     deleteVoucher,
     getProductForVoucher,

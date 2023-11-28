@@ -28,7 +28,7 @@ const AddProductDiscount = props => {
                 .catch(err => console.log(err))
         }
         getListProduct();
-    }, [props.voucherId, flag]);
+    }, [props.voucherId, flag, isOpenModal]);
     useEffect(() => {
         const getListProduct = async () => {
             await axios.get(`http://localhost:5000/voucher/get-product-of-voucher/${props.voucherId}`, { withCredentials: true })
@@ -36,7 +36,7 @@ const AddProductDiscount = props => {
                 .catch(err => console.log(err))
         }
         getListProduct();
-    }, [props.voucherId, flag]);
+    }, [props.voucherId, flag, isOpenModal]);
     const checkboxChangeHandler = (e) => {
         if (selectedProduct.includes(e.target.value)) {
             setSelectedProduct(selectedProduct.filter(item => item !== e.target.value))
@@ -61,6 +61,17 @@ const AddProductDiscount = props => {
     }
     const removeItem = (productId) => {
         axios.put(`http://localhost:5000/voucher/remove-product-from-voucher/${productId}`, '', { withCredentials: true })
+            .then(result => {
+                toast('Đã xóa thành công');
+                setFlag(!flag);
+            })
+            .catch(err => {
+                toast("Có lỗi xảy ra");
+                console.log(err);
+            })
+    }
+    const removeAllItem = (voucherId) => {
+        axios.delete(`http://localhost:5000/voucher/remove-all-product-from-voucher/${voucherId}`, { withCredentials: true })
             .then(result => {
                 toast('Đã xóa thành công');
                 setFlag(!flag);
@@ -108,8 +119,8 @@ const AddProductDiscount = props => {
                         </div>)}
                         <div className='voucher_row'>
                             <label>Danh sách sản phẩm của khuyến mãi này</label>
-                            <ul className='product-list__choose'>
-                                {productsOf.map(product => (
+                            {productsOf.map(product => (
+                                <ul className='product-list__choose'>
                                     <li key={product._id} className='product-list__option'>
                                         <div className='image'>
                                             <img src={`http://localhost:5000/images/${product.pimage[0]}`} alt="product" />
@@ -121,8 +132,9 @@ const AddProductDiscount = props => {
                                             <input type="button" className='remove-button' onClick={() => removeItem(product._id)} value="Xóa" />
                                         </div>
                                     </li>
-                                ))}
-                            </ul>
+                                </ul>
+                            ))}
+                            <input type="button" className='remove-button' onClick={() => removeAllItem(props.voucherId)} value="Xóa tất cả" />
                         </div>
                     </Modal.Body>
                     <Modal.Footer>

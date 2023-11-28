@@ -30,6 +30,8 @@ router.get('/get-product-of-voucher/:vid', voucherController.getProductOfVoucher
 // router.post('/add-new-voucher', voucherController.createVoucher);
 router.put('/add-product-to-voucher/:vid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.addProductToVoucher);
 router.put('/remove-product-from-voucher/:pid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.removeProductFromVoucher);
+router.delete('/remove-all-product-from-voucher/:vid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.removeAllProductFromVoucher);
+
 router.put('/update-voucher/:vid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.updateVoucher);
 router.delete('/delete-voucher/:vid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.deleteVoucher);
 router.post('/add-new-voucher', upload.single('file'), tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.createVoucher);
