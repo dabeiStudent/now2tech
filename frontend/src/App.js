@@ -2,14 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 import LoginPage from './Pages/Authenticate/LoginPage';
 import SignUpPage from './Pages/Authenticate/SignUpPage';
 import HomePage from './Pages/HomePage/HomePage';
 import ResetPWPage from './Pages/Authenticate/ResetPWPage';
 import ProfilePage from './Pages/Profile/ProfilePage';
-// import MainHeader from './components/UIElement/MainHeader';
 import MainNavigation from './components/UIElement/MainNavigation';
 import Footer from './components/UIElement/Footer';
 import ProductPage from './Pages/Product/ProductPage';
@@ -28,7 +26,6 @@ import VNPayPayment from './Pages/Order/VNPayPayment';
 import { AuthContext } from './ultis/authContext';
 import VoucherPage from './Pages/Voucher/VoucherPage';
 import SearchResultPage from './Pages/Search/SearchResultPage';
-import axios from 'axios';
 import './App.css';
 import FilterByCategory from './Pages/Search/FilterByCategory';
 
@@ -47,12 +44,10 @@ function App() {
   const { selectedItems, address, setSelectedItems, setAddress } = useOrder();
 
   const login = useCallback(() => {
-    // setUname(name);
     setIsLogin(true);
   }, []);
 
   const logout = useCallback(() => {
-    // setUname(name);
     setIsLogin(false);
   }, [])
 
