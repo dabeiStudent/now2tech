@@ -8,6 +8,7 @@ import SelectedItem from './components/SelectedItem'
 const Shipping = () => {
   const orderContext= useContext(OrderContext);
 
+  console.log(orderContext.selectedItems)
   return (
     <div className='shipping-page'>
         <div className='shipping-page__main'>

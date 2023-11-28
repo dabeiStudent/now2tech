@@ -4,13 +4,12 @@ import { Carousel } from 'react-bootstrap';
 import './ProductCarousel.css';
 
 const ProductCarousel = props => {
-    console.log(props.images)
     return (
         <div className='product-carousel'>
         
             <Carousel interval={null} >
                 {props.images.map(image=> (
-                    <Carousel.Item >
+                    <Carousel.Item key={image}>
                         <img src={`http://localhost:5000/images/${image}`} alt="product" />
                     </Carousel.Item>
                 ))}

@@ -32,6 +32,7 @@ const ProductPage = () => {
     const cart = useContext(CartContext);
     const authContext = useContext(AuthContext);
     const orderContext = useContext(OrderContext);
+    const [selectedItem, setSelectedItem]= useState([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -47,7 +48,6 @@ const ProductPage = () => {
                         })
                     axios.get(`http://localhost:5000/voucher/get-voucher-by-name?vname=${res.data.voucher}`)
                         .then(result => {
-                            console.log(result.data)
                             setDiscount(result.data);
                         })
                         .catch(err => {
@@ -60,6 +60,7 @@ const ProductPage = () => {
         };
         getData();
     }, [pid]);
+
     let cartItem;
     if (product) {
         cartItem = {
@@ -68,27 +69,51 @@ const ProductPage = () => {
         }
     }
 
+    useEffect(()=> {
+        const getDataForCart= async()=> {
+            await axios.get('http://localhost:5000/product/get-product-in-cart', {
+                params: { products: [product._id]}
+            }).then(res=> {
+                const data= res.data.map(item=> {
+                    return {
+                        ...item,
+                        qty: 1
+                    }
+                })
+            setSelectedItem(data)
+            }).catch(err=> console.log(err));
+        }
+        if(product){
+            getDataForCart();
+        }
+    }, [product]);
+
     const addToCartHandler = async () => {
         toast("Đã thêm vào giỏ hàng")
         cart.addToCart(cartItem);
         navigate("/gio-hang")
     };
 
-    const buyNowHandler = () => {
+    const buyNowHandler = async () => {
         if (authContext.isLogin === false) {
             toast("Vui lòng đăng nhập để mua hàng");
             return;
         }
-
-        orderContext.setSelectedItems([cartItem]);
+        
+        orderContext.setSelectedItems(selectedItem);
         navigate('/thong-tin-giao-hang');
     }
+
+   
+
     const navigateToCategory = (pCate) => {
         navigate(`/loctheodanhmuc/${pCate}/All/0/0/1`);
     }
+
     const navigateToBrand = (pCate, pBrand) => {
         navigate(`/loctheodanhmuc/${pCate}/${pBrand}/0/0/1`);
     }
+
     const scrollToReviews = (e) => {
         e.preventDefault();
         ref.current?.scrollIntoView({ behavior: 'smooth' });
