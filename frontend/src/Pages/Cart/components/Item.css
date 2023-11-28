@@ -26,6 +26,26 @@
     padding-top: 6px;
 }
 
+.product-name .discount{
+    margin-left: 10px;
+    color: red;
+}
+
+.product-name .discount .tag-icon{
+    font-size: 12px;
+}
+
+.product-name .discount a{
+    font-weight: 400;
+    font-size: 14px;
+    color: red;
+}
+
+.product-name .discount a:hover{
+    color: red;
+}
+
+
 .product-name a{
     font-size: 16px;
     font-weight: 600;

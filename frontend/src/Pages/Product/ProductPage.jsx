@@ -23,7 +23,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StarRating from './components/StarRating';
 const ProductPage = () => {
-    const targetDivRef = useRef(null);
     const ref = useRef(null);
     let { pid } = useParams();
     const [product, setProduct] = useState();
@@ -65,10 +64,6 @@ const ProductPage = () => {
     if (product) {
         cartItem = {
             id: product._id,
-            name: product.name,
-            price: product.sellPrice,
-            image: product.pimage[0],
-            voucher: discount,
             qty: 1
         }
     }

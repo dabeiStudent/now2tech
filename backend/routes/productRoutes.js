@@ -21,6 +21,7 @@ const upload = multer({
 })
 //get all
 router.get('/get-all-product', productController.getProduct);
+router.get('/get-product-in-cart', productController.getProductInCart);
 router.get('/get-all-admin', tokenCheck.checkJWT, tokenCheck.isAdmin, productController.getProductAdmin);
 router.get('/get-good-product', productController.getGoodProduct);
 router.get('/get-max-selling', productController.getMaxSelling);

@@ -164,7 +164,8 @@ const UserInfo = () => {
                 totalPrice: orderContext.selectedItems.reduce((acc, current) => acc + current.price * current.qty, 0) + 12000
             }, { withCredentials: true })
                 .then(res => {
-                    cartContext.setCartItems(cartContext.items.filter(item => !orderContext.selectedItems.includes(item)));
+                    const cart= cartContext.items.filter(item=> orderContext.selectedItems.every(oitem=> toString(oitem._id) !== toString(item.id)));
+                    cartContext.setCartItems(cart);
                     setOrdered(res.data)
                 })
                 .catch(err => console.log(err))

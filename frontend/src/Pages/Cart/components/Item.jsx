@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faTag } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment/moment';
 
 import './Item.css';
 import { CartContext } from '../../../ultis/cartContext';
@@ -21,9 +22,9 @@ const Item = props => {
         cart.deleteItem(props.id);
     }
 
+
     return (
         <div className='product-item'>
-            {/* <Form.Check className='custom__check-box' value={props.id} name='item' aria-label='option'/> */}
             <div className='product-item__img'>
                 <img src={`http://localhost:5000/images/${props.image}`} alt="product" />
             </div>
@@ -31,11 +32,17 @@ const Item = props => {
                 <div className='product-item__info-top'>
                     <div className='product-name'>
                         <a href={`/chi-tiet-san-pham/${props.id}`}>{props.name}</a>
+                        {props.voucher && props.discountValid && (
+                            <span className='discount'>
+                                <FontAwesomeIcon className='tag-icon' icon={faTag}/>
+                                <a href={`/khuyen-mai/${props.voucher._id}`}>Giảm giá {props.discountPercent}</a>
+                            </span>
+                        )}
                     </div>
-                    {props.vouchers ? (
+                    {(props.voucher && props.discountValid) ? (
                         <div className='group-price'>
-                            <span className='sell-price'>{formatPrice(props.price * (100 - props.vouchers.percent) / 100)}</span>
-                            <span className='origin-price'>{formatPrice(props.price)}</span>
+                            <span className='sell-price'>{formatPrice(props.price)}</span>
+                            <span className='origin-price'>{formatPrice(props.sellPrice)}</span>
                         </div> 
                     ) : (
                         <div className='group-price'>

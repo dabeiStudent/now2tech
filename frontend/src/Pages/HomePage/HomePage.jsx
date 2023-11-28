@@ -51,7 +51,6 @@ const HomePage = () => {
                 .then(result => {
                     if (page2 === 1) {
                         setBestSeller(result.data.result);
-                        console.log(bestSeller)
                     }
                     else {
                         setBestSeller((prevProducts) => [...prevProducts, ...result.data.result]);
@@ -66,7 +65,6 @@ const HomePage = () => {
                 .then(result => {
                     if (page3 === 1) {
                         setMaxSelling(result.data.result);
-                        console.log(bestSeller)
                     }
                     else {
                         setMaxSelling((prevProducts) => [...prevProducts, ...result.data.result]);
@@ -153,7 +151,7 @@ const HomePage = () => {
                             <div className="category-container__main">
                                 <h2>Danh mục sản phẩm</h2>
                                 {categories.map(category => (
-                                    <div className="category-list" onClick={() => filterByCate(category.name)}>
+                                    <div key={category._id} className="category-list" onClick={() => filterByCate(category.name)}>
                                         <CategoryCard>
                                             <FontAwesomeIcon className="category-card__icon" icon={faClipboardList} />
                                             <p>{category.name}</p>

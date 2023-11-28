@@ -1,5 +1,7 @@
 const { json } = require('body-parser');
 const Product = require('../models/productsModel');
+const Voucher= require('../models/vouchersModel');
+const moment= require('moment');
 
 //get all & filter by brand, price, category.
 //mỗi hàm filter chỉ truyền tham số req.query phù hợp
@@ -312,6 +314,51 @@ const addReview = async (req, res) => {
 
     res.status(200).json({ msg: "Thêm review thành công." });
 }
+
+const getProductInCart= async (req, res)=> {
+    const {products}= req.query;
+    let foundProduct;
+    try {
+        foundProduct= await Product.find({ _id: {$in: products}}, {_id: 1, name: 1, inStock: 1, pimage: 1, sellPrice: 1, voucher: 1})
+    } catch (error) {
+        return res.status(404).json({err: "Đã xảy ra lỗi khi tìm"});
+    }
+    
+    const currentDate= moment();
+    const newData= await Promise.all( foundProduct.map(async (product)=> {
+        let price = product.sellPrice;
+        let discountValid = false;
+        let discountPercent= 0;
+        let image= product.pimage[0];
+        
+        if(product.voucher === null){
+            return {
+                ...product._doc,
+                price: price,
+                discountValid: discountValid,
+                discountPercent: discountPercent,
+                image: image
+            }
+        }       
+
+        const existVoucher= await Voucher.findOne({name: product.voucher})     
+        
+        if(currentDate.isAfter(existVoucher.start) && currentDate.isBefore(existVoucher.end)){
+            price= product.sellPrice - (product.sellPrice * (existVoucher.percent/100));
+            discountValid= true;
+            discountPercent= existVoucher.percent;
+        }
+
+        return {
+            ...product._doc,
+            price: price,
+            discountValid: discountValid,
+            discountPercent: discountPercent,
+            image: image
+        }   
+    }));
+    res.status(200).json(newData);
+}
 module.exports = {
     getProduct,
     getProductAdmin,
@@ -324,5 +371,6 @@ module.exports = {
     updateProduct,
     updateSpecs,
     removeProduct,
-    addReview
+    addReview,
+    getProductInCart
 };
