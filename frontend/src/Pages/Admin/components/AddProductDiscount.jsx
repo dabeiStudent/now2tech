@@ -55,7 +55,9 @@ const AddProductDiscount = props => {
                     setSelectedProduct([])
                     setFlag(!flag);
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    toast('Không thể thêm sản phẩm vào chương trình này nữa');
+                })
         }
         addProducts();
     }

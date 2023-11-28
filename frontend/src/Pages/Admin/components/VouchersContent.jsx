@@ -15,6 +15,7 @@ const VouchersContent = () => {
     const [vouchers, setVouchers] = useState([]);
     const [isReload, setIsReload] = useState(false);
     const [showExpired, setShowExpired] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const getVouchers = async () => {
@@ -53,15 +54,44 @@ const VouchersContent = () => {
                 })
         }
     }
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
     const filteredVouchers = showExpired
         ? vouchers.filter(voucher => new Date(voucher.end) <= new Date())
         : vouchers.filter(voucher => new Date(voucher.end) > new Date());
+    const searchVoucher = vouchers.filter((voucher) => {
+        return (
+            voucher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            voucher._id.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    })
+    const resetDiscount = () => {
+        axios.put('http://localhost:5000/voucher/reset-all-discount', { vouchers }, { withCredentials: true })
+            .then(result => {
+                toast("Đã reset lại các sản phẩm");
+            })
+            .catch(err => {
+                toast(err.message);
+            })
+    }
     return (
         <React.Fragment>
             <ToastContainer />
             {vouchers ? (
                 <div className="product-content">
-                    <AddVoucherModal addSuccess={() => isSuccess()} />
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Tìm tên/mã chương trình"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
+                    </div>
+                    <div className='top-voucher-page'>
+                        <AddVoucherModal addSuccess={() => isSuccess()} />
+                        <button onClick={resetDiscount} className="add-product-button">Ngưng áp dụng các chương trình hết hạn</button>
+                    </div>
                     <div className='filter-checkbox-voucher'>
                         <input
                             id="checkbox"
@@ -85,28 +115,56 @@ const VouchersContent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredVouchers.map(voucher =>
-                                    <tr key={voucher._id} className="product-row">
-                                        <td className="product-cell">{voucher._id}</td>
-                                        <td className="product-cell">{voucher.name}</td>
-                                        <td className="product-cell">{voucher.percent}</td>
-                                        <td className="product-cell">{voucher.desc}</td>
-                                        <td className="product-cell">{formatDate(voucher.start)}</td>
-                                        <td className="product-cell">{formatDate(voucher.end)}</td>
-                                        <td className="product-cell">
-                                            <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner' />
-                                        </td>
-                                        <td className="product-cell">
-                                            <div className='voucher-btn'>
-                                                <DetailVoucherModal voucherId={voucher._id} />
-                                                <UpdateVoucherModal isSuccess={() => isSuccess()} voucherId={voucher._id} />
-                                                <AddProductDiscount voucherId={voucher._id} />
-                                                <button className='upload-button' onClick={() => sendEmailToUsers(voucher._id)}>Gửi thông báo</button>
-                                                <button className="block-button" onClick={() => deleteVoucherHandler(voucher._id)}>Xóa</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )}
+                                {searchTerm == ""
+                                    ? <React.Fragment>
+                                        {filteredVouchers.map(voucher =>
+                                            <tr key={voucher._id} className="product-row">
+                                                <td className="product-cell">{voucher._id}</td>
+                                                <td className="product-cell">{voucher.name}</td>
+                                                <td className="product-cell">{voucher.percent}</td>
+                                                <td className="product-cell">{voucher.desc}</td>
+                                                <td className="product-cell">{formatDate(voucher.start)}</td>
+                                                <td className="product-cell">{formatDate(voucher.end)}</td>
+                                                <td className="product-cell">
+                                                    <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner' />
+                                                </td>
+                                                <td className="product-cell">
+                                                    <div className='voucher-btn'>
+                                                        <DetailVoucherModal voucherId={voucher._id} />
+                                                        <UpdateVoucherModal isSuccess={() => isSuccess()} voucherId={voucher._id} />
+                                                        <AddProductDiscount voucherId={voucher._id} />
+                                                        <button className='upload-button' onClick={() => sendEmailToUsers(voucher._id)}>Gửi thông báo</button>
+                                                        <button className="block-button" onClick={() => deleteVoucherHandler(voucher._id)}>Xóa</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                    : <React.Fragment>
+                                        {searchVoucher.map(voucher =>
+                                            <tr key={voucher._id} className="product-row">
+                                                <td className="product-cell">{voucher._id}</td>
+                                                <td className="product-cell">{voucher.name}</td>
+                                                <td className="product-cell">{voucher.percent}</td>
+                                                <td className="product-cell">{voucher.desc}</td>
+                                                <td className="product-cell">{formatDate(voucher.start)}</td>
+                                                <td className="product-cell">{formatDate(voucher.end)}</td>
+                                                <td className="product-cell">
+                                                    <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner' />
+                                                </td>
+                                                <td className="product-cell">
+                                                    <div className='voucher-btn'>
+                                                        <DetailVoucherModal voucherId={voucher._id} />
+                                                        <UpdateVoucherModal isSuccess={() => isSuccess()} voucherId={voucher._id} />
+                                                        <AddProductDiscount voucherId={voucher._id} />
+                                                        <button className='upload-button' onClick={() => sendEmailToUsers(voucher._id)}>Gửi thông báo</button>
+                                                        <button className="block-button" onClick={() => deleteVoucherHandler(voucher._id)}>Xóa</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                }
                             </tbody>
                         </table>
                     </div>

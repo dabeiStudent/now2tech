@@ -30,15 +30,20 @@ const getVoucherById = async (req, res) => {
 }
 const getVoucherByName = async (req, res) => {
     const voucherName = req.query.vname;
-    Voucher.findOne({ name: voucherName })
-        .then(result => {
-            res.status(200).json(result);
-        })
-        .catch(err => {
-            res.status(404).json({ err: err });
-        })
+    const now = new Date();
+    const voucherFound = await Voucher.findOne({
+        name: voucherName,
+        end: {
+            $gt: now
+        }
+    })
+    if (voucherFound) {
+        res.status(200).json(voucherFound);
+    }
+    else {
+        res.status(200).json(null);
+    }
 }
-
 const createVoucher = async (req, res) => {
     const { name, desc, percent, startDate, endDate } = req.body;
     const image = req.file.filename;
@@ -74,6 +79,7 @@ const getProductForVoucher = async (req, res) => {
 const addProductToVoucher = async (req, res) => {
     const voucherId = req.params.vid;
     const { products } = req.body;
+    const now = new Date();
     for (const productId of products) {
         const updateProduct = await Product.findOne({ _id: productId }).exec();
         if (!updateProduct) {
@@ -84,10 +90,14 @@ const addProductToVoucher = async (req, res) => {
             return res.status(404).json({ err: "Không tìm thấy" });
         }
         try {
-            updateProduct.voucher = voucherFound.name;
-            updateProduct.save();
+            if (voucherFound.end > now) {
+                updateProduct.voucher = voucherFound.name;
+                updateProduct.save();
+            } else {
+                return res.status(401).json({ err: "Hết hạn" });
+            }
         } catch (err) {
-            return res.status(401).json({ err: err.message });
+            return res.status(500).json({ err: err.message });
         }
     }
     return res.status(200).json({ msg: "Đã thêm" });
@@ -131,6 +141,26 @@ const removeAllProductFromVoucher = async (req, res) => {
         product.save();
     });
     return res.status(200).json({ msg: "Đã xóa" });
+}
+const checkAndRemoveExpired = async (req, res) => {
+    // console.log(req.body.vouchers);
+    const vouchers = req.body.vouchers;
+    const now = new Date();
+    for (const voucher of vouchers) {
+        const voucherEndDate = new Date(voucher.end);
+        if (voucherEndDate < now) {
+            // console.log(voucher.end)
+            const productUpdates = await Product.find({ voucher: voucher.name });
+            if (productUpdates) {
+                for (const product of productUpdates) {
+                    // console.log(product)
+                    product.voucher = null;
+                    await product.save();
+                }
+            }
+        }
+    }
+    return res.status(200).json({ msg: "Đã reset" });
 }
 const getProductByVoucherId = async (req, res) => {
     const voucherId = req.params.vid;
@@ -227,6 +257,7 @@ module.exports = {
     getProductByVoucherId,
     removeProductFromVoucher,
     removeAllProductFromVoucher,
+    checkAndRemoveExpired,
     updateVoucher,
     deleteVoucher,
     getProductForVoucher,

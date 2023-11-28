@@ -96,7 +96,7 @@ function App() {
                     <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />} />
                     <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
                     <Route exact path='/khuyen-mai/:vid' element={<VoucherPage />} />
-                    <Route exact path='/tim-kiem/:keyword' element={<SearchResultPage />} />
+                    <Route exact path='/tim-kiem/:keyword/:page' element={<SearchResultPage />} />
                     <Route exact path='/loctheodanhmuc/:category/:brand/:minp/:maxp/:page' element={<FilterByCategory />} />
                     {username === "admin"
                       && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}

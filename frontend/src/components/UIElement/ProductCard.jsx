@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import axios from "axios";
 import './ProductCard.css';
 import { formatPrice } from '../../ultis/formatPrice';
 import StarRating from '../../Pages/Product/components/StarRating';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductCard = props => {
+    const [discount, setDiscount] = useState(null);
+    useEffect(() => {
+        if (props.voucher) {
+            axios.get(`http://localhost:5000/voucher/get-voucher-by-name?vname=${props.voucher}`)
+                .then(result => {
+                    setDiscount(result.data);
+                })
+                .catch(err => {
+                    toast(err);
+                })
+        }
+    }, [])
     return (
         <NavLink to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">
+                <ToastContainer />
                 <div className="product-img">
                     <img
                         src={`http://localhost:5000/images/${props.image}`}
@@ -21,15 +36,12 @@ const ProductCard = props => {
                     <StarRating rating={props.avgRating} />
                     <span className="num-rating">{props.numOfReview} đánh giá</span>
                 </div>
-                {/* <div className="product-prods-group">
-                    <ul>
-                        <li className="active">256GB</li>
-                        <li>512GB</li>
-                        <li>1TB</li>
-                    </ul>
-
-                </div> */}
-                <strong className="product-price">{formatPrice(props.price)}</strong>
+                {discount != null
+                    ? (<div className="product-card-price-div">
+                        <strong className="product-price">{formatPrice((100 - discount.percent) * props.price / 100)} </strong>
+                        <strong className="product-price-old">{formatPrice(props.price)} </strong>
+                    </div>)
+                    : <strong className="product-price">{formatPrice(props.price)}</strong>}
             </div>
 
         </NavLink>

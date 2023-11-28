@@ -43,7 +43,7 @@ const NavLinks = () => {
         e.preventDefault();
         document.getElementById('search-box').blur();
         if (searchKeyword.trim()) {
-            navigate(`/tim-kiem/${searchKeyword}`);
+            navigate(`/tim-kiem/${searchKeyword}/1`);
             setIsSearch(false)
         } else {
             navigate('/')
@@ -111,7 +111,7 @@ const NavLinks = () => {
                                     {products.map((product) => (
                                         <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
                                             {product.pimage.length > 0
-                                                ? <img src={`http://localhost:5000/images/${product.pimage[1]}`}
+                                                ? <img src={`http://localhost:5000/images/${product.pimage[0]}`}
                                                     alt="ảnh sản phẩm"
                                                     width="50px"
                                                     height="50px" />

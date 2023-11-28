@@ -200,7 +200,8 @@ const HomePage = () => {
                                                 price={product.sellPrice}
                                                 avgRating={product.avgRating}
                                                 numOfReview={product.numOfReview}
-                                                image={product.pimage[0]} />
+                                                image={product.pimage[0]}
+                                                voucher={product.voucher} />
                                         ))}
                                     </div>
                                 </div>
@@ -219,7 +220,8 @@ const HomePage = () => {
                                             price={product.sellPrice}
                                             avgRating={product.avgRating}
                                             numOfReview={product.numOfReview}
-                                            image={product.pimage[0]} />
+                                            image={product.pimage[0]}
+                                            voucher={product.voucher} />
 
                                     ))}
                                 </div>
@@ -240,7 +242,8 @@ const HomePage = () => {
                                             price={product.sellPrice}
                                             avgRating={product.avgRating}
                                             numOfReview={product.numOfReview}
-                                            image={product.pimage[0]} />
+                                            image={product.pimage[0]}
+                                            voucher={product.voucher} />
                                     ))}
                                 </div>
                                 {products.length >= page * 10 && (

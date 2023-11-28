@@ -32,7 +32,7 @@ const ProductPage = () => {
     const cart = useContext(CartContext);
     const authContext = useContext(AuthContext);
     const orderContext = useContext(OrderContext);
-    const [selectedItem, setSelectedItem]= useState([]);
+    const [selectedItem, setSelectedItem] = useState([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -69,21 +69,21 @@ const ProductPage = () => {
         }
     }
 
-    useEffect(()=> {
-        const getDataForCart= async()=> {
+    useEffect(() => {
+        const getDataForCart = async () => {
             await axios.get('http://localhost:5000/product/get-product-in-cart', {
-                params: { products: [product._id]}
-            }).then(res=> {
-                const data= res.data.map(item=> {
+                params: { products: [product._id] }
+            }).then(res => {
+                const data = res.data.map(item => {
                     return {
                         ...item,
                         qty: 1
                     }
                 })
-            setSelectedItem(data)
-            }).catch(err=> console.log(err));
+                setSelectedItem(data)
+            }).catch(err => console.log(err));
         }
-        if(product){
+        if (product) {
             getDataForCart();
         }
     }, [product]);
@@ -99,12 +99,12 @@ const ProductPage = () => {
             toast("Vui lòng đăng nhập để mua hàng");
             return;
         }
-        
+
         orderContext.setSelectedItems(selectedItem);
         navigate('/thong-tin-giao-hang');
     }
 
-   
+
 
     const navigateToCategory = (pCate) => {
         navigate(`/loctheodanhmuc/${pCate}/All/0/0/1`);
@@ -154,7 +154,7 @@ const ProductPage = () => {
                         <div className='box-right'>
                             <div className='price-container'>
                                 <p className='price-container__title'>Giá bán:</p>
-                                {product.voucher ? (
+                                {product.voucher && discount ? (
                                     <div className='box-price'>
                                         <p className='box-price-present'>{formatPrice((100 - discount.percent) * product.sellPrice / 100)}  *</p>
                                         <p className='box-price-old'>{formatPrice(product.sellPrice)}</p>
@@ -193,7 +193,8 @@ const ProductPage = () => {
                                         price={product.sellPrice}
                                         avgRating={product.avgRating}
                                         numOfReview={product.numOfReview}
-                                        image={product.pimage[0]} />
+                                        image={product.pimage[0]}
+                                        voucher={product.voucher} />
                                 ))}
                             </div>
                             <div className='see-more-btn'>
