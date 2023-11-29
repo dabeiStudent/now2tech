@@ -1,33 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import LoginPage from './Pages/Authenticate/LoginPage';
-import SignUpPage from './Pages/Authenticate/SignUpPage';
-import HomePage from './Pages/HomePage/HomePage';
-import ResetPWPage from './Pages/Authenticate/ResetPWPage';
-import ProfilePage from './Pages/Profile/ProfilePage';
-import MainNavigation from './components/UIElement/MainNavigation';
-import Footer from './components/UIElement/Footer';
-import ProductPage from './Pages/Product/ProductPage';
 import getCookie from './ultis/getCookie';
-import Chat from './components/UIElement/Chat';
-import CartPage from './Pages/Cart/CartPage';
-import ScrollToTop from './ultis/scrollToTop';
 import { CartContext } from './ultis/cartContext';
 import { useCart } from './ultis/cartHooks';
-import Shipping from './Pages/Cart/Shipping';
 import { OrderContext } from './ultis/orderContext';
 import { useOrder } from './ultis/orderHooks';
-import MainAdminPage from './Pages/Admin/MainAdminPage';
-import OrderPage from './Pages/Order/OrderPage';
-import VNPayPayment from './Pages/Order/VNPayPayment';
 import { AuthContext } from './ultis/authContext';
-import VoucherPage from './Pages/Voucher/VoucherPage';
-import SearchResultPage from './Pages/Search/SearchResultPage';
+import ScrollToTop from './ultis/scrollToTop';
 import './App.css';
-import FilterByCategory from './Pages/Search/FilterByCategory';
+
+import MainNavigation from './components/UIElement/MainNavigation';
+import Footer from './components/UIElement/Footer';
+import Loader from './components/UIElement/Loader';
+const LoginPage= React.lazy(()=> import('./Pages/Authenticate/LoginPage'));
+const SignUpPage= React.lazy(()=> import('./Pages/Authenticate/SignUpPage'));
+const HomePage= React.lazy(()=> import('./Pages/HomePage/HomePage'));
+const ResetPWPage= React.lazy(()=> import('./Pages/Authenticate/ResetPWPage'));
+const ProfilePage= React.lazy(()=> import('./Pages/Profile/ProfilePage'));
+const ProductPage= React.lazy(()=> import('./Pages/Product/ProductPage'));
+const Chat= React.lazy(()=> import('./components/UIElement/Chat'));
+const CartPage= React.lazy(()=> import('./Pages/Cart/CartPage'));
+const Shipping= React.lazy(()=> import('./Pages/Cart/Shipping'));
+const MainAdminPage= React.lazy(()=> import('./Pages/Admin/MainAdminPage'));
+const OrderPage= React.lazy(()=> import('./Pages/Order/OrderPage'));
+const VNPayPayment= React.lazy(()=> import('./Pages/Order/VNPayPayment'));
+const VoucherPage= React.lazy(()=> import('./Pages/Voucher/VoucherPage'));
+const SearchResultPage= React.lazy(()=> import('./Pages/Search/SearchResultPage'));
+const FilterByCategory= React.lazy(()=> import('./Pages/Search/FilterByCategory'));
 
 function App() {
   const usernameEncoded = getCookie('username');
@@ -81,40 +83,43 @@ function App() {
             <Router>
               <div className="App">
                 <MainNavigation />
-                <div className='App-body'>
-                  <ScrollToTop />
-                  <Routes>
-                    <Route exact path="/" element={<HomePage />} />
-                    <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
-                    <Route exact path='/gio-hang' element={<CartPage />} />
-                    <Route exact path='/thong-tin-giao-hang' element={<Shipping />} />
-                    <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />} />
-                    <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
-                    <Route exact path='/khuyen-mai/:vid' element={<VoucherPage />} />
-                    <Route exact path='/tim-kiem/:keyword/:page' element={<SearchResultPage />} />
-                    <Route exact path='/loctheodanhmuc/:category/:brand/:minp/:maxp/:page' element={<FilterByCategory />} />
-                    {username === "admin"
-                      && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
-                    {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
-                      : <Route path="/login" element={<LoginPage />} />}
-                    {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
-                      : <Route path="/signup" element={<SignUpPage />} />}
-                    <Route path="/reset-password" element={<ResetPWPage />} />
-                    {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
-                      : <Route path="/my-profile" element={<LoginPage />} />}
+                <Suspense fallback={<Loader/>}>
+                  <div className='App-body'>
+                    <ScrollToTop />
+                    <Routes>
+                      <Route exact path="/" element={<HomePage />} />
+                      <Route exact path='/chi-tiet-san-pham/:pid' element={<ProductPage />} />
+                      <Route exact path='/gio-hang' element={<CartPage />} />
+                      <Route exact path='/thong-tin-giao-hang' element={<Shipping />} />
+                      <Route exact path='/chi-tiet-don-hang/:oid' element={<OrderPage />} />
+                      <Route exact path='/thanh-toan/vnpay/:oid' element={<VNPayPayment />} />
+                      <Route exact path='/khuyen-mai/:vid' element={<VoucherPage />} />
+                      <Route exact path='/tim-kiem/:keyword/:page' element={<SearchResultPage />} />
+                      <Route exact path='/loctheodanhmuc/:category/:brand/:minp/:maxp/:page' element={<FilterByCategory />} />
+                      {username === "admin"
+                        && <Route exact path="/now2tech-management" element={<MainAdminPage />} />}
+                      {username !== 'false' ? <Route path="/login" element={<ProfilePage />} />
+                        : <Route path="/login" element={<LoginPage />} />}
+                      {username !== 'false' ? <Route path="/signup" element={<ProfilePage />} />
+                        : <Route path="/signup" element={<SignUpPage />} />}
+                      <Route path="/reset-password" element={<ResetPWPage />} />
+                      {username !== 'false' ? <Route path="/my-profile" element={<ProfilePage />} />
+                        : <Route path="/my-profile" element={<LoginPage />} />}
 
-                  </Routes>
-                </div>
-                <div className="App-footer">
-                  <Footer />
-                </div>
-                {!isChatOpen && username !== "admin" ?
+                    </Routes>
+                  </div>
+                  {!isChatOpen && username !== "admin" ?
                   < button className="chat-button" onClick={handleChatButtonClick} >
                     <FontAwesomeIcon icon={faMessage} />
                   </button>
                   : <></>
                 }
                 {isChatOpen && <Chat />}
+                </Suspense>
+                <div className="App-footer">
+                  <Footer />
+                </div>
+                
               </div>
             </Router>
           </OrderContext.Provider>

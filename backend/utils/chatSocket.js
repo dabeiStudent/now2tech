@@ -4,7 +4,7 @@ const { Server } = require('socket.io');
 const creatSocketIo = (server) => {
     const io = new Server(server, {
         cors: {
-            origin: ["http://localhost:3000"]
+            origin: [process.env.app_url]
         }
     });
     io.on("connection", (socket) => {

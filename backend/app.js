@@ -16,6 +16,7 @@ const statisticRoutes = require('./routes/statisticRoutes');
 const brandRoutes = require('./routes/brandRoutes');
 
 const creatSocketIo = require('./utils/chatSocket');
+const path = require('path');
 
 //init server & connect 2 db
 const PORT = process.env.PORT || 8000;
@@ -25,11 +26,11 @@ server.listen(PORT, async (req, res) => {
 connect2DB();
 
 //setup cors
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Credentials', true);
-    next();
-})
+// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Credentials', true);
+//     next();
+// })
 
 //setup socket cho realtime chat 
 creatSocketIo(server);
@@ -38,7 +39,8 @@ creatSocketIo(server);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //setup static file
-app.use(express.static('backend/public'));
+app.use('/public/images', express.static(path.join('public', 'images')));
+app.use(express.static(path.join('public')))
 //init web routes
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
@@ -49,3 +51,6 @@ app.use('/comment', commentRoutes);
 app.use('/statistic', statisticRoutes);
 app.use('/brand', brandRoutes);
 
+app.use((req, res, next)=> {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+})

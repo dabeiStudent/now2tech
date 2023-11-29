@@ -265,3 +265,27 @@ body {
 .rating-product-container {
     background: #633974;
 }
+
+@media screen and (max-width: 575px) {
+    .all-product-container__prod-list{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .scroll::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 770px) {
+    .all-product-container__prod-list{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .scroll::-webkit-scrollbar {
+        display: none;
+    }   
+
+    .intro{
+        padding: 0 16%;
+    }
+}

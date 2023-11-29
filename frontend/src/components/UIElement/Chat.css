@@ -1,7 +1,7 @@
 .chat_window {
     width: 25%;
     height: 500px;
-    background-color: #ffde39;
+    background-color: #007bff;
     border-radius: 3%;
     position: fixed;
     /*Có cái này mới dùng bottom right này nọ ok*/
@@ -97,7 +97,7 @@
 
 .chat h1 {
     font-family: monospace;
-    background-color: #ffde39;
+    background-color: #007bff;
 }
 
 .chat p {
@@ -125,12 +125,12 @@
     right: 10%;
     width: 10%;
     height: 10%;
-    background-color: #FFD400;
+    background-color: #007bff;
     border-radius: 50%;
 }
 
 .chat button:hover {
-    background-color: #f3e081;
+    background-color: #5DADE2;
 }
 
 @media screen and (max-width: 1368px) and (max-height: 619px) {

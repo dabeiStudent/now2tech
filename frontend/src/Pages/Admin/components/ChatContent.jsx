@@ -9,7 +9,7 @@ import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
 import './ChatContent.css';
 
 
-const host = "http://localhost:5000";
+const host = process.env.REACT_APP_BACKEND_URL;
 const ChatContent = () => {
     const senders = ['User1', 'User2', 'User3'];
 

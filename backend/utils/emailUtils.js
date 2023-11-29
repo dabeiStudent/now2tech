@@ -65,7 +65,7 @@ const sendEmailReset = async (req, res) => {
                 // console.log(`Nội dung url reset: `);
                 // console.log(resetToken);
                 // console.log(time);
-                console.log(`Email xác thực: http://${localhost}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}&email=${req.body.email}`);
+                console.log(`Email xác thực: ${process.env.REACT_APP_BACKEND_URL}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}&email=${req.body.email}`);
                 return res.status(200).json({ msg: "Hãy kiểm tra email" });
             }
         });

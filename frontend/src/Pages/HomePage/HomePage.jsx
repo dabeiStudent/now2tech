@@ -177,12 +177,12 @@ const HomePage = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <button className="prev-btn" style={isOverflow ? { display: 'flex' } : { display: 'none' }} onClick={scrollPrev}>
+                                {/* <button className="prev-btn" style={isOverflow ? { display: 'flex' } : { display: 'none' }} onClick={scrollPrev}>
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </button>
                                 <button className="next-btn" style={isOverflow ? { display: 'flex' } : { display: 'none' }} onClick={scrollNext}>
                                     <FontAwesomeIcon icon={faChevronRight} />
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                         <div className="best-seller-container">
