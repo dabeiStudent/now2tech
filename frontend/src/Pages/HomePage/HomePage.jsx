@@ -123,8 +123,6 @@ const HomePage = () => {
 
     const seeMoreHandler = () => { setPage(page + 1) };
 
-    const seeMoreBestSellerHandler = () => {
-    };
 
     const scrollNext = () => {
         const scrollContainer = scrollRef.current;
@@ -227,9 +225,6 @@ const HomePage = () => {
                                         ))}
                                     </div>
                                 </div>
-                                {maxSelling.length >= page3 * 10 && (
-                                    <div className="see-more-btn"><button onClick={seeMoreBestSellerHandler}>Xem thêm &raquo;</button></div>
-                                )}
                             </div>
                         </div>
                         <div className="all-product-container">

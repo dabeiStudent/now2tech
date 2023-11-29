@@ -64,7 +64,7 @@ body {
     border-radius: 7px;
 }
 
-.all-product-container__main{
+.all-product-container__main {
     background-color: rgb(194, 64, 69);
 }
 
@@ -114,7 +114,7 @@ body {
     color: #ffffff;
 }
 
-.category-container h2{
+.category-container h2 {
     color: #003466;
 }
 
@@ -131,7 +131,7 @@ body {
     margin: auto;
 }
 
-.voucher-container{
+.voucher-container {
     padding: 20px;
 }
 
@@ -151,7 +151,8 @@ body {
     overflow-x: auto;
 }
 
-.rating-product-container__main .scroll, .best-seller-container__main .scroll{
+.rating-product-container__main .scroll,
+.best-seller-container__main .scroll {
     padding-bottom: 10px;
 }
 
@@ -177,18 +178,18 @@ body {
 }
 
 .scroll::-webkit-scrollbar {
-    height: 5px;
+    height: 10px;
 }
 
 .scroll::-webkit-scrollbar-track {
     background: #154985;
 }
 
-.rating-product-container__main .scroll::-webkit-scrollbar-track{
+.rating-product-container__main .scroll::-webkit-scrollbar-track {
     background: #633974;
 }
 
-.best-seller-container__main .scroll::-webkit-scrollbar-track{
+.best-seller-container__main .scroll::-webkit-scrollbar-track {
     background: rgb(194, 64, 69);
 }
 
@@ -212,46 +213,55 @@ body {
     color: #fff;
 }
 
-.voucher-container, .best-seller-container, .rating-product-container {
+.voucher-container,
+.best-seller-container,
+.rating-product-container {
     max-width: 1220px;
     margin: 0 auto 20px auto;
     border-radius: 8px;
 }
 
-.voucher-container{
+.voucher-container {
     background: #154985;
 }
 
-.best-seller-container, .rating-product-container{
+.best-seller-container,
+.rating-product-container {
     padding: 20px;
 }
+
 /* Best seller */
 .best-seller-container {
     background: rgb(194, 64, 69);
 }
 
-.best-seller-container__main h2, .rating-product-container__main h2{
+.best-seller-container__main h2,
+.rating-product-container__main h2 {
     color: #fff;
     text-align: center;
 }
 
-.best-seller-container .best-seller-container__main, .rating-product-container__main{
+.best-seller-container .best-seller-container__main,
+.rating-product-container__main {
     max-width: 1220px;
     margin: auto;
 }
-.best-seller-container__list, .rating-product-container__list{
+
+.best-seller-container__list,
+.rating-product-container__list {
     height: fit-content;
     width: fit-content;
     display: flex;
 }
 
-.best-seller-container__list .product-card, .rating-product-container__list .product-card{
+.best-seller-container__list .product-card,
+.rating-product-container__list .product-card {
     padding: 0 10px;
     border-radius: 4px;
     margin: 0 5px;
     min-width: 240px;
 }
 
-.rating-product-container{
+.rating-product-container {
     background: #633974;
 }
