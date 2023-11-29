@@ -46,7 +46,6 @@ const VoucherPage = () => {
                                     </p>
                                     <p>Phần trăm khuyến mãi: {voucher.percent}%</p>
                                     <p>{voucher.desc}</p>
-
                                 </div>
                             </div>
                         </div>
@@ -61,7 +60,8 @@ const VoucherPage = () => {
                                     price={product.sellPrice}
                                     avgRating={product.avgRating}
                                     numOfReview={product.numOfReview}
-                                    image={product.pimage} />
+                                    image={product.pimage}
+                                    voucher={product.voucher} />
                             ))}
                         </div>
                     </div>
