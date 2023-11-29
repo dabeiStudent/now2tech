@@ -154,7 +154,7 @@ const HomePage = () => {
                     <div className="home-page-container">
                         <div className="category-container">
                             <div className="category-container__main">
-                                <h2>Danh mục sản phẩm</h2>
+                                <h2>DANH MỤC SẢN PHẨM</h2>
                                 {categories.map(category => (
                                     <div key={category._id} className="category-list" onClick={() => filterByCate(category.name)}>
                                         <CategoryCard>
