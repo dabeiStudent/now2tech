@@ -91,7 +91,7 @@ const ProfileMenu = () => {
         } else {
             axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, updateUser, { withCredentials: true })
                 .then(res => {
-                    window.location.href = "/my-profile"
+                    window.location.href = "/my-profile";
                 })
                 .catch(err => {
                     if (err.message === "Request failed with status code 400") {
@@ -107,11 +107,11 @@ const ProfileMenu = () => {
         }
         axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, image, { withCredentials: true })
             .then(res => {
-                window.location.href = "/my-profile"
+                window.location.href = "/my-profile";
             })
             .catch(err => {
                 if (err.message === "Request failed with status code 400") {
-                    setNoti("Có lỗi xảy ra");
+                    toast("Có lỗi xảy ra");
                 }
             });
     }
@@ -120,7 +120,7 @@ const ProfileMenu = () => {
         const repeatPassword = document.getElementById("repeatPassword").value;
         const newPassword = document.getElementById("newPassword").value;
         if (repeatPassword !== newPassword) {
-            setNoti("Mật khẩu mới không khớp");
+            toast("Mật khẩu mới không khớp");
             setPassword({
                 oldPassword: '',
                 newPassword: ''
@@ -130,7 +130,7 @@ const ProfileMenu = () => {
         }
         axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/user-changepassword`, password, { withCredentials: true })
             .then(res => {
-                alert(res.data.msg);
+                toast(res.data.msg);
                 setNoti('');
                 setPassword({
                     oldPassword: '',
@@ -140,7 +140,7 @@ const ProfileMenu = () => {
             })
             .catch(err => {
                 if (err.message === "Request failed with status code 400") {
-                    setNoti("Mật khẩu cũ không đúng");
+                    toast("Mật khẩu cũ không đúng");
                     setPassword({
                         oldPassword: '',
                         newPassword: ''
