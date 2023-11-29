@@ -83,7 +83,7 @@ const HomePage = () => {
     useEffect(() => {
         const getVouchers = async () => {
             setIsLoading(true);
-            await axios.get("http://localhost:5000/voucher/get-all-voucher")
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-all-voucher`)
                 .then(res => {
                     setVoucher(res.data);
                     setIsLoading(false)
