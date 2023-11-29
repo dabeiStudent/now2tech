@@ -84,14 +84,17 @@ const CommentItem = props => {
 
   const removeComment = async (e) => {
     e.preventDefault();
-    axios.delete(`http://localhost:5000/comment/remove-comment/${props.id}`, { withCredentials: true })
-      .then(result => {
-        toast("Đã xóa comment");
-        props.setFlag();
-      })
-      .catch(err => {
-        toast('Không thể xóa');
-      })
+    if (window.confirm('Bạn có chắc muốn xóa comment này ?')) {
+      axios.delete(`http://localhost:5000/comment/remove-comment/${props.id}`, { withCredentials: true })
+        .then(result => {
+
+          toast("Đã xóa comment");
+          props.setFlag();
+        })
+        .catch(err => {
+          toast('Không thể xóa');
+        })
+    }
   }
   return (
     <div className='comment-item'>

@@ -202,13 +202,25 @@ const loggedReplyComment = async (req, res) => {
     res.status(200).json({ msg: "Phản hồi thành công." });
 };
 const removeComment = async (req, res) => {
-    Comment.findByIdAndDelete(req.params.cid)
-        .then(result => {
-            return res.status(200).json({ msg: "Đã xóa" });
-        })
-        .catch(err => {
-            return res.status(500).json({ err: err });
-        })
+    const mainComment = await Comment.findById(req.params.cid);
+
+    if (!mainComment) {
+        return res.status(404).json({ err: "Không thấy" });
+    }
+
+    try {
+        await Promise.all(mainComment.replies.map(async (subCommentId) => {
+            const subCommentFound = await Comment.findById(subCommentId);
+            if (subCommentFound) {
+                await subCommentFound.deleteOne();
+            }
+        }));
+    } catch (err) {
+        return res.status(500).json({ err: err });
+    }
+
+    await mainComment.deleteOne();
+    return res.status(200).json({ msg: "Đã xóa" }); s
 }
 module.exports = {
     addComment,
