@@ -52,18 +52,16 @@ const VoucherPage = () => {
                         </div>
                     </div>
                     <div className='voucher-page__product-list'>
-                        <div className='product-card__custom'>
-                            {productList.length > 0 && productList.map(product => (
-                                <ProductCard
-                                    key={product._id}
-                                    id={product._id}
-                                    name={product.name}
-                                    price={product.sellPrice}
-                                    avgRating={product.avgRating}
-                                    numOfReview={product.numOfReview}
-                                    image={product.pimage} />
-                            ))}
-                        </div>
+                        {productList.length > 0 && productList.map(product => (
+                            <ProductCard
+                                key={product._id}
+                                id={product._id}
+                                name={product.name}
+                                price={product.sellPrice}
+                                avgRating={product.avgRating}
+                                numOfReview={product.numOfReview}
+                                image={product.pimage} />
+                        ))}
                     </div>
                 </div>
             ) : (

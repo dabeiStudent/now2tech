@@ -3,9 +3,9 @@
 }
 
 .voucher-page__container {
-    max-width: 1500px;
+    max-width: 1200px;
     margin: auto;
-    /* padding: 20px; */
+    padding: 20px;
 }
 
 .voucher-page__banner {
@@ -33,12 +33,17 @@
 }
 
 .voucher-page__product-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.voucher-page__product-list .product-card{
+    padding: 0 10px;
 }
 
 .voucher-page__product-list .product-card__custom {
-    display: flex;
     width: 100%;
     margin-bottom: 10px;
 
