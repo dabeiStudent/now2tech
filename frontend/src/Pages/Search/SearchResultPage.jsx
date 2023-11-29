@@ -96,7 +96,8 @@ const SearchResultPage = () => {
                                                     price={product.sellPrice}
                                                     avgRating={product.avgRating}
                                                     numOfReview={product.numOfReview}
-                                                    image={product.pimage[0]} />
+                                                    image={product.pimage[0]}
+                                                    voucher={product.voucher} />
                                             </div>))}
                                     </div>
                                 </React.Fragment>

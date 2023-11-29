@@ -174,7 +174,8 @@ const FilterByCategory = () => {
                                             price={item.sellPrice}
                                             avgRating={item.avgRating}
                                             numOfReview={item.numOfReview}
-                                            image={item.pimage[0]} />
+                                            image={item.pimage[0]}
+                                            voucher={item.voucher} />
                                     </div>))}
                             </div>
                         ) : (
