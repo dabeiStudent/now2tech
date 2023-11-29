@@ -224,6 +224,7 @@ body {
 }
 .best-seller-container__list{
     height: fit-content;
+    width: fit-content;
     display: flex;
 }
 
