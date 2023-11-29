@@ -4,7 +4,7 @@ import './SelectedItem.css';
 import { formatPrice } from '../../../ultis/formatPrice';
 import { NavLink } from 'react-router-dom';
 
-const OrderItem = props => {  
+const OrderItem = props => {
 
     return (
         <li className='selected-item__container'>
@@ -22,7 +22,7 @@ const OrderItem = props => {
                     </div>
                     <div className='group-price'>
                         <span className='sell-price'>{formatPrice(props.price)}</span>
-                        <span className='origin-price'>{formatPrice(20000)}</span>
+                        <span className='origin-price'>{formatPrice(props.sellPrice)}</span>
                     </div>
                 </div>
             </div>

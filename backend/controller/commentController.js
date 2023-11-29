@@ -1,23 +1,23 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
-const Comment= require('../models/commentsModel');
-const Product= require('../models/productsModel');
-const User= require('../models/usersModel');
+const Comment = require('../models/commentsModel');
+const Product = require('../models/productsModel');
+const User = require('../models/usersModel');
 
-const addComment= async(req, res)=> {
-    const productId= req.params.pid;
+const addComment = async (req, res) => {
+    const productId = req.params.pid;
     let product;
     try {
-        product= await Product.findById(productId);        
+        product = await Product.findById(productId);
     } catch (error) {
-        return res.status(404).json({err: 'Đã có lỗi xảy ra khi tìm sản phẩm.'});        
+        return res.status(404).json({ err: 'Đã có lỗi xảy ra khi tìm sản phẩm.' });
     }
 
-    if(!product){
-        return res.status(404).json({err: "Không tìm thấy sản phẩm."});
+    if (!product) {
+        return res.status(404).json({ err: "Không tìm thấy sản phẩm." });
     }
 
-    const comment= new Comment({
+    const comment = new Comment({
         content: req.body.content,
         product: productId,
         user: {
@@ -28,48 +28,48 @@ const addComment= async(req, res)=> {
     })
 
     try {
-        const sess= await mongoose.startSession();
+        const sess = await mongoose.startSession();
         sess.startTransaction();
         product.comments.push(comment);
         await product.save();
         await comment.save();
-        await sess.commitTransaction();        
+        await sess.commitTransaction();
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra."});       
+        return res.status(404).json({ err: "Đã có lỗi xảy ra." });
         // console.log(error) 
     }
-    res.status(200).json({msg: "Comment thành công."});
+    res.status(200).json({ msg: "Comment thành công." });
 };
 
-const getCommentByProductId= async (req, res)=>{
-    const productId= req.params.pid;
+const getCommentByProductId = async (req, res) => {
+    const productId = req.params.pid;
 
     let comments;
 
     try {
-        comments= await Comment.find({product: productId}).populate('replies');
+        comments = await Comment.find({ product: productId }).populate('replies');
     } catch (error) {
-        return res.status(404).json({err: 'Đã có lỗi xảy ra.'});
+        return res.status(404).json({ err: 'Đã có lỗi xảy ra.' });
     }
 
     res.status(200).json(comments);
 };
 
-const replyComment= async (req, res)=> {
-    const commentId= req.params.cmtid;
+const replyComment = async (req, res) => {
+    const commentId = req.params.cmtid;
 
     let existComment;
     try {
-        existComment= await Comment.findById(commentId);        
+        existComment = await Comment.findById(commentId);
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra khi tìm bình luận."});
+        return res.status(404).json({ err: "Đã có lỗi xảy ra khi tìm bình luận." });
     }
 
-    if(!existComment){
-        return res.status(404).json({err: "Không tìm thấy bình luận."});
+    if (!existComment) {
+        return res.status(404).json({ err: "Không tìm thấy bình luận." });
     }
 
-    const comment= new Comment({
+    const comment = new Comment({
         content: req.body.content,
         user: {
             name: req.body.name,
@@ -79,45 +79,45 @@ const replyComment= async (req, res)=> {
     });
 
     try {
-        const sess= await mongoose.startSession();
+        const sess = await mongoose.startSession();
         sess.startTransaction();
         existComment.replies.push(comment);
         await existComment.save();
         await comment.save();
-        await sess.commitTransaction();        
+        await sess.commitTransaction();
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra."});        
+        return res.status(404).json({ err: "Đã có lỗi xảy ra." });
     }
 
-    res.status(200).json({msg: "Phản hồi thành công."});
+    res.status(200).json({ msg: "Phản hồi thành công." });
 };
 
-const loggedComment= async(req, res)=> {
-    const productId= req.params.pid;
-    const userId= req.data.uid;
+const loggedComment = async (req, res) => {
+    const productId = req.params.pid;
+    const userId = req.data.uid;
     let product;
     try {
-        product= await Product.findById(productId);        
+        product = await Product.findById(productId);
     } catch (error) {
-        return res.status(404).json({err: 'Đã có lỗi xảy ra khi tìm sản phẩm.'});        
+        return res.status(404).json({ err: 'Đã có lỗi xảy ra khi tìm sản phẩm.' });
     }
 
-    if(!product){
-        return res.status(404).json({err: "Không tìm thấy sản phẩm."});
+    if (!product) {
+        return res.status(404).json({ err: "Không tìm thấy sản phẩm." });
     }
 
     let existUser;
     try {
-        existUser= await User.findById(userId);        
+        existUser = await User.findById(userId);
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra."});        
+        return res.status(404).json({ err: "Đã có lỗi xảy ra." });
     }
 
-    if(!existUser){
-        return res.status(404).json({err: "Không tìm thấy user."});
-    }   
+    if (!existUser) {
+        return res.status(404).json({ err: "Không tìm thấy user." });
+    }
 
-    const comment= new Comment({
+    const comment = new Comment({
         content: req.body.content,
         product: productId,
         user: {
@@ -128,47 +128,47 @@ const loggedComment= async(req, res)=> {
     })
 
     try {
-        const sess= await mongoose.startSession();
+        const sess = await mongoose.startSession();
         sess.startTransaction();
         product.comments.push(comment);
         await product.save();
         await comment.save();
-        await sess.commitTransaction();        
+        await sess.commitTransaction();
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra."});       
+        return res.status(404).json({ err: "Đã có lỗi xảy ra." });
     }
-    res.status(200).json({msg: "Comment thành công."});
+    res.status(200).json({ msg: "Comment thành công." });
 };
 
-const loggedReplyComment= async (req, res)=> {
-    const commentId= req.params.cmtid;
-    const userId= req.data.uid;
+const loggedReplyComment = async (req, res) => {
+    const commentId = req.params.cmtid;
+    const userId = req.data.uid;
 
     let existComment;
     try {
-        existComment= await Comment.findById(commentId);        
+        existComment = await Comment.findById(commentId);
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra khi tìm bình luận."});
+        return res.status(404).json({ err: "Đã có lỗi xảy ra khi tìm bình luận." });
     }
 
-    if(!existComment){
-        return res.status(404).json({err: "Không tìm thấy bình luận."});
+    if (!existComment) {
+        return res.status(404).json({ err: "Không tìm thấy bình luận." });
     }
 
     let existUser;
     try {
-        existUser= await User.findById(userId);        
+        existUser = await User.findById(userId);
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra."});        
+        return res.status(404).json({ err: "Đã có lỗi xảy ra." });
     }
 
-    if(!existUser){
-        return res.status(404).json({err: "Không tìm thấy user."});
-    } 
+    if (!existUser) {
+        return res.status(404).json({ err: "Không tìm thấy user." });
+    }
 
     let comment;
-    if(existUser.role === 'admin'){
-        comment= new Comment({
+    if (existUser.role === 'admin') {
+        comment = new Comment({
             content: req.body.content,
             user: {
                 name: existUser.userName,
@@ -178,7 +178,7 @@ const loggedReplyComment= async (req, res)=> {
             },
         });
     } else {
-        comment= new Comment({
+        comment = new Comment({
             content: req.body.content,
             user: {
                 name: existUser.userName,
@@ -186,26 +186,35 @@ const loggedReplyComment= async (req, res)=> {
                 phoneNumber: existUser.phoneNumber
             },
         });
-    }    
+    }
 
     try {
-        const sess= await mongoose.startSession();
+        const sess = await mongoose.startSession();
         sess.startTransaction();
         existComment.replies.push(comment);
         await existComment.save();
         await comment.save();
-        await sess.commitTransaction();        
+        await sess.commitTransaction();
     } catch (error) {
-        return res.status(404).json({err: "Đã có lỗi xảy ra."});        
+        return res.status(404).json({ err: "Đã có lỗi xảy ra." });
     }
 
-    res.status(200).json({msg: "Phản hồi thành công."});
+    res.status(200).json({ msg: "Phản hồi thành công." });
 };
-
-module.exports= {
+const removeComment = async (req, res) => {
+    Comment.findByIdAndDelete(req.params.cid)
+        .then(result => {
+            return res.status(200).json({ msg: "Đã xóa" });
+        })
+        .catch(err => {
+            return res.status(500).json({ err: err });
+        })
+}
+module.exports = {
     addComment,
-    getCommentByProductId, 
+    getCommentByProductId,
     replyComment,
     loggedComment,
-    loggedReplyComment
+    loggedReplyComment,
+    removeComment
 }

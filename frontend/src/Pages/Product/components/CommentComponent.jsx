@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './CommentComponent.css';
 import CommentList from './CommentList';
 import { AuthContext } from '../../../ultis/authContext';
@@ -38,7 +39,7 @@ const CommentComponent = props => {
         || comment.name === ''
         || comment.email === ''
         || comment.phoneNumber === '') {
-        return window.alert('Vui lòng nhập thông tin để bình luận.');
+        return toast('Vui lòng nhập thông tin để bình luận.');
       }
 
       await axios.post(`http://localhost:5000/comment/create-comment/${props.productId}`,
@@ -48,7 +49,7 @@ const CommentComponent = props => {
           phoneNumber: comment.phoneNumber,
           content: comment.content
         })
-        .then(res=> {
+        .then(res => {
           setComment({
             name: '',
             email: '',
@@ -58,10 +59,10 @@ const CommentComponent = props => {
           setFlag(!flag);
           setIsOpen(false);
         })
-        .catch(err=> console.log(err));
+        .catch(err => console.log(err));
     } else {
       if (comment.content === null) {
-        return window.alert('Vui lòng nhập bình luận của bạn.');
+        return toast('Vui lòng nhập bình luận của bạn.');
       }
 
       await axios.post(`http://localhost:5000/comment/logged-create-comment/${props.productId}`,
@@ -73,7 +74,7 @@ const CommentComponent = props => {
             name: '',
             email: '',
             phoneNumber: '',
-            content:''
+            content: ''
           });
           setFlag(!flag);
           setIsOpen(false);
@@ -83,29 +84,30 @@ const CommentComponent = props => {
   }
   const openHandler = () => { setIsOpen(true) };
 
-  const reloadHandler= ()=> {
+  const reloadHandler = () => {
     setFlag(!flag);
   }
 
   return (
     <div className='comment-container'>
-        <h2>Bình luận</h2>
-        <form className='comment-form'>
-          <textarea value={comment.content} onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>
-          { (isOpen === true && authContext.isLogin === false ) ? (
-            <div className='user-info'>
-              <input value={comment.name} onChange={changeCommentHandler} name='name' type="text" placeholder='Họ và tên' required/>
-              <input value={comment.email} onChange={changeCommentHandler} name='email' type="email" placeholder='Email' required/>
-              <input value={comment.phoneNumber} onChange={changeCommentHandler} name='phoneNumber' type="text" placeholder='Số điện thoại' pattern="[0-9]*" />
-              <button type='submit' onClick={submitCommentHandler}>Gửi</button>
-            </div>
-          ) : ( isOpen === true && authContext.isLogin === true &&
-            (<div className='logged-submit__btn'><button type='submit' onClick={submitCommentHandler}>Gửi</button></div>)
-          )
-          }
-        </form>
-        {comments && (<CommentList flag={flag} setFlag={setFlag} comments={comments}/>)}
-               
+      <ToastContainer />
+      <h2>Bình luận</h2>
+      <form className='comment-form'>
+        <textarea value={comment.content} onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>
+        {(isOpen === true && authContext.isLogin === false) ? (
+          <div className='user-info'>
+            <input value={comment.name} onChange={changeCommentHandler} name='name' type="text" placeholder='Họ và tên' required />
+            <input value={comment.email} onChange={changeCommentHandler} name='email' type="email" placeholder='Email' required />
+            <input value={comment.phoneNumber} onChange={changeCommentHandler} name='phoneNumber' type="text" placeholder='Số điện thoại' pattern="[0-9]*" />
+            <button type='submit' onClick={submitCommentHandler}>Gửi</button>
+          </div>
+        ) : (isOpen === true && authContext.isLogin === true &&
+          (<div className='logged-submit__btn'><button type='submit' onClick={submitCommentHandler}>Gửi</button></div>)
+        )
+        }
+      </form>
+      {comments && (<CommentList flag={flag} setFlag={setFlag} comments={comments} />)}
+
     </div>
   )
 }
