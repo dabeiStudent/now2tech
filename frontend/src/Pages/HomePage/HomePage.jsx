@@ -121,11 +121,11 @@ const HomePage = () => {
         getCate();
     }, []);
 
-
     const seeMoreHandler = () => { setPage(page + 1) };
 
     const seeMoreBestSellerHandler = () => {
     };
+
     const scrollNext = () => {
         const scrollContainer = scrollRef.current;
 
@@ -207,23 +207,25 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="all-product-container">
-                            <div className="all-product-container__main">
+                        <div className="rating-product-container">
+                            <div className="rating-product-container__main">
                                 <h2>SẢN PHẨM BÁN CHẠY</h2>
-                                <div className="all-product-container__prod-list_2">
-                                    {maxSelling && maxSelling.map(product => (
+                                <div className="scroll">
+                                    <div className="rating-product-container__list">
+                                        {maxSelling && maxSelling.map(product => (
 
-                                        <ProductCard
-                                            key={product._id}
-                                            id={product._id}
-                                            name={product.name}
-                                            price={product.sellPrice}
-                                            avgRating={product.avgRating}
-                                            numOfReview={product.numOfReview}
-                                            image={product.pimage[0]}
-                                            voucher={product.voucher} />
+                                            <ProductCard
+                                                key={product._id}
+                                                id={product._id}
+                                                name={product.name}
+                                                price={product.sellPrice}
+                                                avgRating={product.avgRating}
+                                                numOfReview={product.numOfReview}
+                                                image={product.pimage[0]}
+                                                voucher={product.voucher} />
 
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                                 {maxSelling.length >= page3 * 10 && (
                                     <div className="see-more-btn"><button onClick={seeMoreBestSellerHandler}>Xem thêm &raquo;</button></div>
