@@ -8,7 +8,7 @@ import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import './Chat.css';
 
-const host = "http://localhost:5000";
+const host = process.env.REACT_APP_BACKEND_URL;
 function Chat() {
     const [socket, setSocket] = useState();
     const [text, setText] = useState('');
