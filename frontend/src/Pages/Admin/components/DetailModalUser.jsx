@@ -5,17 +5,6 @@ import axios from "axios";
 import './DetailModalUser.css';
 
 const DetailModalUser = props => {
-    // const [user, setUser]= useState();
-    
-    // useEffect(()=> {
-    //     const getUser= async ()=> {
-    //         await axios.get(`http://localhost:5000/user/get-user/${props.userId}`, { withCredentials: true })
-    //         .then(res=> setUser(res.data))
-    //         .catch(err=> console.log(err))
-    //     };
-    //     getUser();
-    // }, [props.userId]);
-
     return (
         <div>
             <Modal dialogClassName='modal-custom' show={props.showDetail} onHide={props.closeDetailModalHandler()}>

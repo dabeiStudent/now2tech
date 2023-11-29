@@ -38,7 +38,7 @@ const CartPage = () => {
 
   useEffect(()=> {
     const getData= async ()=> {
-      await axios.get(`http://localhost:5000/product/get-product-in-cart`, { params: {products: products} })
+      await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-product-in-cart`, { params: {products: products} })
       .then(res=>{
         setItems(res.data)})
       .catch(err=> console.log(err))

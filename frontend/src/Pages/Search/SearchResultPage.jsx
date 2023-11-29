@@ -30,7 +30,7 @@ const SearchResultPage = () => {
     const scrollListVoucherRef = useRef(0);
     useEffect(() => {
         const searchProduct = async () => {
-            await axios.get(`http://localhost:5000/product/get-all-product?keyword=${keyword}&page=${page}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-product?keyword=${keyword}&page=${page}`)
                 .then(res => {
                     setProducts(res.data.result);
                     setMaxItem(res.data.maxLength);
@@ -48,7 +48,7 @@ const SearchResultPage = () => {
     }
     useEffect(() => {
         const getVouchers = async () => {
-            await axios.get("http://localhost:5000/voucher/get-all-voucher")
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-all-voucher`)
                 .then(res => {
                     setVoucher(res.data);
                 })

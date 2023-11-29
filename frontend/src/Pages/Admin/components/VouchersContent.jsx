@@ -19,7 +19,7 @@ const VouchersContent = () => {
 
     useEffect(() => {
         const getVouchers = async () => {
-            await axios.get('http://localhost:5000/voucher/get-all-voucher', { withCredentials: true })
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-all-voucher`, { withCredentials: true })
                 .then(res => setVouchers(res.data))
                 .catch(err => console.log(err))
         }
@@ -30,7 +30,7 @@ const VouchersContent = () => {
         const confirmed = window.confirm('Bạn muốn xóa khuyến mãi này?');
 
         if (confirmed) {
-            await axios.delete(`http://localhost:5000/voucher/delete-voucher/${voucherId}`, { withCredentials: true })
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/voucher/delete-voucher/${voucherId}`, { withCredentials: true })
                 .then(res => {
                     toast(res.data.msg);
                     setIsReload(!isReload);
@@ -44,7 +44,7 @@ const VouchersContent = () => {
     }
     const sendEmailToUsers = (voucherId) => {
         if (window.confirm('Bạn muốn thông báo tới tất cả user?')) {
-            axios.post('http://localhost:5000/voucher/notice-voucher-to-all', { vid: voucherId }, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/voucher/notice-voucher-to-all`, { vid: voucherId }, { withCredentials: true })
                 .then(result => {
                     toast('Đã thông báo tới user');
                 })
@@ -67,7 +67,7 @@ const VouchersContent = () => {
         );
     })
     const resetDiscount = () => {
-        axios.put('http://localhost:5000/voucher/reset-all-discount', { vouchers }, { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/voucher/reset-all-discount`, { vouchers }, { withCredentials: true })
             .then(result => {
                 toast("Đã reset lại các sản phẩm");
             })
@@ -126,7 +126,7 @@ const VouchersContent = () => {
                                                 <td className="product-cell">{formatDate(voucher.start)}</td>
                                                 <td className="product-cell">{formatDate(voucher.end)}</td>
                                                 <td className="product-cell">
-                                                    <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner' />
+                                                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/vouchers/${voucher.image}`} alt='voucher-banner' />
                                                 </td>
                                                 <td className="product-cell">
                                                     <div className='voucher-btn'>
@@ -150,7 +150,7 @@ const VouchersContent = () => {
                                                 <td className="product-cell">{formatDate(voucher.start)}</td>
                                                 <td className="product-cell">{formatDate(voucher.end)}</td>
                                                 <td className="product-cell">
-                                                    <img src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt='voucher-banner' />
+                                                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/vouchers/${voucher.image}`} alt='voucher-banner' />
                                                 </td>
                                                 <td className="product-cell">
                                                     <div className='voucher-btn'>

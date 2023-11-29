@@ -21,7 +21,7 @@ const UpdateVoucherModal = props => {
 
     useEffect(()=> {
         const getVoucher= async (req, res)=> {
-            await axios.get(`http://localhost:5000/voucher/get-voucher/${props.voucherId}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-voucher/${props.voucherId}`)
             .then(res=> {
                 setVoucher(res.data);
                 setUpdateVoucher({
@@ -61,7 +61,7 @@ const UpdateVoucherModal = props => {
     const updateVoucherHandler= (e)=> {
         e.preventDefault();
         const updateVoucherReq= async() => {
-            await axios.put(`http://localhost:5000/voucher/update-voucher/${props.voucherId}`, {
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/voucher/update-voucher/${props.voucherId}`, {
                name: updateVoucher.name,
                desc: updateVoucher.desc,
                percent: updateVoucher.percent,

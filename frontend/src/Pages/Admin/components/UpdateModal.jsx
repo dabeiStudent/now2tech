@@ -19,7 +19,7 @@ const UpdateModal = props => {
 
     const handleUpdate = event => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/user/user-update/${account._id}`, account, { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/user-update/${account._id}`, account, { withCredentials: true })
             .then(result => {
                 props.closeUpdateModal();
                 props.reload();

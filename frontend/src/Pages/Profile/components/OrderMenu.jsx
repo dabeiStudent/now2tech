@@ -18,7 +18,7 @@ const OrderMenu = () => {
         setSelectedStatus(status === selectedStatus ? '' : status);
     };
     useEffect(() => {
-        axios.get('http://localhost:5000/order/my-order', { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/my-order`, { withCredentials: true })
             .then(res => setOrder(res.data))
             .catch(err => console.log(err))
     }, []);
@@ -76,7 +76,7 @@ const OrderMenu = () => {
                                         <ul>
                                             {order.items.map((item, itemIndex) => (
                                                 <li key={itemIndex}>
-                                                    <img src={`http://localhost:5000/images/${item.image}`} /> - {item.name} {'('}{item.qty}{')'}
+                                                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${item.image}`} /> - {item.name} {'('}{item.qty}{')'}
                                                 </li>
                                             ))}
                                         </ul>

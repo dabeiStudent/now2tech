@@ -23,7 +23,7 @@ const AddProductDiscount = props => {
 
     useEffect(() => {
         const getListProduct = async () => {
-            await axios.get(`http://localhost:5000/voucher/get-product-for-voucher`, { withCredentials: true })
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-product-for-voucher`, { withCredentials: true })
                 .then(res => setProducts(res.data))
                 .catch(err => console.log(err))
         }
@@ -31,7 +31,7 @@ const AddProductDiscount = props => {
     }, [props.voucherId, flag, isOpenModal]);
     useEffect(() => {
         const getListProduct = async () => {
-            await axios.get(`http://localhost:5000/voucher/get-product-of-voucher/${props.voucherId}`, { withCredentials: true })
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-product-of-voucher/${props.voucherId}`, { withCredentials: true })
                 .then(res => setProductsOf(res.data))
                 .catch(err => console.log(err))
         }
@@ -48,7 +48,7 @@ const AddProductDiscount = props => {
     const addProductsHandler = (e) => {
         e.preventDefault();
         const addProducts = async () => {
-            await axios.put(`http://localhost:5000/voucher/add-product-to-voucher/${props.voucherId}`,
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/voucher/add-product-to-voucher/${props.voucherId}`,
                 { products: selectedProduct }, { withCredentials: true })
                 .then(res => {
                     toast('Thành công');
@@ -62,7 +62,7 @@ const AddProductDiscount = props => {
         addProducts();
     }
     const removeItem = (productId) => {
-        axios.put(`http://localhost:5000/voucher/remove-product-from-voucher/${productId}`, '', { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/voucher/remove-product-from-voucher/${productId}`, '', { withCredentials: true })
             .then(result => {
                 toast('Đã xóa thành công');
                 setFlag(!flag);
@@ -73,7 +73,7 @@ const AddProductDiscount = props => {
             })
     }
     const removeAllItem = (voucherId) => {
-        axios.delete(`http://localhost:5000/voucher/remove-all-product-from-voucher/${voucherId}`, { withCredentials: true })
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/voucher/remove-all-product-from-voucher/${voucherId}`, { withCredentials: true })
             .then(result => {
                 toast('Đã xóa thành công');
                 setFlag(!flag);
@@ -103,7 +103,7 @@ const AddProductDiscount = props => {
                                         <li key={product._id} className='product-list__option'>
                                             <input type="checkbox" value={product._id} onChange={checkboxChangeHandler} />
                                             <div className='image'>
-                                                <img src={`http://localhost:5000/images/${product.pimage[0]}`} alt="product" />
+                                                <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`} alt="product" />
                                             </div>
                                             <div className='prod-info'>
                                                 <p>{product.name}</p>
@@ -125,7 +125,7 @@ const AddProductDiscount = props => {
                                 <ul className='product-list__choose'>
                                     <li key={product._id} className='product-list__option'>
                                         <div className='image'>
-                                            <img src={`http://localhost:5000/images/${product.pimage[0]}`} alt="product" />
+                                            <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`} alt="product" />
                                         </div>
                                         <div className='prod-info'>
                                             <p>{product.name}</p>

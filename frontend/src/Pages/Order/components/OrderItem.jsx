@@ -38,7 +38,7 @@ const OrderItem = props => {
             return window.alert("Vui lòng chia sẻ đánh giá của bạn về sản phẩm.")
         }
 
-        await axios.post(`http://localhost:5000/product/add-review/${props.id}`, {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/product/add-review/${props.id}`, {
             rating: rating,
             comment: comment
         }, { withCredentials: true })
@@ -55,7 +55,7 @@ const OrderItem = props => {
         <li className='order-item__container'>
             <div className='order-item'>
                 <div className='order-item__img'>
-                    <img src={`http://localhost:5000/images/${props.image}`} alt="product" />
+                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`} alt="product" />
                 </div>
                 <div className='order-item__info'>
                     <div className='order-item__info-left'>
@@ -84,7 +84,7 @@ const OrderItem = props => {
                             <Modal.Body>
                                 <div className='review-item'>
                                     <div className='review-item__img'>
-                                        <img src={`http://localhost:5000/images/${props.image}`} alt="product" />
+                                        <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`} alt="product" />
                                     </div>
                                     <div className='review-item__name'><p>{props.name}</p></div>
                                     <div className='review-item__rating'>

@@ -10,7 +10,7 @@ const ProductCarousel = props => {
             <Carousel interval={null} >
                 {props.images.map(image=> (
                     <Carousel.Item key={image}>
-                        <img src={`http://localhost:5000/images/${image}`} alt="product" />
+                        <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${image}`} alt="product" />
                     </Carousel.Item>
                 ))}
             </Carousel>

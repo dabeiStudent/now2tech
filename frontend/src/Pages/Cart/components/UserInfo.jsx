@@ -56,7 +56,7 @@ const UserInfo = () => {
 
     useEffect(() => {
         const getUserInfo = async () => {
-            await axios.get('http://localhost:5000/user/profile/my-profile', { withCredentials: true })
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/profile/my-profile`, { withCredentials: true })
                 .then(res => {
                     setUserInfo({
                         firstName: res.data.firstName,
@@ -155,7 +155,7 @@ const UserInfo = () => {
         orderContext.setAddress(a);
 
         const createOrder = async () => {
-            await axios.post('http://localhost:5000/order/create-order', {
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order/create-order`, {
                 items: orderContext.selectedItems,
                 address: add,
                 paymentMethod: paymentMethod,
@@ -178,7 +178,7 @@ const UserInfo = () => {
         if(ordered !== undefined){
             if(ordered.paymentMethod === 'VNPAY' && ordered.paymentStatus.isPaid === false){
                 const getVNPayUrl= async ()=> {
-                    await axios.post(`http://localhost:5000/order/create-vnpay-url/${ordered._id}`)
+                    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order/create-vnpay-url/${ordered._id}`)
                         .then(res => {
                             navigate(`/chi-tiet-don-hang/${ordered._id}`);
                             window.open(res.data)
@@ -215,7 +215,7 @@ const UserInfo = () => {
 
     const updateInfoHandler = async (e) => {
         e.preventDefault();
-        await axios.put('http://localhost:5000/user/profile/update', updateInfo, { withCredentials: true })
+        await axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, updateInfo, { withCredentials: true })
             .then(res => {
                 navigate(0);
             })

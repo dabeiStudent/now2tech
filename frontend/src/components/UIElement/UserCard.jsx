@@ -30,7 +30,7 @@ const UserCard = props => {
 
     const handleBlock = (userId, userStatus) => {
         if (userStatus === "active") {
-            axios.put(`http://localhost:5000/user/user-status/${userId}/1`, '', { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/user-status/${userId}/1`, '', { withCredentials: true })
                 .then(result => {
                     props.reload();
                     toast("Đã khóa tài khoản");
@@ -39,7 +39,7 @@ const UserCard = props => {
                     console.log(err);
                 })
         } else {
-            axios.put(`http://localhost:5000/user/user-status/${userId}/0`, '', { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/user-status/${userId}/0`, '', { withCredentials: true })
                 .then(result => {
                     props.reload();
                     toast("Đã mở khóa tài khoản");
@@ -56,7 +56,7 @@ const UserCard = props => {
 
     const handleRemove = (userId) => {
         if (window.confirm('Bạn có chắc muốn xóa tài khoản này?')) {
-            axios.delete(`http://localhost:5000/user/user-remove/${userId}`, { withCredentials: true })
+            axios.delete(`${process.env.REACT_APP_BACKEND_URL}/user/user-remove/${userId}`, { withCredentials: true })
                 .then((res) => {
                     props.reload();
                     toast('Xóa thành công');
@@ -72,7 +72,7 @@ const UserCard = props => {
         <div className="user-card">
             {image === "Chưa có" || image === "Chua co" || !image
                 ? <img src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg' alt={`${firstName} ${lastName}`} />
-                : <img src={`http://localhost:5000/images/${image}`} alt={`${firstName} ${lastName}`} />}
+                : <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${image}`} alt={`${firstName} ${lastName}`} />}
             <div className="user-details">
                 <h3>{`${firstName} ${lastName}`}</h3>
                 <p>

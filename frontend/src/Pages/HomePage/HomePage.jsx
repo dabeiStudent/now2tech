@@ -33,7 +33,7 @@ const HomePage = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true)
-            await axios.get("http://localhost:5000/product/get-all-product", { params: { page: page } })
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-product`, { params: { page: page } })
                 .then((res) => {
                     if (page === 1) {
                         setProduct(res.data.result);
@@ -48,7 +48,7 @@ const HomePage = () => {
                 })
         };
         const getBestSeller = async () => {
-            await axios.get(`http://localhost:5000/product/get-good-product?page=${page2}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-good-product?page=${page2}`)
                 .then(result => {
                     if (page2 === 1) {
                         setBestSeller(result.data.result);
@@ -62,7 +62,7 @@ const HomePage = () => {
                 })
         }
         const getMaxSelling = async () => {
-            await axios.get(`http://localhost:5000/product/get-max-selling?page=${page3}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-max-selling?page=${page3}`)
                 .then(result => {
                     if (page3 === 1) {
                         setMaxSelling(result.data.result);
@@ -109,7 +109,7 @@ const HomePage = () => {
     useEffect(() => {
         const getCate = async () => {
             setIsLoading(true);
-            await axios.get('http://localhost:5000/category/get-category')
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
                 .then(result => {
                     setCategories(result.data);
                     setIsLoading(false)

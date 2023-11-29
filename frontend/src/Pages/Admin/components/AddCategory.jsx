@@ -23,7 +23,7 @@ const AddCategory = ({ onClose }) => {
         );
     })
     useEffect(() => {
-        axios.get('http://localhost:5000/category/get-category')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
             .then(result => {
                 setCategories(result.data);
             })
@@ -37,7 +37,7 @@ const AddCategory = ({ onClose }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:5000/category/add-category', newCategory, { withCredentials: true })
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/category/add-category`, newCategory, { withCredentials: true })
             .then(result => {
                 setNewCategory({
                     name: '',
@@ -54,7 +54,7 @@ const AddCategory = ({ onClose }) => {
             })
     }
     const handleRemove = (categoryId) => {
-        axios.delete(`http://localhost:5000/category/delete-category/${categoryId}`, { withCredentials: true })
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/category/delete-category/${categoryId}`, { withCredentials: true })
             .then(result => {
                 setIsUpdate(!isUpdate);
             })

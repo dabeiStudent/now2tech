@@ -25,7 +25,7 @@ const ResetPWPage = () => {
     }
     const resetPasswordHandler = event => {
         event.preventDefault();
-        axios.post("http://localhost:5000/user/reset-password/send-request", user,
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/reset-password/send-request`, user,
             { withCredentials: true }
         )
             .then(res => {

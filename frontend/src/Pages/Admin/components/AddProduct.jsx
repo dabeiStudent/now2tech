@@ -23,7 +23,7 @@ const AddProduct = ({ onClose }) => {
         sold: 0
     });
     useEffect(() => {
-        axios.get('http://localhost:5000/category/get-category')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
             .then(result => {
                 setCategories(result.data);
             })
@@ -42,7 +42,7 @@ const AddProduct = ({ onClose }) => {
         setBrand([]);
     }
     const handleChangeBrand = (e) => {
-        axios.get(`http://localhost:5000/brand/get-brand-cate/${selectedCategory}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand-cate/${selectedCategory}`)
             .then(result => {
                 setBrand(result.data);
             })
@@ -68,7 +68,7 @@ const AddProduct = ({ onClose }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/product/add-new-product", product, { withCredentials: true })
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/product/add-new-product`, product, { withCredentials: true })
             .then(result => {
                 toast("Thêm sản phẩm thành công")
                 setProduct({

@@ -22,7 +22,7 @@ const UploadModal = ({ pid, onClose }) => {
                 const file = selectedFiles[i];
                 formData.append("files", file);
             }
-            axios.put(`http://localhost:5000/product/upload-image-product/${pid}`, formData, {
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/product/upload-image-product/${pid}`, formData, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -46,7 +46,7 @@ const UploadModal = ({ pid, onClose }) => {
             pimage: []
         };
         if (window.confirm("Bạn có chắc muốn xóa ảnh sản phẩm này?") === true) {
-            axios.put(`http://localhost:5000/product/update-product/${pid}`, pimage, { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/product/update-product/${pid}`, pimage, { withCredentials: true })
                 .then(result => {
                     toast(result.data.msg);
                     onClose();

@@ -18,7 +18,7 @@ const OrdersContent = () => {
         setSearchTerm(e.target.value);
     };
     useEffect(() => {
-        axios.get("http://localhost:5000/order/all-order", { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/all-order`, { withCredentials: true })
             .then(res => (
                 setOrder(res.data)
             ))
@@ -41,7 +41,7 @@ const OrdersContent = () => {
     });
     const handleStatusChange = (orderId, value) => {
         if (value === "Shipped") {
-            axios.put(`http://localhost:5000/order/update-status-shipped/${orderId}/${value}`, '', { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/order/update-status-shipped/${orderId}/${value}`, '', { withCredentials: true })
                 .then(result => {
                     toast("Đã gửi hàng cho shipper");
                     setFlag(!flag);
@@ -50,7 +50,7 @@ const OrdersContent = () => {
                     console.log(err);
                 })
         } else {
-            axios.put(`http://localhost:5000/order/update-status/${orderId}/${value}`, '', { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/order/update-status/${orderId}/${value}`, '', { withCredentials: true })
                 .then(result => {
                     toast("Cập nhật thành công");
                     setFlag(!flag);

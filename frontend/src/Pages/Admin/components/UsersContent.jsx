@@ -16,7 +16,7 @@ const UsersContent = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:5000/user/get-user', { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/get-user`, { withCredentials: true })
             .then(res => {
                 setUser(res.data);
             })

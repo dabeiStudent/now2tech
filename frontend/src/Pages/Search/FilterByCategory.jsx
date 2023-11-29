@@ -26,13 +26,13 @@ const FilterByCategory = () => {
     const [selectedPage, setSelectedPage] = useState(1);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/product/get-all-product/?category=${category}&brand=${brand}&min=${minp}&max=${maxp}&page=${page}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-product/?category=${category}&brand=${brand}&min=${minp}&max=${maxp}&page=${page}`)
             .then(result => {
                 setItem(result.data.result);
                 setMaxItem(result.data.maxLength);
                 const calculatedTotalPages = Math.ceil(result.data.maxLength / 12);
                 setTotalPages(calculatedTotalPages);
-                axios.get(`http://localhost:5000/brand/get-brand-cate/${category}`)
+                axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand-cate/${category}`)
                     .then(success => {
                         setBrand(success.data);
                         setSelectedCategory(category);
@@ -49,7 +49,7 @@ const FilterByCategory = () => {
             })
     }, [flag])
     useEffect(() => {
-        axios.get('http://localhost:5000/category/get-category')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
             .then(result => {
                 setCategories(result.data);
             })

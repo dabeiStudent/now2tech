@@ -20,7 +20,7 @@ const DetailVoucherModal = props => {
 
     useEffect(() => {
         const getVoucher = async (req, res) => {
-            await axios.get(`http://localhost:5000/voucher/get-voucher/${props.voucherId}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-voucher/${props.voucherId}`)
                 .then(res => {
                     setVoucher(res.data);
                 })
@@ -66,7 +66,7 @@ const DetailVoucherModal = props => {
                             <tr>
                                 <td className='voucher-title'>Ảnh đại diện</td>
                                 <td>
-                                    <img className='voucher_image' src={`http://localhost:5000/images/vouchers/${voucher.image}`} alt="khuyen-mai" />
+                                    <img className='voucher_image' src={`${process.env.REACT_APP_BACKEND_URL}/images/vouchers/${voucher.image}`} alt="khuyen-mai" />
                                 </td>
                             </tr>
                             <tr>

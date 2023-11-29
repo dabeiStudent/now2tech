@@ -16,7 +16,7 @@ const VNPayPayment = () => {
 
     useEffect(()=> {
         const paymentResult= async ()=> {
-            await axios.get(`http://localhost:5000/order/vnpay-ipn/${oid}`, {params: Object.fromEntries(searchParams)})
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/vnpay-ipn/${oid}`, {params: Object.fromEntries(searchParams)})
             .then(res => setData(res.data))
             .catch(err=> console.log(err))
         }

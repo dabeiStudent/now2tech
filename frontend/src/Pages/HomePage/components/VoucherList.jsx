@@ -8,7 +8,7 @@ const VoucherList = props => {
   const [vouchers, setVoucher] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/voucher/get-all-voucher")
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-all-voucher`)
       .then(res => {
         setVoucher(res.data)
       })

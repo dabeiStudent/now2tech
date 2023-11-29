@@ -45,7 +45,7 @@ const DetailModal = ({ product, onClose }) => {
                                 <td>Ảnh sản phẩm:</td>
                                 <td>
                                     {product.pimage && product.pimage.map((imageName, index) => (
-                                        <img key={index} src={`http://localhost:5000/images/${imageName}`} alt={`Image ${index + 1}`} className="product-image" />
+                                        <img key={index} src={`${process.env.REACT_APP_BACKEND_URL}/images/${imageName}`} alt={`Image ${index + 1}`} className="product-image" />
                                     ))}
                                 </td>
                             </tr>

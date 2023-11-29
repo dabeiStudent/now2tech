@@ -11,7 +11,7 @@ const ProfilePage = () => {
     const signOutHandler = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('http://localhost:5000/user/user-logout', '', { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/user-logout`, '', { withCredentials: true });
             localStorage.removeItem('user');
             authContext.logout();
             window.location.href = "/";

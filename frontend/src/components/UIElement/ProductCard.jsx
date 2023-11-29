@@ -11,7 +11,7 @@ const ProductCard = props => {
     const [discount, setDiscount] = useState(null);
     useEffect(() => {
         if (props.voucher) {
-            axios.get(`http://localhost:5000/voucher/get-voucher-by-name?vname=${props.voucher}`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-voucher-by-name?vname=${props.voucher}`)
                 .then(result => {
                     setDiscount(result.data);
                 })
@@ -26,7 +26,7 @@ const ProductCard = props => {
                 <ToastContainer />
                 <div className="product-img">
                     <img
-                        src={`http://localhost:5000/images/${props.image}`}
+                        src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`}
                         alt='place'
                         height={200}
                     />

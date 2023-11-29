@@ -52,7 +52,7 @@ const AddVoucherModal = props => {
         formData.append('endDate', voucherInfo.end);
         formData.append('file', imgFile);
 
-        await axios.post('http://localhost:5000/voucher/add-new-voucher', formData, { withCredentials: true, headers: { "Content-Type": 'multipart/form-data' } })
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/voucher/add-new-voucher`, formData, { withCredentials: true, headers: { "Content-Type": 'multipart/form-data' } })
             .then(res => {
                 setVoucherInfo({
                     name: '',

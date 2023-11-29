@@ -25,7 +25,7 @@ const AddBrand = ({ onClose }) => {
         );
     })
     useEffect(() => {
-        axios.get('http://localhost:5000/category/get-category')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
             .then(result => {
                 setCategories(result.data);
             })
@@ -35,7 +35,7 @@ const AddBrand = ({ onClose }) => {
     }, [onClose])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/brand/get-brand')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand`)
             .then(result => {
                 setBrand(result.data);
             })
@@ -49,7 +49,7 @@ const AddBrand = ({ onClose }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:5000/brand/add-brand', newBrand, { withCredentials: true })
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/brand/add-brand`, newBrand, { withCredentials: true })
             .then(result => {
                 setNewBrand({
                     name: '',
@@ -66,7 +66,7 @@ const AddBrand = ({ onClose }) => {
             })
     }
     const handleRemove = (brandId) => {
-        axios.delete(`http://localhost:5000/brand/remove-brand/${brandId}`, { withCredentials: true })
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/brand/remove-brand/${brandId}`, { withCredentials: true })
             .then(result => {
                 setIsUpdate(!isUpdate);
             })

@@ -36,17 +36,17 @@ const ProductPage = () => {
 
     useEffect(() => {
         const getData = async () => {
-            await axios.get(`http://localhost:5000/product/get-product/${pid}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-product/${pid}`)
                 .then(res => {
                     setProduct(res.data);
-                    axios.get(`http://localhost:5000/product/get-product-by/?category=${res.data.category}&brand=All&min=0&max=0&page=1`)
+                    axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-product-by/?category=${res.data.category}&brand=All&min=0&max=0&page=1`)
                         .then(result => {
                             setRelatedProducts(result.data.result);
                         })
                         .catch(err => {
                             toast(err);
                         })
-                    axios.get(`http://localhost:5000/voucher/get-voucher-by-name?vname=${res.data.voucher}`)
+                    axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-voucher-by-name?vname=${res.data.voucher}`)
                         .then(result => {
                             setDiscount(result.data);
                         })
@@ -71,7 +71,7 @@ const ProductPage = () => {
 
     useEffect(() => {
         const getDataForCart = async () => {
-            await axios.get('http://localhost:5000/product/get-product-in-cart', {
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-product-in-cart`, {
                 params: { products: [product._id] }
             }).then(res => {
                 const data = res.data.map(item => {

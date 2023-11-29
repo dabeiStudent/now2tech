@@ -11,7 +11,7 @@ const UpdateitemModal = ({ product, onClose }) => {
 
     const [item, setItem] = useState(product);
     useEffect(() => {
-        axios.get('http://localhost:5000/category/get-category')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
             .then(result => {
                 setCategories(result.data);
             })
@@ -26,7 +26,7 @@ const UpdateitemModal = ({ product, onClose }) => {
         setBrand([]);
     }
     const handleChangeBrand = (e) => {
-        axios.get(`http://localhost:5000/brand/get-brand-cate/${selectedCategory}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand-cate/${selectedCategory}`)
             .then(result => {
                 setBrand(result.data);
             })
@@ -61,7 +61,7 @@ const UpdateitemModal = ({ product, onClose }) => {
     };
     const handleUpdate = event => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/product/update-product/${item._id}`, item, { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/product/update-product/${item._id}`, item, { withCredentials: true })
             .then(result => {
                 toast("Cập nhật thành công");
                 onClose();

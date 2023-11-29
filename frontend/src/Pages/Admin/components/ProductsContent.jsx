@@ -47,13 +47,13 @@ const ProductsContent = () => {
         inStock: ''
     }]);
     useEffect(() => {
-        axios.get("http://localhost:5000/product/get-all-admin", { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-admin`, { withCredentials: true })
             .then(result => {
                 setProduct(result.data);
             })
     }, [deleteProduct, showAdd, showUpdate, showUpload, showAddBrand, showAddCate]);
     useEffect(() => {
-        axios.get('http://localhost:5000/category/get-category')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/category/get-category`)
             .then(result => {
                 setCategories(result.data);
             })
@@ -88,7 +88,7 @@ const ProductsContent = () => {
     const handleRemove = (productId) => {
         console.log(`Remove product with ID ${productId}`);
         if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-            axios.delete(`http://localhost:5000/product/remove-product/${productId}`, { withCredentials: true })
+            axios.delete(`${process.env.REACT_APP_BACKEND_URL}/product/remove-product/${productId}`, { withCredentials: true })
                 .then((res) => {
                     toast('Xóa thành công');
                     setDeleteProduct(!deleteProduct);
@@ -190,7 +190,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
                                     <td className="product-cell">
-                                        <img src={`http://localhost:5000/images/${product.pimage ? product.pimage[0] : 'chưa có'}`} />
+                                        <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage ? product.pimage[0] : 'chưa có'}`} />
                                     </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>

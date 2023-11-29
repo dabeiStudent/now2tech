@@ -20,7 +20,7 @@ const LoginPage = () => {
     }
     const loginHandler = event => {
         event.preventDefault();
-        axios.post("http://localhost:5000/user/user-login", user,
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/user-login`, user,
             { withCredentials: true }
         )
             .then(res => {

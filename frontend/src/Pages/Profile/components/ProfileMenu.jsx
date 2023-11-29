@@ -35,7 +35,7 @@ const ProfileMenu = () => {
     })
 
     useEffect(() => {
-        axios.get('http://localhost:5000/user/profile/my-profile', { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/profile/my-profile`, { withCredentials: true })
             .then(res => {
                 setUser({
                     firstName: res.data.firstName,
@@ -89,7 +89,7 @@ const ProfileMenu = () => {
         if (regex.test(updateUser.phoneNumber) == false) {
             toast("Số điện thoại không hợp lệ")
         } else {
-            axios.put('http://localhost:5000/user/profile/update', updateUser, { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, updateUser, { withCredentials: true })
                 .then(res => {
                     window.location.href = "/my-profile"
                 })
@@ -105,7 +105,7 @@ const ProfileMenu = () => {
         const image = {
             image: "Chưa có"
         }
-        axios.put('http://localhost:5000/user/profile/update', image, { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, image, { withCredentials: true })
             .then(res => {
                 window.location.href = "/my-profile"
             })
@@ -128,7 +128,7 @@ const ProfileMenu = () => {
             document.getElementById("repeatPassword").value = '';
             return;
         }
-        axios.put("http://localhost:5000/user/user-changepassword", password, { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/user-changepassword`, password, { withCredentials: true })
             .then(res => {
                 alert(res.data.msg);
                 setNoti('');
@@ -166,7 +166,7 @@ const ProfileMenu = () => {
         event.preventDefault();
         const formdata = new FormData();
         formdata.append('file', file);
-        axios.put("http://localhost:5000/user/profile/update-image", formdata, { withCredentials: true })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update-image`, formdata, { withCredentials: true })
             .then(res => {
                 window.location.href = "/my-profile"
             })
@@ -183,7 +183,7 @@ const ProfileMenu = () => {
                     ? <div className="my_profile">
                         <div className="left_profile">
                             {user.image !== "Chưa có"
-                                ? <img src={`http://localhost:5000/images/${user.image}`} alt="Hình đại diện" />
+                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${user.image}`} alt="Hình đại diện" />
                                 : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
                         </div>
                         <div className="mid_profile">
@@ -221,7 +221,7 @@ const ProfileMenu = () => {
                                     <div className="my_profile">
                                         <div className="left_profile">
                                             {user.image !== "Chưa có"
-                                                ? <img src={`http://localhost:5000/images/${user.image}`} alt="Hình đại diện" />
+                                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${user.image}`} alt="Hình đại diện" />
                                                 : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
                                         </div>
                                         <div className="mid_profile">

@@ -20,7 +20,7 @@ const CommentComponent = props => {
   const [flag, setFlag] = useState(false);
   useEffect(() => {
     const getComments = async () => {
-      await axios.get(`http://localhost:5000/comment/get-comments/${props.productId}`)
+      await axios.get(`${process.env.REACT_APP_BACKEND_URL}/comment/get-comments/${props.productId}`)
         .then(res => setComments(res.data))
         .catch(err => console.log(err));
     }
@@ -42,7 +42,7 @@ const CommentComponent = props => {
         return toast('Vui lòng nhập thông tin để bình luận.');
       }
 
-      await axios.post(`http://localhost:5000/comment/create-comment/${props.productId}`,
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/comment/create-comment/${props.productId}`,
         {
           name: comment.name,
           email: comment.email,
@@ -65,7 +65,7 @@ const CommentComponent = props => {
         return toast('Vui lòng nhập bình luận của bạn.');
       }
 
-      await axios.post(`http://localhost:5000/comment/logged-create-comment/${props.productId}`,
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/comment/logged-create-comment/${props.productId}`,
         {
           content: comment.content
         }, { withCredentials: true })

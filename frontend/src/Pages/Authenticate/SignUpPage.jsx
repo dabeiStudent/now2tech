@@ -20,7 +20,7 @@ const SignUpPage = () => {
         if (regex.test(user.phoneNumber) == false) {
             toast("Số điện thoại không hợp lệ")
         } else {
-            axios.post('http://localhost:5000/user/user-register', user, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/user-register`, user, { withCredentials: true })
                 .then(result => {
                     toast(`${result.data.msg}`);
                     setUser({ firstName: '', lastName: '', phoneNumber: '', userName: '', email: '', passWord: '' });

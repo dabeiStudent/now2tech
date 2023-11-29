@@ -40,7 +40,7 @@ const CommentItem = props => {
         return toast("Vui lòng nhập thông tin để phản hồi.");
       }
 
-      await axios.post(`http://localhost:5000/comment/reply-comment/${props.id}`,
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/comment/reply-comment/${props.id}`,
         {
           content: replyMessage.content,
           name: replyMessage.name,
@@ -64,7 +64,7 @@ const CommentItem = props => {
         return toast("Vui lòng nhập thông tin để phản hồi.");
       }
 
-      await axios.post(`http://localhost:5000/comment/logged-reply-comment/${props.id}`,
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/comment/logged-reply-comment/${props.id}`,
         {
           content: replyMessage.content,
         }, { withCredentials: true })
@@ -85,7 +85,7 @@ const CommentItem = props => {
   const removeComment = async (e) => {
     e.preventDefault();
     if (window.confirm('Bạn có chắc muốn xóa comment này ?')) {
-      axios.delete(`http://localhost:5000/comment/remove-comment/${props.id}`, { withCredentials: true })
+      axios.delete(`${process.env.REACT_APP_BACKEND_URL}/comment/remove-comment/${props.id}`, { withCredentials: true })
         .then(result => {
 
           toast("Đã xóa comment");

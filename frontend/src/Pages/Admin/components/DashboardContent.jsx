@@ -21,7 +21,7 @@ const DashboardContent = () => {
 
     useEffect(()=> {
         const getStatistic= async ()=> {
-            await axios.get('http://localhost:5000/statistic/get-statistic', { withCredentials: true})
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/statistic/get-statistic`, { withCredentials: true})
             .then(res=> {
                 setStatistic(res.data)})
             .catch(err=> console.log(err))
@@ -31,7 +31,7 @@ const DashboardContent = () => {
 
     useEffect(()=> {
         const getUserStats= async(req, res)=> {
-          await axios.get(`http://localhost:5000/statistic/user-statistic?year=${year}`, {withCredentials: true})
+          await axios.get(`${process.env.REACT_APP_BACKEND_URL}/statistic/user-statistic?year=${year}`, {withCredentials: true})
           .then(res=> {
             setUserStats(res.data);
           })
@@ -42,7 +42,7 @@ const DashboardContent = () => {
 
     useEffect(()=> {
         const getSalesStats= async(req, res)=> {
-          await axios.get(`http://localhost:5000/statistic/sales-statistic?year=${year}`, { withCredentials: true })
+          await axios.get(`${process.env.REACT_APP_BACKEND_URL}/statistic/sales-statistic?year=${year}`, { withCredentials: true })
           .then(res=> {
             setSalesStats(res.data);
           })

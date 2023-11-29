@@ -50,7 +50,7 @@ const NavLinks = () => {
         }
     }
     useEffect(() => {
-        axios.get(`http://localhost:5000/product/get-all-product?keyword=${searchKeyword}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-product?keyword=${searchKeyword}`)
             .then(result => {
                 setProducts(result.data.result);
             })
@@ -59,7 +59,7 @@ const NavLinks = () => {
             })
     }, [searchKeyword]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/product/get-good-product`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-good-product`)
             .then(result => {
                 setGoodProduct(result.data.result);
             })
@@ -73,7 +73,7 @@ const NavLinks = () => {
         }
     }, [location])
     useEffect(() => {
-        axios.get("http://localhost:5000/user/authorize-user", { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/authorize-user`, { withCredentials: true })
             .then(result => {
                 setAuthorizeUser({
                     userName: result.data.name,
@@ -111,7 +111,7 @@ const NavLinks = () => {
                                     {products.map((product) => (
                                         <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
                                             {product.pimage.length > 0
-                                                ? <img src={`http://localhost:5000/images/${product.pimage[0]}`}
+                                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`}
                                                     alt="ảnh sản phẩm"
                                                     width="50px"
                                                     height="50px" />
@@ -136,7 +136,7 @@ const NavLinks = () => {
                                     {goodProducts.map((product) => (
                                         <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
                                             {product.pimage.length > 0
-                                                ? <img src={`http://localhost:5000/images/${product.pimage[0]}`}
+                                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`}
                                                     alt="ảnh sản phẩm"
                                                     width="50px"
                                                     height="50px" />

@@ -13,14 +13,14 @@ const VoucherPage = () => {
     const [productList, setProductList] = useState([]);
     useEffect(() => {
         const getVoucher = async (req, res) => {
-            await axios.get(`http://localhost:5000/voucher/get-voucher/${vid}`)
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-voucher/${vid}`)
                 .then(res => setVoucher(res.data))
                 .catch(err => console.log(err));
         }
         getVoucher();
     }, [vid]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/voucher/get-product-of-voucher/${vid}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/voucher/get-product-of-voucher/${vid}`)
             .then(res => {
                 setProductList(res.data);
             })

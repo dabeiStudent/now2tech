@@ -15,7 +15,7 @@ const OrderPage = () => {
   const [isReload, setIsReload] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/order/get-order/${oid}`, { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/get-order/${oid}`, { withCredentials: true })
       .then(res => setOrder(res.data))
       .catch(err => {
         alert(err);
@@ -24,7 +24,7 @@ const OrderPage = () => {
 
   const paymentHandler = () => {
     const getVNPayUrl = async () => {
-      await axios.post(`http://localhost:5000/order/create-vnpay-url/${order._id}`)
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order/create-vnpay-url/${order._id}`)
         .then(res => {
           window.open(res.data)
         })
@@ -35,7 +35,7 @@ const OrderPage = () => {
 
   const cancelOrderHandler = () => {
     const cancelOrder = async () => {
-      await axios.put(`http://localhost:5000/order/cancel-order/${order._id}`, {}, { withCredentials: true })
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/order/cancel-order/${order._id}`, {}, { withCredentials: true })
         .then(res => {
           toast(res.data.msg);
           setIsReload(!isReload)
@@ -49,7 +49,7 @@ const OrderPage = () => {
     const isConfirmed = window.confirm('Bạn chắc chắn đã nhận được hàng?');
 
     const updateOrder = async () => {
-      await axios.put(`http://localhost:5000/order/update-to-delivered/${order._id}`, {}, { withCredentials: true })
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/order/update-to-delivered/${order._id}`, {}, { withCredentials: true })
         .then(res => {
           toast(res.data.msg);
           setIsReload(!isReload)
