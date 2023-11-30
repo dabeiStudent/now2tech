@@ -217,7 +217,7 @@ const addImagesProduct = async (req, res) => {
         const productFound = await Product.findById(req.params.pid);
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
-            productFound.pimage.push(file.filename);
+            productFound.pimage.push(file.path);
         }
         productFound.save();
         return res.status(200).json({ msg: "Upload thành công" });

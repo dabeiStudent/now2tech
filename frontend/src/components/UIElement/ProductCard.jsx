@@ -26,7 +26,7 @@ const ProductCard = props => {
                 <ToastContainer />
                 <div className="product-img">
                     <img
-                        src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`}
+                        src={props.image}
                         alt='place'
                         height={200}
                     />

@@ -190,7 +190,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
                                     <td className="product-cell">
-                                        <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage ? product.pimage[0] : 'chưa có'}`} />
+                                        <img src={product.pimage ? product.pimage[0] : 'chưa có'} />
                                     </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>
