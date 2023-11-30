@@ -66,7 +66,7 @@ const DetailVoucherModal = props => {
                             <tr>
                                 <td className='voucher-title'>Ảnh đại diện</td>
                                 <td>
-                                    <img className='voucher_image' src={`${process.env.REACT_APP_BACKEND_URL}/images/vouchers/${voucher.image}`} alt="khuyen-mai" />
+                                    <img className='voucher_image' src={voucher.image} alt="khuyen-mai" />
                                 </td>
                             </tr>
                             <tr>

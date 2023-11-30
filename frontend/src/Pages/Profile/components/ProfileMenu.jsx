@@ -183,7 +183,7 @@ const ProfileMenu = () => {
                     ? <div className="my_profile">
                         <div className="left_profile">
                             {user.image !== "Chưa có"
-                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${user.image}`} alt="Hình đại diện" />
+                                ? <img src={user.image} alt="Hình đại diện" />
                                 : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
                         </div>
                         <div className="mid_profile">

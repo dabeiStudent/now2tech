@@ -11,7 +11,7 @@ const VoucherCard = props => {
   }
   return (
     <div className='voucher-card' id={props.id}>
-      <img src={`${process.env.REACT_APP_BACKEND_URL}/images/vouchers/${props.image}`} alt="voucher" />
+      <img src={props.image} alt="voucher" />
       <div className='voucher-card-body'>
         <p>{props.name}</p>
       </div>
