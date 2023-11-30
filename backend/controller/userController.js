@@ -3,6 +3,7 @@ const User = require('../models/usersModel');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const Stats = require('../models/userStatsModel');
+const cloudinary= require('cloudinary');
 
 //get all user
 const getAllUser = function (req, res) {
@@ -218,7 +219,8 @@ const updateProfile = function (req, res) {
 }
 //upload image 
 const uploadProfileImage = async (req, res) => {
-    User.findByIdAndUpdate(req.data.uid, { image: req.file.filename })
+    
+    User.findByIdAndUpdate(req.data.uid, { image: req.file.path })
         .then(result => { return res.status(200).json({ msg: "Upload thành công" }) })
         .catch(err => { return res.status(400).json({ err: "Có lỗi xảy ra" }) });
 };

@@ -3,6 +3,7 @@ const express = require('express')
 const app = express();
 const cors = require('cors');
 const server = require('http').createServer(app);
+const cloudinary= require('cloudinary').v2;
 
 
 const connect2DB = require('./config/connect2DB');
@@ -18,6 +19,12 @@ const brandRoutes = require('./routes/brandRoutes');
 const creatSocketIo = require('./utils/chatSocket');
 const path = require('path');
 
+cloudinary.config({ 
+    cloud_name: 'dkvtla079', 
+    api_key: '978682155146359', 
+    api_secret: 'SUm82lmW7Z45rCc1tPjid8WoVAc' 
+});
+
 //init server & connect 2 db
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, async (req, res) => {
@@ -26,11 +33,13 @@ server.listen(PORT, async (req, res) => {
 connect2DB();
 
 //setup cors
-// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-// app.use(function (req, res, next) {
-//     res.header('Access-Control-Allow-Credentials', true);
-//     next();
-// })
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+})
+
+
 
 //setup socket cho realtime chat 
 creatSocketIo(server);

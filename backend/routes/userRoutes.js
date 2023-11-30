@@ -7,17 +7,25 @@ const emailSending = require('../utils/emailUtils');
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 const multer = require('multer');
+const { CloudinaryStorage }= require('multer-storage-cloudinary');
 const path = require('path');
 const { apiLimiter } = require('../middlewares/rateLimite');
-//setup multer storage
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'public', 'images'))
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+const cloudinary= require('cloudinary').v2;
+// setup multer storage
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, path.join(__dirname, 'public', 'images'))
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+//     }
+// })
+const storage= new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params:{
+        folder: 'users'
     }
-})
+});
 const upload = multer({
     storage: storage
 })
@@ -41,7 +49,7 @@ router.post('/user-register', apiLimiter, userController.userRegister);
 router.put('/user-update/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.updateUser);
 //updateProfile (user signed in)
 router.put('/profile/update', tokenCheck.checkJWT, getJWT.getData, userController.updateProfile);
-//updateProfileImage 
+//updateProfileImage  
 router.put('/profile/update-image', upload.single('file'), tokenCheck.checkJWT, getJWT.getData, userController.uploadProfileImage);
 //changePassword (only for user)
 router.put('/user-changepassword', tokenCheck.checkJWT, getJWT.getData, userController.changePassword);

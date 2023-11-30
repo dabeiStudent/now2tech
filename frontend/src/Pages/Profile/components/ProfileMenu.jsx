@@ -220,9 +220,9 @@ const ProfileMenu = () => {
                                 <form onSubmit={updateProfileHandler}>
                                     <div className="my_profile">
                                         <div className="left_profile">
-                                            {user.image !== "Chưa có"
-                                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${user.image}`} alt="Hình đại diện" />
-                                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
+                                            {/* {user.image !== "Chưa có"
+                                                ? <img src="#" alt="#" />
+                                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />} */}
                                         </div>
                                         <div className="mid_profile">
                                             <input name='firstName' value={updateUser.firstName} onChange={onChange2} placeholder="Tên" required />
