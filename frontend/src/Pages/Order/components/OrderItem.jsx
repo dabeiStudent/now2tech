@@ -55,7 +55,7 @@ const OrderItem = props => {
         <li className='order-item__container'>
             <div className='order-item'>
                 <div className='order-item__img'>
-                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`} alt="product" />
+                    <img src={props.image} alt="product" />
                 </div>
                 <div className='order-item__info'>
                     <div className='order-item__info-left'>

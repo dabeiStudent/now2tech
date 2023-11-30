@@ -215,8 +215,8 @@ const deleteVoucher = async (req, res) => {
     const productFound = await Product.find({ voucher: voucherFound.name });
 
     if (productFound) {
-        const currentPath = process.cwd();
-        const imgLink = currentPath + '/backend/public/images/vouchers/' + voucherFound.image;
+        // const currentPath = process.cwd();
+        // const imgLink = currentPath + '/backend/public/images/vouchers/' + voucherFound.image;
         try {
             const sess = await mongoose.startSession();
             sess.startTransaction();
@@ -229,21 +229,21 @@ const deleteVoucher = async (req, res) => {
         } catch (err) {
             return res.status(404).json({ err: "Không thể xóa. Đã có lỗi xảy ra." })
         }
-        fs.unlink(imgLink, (err) => {
-            if (err) { console.log(err) }
-        })
+        // fs.unlink(imgLink, (err) => {
+        //     if (err) { console.log(err) }
+        // })
         res.status(200).json({ msg: "Đã xóa." })
     } else {
-        const currentPath = process.cwd();
-        const imgLink = currentPath + '/backend/public/images/vouchers/' + voucherFound.image;
+        // const currentPath = process.cwd();
+        // const imgLink = currentPath + '/backend/public/images/vouchers/' + voucherFound.image;
         try {
             voucherFound.deleteOne();
         } catch (err) {
             return res.status(404).json({ err: "Không thể xóa. Đã có lỗi xảy ra." })
         }
-        fs.unlink(imgLink, (err) => {
-            if (err) { console.log(err) }
-        })
+        // fs.unlink(imgLink, (err) => {
+        //     if (err) { console.log(err) }
+        // })
         res.status(200).json({ msg: "Đã xóa." })
     }
 }
