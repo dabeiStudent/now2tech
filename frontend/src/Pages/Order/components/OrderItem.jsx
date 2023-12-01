@@ -84,7 +84,7 @@ const OrderItem = props => {
                             <Modal.Body>
                                 <div className='review-item'>
                                     <div className='review-item__img'>
-                                        <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`} alt="product" />
+                                        <img src={props.image} alt="product" />
                                     </div>
                                     <div className='review-item__name'><p>{props.name}</p></div>
                                     <div className='review-item__rating'>

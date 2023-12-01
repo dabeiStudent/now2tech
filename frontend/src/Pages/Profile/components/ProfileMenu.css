@@ -92,6 +92,7 @@ img {
     margin-top: 20px;
     margin-left: 15%;
     width: 70%;
+    padding-bottom: 30px;
 }
 
 .buttons button {
@@ -118,9 +119,11 @@ img {
 .buttons-1 {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    margin-left: 15%;
+    /* margin-top: 20px;
+    margin-left: 15%; */
     width: 70%;
+    margin: 30px auto;
+    /* padding-bottom: 30px; */
 }
 
 .buttons-1 button {
@@ -144,6 +147,7 @@ img {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
+    
 }
 
 .custom-button-1:hover {

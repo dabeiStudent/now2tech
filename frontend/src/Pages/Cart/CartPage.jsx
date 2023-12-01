@@ -48,17 +48,20 @@ const CartPage = () => {
 
   useEffect(()=> {
     const updateData= items.map(item=> {
-      const itemInCart= cart.items.find(i=> toString(i.id) === toString(item._id));
+      const itemInCart= cart.items.find(i=> i.id === item._id);
       if(itemInCart){
         return {
           ...item,
           qty: itemInCart.qty
         }
-      }});
+      }
+      return;
+    });
     setCombineData(updateData)
    
   }, [items, cart.items]);
 
+  console.log(combineData);
   const selectAllHandler = () => {
     if (selectAll) {
       setSelectedItems([]);
@@ -69,7 +72,9 @@ const CartPage = () => {
   }
 
   const checkboxChangeHandler = (e) => {
-    const itemInCart = combineData.find(item => toString(item._id) === toString(e.target.value));
+    console.log(e.target.value)
+    const itemInCart = combineData.find(item => item._id === e.target.value);
+    console.log(itemInCart)
     setSelectAll(false)
     if (selectedItems.includes(itemInCart)) {
       setSelectedItems(selectedItems.filter(item => item._id !== itemInCart._id))
@@ -112,7 +117,7 @@ const CartPage = () => {
                   <Form.Check className='custom-checkbox' label='Chọn tất cả' onChange={selectAllHandler} checked={selectAll} value={'select-all'} name="item" inline />
                   {combineData.map(item => (
                     <div className='list-item__single-item' key={item._id}>
-                      <Form.Check checked={selectedItems.includes(item)} onChange={checkboxChangeHandler} className='custom__check-box' value={item._id} name='item' aria-label='option' />
+                      <Form.Check value={item._id} checked={selectedItems.includes(item)} onChange={checkboxChangeHandler} className='custom__check-box'  name='item' aria-label='option' />
                       <Item
                         id={item._id} 
                         name={item.name} 

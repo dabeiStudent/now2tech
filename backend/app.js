@@ -32,8 +32,8 @@ server.listen(PORT, async (req, res) => {
 });
 connect2DB();
 
-//setup cors
-app.use(cors({ origin: 'https://now2tech-f987dbd48ed8.herokuapp.com', credentials: true }));
+//setup cors https://now2tech-f987dbd48ed8.herokuapp.com
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     next();

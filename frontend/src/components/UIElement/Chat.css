@@ -5,8 +5,8 @@
     border-radius: 3%;
     position: fixed;
     /*Có cái này mới dùng bottom right này nọ ok*/
-    bottom: 82px;
-    right: 30px;
+    bottom: 165px;
+    right: 60px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 100;
     display: block;

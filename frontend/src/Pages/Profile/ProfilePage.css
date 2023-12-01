@@ -1,12 +1,14 @@
 .profile__body {
     background-color: rgb(253, 244, 244);
+    margin: 7% auto;
 }
 
 .profile__page {
     display: flex;
     justify-content: center;
-    margin-top: 7%;
-    height: 50vh;
+    min-height: 450px;
+    /* margin-top: 7%;
+    height: 50vh; */
     box-shadow: 10px 7px 5px 5px #5c5a5a;
 }
 
