@@ -5,8 +5,8 @@
 .chat-button {
     position: fixed;
     /* Đặt vị trí cố định */
-    bottom: 20px;
-    right: 20px;
+    bottom: 100px;
+    right: 28px;
     background-color: #007bff;
     color: #fff;
     border: none;
