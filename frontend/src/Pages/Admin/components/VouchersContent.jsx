@@ -126,7 +126,7 @@ const VouchersContent = () => {
                                                 <td className="product-cell">{formatDate(voucher.start)}</td>
                                                 <td className="product-cell">{formatDate(voucher.end)}</td>
                                                 <td className="product-cell">
-                                                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/vouchers/${voucher.image}`} alt='voucher-banner' />
+                                                    <img src={voucher.image} alt='voucher-banner' />
                                                 </td>
                                                 <td className="product-cell">
                                                     <div className='voucher-btn'>

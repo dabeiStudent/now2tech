@@ -11,15 +11,7 @@ const { CloudinaryStorage }= require('multer-storage-cloudinary');
 const path = require('path');
 const { apiLimiter } = require('../middlewares/rateLimite');
 const cloudinary= require('cloudinary').v2;
-// setup multer storage
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, path.join(__dirname, 'public', 'images'))
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
-//     }
-// })
+
 const storage= new CloudinaryStorage({
     cloudinary: cloudinary,
     params:{

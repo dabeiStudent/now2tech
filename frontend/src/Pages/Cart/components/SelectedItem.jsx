@@ -10,7 +10,7 @@ const OrderItem = props => {
         <li className='selected-item__container'>
             <div className='selected-item'>
                 <div className='selected-item__img'>
-                    <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`} alt="product" />
+                    <img src={props.image} alt="product" />
                 </div>
                 <div className='selected-item__info'>
                     <div className='selected-item__info-left'>

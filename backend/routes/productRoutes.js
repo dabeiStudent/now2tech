@@ -7,13 +7,13 @@ const getData = require('../middlewares/getJWTData');
 router.use(cookieParser());
 const multer = require('multer');
 const path = require('path');
+const { CloudinaryStorage }= require('multer-storage-cloudinary');
+const cloudinary= require('cloudinary').v2;
 //setup multer storage
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'backend/public/images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'products'
     }
 })
 const upload = multer({

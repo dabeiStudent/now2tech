@@ -26,7 +26,7 @@ const Item = props => {
     return (
         <div className='product-item'>
             <div className='product-item__img'>
-                <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${props.image}`} alt="product" />
+                <img src={props.image} alt="product" />
             </div>
             <div className='product-item__info'>
                 <div className='product-item__info-top'>

@@ -32,7 +32,7 @@ const sendEmailReset = async (req, res) => {
     try {
         const localhost = process.env.url_localhost;
         const port = process.env.PORT || 8000
-        const url = localhost + port
+        const url = process.env.app_url
         const time = Date.now();
         const findUser = await User.findOne({ email: req.body.email });
         if (!findUser) {
