@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './FilterByCategory.css';
+import './SearchResultPage.css';
 import axios from "axios";
 const FilterByCategory = () => {
     const navigate = useNavigate();
