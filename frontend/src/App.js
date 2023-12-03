@@ -65,7 +65,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <AuthContext.Provider value={{ isLogin: isLogin, login: login, logout: logout }}>
+      <AuthContext.Provider value={{ isLogin: isLogin, login: login, logout: logout, username: username }}>
         <CartContext.Provider value={{
           items: cartItems,
           addToCart: addToCart,

@@ -60,8 +60,8 @@ const UpdateModal = props => {
                                 <td>
                                     <select name="gender" onChange={onChange} value={account.gender}>
                                         <option value=""></option>
-                                        <option value="Male">Nam</option>
-                                        <option value="Female">Nữ</option>
+                                        <option value="male">Nam</option>
+                                        <option value="female">Nữ</option>
                                     </select>
                                 </td>
                             </tr>
