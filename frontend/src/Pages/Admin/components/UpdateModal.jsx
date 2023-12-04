@@ -59,9 +59,9 @@ const UpdateModal = props => {
                                 <td>Giới tính:</td>
                                 <td>
                                     <select name="gender" onChange={onChange} value={account.gender}>
-                                        <option value=""></option>
-                                        <option value="Male">Nam</option>
-                                        <option value="Female">Nữ</option>
+                                        <option disabled value=""></option>
+                                        <option name="gender" value="male">Nam</option>
+                                        <option name="gender" value="female">Nữ</option>
                                     </select>
                                 </td>
                             </tr>
