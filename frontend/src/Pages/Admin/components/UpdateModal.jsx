@@ -59,9 +59,9 @@ const UpdateModal = props => {
                                 <td>Giới tính:</td>
                                 <td>
                                     <select name="gender" onChange={onChange} value={account.gender}>
-                                        <option value=""></option>
-                                        <option value="Male">Nam</option>
-                                        <option value="Female">Nữ</option>
+                                        <option disabled></option>
+                                        <option name="gender" value="male">Nam</option>
+                                        <option name="gender" value="female">Nữ</option>
                                     </select>
                                 </td>
                             </tr>
@@ -91,14 +91,14 @@ const UpdateModal = props => {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>                     
+                    </table>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='primary'type='submit'>Cập nhật</Button>
+                    <Button variant='primary' type='submit'>Cập nhật</Button>
                 </Modal.Footer>
             </Form>
         </Modal>
-       
+
     );
 }
 
