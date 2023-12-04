@@ -2,6 +2,7 @@
     display: flex;
     height: 70%;
     width: 100%;
+    max-height: 470px;
     overflow: auto;
     overflow-x: hidden;
 }

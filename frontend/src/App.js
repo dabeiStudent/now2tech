@@ -16,21 +16,21 @@ import MainNavigation from './components/UIElement/MainNavigation';
 import Footer from './components/UIElement/Footer';
 import Loader from './components/UIElement/Loader';
 import HomePage from './Pages/HomePage/HomePage';
-const LoginPage= React.lazy(()=> import('./Pages/Authenticate/LoginPage'));
-const SignUpPage= React.lazy(()=> import('./Pages/Authenticate/SignUpPage'));
+import LoginPage from './Pages/Authenticate/LoginPage';
+import ProfilePage from './Pages/Profile/ProfilePage';
+const SignUpPage = React.lazy(() => import('./Pages/Authenticate/SignUpPage'));
 // const HomePage= React.lazy(()=> import('./Pages/HomePage/HomePage'));
-const ResetPWPage= React.lazy(()=> import('./Pages/Authenticate/ResetPWPage'));
-const ProfilePage= React.lazy(()=> import('./Pages/Profile/ProfilePage'));
-const ProductPage= React.lazy(()=> import('./Pages/Product/ProductPage'));
-const Chat= React.lazy(()=> import('./components/UIElement/Chat'));
-const CartPage= React.lazy(()=> import('./Pages/Cart/CartPage'));
-const Shipping= React.lazy(()=> import('./Pages/Cart/Shipping'));
-const MainAdminPage= React.lazy(()=> import('./Pages/Admin/MainAdminPage'));
-const OrderPage= React.lazy(()=> import('./Pages/Order/OrderPage'));
-const VNPayPayment= React.lazy(()=> import('./Pages/Order/VNPayPayment'));
-const VoucherPage= React.lazy(()=> import('./Pages/Voucher/VoucherPage'));
-const SearchResultPage= React.lazy(()=> import('./Pages/Search/SearchResultPage'));
-const FilterByCategory= React.lazy(()=> import('./Pages/Search/FilterByCategory'));
+const ResetPWPage = React.lazy(() => import('./Pages/Authenticate/ResetPWPage'));
+const ProductPage = React.lazy(() => import('./Pages/Product/ProductPage'));
+const Chat = React.lazy(() => import('./components/UIElement/Chat'));
+const CartPage = React.lazy(() => import('./Pages/Cart/CartPage'));
+const Shipping = React.lazy(() => import('./Pages/Cart/Shipping'));
+const MainAdminPage = React.lazy(() => import('./Pages/Admin/MainAdminPage'));
+const OrderPage = React.lazy(() => import('./Pages/Order/OrderPage'));
+const VNPayPayment = React.lazy(() => import('./Pages/Order/VNPayPayment'));
+const VoucherPage = React.lazy(() => import('./Pages/Voucher/VoucherPage'));
+const SearchResultPage = React.lazy(() => import('./Pages/Search/SearchResultPage'));
+const FilterByCategory = React.lazy(() => import('./Pages/Search/FilterByCategory'));
 
 function App() {
   const usernameEncoded = getCookie('username');
@@ -84,7 +84,7 @@ function App() {
             <Router>
               <div className="App">
                 <MainNavigation />
-                <Suspense fallback={<Loader/>}>
+                <Suspense fallback={<Loader />}>
                   <div className='App-body'>
                     <ScrollToTop />
                     <Routes>
@@ -110,17 +110,17 @@ function App() {
                     </Routes>
                   </div>
                   {!isChatOpen && username !== "admin" ?
-                  < button className="chat-button" onClick={handleChatButtonClick} >
-                    <FontAwesomeIcon icon={faMessage} />
-                  </button>
-                  : <></>
-                }
-                {isChatOpen && <Chat />}
+                    < button className="chat-button" onClick={handleChatButtonClick} >
+                      <FontAwesomeIcon icon={faMessage} />
+                    </button>
+                    : <></>
+                  }
+                  {isChatOpen && <Chat />}
                 </Suspense>
                 <div className="App-footer">
                   <Footer />
                 </div>
-                
+
               </div>
             </Router>
           </OrderContext.Provider>
