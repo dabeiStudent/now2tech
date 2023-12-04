@@ -22,6 +22,7 @@
 
 .top_name_product {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .product_rating_group {

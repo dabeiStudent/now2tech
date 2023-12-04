@@ -60,22 +60,27 @@ const OrderItem = props => {
                 <div className='order-item__info'>
                     <div className='order-item__info-left'>
                         <NavLink to={`/chi-tiet-san-pham/${props.id}`}>{props.name}</NavLink>
+                        {/* <div className='order-item__qty'>
+                            <span>Số lượng: </span>
+                            <span>{props.qty}</span>
+                        </div> */}
+                    </div>
+                    <div className='group-price'>
+                        <span className='sell-price'>{formatPrice(props.price)}</span>
                         <div className='order-item__qty'>
                             <span>Số lượng: </span>
                             <span>{props.qty}</span>
                         </div>
                     </div>
-                    <div className='group-price'>
-                        <span className='sell-price'>{formatPrice(props.price)}</span>
-                        <span className='origin-price'>{formatPrice(20000)}</span>
-                    </div>
                 </div>
             </div>
             {props.orderStatus === 'Delivered' && (
                 <div>
-                    <div className='order-item__review-btn'>
-                        <button onClick={openModalHandler}>Viết đánh giá</button>
-                    </div>
+                    {props.username !== 'false' && props.username !== 'admin' && (
+                        <div className='order-item__review-btn'>
+                            <button onClick={openModalHandler}>Viết đánh giá</button>
+                        </div>
+                    )}
                     <Modal dialogClassName='modal-custom' show={openModal} onHide={closeModalHandler}>
                         <Modal.Header closeButton>
                             <Modal.Title>Đánh giá</Modal.Title>

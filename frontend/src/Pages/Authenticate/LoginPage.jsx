@@ -26,8 +26,8 @@ const LoginPage = () => {
             .then(res => {
                 setUser({ email: '', passWord: '' });
                 authContext.login();
-                // navigate(-1);
-                window.location.href = "/";
+                navigate(-1);
+                // window.location.href = "/";
             })
             .catch((err) => {
                 if (err.message === "Request failed with status code 404") {

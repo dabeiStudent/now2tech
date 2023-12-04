@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
@@ -8,8 +8,10 @@ import './OrderPage.css';
 import OrderItem from './components/OrderItem';
 import { formatPrice } from '../../ultis/formatPrice';
 import Loader from '../../components/UIElement/Loader';
+import { AuthContext } from '../../ultis/authContext';
 
 const OrderPage = () => {
+  const authContext= useContext(AuthContext);
   let { oid } = useParams();
   const [order, setOrder] = useState();
   const [isReload, setIsReload] = useState(false);
@@ -127,7 +129,8 @@ const OrderPage = () => {
                   price={item.price}
                   orderStatus={order.status}
                   isReload={isReload}
-                  setIsReload={setIsReload} />))
+                  setIsReload={setIsReload}
+                  username={authContext.username} />))
               }
             </ul>
             <div className='detail-container__fees'>
@@ -144,7 +147,7 @@ const OrderPage = () => {
                 <Col className='custom-col' lg={8}><span>{formatPrice(order.totalPrice)}</span></Col>
               </Row>
 
-              {order.paymentMethod === 'VNPAY' && order.paymentStatus.isPaid === false && (
+              {order.paymentMethod === 'VNPAY' && order.status !== 'Cancelled' && order.paymentStatus.isPaid === false && (
                 <Row className='payment-btn'>
                   <button onClick={paymentHandler}>Thanh toán với VNPAY</button>
                 </Row>
