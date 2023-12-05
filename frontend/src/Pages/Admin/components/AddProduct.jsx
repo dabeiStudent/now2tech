@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './AddProduct.css';
 import axios from 'axios';
+
+import './AddProduct.css';
+
 const AddProduct = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [brands, setBrand] = useState([]);
+    const [brandList, setBrandList] = useState([]);
     const [product, setProduct] = useState({
         sku: '',
         name: '',
@@ -39,17 +41,35 @@ const AddProduct = ({ onClose }) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value });
         setSelectedCategory(value);
-        setBrand([]);
+        setBrandList([]);
     }
-    const handleChangeBrand = (e) => {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand-cate/${selectedCategory}`)
+
+    useEffect(()=> {
+        const getBrands= async()=> {
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand-cate/${selectedCategory}`)
             .then(result => {
-                setBrand(result.data);
+                setBrandList(result.data);
             })
             .catch(err => {
                 toast(err);
             })
-    }
+        }
+        if(selectedCategory !== ''){
+            getBrands();
+        }
+    }, [selectedCategory])
+    // const handleChangeBrand = (e) => {
+    //     const getBrands= async()=> {
+    //         await axios.get(`${process.env.REACT_APP_BACKEND_URL}/brand/get-brand-cate/${selectedCategory}`)
+    //         .then(result => {
+    //             setBrandList(result.data);
+    //         })
+    //         .catch(err => {
+    //             toast(err);
+    //         })
+    //     }
+    //     getBrands();        
+    // }
     const addSpec = () => {
         const newSpec = { stype: '', sdetail: '' };
         setProduct({ ...product, specs: [...product.specs, newSpec] });
@@ -224,12 +244,12 @@ const AddProduct = ({ onClose }) => {
                             id="brand"
                             name="brand"
                             value={product.brand}
-                            onClick={handleChangeBrand}
+                            // onClick={handleChangeBrand}
                             onChange={handleChange}
                             required
                         >
                             <option value="" disabled>Chọn thương hiệu</option>
-                            {brands.map(brand => (
+                            {brandList.length !== 0 && brandList.map(brand => (
                                 <option key={brand._id} value={brand.name}>
                                     {brand.name}
                                 </option>

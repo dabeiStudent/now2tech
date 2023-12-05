@@ -8,8 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import './NavLinks.css';
 import { CartContext } from '../../ultis/cartContext';
-import { formatPrice } from "../../ultis/formatPrice";
-import StarRating from "../../Pages/Product/components/StarRating";
+import { AuthContext } from '../../ultis/authContext'
 import SearchItem from "./SearchItem";
 
 const NavLinks = () => {
@@ -17,6 +16,7 @@ const NavLinks = () => {
         userName: '',
         role: ''
     });
+    const authContext= useContext(AuthContext);
     const [products, setProducts] = useState([]);
     const [goodProducts, setGoodProduct] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
@@ -36,11 +36,6 @@ const NavLinks = () => {
         setIsSearch(false);
     };
 
-    const searchKeywordChangeHandler = (e) => {
-        setSearchKeyword(e.target.value);
-        setIsSearch(true);
-    };
-
     const submitHandler = (e) => {
         e.preventDefault();
         document.getElementById('search-box').blur();
@@ -51,15 +46,42 @@ const NavLinks = () => {
             navigate('/')
         }
     }
-    useEffect(() => {
+
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return function() {
+          const context = this;
+          const args = arguments;
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => func.apply(context, args), delay);
+        };
+    };
+
+    const delayedSearch = debounce(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-product?keyword=${searchKeyword}`)
-            .then(result => {
-                setProducts(result.data.result);
-            })
-            .catch(err => {
-                toast(err);
-            })
-    }, [searchKeyword]);
+          .then(result => {
+            setProducts(result.data.result);
+          })
+          .catch(err => {
+            toast(err);
+          });
+    }, 500); 
+
+    const searchKeywordChangeHandler = (e) => {
+        setSearchKeyword(e.target.value);
+        setIsSearch(true);
+        delayedSearch();
+    };
+
+    // useEffect(() => {
+    //     axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-all-product?keyword=${searchKeyword}`)
+    //         .then(result => {
+    //             setProducts(result.data.result);
+    //         })
+    //         .catch(err => {
+    //             toast(err);
+    //         })
+    // }, [searchKeyword]);
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-good-product`)
             .then(result => {
@@ -85,7 +107,7 @@ const NavLinks = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [authContext.isLogin])
 
     const gotoProductHandle = () => {
         setSearchKeyword('');
@@ -160,7 +182,6 @@ const NavLinks = () => {
                             }
 
                         </div>
-                        {/* <span>Giỏ hàng</span> */}
                     </NavLink>
                 </li>
                 {authorizedUser.userName !== 'khách hàng' ? (
@@ -173,8 +194,6 @@ const NavLinks = () => {
                                 {authorizedUser.role === "admin" && (
                                     <NavLink to="/now2tech-management">
                                         Quản lý
-                                        {/* <FontAwesomeIcon className="nav-links__icon-login" icon={faBarsProgress} /> */}
-                                        {/* <span>Quản lý</span> */}
                                     </NavLink>
                                 )}
                             </div>
@@ -183,7 +202,6 @@ const NavLinks = () => {
                 ) : (
                     <li>
                         <NavLink to="/login" className="nav-links__login">
-                            {/* <FontAwesomeIcon className="nav-links__icon-login" icon={faArrowRightToBracket} /> */}
                             <span>Đăng nhập</span>
                         </NavLink>
                     </li>
