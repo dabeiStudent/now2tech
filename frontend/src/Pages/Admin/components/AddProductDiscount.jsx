@@ -103,7 +103,7 @@ const AddProductDiscount = props => {
                                         <li key={product._id} className='product-list__option'>
                                             <input type="checkbox" value={product._id} onChange={checkboxChangeHandler} />
                                             <div className='image'>
-                                                <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`} alt="product" />
+                                                <img src={product.pimage[0]} alt="product" />
                                             </div>
                                             <div className='prod-info'>
                                                 <p>{product.name}</p>
@@ -125,7 +125,7 @@ const AddProductDiscount = props => {
                                 <ul className='product-list__choose'>
                                     <li key={product._id} className='product-list__option'>
                                         <div className='image'>
-                                            <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`} alt="product" />
+                                            <img src={product.pimage[0]} alt="product" />
                                         </div>
                                         <div className='prod-info'>
                                             <p>{product.name}</p>

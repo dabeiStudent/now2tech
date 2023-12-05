@@ -39,7 +39,8 @@
 
 .order-item__info-left a{
     font-size: 15px;
-    /* font-weight: 600; */
+    text-decoration: none;
+    color: #333;
 }
 
 .order-item__info-left a:hover{

@@ -4,12 +4,12 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons'
 import {
-    faClipboardList,
     faChevronLeft,
     faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+
 import './SearchResultPage.css';
-import SearchBanner from '../../assets/background/SearchBanner.png'
+import './FilterByCategory.css'
 import ProductCard from '../../components/UIElement/ProductCard';
 import Loader from '../../components/UIElement/Loader';
 import VoucherCard from '../HomePage/components/VoucherCard';

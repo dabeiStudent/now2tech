@@ -23,6 +23,10 @@ footer {
     height: fit-content;
 }
 
+.first-column{
+    max-width: 290px;
+}
+
 .footer-column ul{
     list-style: none;
     display: inline;

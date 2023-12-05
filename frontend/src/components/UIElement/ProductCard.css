@@ -1,8 +1,7 @@
-a {
+.product-link {
     text-decoration: none;
     color: #333;
-    /* height: 100%; */
-    /* color: #288ad6; */
+    max-width: 240px;
 }
 
 .product-card {

@@ -3,13 +3,15 @@ import { NavLink, useLocation, useNavigate, useParams, useSearchParams } from 'r
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faPhone, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
-import './NavLinks.css';
-import { CartContext } from '../../ultis/cartContext';
-import getCookie from "../../ultis/getCookie";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import './NavLinks.css';
+import { CartContext } from '../../ultis/cartContext';
 import { formatPrice } from "../../ultis/formatPrice";
 import StarRating from "../../Pages/Product/components/StarRating";
+import SearchItem from "./SearchItem";
+
 const NavLinks = () => {
     const [authorizedUser, setAuthorizeUser] = useState({
         userName: '',
@@ -85,8 +87,7 @@ const NavLinks = () => {
             })
     }, [])
 
-    const gotoProductHandle = (productId) => {
-        navigate(`/chi-tiet-san-pham/${productId}`);
+    const gotoProductHandle = () => {
         setSearchKeyword('');
         setIsSearch(false);
     }
@@ -109,20 +110,14 @@ const NavLinks = () => {
                                         <p>Kết quả tìm kiếm: </p>
                                     </div>
                                     {products.map((product) => (
-                                        <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
-                                            {product.pimage.length > 0
-                                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`}
-                                                    alt="ảnh sản phẩm"
-                                                    width="50px"
-                                                    height="50px" />
-                                                : <img src="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
-                                                    alt="ảnh sản phẩm"
-                                                    width="50px"
-                                                    height="50px" />}
-                                            <p>{product.name}</p>
-                                            <h3> <StarRating rating={product.avgRating} /></h3>
-                                            <h4>{formatPrice(product.sellPrice)}</h4>
-                                        </div>
+                                        <SearchItem 
+                                            key={product._id}
+                                            gotoProductHandle={gotoProductHandle}
+                                            id={product._id}
+                                            name={product.name}
+                                            rating={product.avgRating}
+                                            price={product.sellPrice}
+                                            image={product.pimage[0]}/>
                                     ))
                                     }
                                 </div>
@@ -133,21 +128,15 @@ const NavLinks = () => {
                                     <div className="recommend">
                                         <p>Sản phẩm gợi ý: </p>
                                     </div>
-                                    {goodProducts.map((product) => (
-                                        <div className="search-bar-result" onClick={() => gotoProductHandle(product._id)} >
-                                            {product.pimage.length > 0
-                                                ? <img src={`${process.env.REACT_APP_BACKEND_URL}/images/${product.pimage[0]}`}
-                                                    alt="ảnh sản phẩm"
-                                                    width="50px"
-                                                    height="50px" />
-                                                : <img src="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
-                                                    alt="ảnh sản phẩm"
-                                                    width="50px"
-                                                    height="50px" />}
-                                            <p>{product.name}</p>
-                                            <h3> <StarRating rating={product.avgRating} /></h3>
-                                            <h4>{formatPrice(product.sellPrice)}</h4>
-                                        </div>
+                                    {goodProducts.map(product => (
+                                        <SearchItem 
+                                            key={product._id}
+                                            gotoProductHandle={gotoProductHandle}
+                                            id={product._id}
+                                            name={product.name}
+                                            rating={product.avgRating}
+                                            price={product.sellPrice}
+                                            image={product.pimage[0]}/>
                                     ))
                                     }
                                 </div>}

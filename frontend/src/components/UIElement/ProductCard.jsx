@@ -21,7 +21,7 @@ const ProductCard = props => {
         }
     }, [])
     return (
-        <NavLink to={`/chi-tiet-san-pham/${props.id}`}>
+        <NavLink className='product-link' to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">
                 <ToastContainer />
                 <div className="product-img">

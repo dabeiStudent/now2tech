@@ -43,7 +43,7 @@ body {
 
 .all-product-container__prod-list {
     display: grid;
-    gap: 12px;
+    gap: 10px;
     grid-auto-rows: minmax(min-content, max-content);
     grid-template-columns: repeat(5, minmax(0, 1fr));
     padding: 0 8px;
@@ -258,8 +258,12 @@ body {
 .rating-product-container__list .product-card {
     padding: 0 10px;
     border-radius: 4px;
-    margin: 0 5px;
     min-width: 240px;
+}
+
+.best-seller-container__list .product-link,
+.rating-product-container__list .product-link {
+    margin: 0 5px;
 }
 
 .rating-product-container {

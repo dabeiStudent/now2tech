@@ -6,11 +6,11 @@ const Footer = () => {
   return (
     <footer>
         <div className='footer__top'>
-            <div className='footer-column'>
+            <div className='footer-column first-column'>
                 <ul>
                     <li><strong>VỀ CHÚNG TÔI</strong></li>
-                    <li>Tổng quan về Now2Tech.com</li>
-                    
+                    <li>Now2Tech là website phục vụ cho việc <strong>học tập, nghiên cứu</strong>  tại trường, không vì mục đích kinh doanh.</li>
+                    <li>Tất cả sản phẩm và hình ảnh đều là sưu tầm từ Internet.</li>
                 </ul>
             </div>
             <div className='footer-column'>
@@ -38,8 +38,7 @@ const Footer = () => {
             </div>
         </div>
         <div className='footer__bottom'>
-            <p>&copy; 2023 Copyright: Now2Tech.com</p>
-            
+            <p>Now2Tech.com</p>
         </div>        
     </footer>
   )
