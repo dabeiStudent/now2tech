@@ -126,6 +126,7 @@ const CartPage = () => {
                         price={item.price} 
                         discountValid={item.discountValid} 
                         discountPercent={item.discountPercent}
+                        discountId={item.discountId}
                         voucher={item.voucher} 
                         image={item.image} />
                     </div>

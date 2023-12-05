@@ -330,11 +330,13 @@ const getProductInCart= async (req, res)=> {
         let discountValid = false;
         let discountPercent= 0;
         let image= product.pimage[0];
+        let discountId= null;
         
         if(product.voucher === null){
             return {
                 ...product._doc,
                 price: price,
+                discountId: discountId,
                 discountValid: discountValid,
                 discountPercent: discountPercent,
                 image: image
@@ -347,11 +349,13 @@ const getProductInCart= async (req, res)=> {
             price= product.sellPrice - (product.sellPrice * (existVoucher.percent/100));
             discountValid= true;
             discountPercent= existVoucher.percent;
+            discountId= existVoucher._id
         }
 
         return {
             ...product._doc,
             price: price,
+            discountId: discountId,
             discountValid: discountValid,
             discountPercent: discountPercent,
             image: image

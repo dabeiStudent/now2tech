@@ -35,7 +35,7 @@ const Item = props => {
                         {props.voucher && props.discountValid && (
                             <span className='discount'>
                                 <FontAwesomeIcon className='tag-icon' icon={faTag}/>
-                                <a href={`/khuyen-mai/${props.voucher._id}`}>Giảm giá {props.discountPercent}</a>
+                                <a href={`/khuyen-mai/${props.discountId}`}>Giảm giá {props.discountPercent}</a>
                             </span>
                         )}
                     </div>
