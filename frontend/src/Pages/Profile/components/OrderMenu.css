@@ -105,7 +105,19 @@
     /* Khoảng cách giữa checkbox và nội dung văn bản */
 }
 
+.status-checkboxes {
+    margin-bottom: 10px;
+}
 
+.status-checkboxes label {
+    margin-right: 15px;
+    display: inline-block;
+    align-items: center;
+}
+
+.status-checkboxes input {
+    margin-right: 5px;
+}
 
 .price-product ul {
     list-style: none;

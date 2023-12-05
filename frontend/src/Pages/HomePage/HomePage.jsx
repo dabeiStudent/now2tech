@@ -47,6 +47,39 @@ const HomePage = () => {
                     console.log(err);
                 })
         };
+        // const getBestSeller = async () => {
+        //     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-good-product?page=${page2}`)
+        //         .then(result => {
+        //             if (page2 === 1) {
+        //                 setBestSeller(result.data.result);
+        //             }
+        //             else {
+        //                 setBestSeller((prevProducts) => [...prevProducts, ...result.data.result]);
+        //             }
+        //         })
+        //         .catch(err => {
+        //             toast(err);
+        //         })
+        // }
+        // const getMaxSelling = async () => {
+        //     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-max-selling?page=${page3}`)
+        //         .then(result => {
+        //             if (page3 === 1) {
+        //                 setMaxSelling(result.data.result);
+        //             }
+        //             else {
+        //                 setMaxSelling((prevProducts) => [...prevProducts, ...result.data.result]);
+        //             }
+        //         })
+        //         .catch(err => {
+        //             toast(err);
+        //         })
+        // }
+        getData();
+        // getBestSeller();
+        // getMaxSelling();
+    }, [page]);
+    useEffect(() => {
         const getBestSeller = async () => {
             await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-good-product?page=${page2}`)
                 .then(result => {
@@ -61,6 +94,9 @@ const HomePage = () => {
                     toast(err);
                 })
         }
+        getBestSeller();
+    }, [page2]);
+    useEffect(() => {
         const getMaxSelling = async () => {
             await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-max-selling?page=${page3}`)
                 .then(result => {
@@ -75,10 +111,8 @@ const HomePage = () => {
                     toast(err);
                 })
         }
-        getData();
-        getBestSeller();
         getMaxSelling();
-    }, [page, page2, page3]);
+    }, [page3]);
 
     useEffect(() => {
         const getVouchers = async () => {
