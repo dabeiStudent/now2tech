@@ -50,7 +50,7 @@ const LoginPage = () => {
             <div className="form__login">
                 <form className="element__login" onSubmit={loginHandler}>
                     <div className="error_signup">
-                        <ToastContainer />
+                        {/* <ToastContainer /> */}
                     </div>
                     <div className="label-login">
                         <h1>Đăng nhập</h1>

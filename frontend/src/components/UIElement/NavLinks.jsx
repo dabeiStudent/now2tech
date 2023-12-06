@@ -115,7 +115,7 @@ const NavLinks = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <ul className="nav-links">
                 <li className="list-of-search" onMouseLeave={closeSearchHandler}>
                     <form onSubmit={submitHandler} className="nav-links__search">

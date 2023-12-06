@@ -176,7 +176,7 @@ const ProfileMenu = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className="main_profile">
                 <h1>Thông tin tài khoản</h1>
                 {profileState === 0

@@ -58,7 +58,7 @@ const UploadModal = ({ pid, onClose }) => {
     }
     return (
         <div className="image-upload-modal">
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h1>Thêm hình ảnh sản phẩm</h1>

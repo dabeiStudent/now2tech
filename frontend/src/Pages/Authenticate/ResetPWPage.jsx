@@ -47,7 +47,7 @@ const ResetPWPage = () => {
                 <form className="element__rspw" onSubmit={resetPasswordHandler}>
 
                     <div className="notification">
-                        <ToastContainer />
+                        {/* <ToastContainer /> */}
                     </div>
                     <div>
                         <h1>Lấy lại mật khẩu</h1>

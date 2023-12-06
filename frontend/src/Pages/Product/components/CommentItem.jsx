@@ -98,7 +98,7 @@ const CommentItem = props => {
   }
   return (
     <div className='comment-item'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <li className='comment-item__question'>
         <div className='comment-item__top'>
           <div>

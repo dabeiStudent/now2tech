@@ -76,7 +76,7 @@ const AddBrand = ({ onClose }) => {
     }
     return (
         <div className='add-product-modal'>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;

@@ -100,7 +100,7 @@ const CartPage = () => {
 
   return (
     <div className='cart-page'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className='cart-page__main'>
         <p className='cart-page__title'>Giỏ hàng của bạn:</p>
         {cart.items.length === 0 ? (

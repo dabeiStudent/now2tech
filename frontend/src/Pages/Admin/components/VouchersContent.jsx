@@ -77,7 +77,7 @@ const VouchersContent = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             {vouchers ? (
                 <div className="product-content">
                     <div className="search-bar">

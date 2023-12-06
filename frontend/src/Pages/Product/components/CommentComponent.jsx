@@ -90,7 +90,7 @@ const CommentComponent = props => {
 
   return (
     <div className='comment-container'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <h2>Bình luận</h2>
       <form className='comment-form'>
         <textarea value={comment.content} onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>

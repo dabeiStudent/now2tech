@@ -136,7 +136,7 @@ const ProductsContent = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className="search-bar">
                 <input
                     type="text"

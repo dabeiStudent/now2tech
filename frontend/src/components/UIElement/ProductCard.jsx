@@ -23,7 +23,7 @@ const ProductCard = props => {
     return (
         <NavLink className='product-link' to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">
-                <ToastContainer />
+                {/* <ToastContainer /> */}
                 <div className="product-img">
                     <img
                         src={props.image}

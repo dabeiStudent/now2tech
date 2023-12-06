@@ -120,7 +120,7 @@ const ProductPage = () => {
     }
     return (
         <div className='product-page'>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             {product ? (
                 <div className='product-page__main-container'>
                     <div className="top_product-page">

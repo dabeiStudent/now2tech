@@ -68,7 +68,7 @@ const OrderPage = () => {
     <div>
       {order ? (
         <div className='order-page'>
-          <ToastContainer />
+          {/* <ToastContainer /> */}
           <div className='order-page__top' >
             {/* <button><FontAwesomeIcon icon={faArrowLeft}/></button> */}
             <h2>Chi tiết đơn hàng: #{order._id}</h2>

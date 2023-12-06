@@ -89,7 +89,7 @@ const FilterByCategory = () => {
 
     return (
         <div className='search-page'>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className='search-page-container'>
                 <div className="left-container">
                     <h2>Bộ lọc sản phẩm</h2>

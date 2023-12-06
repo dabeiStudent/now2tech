@@ -38,7 +38,7 @@ const UsersContent = () => {
 
     return (
         <div className="user-content">
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className="search-bar">
                 <input
                     type="text"

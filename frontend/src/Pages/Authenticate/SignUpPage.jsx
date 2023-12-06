@@ -49,7 +49,7 @@ const SignUpPage = () => {
             <div className="form__signup">
                 <form className="element__signup" onSubmit={signUpHandler}>
                     <div className="error_signup">
-                        <ToastContainer />
+                        {/* <ToastContainer /> */}
                     </div>
                     <div>
                         <h1>Đăng ký tài khoản</h1>

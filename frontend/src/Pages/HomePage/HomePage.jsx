@@ -178,7 +178,7 @@ const HomePage = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             {isLoading ? (
                 <Loader />) : (
                 <div>

@@ -97,7 +97,7 @@ const AddVoucherModal = props => {
             <div className="button-product-content">
                 <button className="add-product-button" onClick={openModalHandler}>Tạo khuyến mãi</button>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <Modal dialogClassName='modal-custom' show={isOpenModal} onHide={closeModalHandler}>
 
                 <Modal.Header closeButton>
