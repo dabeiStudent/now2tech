@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProfileMenu.css';
 
@@ -18,10 +18,12 @@ const ProfileMenu = () => {
         image: '',
         dob: ''
     });
+
     const [password, setPassword] = useState({
         oldPassword: '',
         newPassword: ''
     });
+
     const [updateUser, setUpdateUser] = useState({
         firstName: '',
         lastName: '',
@@ -62,6 +64,7 @@ const ProfileMenu = () => {
             })
             .catch(err => console.log(err))
     }, []);
+
     const changeToProfile = event => {
         event.preventDefault();
         setNoti('');
@@ -176,15 +179,13 @@ const ProfileMenu = () => {
     }
     return (
         <React.Fragment>
-            {/* <ToastContainer /> */}
             <div className="main_profile">
                 <h1>Thông tin tài khoản</h1>
                 {profileState === 0
                     ? <div className="my_profile">
                         <div className="left_profile">
-                            {user.image !== "Chưa có"
-                                ? <img src={user.image} alt="Hình đại diện" />
-                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
+                            {user.image ? (<img src={user.image} alt="Hình đại diện" />)
+                                : (<img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />)}
                         </div>
                         <div className="mid_profile">
                             <p>Tên: {user.firstName}</p>
