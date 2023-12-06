@@ -23,7 +23,7 @@ const ProfileMenu = () => {
         oldPassword: '',
         newPassword: ''
     });
-
+    
     const [updateUser, setUpdateUser] = useState({
         firstName: '',
         lastName: '',
@@ -64,7 +64,6 @@ const ProfileMenu = () => {
             })
             .catch(err => console.log(err))
     }, []);
-
     const changeToProfile = event => {
         event.preventDefault();
         setNoti('');
@@ -184,8 +183,9 @@ const ProfileMenu = () => {
                 {profileState === 0
                     ? <div className="my_profile">
                         <div className="left_profile">
-                            {user.image ? (<img src={user.image} alt="Hình đại diện" />)
-                                : (<img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />)}
+                            {user.image !== "Chưa có"
+                                ? <img src={user.image} alt="Hình đại diện" />
+                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
                         </div>
                         <div className="mid_profile">
                             <p>Tên: {user.firstName}</p>
@@ -221,9 +221,9 @@ const ProfileMenu = () => {
                                 <form onSubmit={updateProfileHandler}>
                                     <div className="my_profile">
                                         <div className="left_profile">
-                                            {/* {user.image !== "Chưa có"
-                                                ? <img src="#" alt="#" />
-                                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />} */}
+                                            {user.image !== "Chưa có"
+                                                ? <img src={user.image} alt="Hình đại diện" />
+                                                : <img src="https://i.imgflip.com/6yvpkj.jpg" alt="Hình đại diện" />}
                                         </div>
                                         <div className="mid_profile">
                                             <input name='firstName' value={updateUser.firstName} onChange={onChange2} placeholder="Tên" required />
