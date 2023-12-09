@@ -80,7 +80,6 @@ jobs:
       working-directory: backend
       run: |
         heroku git:clone -a now2tech 
-        cd now2tech
         git add .
         git commit -am "make it better"
         git push heroku master
