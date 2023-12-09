@@ -48,7 +48,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x]
     needs: build
+    env:
+      HEROKU_API_KEY: 0bc3deb5-177b-4b96-a482-be209a36bd20
+      HEROKU_APP_NAME: now2tech
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -59,13 +66,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install Heroku CLI
+      working-directory: backend
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
 
     - name: Login to Heroku
+      working-directory: backend
       run: heroku login -i
       env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_API_KEY: ${{env.HEROKU_API_KEY}}
 
     - name: Deploy to Heroku
       working-directory: backend
