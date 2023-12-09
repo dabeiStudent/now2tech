@@ -47,36 +47,11 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
     needs: build
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Install Heroku CLI
-      working-directory: backend
-      run: |
-        curl https://cli-assets.heroku.com/install.sh | sh
-
-    - name: Login to Heroku
-      working-directory: backend
-      run: heroku login
-        
-    - name: Deploy to Heroku
-      working-directory: backend
-      run: |
-        git config --global user.email "20110515@student.hcmute.edu.vn"
-        git config --global user.name "Lan Tran"
-        heroku git:remote -a now2tech
-        git add .
-        git commit -am "Deploy to Heroku"
-        git push heroku master
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.14 
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "now2tech" 
+          heroku_email: "20110515@student.hcmute.edu.vn"
