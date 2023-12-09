@@ -70,8 +70,6 @@ jobs:
     - name: Login to Heroku
       working-directory: backend
       run: heroku login
-      env:
-        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         
     - name: Deploy to Heroku
       working-directory: backend
