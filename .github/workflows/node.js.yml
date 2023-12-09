@@ -53,7 +53,6 @@ jobs:
         node-version: [18.x]
     needs: build
     env:
-      HEROKU_API_KEY: 0bc3deb5-177b-4b96-a482-be209a36bd20
       HEROKU_APP_NAME: now2tech
 
     steps:
@@ -74,8 +73,8 @@ jobs:
       working-directory: backend
       run: heroku login -i
       env:
-        HEROKU_API_KEY: ${{env.HEROKU_API_KEY}}
-
+        HEROKU_API_KEY: 0bc3deb5-177b-4b96-a482-be209a36bd20
+        
     - name: Deploy to Heroku
       working-directory: backend
       run: |
