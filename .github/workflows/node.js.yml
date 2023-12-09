@@ -55,3 +55,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "now2tech" 
           heroku_email: "20110515@student.hcmute.edu.vn"
+          appdir: "backend"
+          
