@@ -31,18 +31,18 @@ jobs:
     # - run: npm test
 
     - name: Install Frontend Dependencies
-    - working-directory: frontend 
-    - run: npm install
+      working-directory: frontend 
+      run: npm install
 
     - name: Build Frontend
-    - working-directory: frontend
-    - run: npm run build
+      working-directory: frontend
+      run: npm run build
 
     - name: Copy
-    - run: cp -r frontend/build backend/public
+      run: cp -r frontend/build backend/public
 
     - name: Install Backend Dependencies
-    - working-directory: backend
-    - run: npm install
+      working-directory: backend
+      run: npm install
 
     
