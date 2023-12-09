@@ -54,6 +54,7 @@ jobs:
     needs: build
     env:
       HEROKU_APP_NAME: now2tech
+      HEROKU_API_KEY: ${{secrets.HERKU_API_KEY}}
 
     steps:
     - name: Checkout code
@@ -73,7 +74,7 @@ jobs:
       working-directory: backend
       run: heroku login -i
       env:
-        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        HEROKU_API_KEY: ${{env.HEROKU_API_KEY}}
         
     - name: Deploy to Heroku
       working-directory: backend
