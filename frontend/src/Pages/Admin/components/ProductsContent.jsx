@@ -3,8 +3,7 @@ import axios from "axios";
 import DetailModal from "./DetailModal";
 import AddProduct from "./AddProduct";
 import UpdateProductModal from "./UpdateProductModal";
-import Loader from '../../../components/UIElement/Loader';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsContent.css';
 import UploadModal from "./UploadModal";
@@ -136,7 +135,6 @@ const ProductsContent = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
             <div className="search-bar">
                 <input
                     type="text"
@@ -190,7 +188,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
                                     <td className="product-cell">
-                                        <img src={product.pimage ? product.pimage[0] : 'chưa có'} />
+                                        <img src={product.pimage ? product.pimage[0] : 'chưa có'} alt="product"/>
                                     </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>

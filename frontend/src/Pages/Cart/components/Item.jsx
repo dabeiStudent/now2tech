@@ -32,8 +32,13 @@ const Item = props => {
                         <a href={`/chi-tiet-san-pham/${props.id}`}>{props.name}</a>
                         {props.voucher && props.discountValid && (
                             <span className='discount'>
+<<<<<<< HEAD
                                 <FontAwesomeIcon className='tag-icon' icon={faTag} />
                                 <a href={`/khuyen-mai/${props.voucher._id}`}>Giảm giá {props.discountPercent}</a>
+=======
+                                <FontAwesomeIcon className='tag-icon' icon={faTag}/>
+                                <a href={`/khuyen-mai/${props.discountId}`}>Giảm giá {props.discountPercent}</a>
+>>>>>>> f5c2c1b9e13aeaaa9b68921308626438576a4986
                             </span>
                         )}
                     </div>

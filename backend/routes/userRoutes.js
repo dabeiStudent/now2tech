@@ -7,14 +7,14 @@ const emailSending = require('../utils/emailUtils');
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 const multer = require('multer');
-const { CloudinaryStorage }= require('multer-storage-cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const path = require('path');
 const { apiLimiter } = require('../middlewares/rateLimite');
-const cloudinary= require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2;
 
-const storage= new CloudinaryStorage({
+const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params:{
+    params: {
         folder: 'users'
     }
 });
@@ -23,7 +23,7 @@ const upload = multer({
 })
 
 //getAllUser
-router.get('/get-user/', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getAllUser);
+router.get('/get-user', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getAllUser);
 //getOneUser
 router.get('/get-user/:uid', tokenCheck.checkJWT, tokenCheck.isAdmin, userController.getUser);
 //getProfile (user signed in)

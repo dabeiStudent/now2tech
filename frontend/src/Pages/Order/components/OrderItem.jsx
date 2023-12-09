@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStarHalfStroke, faStar as solidStart } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStart } from '@fortawesome/free-regular-svg-icons';
@@ -10,7 +10,6 @@ import './OrderItem.css';
 import { formatPrice } from '../../../ultis/formatPrice';
 
 const OrderItem = props => {
-    const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(0);
@@ -44,9 +43,7 @@ const OrderItem = props => {
         }, { withCredentials: true })
             .then(res => {
                 setOpenModal(false);
-                props.setIsReload(!props.isReload);
-                // window.alert(res.data.msg);
-                // navigate(0);            
+                props.setIsReload(!props.isReload);          
             })
             .catch(err => console.log(err));
     }

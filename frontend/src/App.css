@@ -2,6 +2,11 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+a{
+    text-decoration: none;
+    color: #333;
+}
+
 .chat-button {
     position: fixed;
     /* Đặt vị trí cố định */

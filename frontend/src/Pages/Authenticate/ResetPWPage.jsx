@@ -5,7 +5,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './ResetPWPage.css';
@@ -45,10 +45,8 @@ const ResetPWPage = () => {
         <div className="container">
             <div className="form__rspw">
                 <form className="element__rspw" onSubmit={resetPasswordHandler}>
-
-                    <div className="notification">
-                        <ToastContainer />
-                    </div>
+                    {/* <div className="notification">
+                    </div> */}
                     <div>
                         <h1>Lấy lại mật khẩu</h1>
                     </div>

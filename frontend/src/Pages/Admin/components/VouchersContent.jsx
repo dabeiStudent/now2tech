@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './VouchersContent.css';
@@ -77,7 +77,6 @@ const VouchersContent = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
             {vouchers ? (
                 <div className="product-content">
                     <div className="search-bar">
@@ -115,7 +114,7 @@ const VouchersContent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {searchTerm == ""
+                                {searchTerm === ""
                                     ? <React.Fragment>
                                         {filteredVouchers.map(voucher =>
                                             <tr key={voucher._id} className="product-row">

@@ -2,16 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faClipboardList,
-    faChevronLeft,
-    faChevronRight
+    faClipboardList
 } from '@fortawesome/free-solid-svg-icons';
 import BigBanner from "./components/BigBanner";
 import ProductCard from "../../components/UIElement/ProductCard";
 import CategoryCard from "./components/CategoryCard";
 import Loader from "../../components/UIElement/Loader";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import './HomePage.css'
 import VoucherCard from "./components/VoucherCard";
 import { useNavigate } from "react-router-dom";
@@ -178,7 +176,6 @@ const HomePage = () => {
     }
     return (
         <React.Fragment>
-            <ToastContainer />
             {isLoading ? (
                 <Loader />) : (
                 <div>

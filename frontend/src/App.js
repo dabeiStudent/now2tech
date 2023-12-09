@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import getCookie from './ultis/getCookie';
 import { CartContext } from './ultis/cartContext';
@@ -83,6 +85,7 @@ function App() {
             <Router>
               <div className="App">
                 <MainNavigation />
+                <ToastContainer/>
                 <Suspense fallback={<Loader />}>
                   <div className='App-body'>
                     <ScrollToTop />

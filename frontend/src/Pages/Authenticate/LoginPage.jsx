@@ -4,7 +4,7 @@ import './LoginPage.css';
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../ultis/authContext";
 const LoginPage = () => {
@@ -50,7 +50,6 @@ const LoginPage = () => {
             <div className="form__login">
                 <form className="element__login" onSubmit={loginHandler}>
                     <div className="error_signup">
-                        <ToastContainer />
                     </div>
                     <div className="label-login">
                         <h1>Đăng nhập</h1>

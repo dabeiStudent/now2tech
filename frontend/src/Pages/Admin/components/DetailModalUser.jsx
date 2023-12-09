@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Modal } from 'react-bootstrap';
-import axios from "axios";
 
 import './DetailModalUser.css';
 

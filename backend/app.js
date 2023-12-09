@@ -3,7 +3,7 @@ const express = require('express')
 const app = express();
 const cors = require('cors');
 const server = require('http').createServer(app);
-const cloudinary= require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2;
 
 
 const connect2DB = require('./config/connect2DB');
@@ -19,18 +19,20 @@ const brandRoutes = require('./routes/brandRoutes');
 const creatSocketIo = require('./utils/chatSocket');
 const path = require('path');
 
-cloudinary.config({ 
-    cloud_name: 'dkvtla079', 
-    api_key: '978682155146359', 
-    api_secret: 'SUm82lmW7Z45rCc1tPjid8WoVAc' 
+cloudinary.config({
+    cloud_name: 'dkvtla079',
+    api_key: '978682155146359',
+    api_secret: 'SUm82lmW7Z45rCc1tPjid8WoVAc'
 });
 
 //init server & connect 2 db
 const PORT = process.env.PORT || 8000;
+const ENVIRONMENT = process.env.NODE_ENV || 'development';
+
 server.listen(PORT, async (req, res) => {
     console.log(`Server is running on PORT: ${PORT}`);
 });
-connect2DB();
+connect2DB.connect2DB(ENVIRONMENT);
 
 //setup cors https://now2tech-f987dbd48ed8.herokuapp.com
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -60,6 +62,8 @@ app.use('/comment', commentRoutes);
 app.use('/statistic', statisticRoutes);
 app.use('/brand', brandRoutes);
 
-app.use((req, res, next)=> {
+app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 })
+
+module.exports = app;

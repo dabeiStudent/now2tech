@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductCard from "../../components/UIElement/ProductCard";
 import Loader from '../../components/UIElement/Loader';
-import SearchBanner from '../../assets/background/SearchBanner.png'
 import { faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './FilterByCategory.css';
@@ -89,7 +88,6 @@ const FilterByCategory = () => {
 
     return (
         <div className='search-page'>
-            <ToastContainer />
             <div className='search-page-container'>
                 <div className="left-container">
                     <h2>Bộ lọc sản phẩm</h2>

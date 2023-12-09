@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { faEnvelope, faLock, faUser, faH, faT, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import './SignUpPage.css';
 import axios from "axios";
 const SignUpPage = () => {
@@ -17,7 +16,7 @@ const SignUpPage = () => {
 
     const signUpHandler = event => {
         event.preventDefault();
-        if (regex.test(user.phoneNumber) == false) {
+        if (regex.test(user.phoneNumber) === false) {
             toast("Số điện thoại không hợp lệ")
         } else {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/user-register`, user, { withCredentials: true })
@@ -49,7 +48,6 @@ const SignUpPage = () => {
             <div className="form__signup">
                 <form className="element__signup" onSubmit={signUpHandler}>
                     <div className="error_signup">
-                        <ToastContainer />
                     </div>
                     <div>
                         <h1>Đăng ký tài khoản</h1>

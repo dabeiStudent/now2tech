@@ -4,7 +4,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import './AddProductDiscount.css';
-import Loader from '../../../components/UIElement/Loader';
 
 const AddProductDiscount = props => {
     const [isOpenModal, setIsOpenModal] = useState(false);

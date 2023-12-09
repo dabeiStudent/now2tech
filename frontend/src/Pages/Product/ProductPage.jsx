@@ -19,7 +19,7 @@ import { formatPrice } from '../../ultis/formatPrice';
 import Loader from '../../components/UIElement/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StarRating from './components/StarRating';
 const ProductPage = () => {
@@ -120,7 +120,6 @@ const ProductPage = () => {
     }
     return (
         <div className='product-page'>
-            <ToastContainer />
             {product ? (
                 <div className='product-page__main-container'>
                     <div className="top_product-page">
