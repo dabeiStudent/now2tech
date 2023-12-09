@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate, useParams, useSearchParams } from 'r
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faPhone, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './NavLinks.css';
@@ -115,7 +115,6 @@ const NavLinks = () => {
     }
     return (
         <React.Fragment>
-            {/* <ToastContainer /> */}
             <ul className="nav-links">
                 <li className="list-of-search" onMouseLeave={closeSearchHandler}>
                     <form onSubmit={submitHandler} className="nav-links__search">

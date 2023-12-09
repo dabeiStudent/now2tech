@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
@@ -58,7 +58,6 @@ const UploadModal = ({ pid, onClose }) => {
     }
     return (
         <div className="image-upload-modal">
-            {/* <ToastContainer /> */}
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h1>Thêm hình ảnh sản phẩm</h1>

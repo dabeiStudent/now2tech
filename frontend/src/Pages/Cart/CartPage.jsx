@@ -1,11 +1,10 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 import './CartPage.css';
@@ -29,7 +28,7 @@ const CartPage = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
 
-  let products = cart.items.map(item=> item.id);;
+  let products = cart.items.map(item=> item.id);
   useEffect (()=> {
     if(cart.items.length !== 0){
       setIsEmpty(false);
@@ -61,7 +60,6 @@ const CartPage = () => {
    
   }, [items, cart.items]);
 
-  console.log(combineData);
   const selectAllHandler = () => {
     if (selectAll) {
       setSelectedItems([]);
@@ -100,7 +98,6 @@ const CartPage = () => {
 
   return (
     <div className='cart-page'>
-      {/* <ToastContainer /> */}
       <div className='cart-page__main'>
         <p className='cart-page__title'>Giỏ hàng của bạn:</p>
         {cart.items.length === 0 ? (

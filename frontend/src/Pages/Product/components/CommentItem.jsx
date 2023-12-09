@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faCircleCheck, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './CommentItem.css';
 import { AuthContext } from '../../../ultis/authContext';
@@ -98,7 +98,6 @@ const CommentItem = props => {
   }
   return (
     <div className='comment-item'>
-      {/* <ToastContainer /> */}
       <li className='comment-item__question'>
         <div className='comment-item__top'>
           <div>

@@ -76,7 +76,7 @@ const OrderMenu = () => {
                                         <ul>
                                             {order.items.map((item, itemIndex) => (
                                                 <li key={itemIndex}>
-                                                    <img src={item.image} /> - {item.name} {'('}{item.qty}{')'}
+                                                    <img src={item.image} alt="item"/> - {item.name} {'('}{item.qty}{')'}
                                                 </li>
                                             ))}
                                         </ul>

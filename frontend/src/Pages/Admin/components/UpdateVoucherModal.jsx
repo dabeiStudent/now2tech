@@ -35,7 +35,7 @@ const UpdateVoucherModal = props => {
             .catch(err=> console.log(err))
         };
         getVoucher();
-    }, []);
+    }, [props.voucherId]);
 
     const changeVoucherInfoHandler= (e)=> {
         setIsChange(true);

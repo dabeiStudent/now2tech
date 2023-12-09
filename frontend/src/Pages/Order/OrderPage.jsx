@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import './OrderPage.css';
 import OrderItem from './components/OrderItem';
 import { formatPrice } from '../../ultis/formatPrice';
@@ -68,9 +68,7 @@ const OrderPage = () => {
     <div>
       {order ? (
         <div className='order-page'>
-          {/* <ToastContainer /> */}
           <div className='order-page__top' >
-            {/* <button><FontAwesomeIcon icon={faArrowLeft}/></button> */}
             <h2>Chi tiết đơn hàng: #{order._id}</h2>
           </div>
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './CommentComponent.css';
 import CommentList from './CommentList';
@@ -90,7 +90,6 @@ const CommentComponent = props => {
 
   return (
     <div className='comment-container'>
-      {/* <ToastContainer /> */}
       <h2>Bình luận</h2>
       <form className='comment-form'>
         <textarea value={comment.content} onChange={changeCommentHandler} name='content' required onClick={openHandler} className='comment-form__textarea' rows={3} placeholder='Mời bạn đặt câu hỏi' id="comment" ></textarea>

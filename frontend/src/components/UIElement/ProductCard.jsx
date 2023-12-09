@@ -4,7 +4,7 @@ import axios from "axios";
 import './ProductCard.css';
 import { formatPrice } from '../../ultis/formatPrice';
 import StarRating from '../../Pages/Product/components/StarRating';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductCard = props => {
@@ -23,7 +23,6 @@ const ProductCard = props => {
     return (
         <NavLink className='product-link' to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">
-                {/* <ToastContainer /> */}
                 <div className="product-img">
                     <img
                         src={props.image}

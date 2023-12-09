@@ -188,7 +188,7 @@ const ProductsContent = () => {
                                     <td className="product-cell">{product.importPrice}</td>
                                     <td className="product-cell">{product.sellPrice}</td>
                                     <td className="product-cell">
-                                        <img src={product.pimage ? product.pimage[0] : 'chưa có'} />
+                                        <img src={product.pimage ? product.pimage[0] : 'chưa có'} alt="product"/>
                                     </td>
                                     <td className="product-cell">{product.made}</td>
                                     <td className="product-cell">{product.brand}</td>
