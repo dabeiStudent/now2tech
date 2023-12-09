@@ -43,9 +43,7 @@ const ProductCard = props => {
                     </div>)
                     : <strong className="product-price">{formatPrice(props.price)}</strong>}
             </div>
-
         </NavLink>
-
     )
 }
 
