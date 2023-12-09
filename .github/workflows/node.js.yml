@@ -73,10 +73,13 @@ jobs:
       working-directory: backend
       run: heroku login -i
       env:
-        HEROKU_API_KEY: 0bc3deb5-177b-4b96-a482-be209a36bd20
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         
     - name: Deploy to Heroku
       working-directory: backend
       run: |
-        heroku git:remote -a now2tech
+        heroku git:clone -a now2tech 
+        cd now2tech
+        git add .
+        git commit -am "make it better"
         git push heroku master
