@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './AddCategory.css';
 import './AddProduct.css';
@@ -64,7 +64,6 @@ const AddCategory = ({ onClose }) => {
     }
     return (
         <div className='add-product-modal'>
-            {/* <ToastContainer /> */}
             <div className="product-modal-content">
                 <span className="close" onClick={onClose}>
                     &times;

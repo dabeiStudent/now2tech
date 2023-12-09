@@ -3,11 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { io } from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage, faXmark } from '@fortawesome/free-solid-svg-icons';
-
 
 import './ChatContent.css';
-
 
 const host = process.env.REACT_APP_BACKEND_URL;
 const ChatContent = () => {

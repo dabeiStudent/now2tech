@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
@@ -97,7 +97,6 @@ const AddVoucherModal = props => {
             <div className="button-product-content">
                 <button className="add-product-button" onClick={openModalHandler}>Tạo khuyến mãi</button>
             </div>
-            {/* <ToastContainer /> */}
             <Modal dialogClassName='modal-custom' show={isOpenModal} onHide={closeModalHandler}>
 
                 <Modal.Header closeButton>

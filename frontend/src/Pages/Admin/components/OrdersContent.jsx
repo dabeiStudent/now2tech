@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './OrdersContent.css';
 const OrdersContent = () => {
@@ -63,7 +63,6 @@ const OrdersContent = () => {
 
     return (
         <div className="product-content">
-            {/* <ToastContainer /> */}
             <div className="search-bar">
                 <input
                     type="text"
