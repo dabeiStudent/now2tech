@@ -19,7 +19,8 @@ const ProductCard = props => {
                     toast(err);
                 })
         }
-    }, [])
+    }, [props.voucher]);
+
     return (
         <NavLink className='product-link' to={`/chi-tiet-san-pham/${props.id}`}>
             <div className="product-card">

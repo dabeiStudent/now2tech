@@ -114,7 +114,7 @@ const VouchersContent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {searchTerm == ""
+                                {searchTerm === ""
                                     ? <React.Fragment>
                                         {filteredVouchers.map(voucher =>
                                             <tr key={voucher._id} className="product-row">

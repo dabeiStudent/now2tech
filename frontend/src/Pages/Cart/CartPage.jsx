@@ -20,7 +20,7 @@ const CartPage = () => {
   const orderContext = useContext(OrderContext);
   const [items, setItems]= useState([]);
   const [combineData, setCombineData]= useState([]);
-  const [isEmpty,setIsEmpty]= useState(true);
+  // const [isEmpty,setIsEmpty]= useState(true);
   
   const usernameEncoded = getCookie('username');
   const username = decodeURIComponent(usernameEncoded);
@@ -29,11 +29,11 @@ const CartPage = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   let products = cart.items.map(item=> item.id);
-  useEffect (()=> {
-    if(cart.items.length !== 0){
-      setIsEmpty(false);
-    }
-  }, []);
+  // useEffect (()=> {
+  //   if(cart.items.length !== 0){
+  //     setIsEmpty(false);
+  //   }
+  // }, []);
 
   useEffect(()=> {
     const getData= async ()=> {

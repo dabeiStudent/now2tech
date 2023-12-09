@@ -16,7 +16,7 @@ const SignUpPage = () => {
 
     const signUpHandler = event => {
         event.preventDefault();
-        if (regex.test(user.phoneNumber) == false) {
+        if (regex.test(user.phoneNumber) === false) {
             toast("Số điện thoại không hợp lệ")
         } else {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/user-register`, user, { withCredentials: true })
