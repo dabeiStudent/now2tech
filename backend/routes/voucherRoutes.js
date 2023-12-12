@@ -35,7 +35,6 @@ router.delete('/remove-all-product-from-voucher/:vid', tokenCheck.checkJWT, toke
 router.put('/update-voucher/:vid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.updateVoucher);
 router.delete('/delete-voucher/:vid', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.deleteVoucher);
 router.post('/add-new-voucher', upload.single('file'), tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.createVoucher);
-// router.put('/addProduct', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.addProductToVoucher);
 
 //notice chosen voucher to all user 
 router.post('/notice-voucher-to-all', tokenCheck.checkJWT, tokenCheck.isAdmin, emailSending.sendVoucherMail);

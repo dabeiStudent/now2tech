@@ -17,7 +17,6 @@ const getAllVoucher = async (req, res) => {
     res.status(200).json(vouchers);
 }
 
-
 const getVoucherById = async (req, res) => {
     const voucherId = req.params.vid;
     Voucher.findById(voucherId)
@@ -28,6 +27,7 @@ const getVoucherById = async (req, res) => {
             res.status(404).json({ err: err });
         })
 }
+
 const getVoucherByName = async (req, res) => {
     const voucherName = req.query.vname;
     const now = new Date();
@@ -44,6 +44,7 @@ const getVoucherByName = async (req, res) => {
         res.status(200).json(null);
     }
 }
+
 const createVoucher = async (req, res) => {
     const { name, desc, percent, startDate, endDate } = req.body;
     const image = req.file.path;
@@ -64,6 +65,7 @@ const createVoucher = async (req, res) => {
         return res.status(404).json({ err: "Không thể thêm voucher. Vui lòng thử lại sau." });
     }
 };
+
 const getProductForVoucher = async (req, res) => {
     try {
         const productFount = await Product.find({ voucher: null })
