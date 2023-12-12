@@ -58,7 +58,7 @@ const AddBrand = ({ onClose }) => {
                 setIsUpdate(!isUpdate);
             })
             .catch(err => {
-                if (err === "AxiosError: Request failed with status code 401") {
+                if (err === "AxiosError: Request failed with status code 409") {
                     toast("Đã có thương hiệu này trong danh mục bạn chọn");
                 } else {
                     toast(err);

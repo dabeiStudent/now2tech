@@ -26,7 +26,7 @@ const addBrand = async (req, res) => {
         .then(existingBrand => {
             if (existingBrand) {
                 // Nếu đã tồn tại đối tượng, trả về lỗi
-                return res.status(401).json({ err: "Đã tồn tại thương hiệu này trong danh mục" });
+                return res.status(409).json({ err: "Đã tồn tại thương hiệu này trong danh mục" });
             } else {
                 Brand.create(req.body)
                     .then(result => {
