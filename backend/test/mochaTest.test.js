@@ -5,54 +5,9 @@ const should = chai.should();
 const moment= require('moment');
 const jwt= require('jsonwebtoken');
 const Voucher= require('../models/vouchersModel');
-const { createVoucher } = require('../controller/voucherController');
+const User= require('../models/usersModel');
 
 chai.use(chaiHttp);
-
-const adminToken = jwt.sign({ role: 'admin' }, process.env.JWT_KEY);
-
-before(() => {
-    console.log("Bắt đầu kiểm thử")
-})
-after(() => {
-    console.log('Đã kiểm xong');
-})
-
-describe('quan-ly-user', () => {
-    it('user-dang-ki', async () => {
-        let user = {
-            email: "Quangduonggay@gmail.com",
-            passWord: "123",
-            firstName: "Duong",
-            lastName: "Le",
-            phoneNumber: '0931272713',
-            userName: 'dabeihihalatui'
-        }
-        await chai
-            .request(server)
-            .post('/user/user-register')
-            .send(user)
-            .then(res => {
-                res.should.have.status(200);
-                res.body.should.have.property('msg').eql("Tạo tài khoản thành công");
-            })
-    });
-    it('user-dang-nhap', async () => {
-        let user = {
-            email: "Quangduonggay@gmail.com",
-            passWord: "123"
-        }
-        let response;
-        await chai
-            .request(server)
-            .post('/user/user-login')
-            .send(user)
-            .then(res => {
-                res.should.have.status(200);
-                res.body.should.have.property('msg').eql("Đăng nhập thành công");
-            })
-    });
-});
 
 describe('Quan ly khuyen mai', ()=> {
     let voucherId;
@@ -65,11 +20,32 @@ describe('Quan ly khuyen mai', ()=> {
             endDate: currentDate.toISOString()
     }
     describe('Get all voucher', ()=> {
+        before(async function () {
+            const user = new User({
+                email: "Quangduonggay@gmail.com",
+                passWord: "123",
+                firstName: "Duong",
+                lastName: "Le",
+                phoneNumber: '0931272713',
+                userName: 'dabeihihalatui'
+            })
+            await user.save();
+            authToken = jwt.sign({
+                uid: user._id,
+                userName: user.userName,
+                email: user.email,
+                role: 'admin',
+                image: user.image
+            }, process.env.JWT_KEY, { expiresIn: 604800 });
+        });
+        after(async function () {
+            await User.deleteOne({ email: 'Quangduonggay@gmail.com' });
+        })
         it('Get all voucher', async()=> {
             await chai
                 .request(server)
                 .get(`/voucher/get-all-voucher`)
-                .then(res => {
+                .then(res=> {
                     res.should.have.status(200);
                     res.body.should.be.an('array');
                 })
@@ -79,7 +55,7 @@ describe('Quan ly khuyen mai', ()=> {
         it('Create new voucher', async ()=> {
             await chai.request(server)
                 .post(`/voucher/add-new-voucher`)
-                .set('Cookie', `utoken=${adminToken}`)
+                .set('Cookie', `utoken=${authToken}`)
                 .set('Content-Type', 'multipart/form-data')
                 .field('name', newVoucher.name)
                 .field('desc', newVoucher.desc)
