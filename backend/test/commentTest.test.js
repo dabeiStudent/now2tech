@@ -67,6 +67,22 @@ describe('Comment Controller', () => {
                 res.body.should.have.property('msg').eql('Comment thành công.');
             })
     });
+    it('Thêm 1 comment (Đã log in)', async () => {
+        const findProduct = await Product.findOne({ sku: 'TESTSKU' });
+        const comment = new Comment({
+            content: 'Tôi test comment',
+            product: findProduct._id
+        })
+
+        await chai.request(server)
+            .post(`/comment/logged-create-comment/${findProduct._id}`)
+            .set('Cookie', `utoken=${authToken}`)
+            .send(comment)
+            .then(res => {
+                res.should.have.status(200);
+                res.body.should.have.property('msg').eql('Comment thành công.');
+            })
+    })
     it('Xóa comment', async () => {
         const comment = new Comment({
             content: 'Tôi test comment',
@@ -89,4 +105,87 @@ describe('Comment Controller', () => {
                 res.body.should.have.property('msg').eql('Đã xóa');
             })
     })
+    it('Xem comment của 1 sản phẩm', async () => {
+        const product = new Product({
+            sku: "TESTSKU2",
+            name: "Test san pham2",
+            importPrice: 1400000,
+            sellPrice: 1900000,
+            desc: 'Rất bền',
+            comment: ''
+        });
+        await product.save();
+        const findProduct = await Product.findOne({ sku: 'TESTSKU' });
+
+        const comment = new Comment({
+            content: 'Tôi test comment',
+            product: findProduct._id,
+            user: {
+                name: 'Duy Lân',
+                phoneNumber: 9931272713,
+                email: 'tranlan0310@gmail.com'
+            }
+        })
+        comment.save();
+        await chai.request(server)
+            .get(`/comment/get-comments/${findProduct._id}`)
+            .then(res => {
+                res.should.have.status(200);
+            })
+    });
+    it('Trả lời 1 bình luận (chưa đăng nhập)', async () => {
+        const productFind = await Product.findOne({ sku: 'TESTSKU2' });
+        const commentMain = new Comment({
+            content: 'Tôi test comment',
+            product: productFind._id,
+            user: {
+                name: 'Duy Lân',
+                phoneNumber: 9931272713,
+                email: 'tranlan0310@gmail.com'
+            }
+        })
+        await commentMain.save();
+        const commentSub = new Comment({
+            content: 'Tôi là sub comment',
+            product: productFind._id,
+            user: {
+                name: 'Vĩnh Thiện',
+                phoneNumber: 9931272713,
+                email: 'tranlan0310@gmail.com'
+            }
+        })
+        await chai.request(server)
+            .post(`/comment/reply-comment/${commentMain._id}`)
+            .send(commentSub)
+            .then(res => {
+                res.should.have.status(200);
+                res.body.should.have.property('msg').eql('Phản hồi thành công.');
+            })
+    });
+    it('Phản hồi 1 mình luận (Đã log in)', async () => {
+        const productFind = await Product.findOne({ sku: 'TESTSKU2' });
+        const commentMain = new Comment({
+            content: 'Tôi test comment MAIN lần 2',
+            product: productFind._id,
+            user: {
+                name: 'Duy Lân',
+                phoneNumber: 9931272713,
+                email: 'tranlan0310@gmail.com'
+            }
+        })
+        await commentMain.save();
+        const commentSub = new Comment({
+            content: 'Tôi là sub comment 2',
+            product: productFind._id
+        });
+        await chai
+            .request(server)
+            .post(`/comment/logged-reply-comment/${commentMain._id}`)
+            .set('Cookie', `utoken=${authToken}`)
+            .send(commentSub)
+            .then(res => {
+                res.should.have.status(200);
+            })
+    })
+
 });
