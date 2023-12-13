@@ -47,7 +47,7 @@ const getVoucherByName = async (req, res) => {
 
 const createVoucher = async (req, res) => {
     const { name, desc, percent, startDate, endDate } = req.body;
-    const image = req.file.path;
+    const image = req.file;
 
     const voucher = new Voucher({
         name,
@@ -55,12 +55,12 @@ const createVoucher = async (req, res) => {
         percent,
         start: startDate,
         end: endDate,
-        image: image
+        image: image.path
     });
 
     try {
         await voucher.save();
-        return res.status(200).json({ msg: "Đã thêm thành công" });
+        return res.status(200).json({ msg: "Đã thêm thành công." });
     } catch (error) {
         return res.status(404).json({ err: "Không thể thêm voucher. Vui lòng thử lại sau." });
     }
@@ -166,7 +166,6 @@ const checkAndRemoveExpired = async (req, res) => {
 }
 const getProductByVoucherId = async (req, res) => {
     const voucherId = req.params.vid;
-    // console.log(req.params)
     let voucherWithProduct
     try {
         voucherWithProduct = await Voucher.findById(voucherId).populate('productList');

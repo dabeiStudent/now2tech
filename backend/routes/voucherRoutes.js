@@ -22,7 +22,7 @@ const upload = multer({
 })
 
 router.get('/get-all-voucher', voucherController.getAllVoucher);
-router.get('/get-product/:vid', voucherController.getProductByVoucherId);
+// router.get('/get-product/:vid', voucherController.getProductByVoucherId);
 router.get('/get-voucher/:vid', voucherController.getVoucherById);
 router.get('/get-voucher-by-name/', voucherController.getVoucherByName);
 router.get('/get-product-for-voucher/', tokenCheck.checkJWT, tokenCheck.isAdmin, voucherController.getProductForVoucher);
