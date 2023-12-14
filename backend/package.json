@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --timeout 20000",
     "server": "nodemon app.js",
-    "start": "node app.js"
+    "start": "SET NODE_ENV=dev && node app.js"
   },
   "keywords": [],
   "author": "",
