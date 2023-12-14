@@ -13,6 +13,7 @@ chai.use(chaiHttp);
 describe('Product Controller', async()=> {
     let authToken;
     let productId;
+    let catId;
     before(async function () {
         const user = new User({
             email: "producttest@gmail.com",
@@ -42,11 +43,20 @@ describe('Product Controller', async()=> {
 
         productId= newProduct._id;
         await newProduct.save();
+
+        const newCategory= new Category({
+            name: 'Máy ảnh',
+            keyword: 'Máy ảnh'
+        });
+
+        catId= newCategory._id;
+        await newCategory.save()
     });
 
     after(async function () {
         await User.deleteOne({ email: 'producttest@gmail.com' });
         await Product.deleteOne({_id: productId});
+        await Category.deleteOne({_id: catId});
     });
 
     describe('Get all product', async()=> {
@@ -117,7 +127,29 @@ describe('Product Controller', async()=> {
         })
     });
 
-    //Get product by brand and category
+    describe('Get prouct by brand and category', async()=> {
+        it('Get product by brand', async()=> {
+            await chai.request(server)
+                .get(`/product/get-product-by/?category=${catId}&brand=All`)
+                .then(res=> {
+                    res.should.have.status(200);
+                    res.body.should.be.an('object');
+                })
+        })
+    });
+
+    describe('Get prouct by price', async()=> {
+        const minPrice=3000000;
+        const maxPrice=5000000;
+        it('Get product by price', async()=> {
+            await chai.request(server)
+                .get(`/product/get-product-by-price/?min=${minPrice}&max=${maxPrice}`)
+                .then(res=> {
+                    res.should.have.status(200);
+                    res.body.should.be.an('object');
+                })
+        })
+    });
 
     describe('Add new product', async()=> {
         const addProduct= {

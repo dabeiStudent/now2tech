@@ -40,6 +40,7 @@ const UserSchema = new mongoose.Schema({
     },
     status: {
         type: String,
+        default: "active"
     },
     getNotice: {
         type: Boolean
