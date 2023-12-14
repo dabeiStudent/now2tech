@@ -45,6 +45,10 @@ jobs:
       working-directory: backend
       run: npm ci
 
+    - name: Test
+      working-directory: backend
+      run: npm run test
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
