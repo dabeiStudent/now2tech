@@ -23,9 +23,9 @@ describe('Voucher Controller', ()=> {
     };
 
     let authToken;
-    beforeEach(async function () {
+    before(async function () {
         const user = new User({
-            email: "Quangduonggay@gmail.com",
+            email: "vouchertest@gmail.com",
             passWord: "123",
             firstName: "Duong",
             lastName: "Le",
@@ -53,9 +53,9 @@ describe('Voucher Controller', ()=> {
         await product.save();
     });
 
-    afterEach(async function () {
-        await User.deleteOne({ email: 'Quangduonggay@gmail.com' });
-        await Product.deleteOne({_id: productId})
+    after(async function () {
+        await User.deleteOne({ email: 'vouchertest@gmail.com' });
+        await Product.deleteOne({_id: productId});
     });
 
     describe('Get all voucher', ()=> {
