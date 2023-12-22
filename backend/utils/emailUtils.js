@@ -54,7 +54,7 @@ const sendEmailReset = async (req, res) => {
             to: req.body.email,
             subject: 'Xác thực yêu cầu thiết lập lại mật khẩu',
             html: `<h2 style="color:black;">Bạn đã có yêu cầu thiết lập lại mật khẩu, hãy nhấn vào đường link bên dưới:</h2>
-            <p style="color:red;">http://${url}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}&email=${req.body.email}</p>
+            <p style="color:red;">${url}/user/reset-password/check-token?rspToken=${resetToken}&time=${time}&email=${req.body.email}</p>
             <p style="color:black;">Để xác thực email này là của bạn</p>
             <p style="color:black;">(Liên kết sẽ bị vô hiệu hóa sau 5 phút)</p>`
         };
