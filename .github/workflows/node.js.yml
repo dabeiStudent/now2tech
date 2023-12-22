@@ -26,24 +26,24 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
    
-    - name: Disable treating warnings as errors
-      run: |
-        echo "CI=false" >> $GITHUB_ENV
+    # - name: Disable treating warnings as errors
+    #   run: |
+    #     echo "CI=false" >> $GITHUB_ENV
 
-    - name: Install Frontend Dependencies
-      working-directory: frontend 
-      run: npm ci
+    # - name: Install Frontend Dependencies
+    #   working-directory: frontend 
+    #   run: npm ci
 
-    - name: Build Frontend
-      working-directory: frontend
-      run: npm run build
+    # - name: Build Frontend
+    #   working-directory: frontend
+    #   run: npm run build
 
     - name: Install Backend Dependencies
       working-directory: backend
       run: npm ci
 
-    - name: Copy
-      run: cp -r frontend/build backend/public
+    # - name: Copy
+    #   run: cp -r frontend/build backend/public
 
     - name: Test
       working-directory: backend
@@ -54,7 +54,26 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      
+
+      - name: Disable treating warnings as errors
+        run: |
+          echo "CI=false" >> $GITHUB_ENV
+
+      - name: Install Frontend Dependencies
+        working-directory: frontend 
+        run: npm ci
+
+      - name: Build Frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Install Backend Dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Copy
+        run: cp -r frontend/build backend/public
+        
       - uses: akhileshns/heroku-deploy@v3.12.14 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
