@@ -53,11 +53,31 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.14 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "now2tech" 
-          heroku_email: "20110515@student.hcmute.edu.vn"
-          appdir: "backend"
+          node-version: 18
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+      - name: Log in to Heroku
+        run: heroku login -i
+
+      - name: Deploy to Heroku
+        run: heroku git:remote -a now2tech && git push heroku master
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      # - uses: actions/checkout@v2
+      # - uses: akhileshns/heroku-deploy@v3.12.14 
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "now2tech" 
+      #     heroku_email: "20110515@student.hcmute.edu.vn"
+      #     appdir: "backend"
           
