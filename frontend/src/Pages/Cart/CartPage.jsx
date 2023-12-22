@@ -29,12 +29,6 @@ const CartPage = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   let products = cart.items.map(item=> item.id);
-  // useEffect (()=> {
-  //   if(cart.items.length !== 0){
-  //     setIsEmpty(false);
-  //   }
-  // }, []);
-
   useEffect(()=> {
     const getData= async ()=> {
       await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/get-product-in-cart`, { params: {products: products} })
@@ -89,8 +83,14 @@ const CartPage = () => {
 
   const placeOrderHandler = async () => {
     if (username !== 'false') {
+      selectedItems.map(item=> {
+        const existItem= combineData.find(item._id);
+        if(existItem.qty < item.qty){
+          return toast(item.name + "còn lại" + existItem.qty);
+        }
+      })
       orderContext.setSelectedItems(selectedItems);
-      navigate('/thong-tin-giao-hang')
+      navigate('/thong-tin-giao-hang');
     } else {
       toast("Vui lòng đăng nhập để mua hàng");
     }
