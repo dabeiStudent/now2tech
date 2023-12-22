@@ -54,6 +54,21 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
+      - name: Install Frontend Dependencies
+        working-directory: frontend 
+        run: npm ci
+
+      - name: Build Frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Install Backend Dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Copy
+        run: cp -r frontend/build backend/public
+        
       - uses: akhileshns/heroku-deploy@v3.12.14 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
