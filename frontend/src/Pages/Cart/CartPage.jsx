@@ -80,13 +80,18 @@ const CartPage = () => {
   }, [selectedItems, cart.items.length]);
 
   const placeOrderHandler = async () => {
+    let isAvailable= true;
+    selectedItems.map(item=> {
+      if(item.inStock < item.qty){
+        isAvailable= false;
+        return toast(item.name + " chỉ còn lại " + item.inStock + " sản phẩm.");
+      }
+    })
+    if(isAvailable === false)
+    {
+      return;
+    }
     if (username !== 'false') {
-      selectedItems.map(sitem=> {
-        const existItem= combineData.find(citem=> citem._id === sitem._id);
-        if(existItem.qty < sitem.qty){
-          return toast(sitem.name + "còn lại" + existItem.qty);
-        }
-      })
       orderContext.setSelectedItems(selectedItems);
       navigate('/thong-tin-giao-hang');
     } else {
