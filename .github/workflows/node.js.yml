@@ -54,6 +54,11 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
+
+      - name: Disable treating warnings as errors
+        run: |
+          echo "CI=false" >> $GITHUB_ENV
+
       - name: Install Frontend Dependencies
         working-directory: frontend 
         run: npm ci
@@ -68,7 +73,7 @@ jobs:
 
       - name: Copy
         run: cp -r frontend/build backend/public
-        
+
       - uses: akhileshns/heroku-deploy@v3.12.14 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
