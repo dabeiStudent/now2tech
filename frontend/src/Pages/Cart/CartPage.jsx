@@ -64,9 +64,7 @@ const CartPage = () => {
   }
 
   const checkboxChangeHandler = (e) => {
-    console.log(e.target.value)
     const itemInCart = combineData.find(item => item._id === e.target.value);
-    console.log(itemInCart)
     setSelectAll(false)
     if (selectedItems.includes(itemInCart)) {
       setSelectedItems(selectedItems.filter(item => item._id !== itemInCart._id))
@@ -83,10 +81,10 @@ const CartPage = () => {
 
   const placeOrderHandler = async () => {
     if (username !== 'false') {
-      selectedItems.map(item=> {
-        const existItem= combineData.find(item._id);
-        if(existItem.qty < item.qty){
-          return toast(item.name + "còn lại" + existItem.qty);
+      selectedItems.map(sitem=> {
+        const existItem= combineData.find(citem=> citem._id === sitem._id);
+        if(existItem.qty < sitem.qty){
+          return toast(sitem.name + "còn lại" + existItem.qty);
         }
       })
       orderContext.setSelectedItems(selectedItems);
