@@ -38,12 +38,12 @@ jobs:
       working-directory: frontend
       run: npm run build
 
-    - name: Copy
-      run: cp -r frontend/build backend/public
-
     - name: Install Backend Dependencies
       working-directory: backend
       run: npm ci
+
+    - name: Copy
+      run: cp -r frontend/build backend/public
 
     - name: Test
       working-directory: backend
